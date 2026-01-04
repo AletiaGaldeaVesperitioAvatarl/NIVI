@@ -1,0 +1,22 @@
+enum Role {
+  admin
+  pengajar
+  santri
+}
+
+enum StatusAbsensi {
+  hadir
+  izin
+  alpha
+}
+
+enum StatusIzin {
+  menunggu
+  disetujui
+  ditolak
+}
+
+enum StatusSubmission {
+  tepat_waktu
+  terlambat
+}

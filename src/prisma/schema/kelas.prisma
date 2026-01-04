@@ -1,0 +1,11 @@
+model Kelas {
+  id         Int      @id @default(autoincrement())
+  namaKelas  String
+  deskripsi  String?
+  createdAt  DateTime @default(now())
+
+  users      User[]
+  absensi    Absensi[]
+  izin       Izin[]
+  tugas      Tugas[]
+}

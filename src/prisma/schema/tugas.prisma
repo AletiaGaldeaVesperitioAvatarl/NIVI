@@ -1,0 +1,14 @@
+model Tugas {
+  id          Int          @id @default(autoincrement())
+  kelasId     Int
+  title       String
+  description String?
+  deadline    DateTime
+  createdBy   Int
+  createdAt   DateTime     @default(now())
+
+  kelas       Kelas        @relation(fields: [kelasId], references: [id])
+  creator     User         @relation("TugasDibuat", fields: [createdBy], references: [id])
+  submission  Submission[]
+  nilai       Nilai[]
+}

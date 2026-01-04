@@ -1,0 +1,18 @@
+model User {
+  id         Int        @id @default(autoincrement())
+  name       String
+  email      String     @unique
+  password   String
+  role       Role
+  kelasId    Int?
+  isActive   Boolean    @default(true)
+  createdAt  DateTime   @default(now())
+
+  kelas      Kelas?     @relation(fields: [kelasId], references: [id])
+  absensi    Absensi[]
+  izin       Izin[]
+  tugasDibuat Tugas[]   @relation("TugasDibuat")
+  submission Submission[]
+  nilai      Nilai[]
+  log        LogAktivitas[]
+}

@@ -1,0 +1,12 @@
+model Submission {
+  id          Int              @id @default(autoincrement())
+  tugasId     Int
+  userId      Int
+  fileUrl     String?
+  linkUrl     String?
+  submittedAt DateTime         @default(now())
+  status      StatusSubmission
+
+  tugas       Tugas            @relation(fields: [tugasId], references: [id])
+  user        User             @relation(fields: [userId], references: [id])
+}

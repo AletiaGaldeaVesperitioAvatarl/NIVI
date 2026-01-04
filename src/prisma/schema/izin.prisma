@@ -1,0 +1,12 @@
+model Izin {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  kelasId   Int
+  tanggal   DateTime
+  alasan    String
+  status    StatusIzin   @default(menunggu)
+  createdAt DateTime     @default(now())
+
+  user      User         @relation(fields: [userId], references: [id])
+  kelas     Kelas        @relation(fields: [kelasId], references: [id])
+}

@@ -1,0 +1,11 @@
+model Absensi {
+  id        Int            @id @default(autoincrement())
+  userId    Int
+  kelasId   Int
+  tanggal   DateTime
+  status    StatusAbsensi
+  createdAt DateTime       @default(now())
+
+  user      User           @relation(fields: [userId], references: [id])
+  kelas     Kelas          @relation(fields: [kelasId], references: [id])
+}
