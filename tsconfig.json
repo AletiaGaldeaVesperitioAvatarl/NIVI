@@ -45,7 +45,7 @@
   "include": [
     "src",
     "test",
-    "dist/generated", "dist/generated", "dist/generated", "dist/generated",
+    "../generated",
 ],
   "exclude": ["node_modules"]
 }
