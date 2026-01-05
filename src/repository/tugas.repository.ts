@@ -1,4 +1,4 @@
-import { PrismaClient, Tugas } from "../generated/client";
+import { PrismaClient, Tugas } from "../../dist/generated";
 
 export class TugasRepository {
   constructor(private prisma: PrismaClient) {}

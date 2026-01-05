@@ -37,7 +37,7 @@ app.use("/api/kelas", kelasRoute)
 
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());
-  successResponse(res, "Selamat datang di API perpustakaan saya !!", {
+  successResponse(res, "Selamat datang api NIVI!!", {
     status: "Server Hidup",
     waktuProses: `${waktuProses}ms`
   }, null, 200)
