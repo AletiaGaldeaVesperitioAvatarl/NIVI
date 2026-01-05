@@ -5,7 +5,7 @@ import { NilaiService } from "../service/nilai.service";
 import { NilaiController } from "../controller/nilai.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
-import { Role } from "../generated/client";
+import { Role } from "../../dist/generated";
 
 const router = Router();
 

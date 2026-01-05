@@ -1,5 +1,5 @@
 import { AuthRepository } from "../repository/auth.repository";
-import { User, Role } from "../generated/client";
+import { User, Role } from "../../dist/generated";
 import jwt from "jsonwebtoken";
 import config from "../utils/env";
 
@@ -26,11 +26,17 @@ export class AuthService {
   };
 
   // LOGIN USER
-  login = async (email: string, password: string): Promise<{ token: string; user: User }> => {
+  login = async (
+    email: string,
+    password: string
+  ): Promise<{ token: string; user: User }> => {
     const user = await this.authRepository.getUserByEmail(email);
     if (!user) throw new Error("Email tidak ditemukan!");
 
-    const passwordValid = await this.authRepository.verifyPassword(password, user.password);
+    const passwordValid = await this.authRepository.verifyPassword(
+      password,
+      user.password
+    );
     if (!passwordValid) throw new Error("Password salah!");
 
     // generate JWT

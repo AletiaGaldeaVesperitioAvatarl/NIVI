@@ -1,9 +1,9 @@
-declare const _default: {
-    readonly HOST: string | undefined;
-    readonly PORT: string | undefined;
-    readonly NODE: string | undefined;
-    readonly DATABASE_URL: string | undefined;
-    readonly JWT_SECRET: string;
+declare const config: {
+    HOST: string;
+    PORT: number;
+    NODE: string;
+    DATABASE_URL: string;
+    JWT_SECRET: string;
 };
-export default _default;
+export default config;
 //# sourceMappingURL=env.d.ts.map

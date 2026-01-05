@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SubmissionService } from "../service/submission.service";
 import { successResponse } from "../utils/response";
-import { StatusSubmission } from "../generated/client";
+import { StatusSubmission } from "../../dist/generated";
 
 export class SubmissionController {
   constructor(private submissionService: SubmissionService) {}

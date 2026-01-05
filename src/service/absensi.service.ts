@@ -1,4 +1,4 @@
-import { Absensi } from "../generated/client";
+import { Absensi } from "../../dist/generated";
 import { AbsensiRepository } from "../repository/absensi.repository";
 
 export class AbsensiService {
@@ -30,7 +30,10 @@ export class AbsensiService {
   };
 
   // UPDATE ABSENSI
-  updateAbsensi = async (id: number, data: Partial<Absensi>): Promise<Absensi> => {
+  updateAbsensi = async (
+    id: number,
+    data: Partial<Absensi>
+  ): Promise<Absensi> => {
     return this.absensiRepository.update(id, data);
   };
 

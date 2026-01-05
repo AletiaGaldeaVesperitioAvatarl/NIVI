@@ -1,4 +1,4 @@
-import { Role, User } from "../generated/client";
+import { Role, User } from "../../dist/generated";
 import { UserRepository } from "../repository/user.repository";
 
 export class UserService {
@@ -31,10 +31,7 @@ export class UserService {
   };
 
   // UPDATE USER
-  updateUser = async (
-    id: number,
-    data: Partial<User>
-  ): Promise<User> => {
+  updateUser = async (id: number, data: Partial<User>): Promise<User> => {
     return this.userRepository.update(id, data);
   };
 

@@ -1,0 +1,42 @@
+import { successResponse } from "../utils/response.js";
+export class IzinController {
+    izinService;
+    constructor(izinService) {
+        this.izinService = izinService;
+    }
+    // GET ALL IZIN
+    getAll = async (_req, res) => {
+        const data = await this.izinService.getAll();
+        successResponse(res, "Berhasil ambil semua izin", data);
+    };
+    // GET IZIN BY ID
+    getById = async (req, res) => {
+        const id = Number(req.params.id);
+        const data = await this.izinService.getById(id);
+        successResponse(res, "Berhasil ambil izin", data);
+    };
+    // GET IZIN BY USER
+    getByUser = async (req, res) => {
+        const userId = Number(req.params.userId);
+        const data = await this.izinService.getByUserId(userId);
+        successResponse(res, "Berhasil ambil izin user", data);
+    };
+    // CREATE IZIN
+    create = async (req, res) => {
+        const data = await this.izinService.createIzin(req.body);
+        successResponse(res, "Izin berhasil dibuat", data, null, 201);
+    };
+    // UPDATE IZIN
+    update = async (req, res) => {
+        const id = Number(req.params.id);
+        const data = await this.izinService.updateIzin(id, req.body);
+        successResponse(res, "Izin berhasil diupdate", data);
+    };
+    // DELETE IZIN
+    delete = async (req, res) => {
+        const id = Number(req.params.id);
+        const data = await this.izinService.deleteIzin(id);
+        successResponse(res, "Izin berhasil dihapus", data);
+    };
+}
+//# sourceMappingURL=izin.controller.js.map

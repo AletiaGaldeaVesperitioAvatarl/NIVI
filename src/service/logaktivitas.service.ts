@@ -1,5 +1,5 @@
-import { LogAktivitas } from "../generated/client";
-import { LogAktivitasRepository } from "../repository/logAktivitas.repository"
+import { LogAktivitas } from "../../dist/generated";
+import { LogAktivitasRepository } from "../repository/logAktivitas.repository";
 
 export class LogAktivitasService {
   constructor(private logRepo: LogAktivitasRepository) {}

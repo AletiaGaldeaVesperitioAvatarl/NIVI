@@ -1,5 +1,5 @@
 import { NilaiRepository } from "../repository/nilai.repository";
-import { Nilai } from "../generated/client";
+import { Nilai } from "../../dist/generated";
 
 export class NilaiService {
   constructor(private nilaiRepository: NilaiRepository) {}
@@ -35,10 +35,7 @@ export class NilaiService {
   };
 
   // UPDATE NILAI
-  updateNilai = async (
-    id: number,
-    data: Partial<Nilai>
-  ): Promise<Nilai> => {
+  updateNilai = async (id: number, data: Partial<Nilai>): Promise<Nilai> => {
     return this.nilaiRepository.update(id, data);
   };
 

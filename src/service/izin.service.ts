@@ -1,5 +1,5 @@
 import { IzinRepository } from "../repository/izin.repository";
-import { Izin, StatusIzin } from "../generated/client";
+import { Izin, StatusIzin } from "../../dist/generated";
 
 export class IzinService {
   constructor(private izinRepository: IzinRepository) {}

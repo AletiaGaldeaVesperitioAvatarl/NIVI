@@ -1,4 +1,4 @@
-import { Tugas } from "../generated/client";
+import { Tugas } from "../../dist/generated";
 import { TugasRepository } from "../repository/tugas.repository";
 
 export class TugasService {

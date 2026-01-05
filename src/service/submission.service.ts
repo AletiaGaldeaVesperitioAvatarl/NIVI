@@ -1,4 +1,4 @@
-import { StatusSubmission, Submission } from "../generated/client";
+import { StatusSubmission, Submission } from "../../dist/generated";
 import { SubmissionRepository } from "../repository/submission.repository";
 
 export class SubmissionService {

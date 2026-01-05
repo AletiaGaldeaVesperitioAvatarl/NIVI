@@ -1,4 +1,4 @@
-import { Kelas } from "../generated/client";
+import { Kelas } from "../../dist/generated";
 import { KelasRepository } from "../repository/kelas.repository";
 
 export class KelasService {

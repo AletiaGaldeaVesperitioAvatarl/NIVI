@@ -2,24 +2,35 @@ import Express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
-import { successResponse } from "./utils/response";
-import { errorHandler } from "./middlewares/error.handler";
-import { requestLogger } from "./middlewares/logger.middleware";
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from "./utils/swagger";
+import { successResponse } from "./utils/response.js";
+import { errorHandler } from "./middlewares/error.handler.js";
+import { requestLogger } from "./middlewares/logger.middleware.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./utils/swagger.js";
+import authRoute from "./routes/auth.route.js";
+import userRoute from "./routes/user.route.js";
+import absensiRoute from "./routes/absensi.route.js";
+import tugasRoute from "./routes/tugas.route.js";
+import kelasRoute from "./routes/kelas.routes.js";
 const app = Express();
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+    origin: "*",
+}));
 app.use(Express.json());
-app.set('query parser', 'extended');
+app.set("query parser", "extended");
 app.use(Express.static("public"));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(requestLogger);
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/absensi", absensiRoute);
+app.use("/api/tugas", tugasRoute);
+app.use("/api/kelas", kelasRoute);
 app.get("/", (req, res) => {
     const waktuProses = Date.now() - (req.startTime || Date.now());
-    successResponse(res, "Selamat datang di API perpustakaan saya !!", {
-        hari: 6,
+    successResponse(res, "Selamat datang api NIVI!!", {
         status: "Server Hidup",
         waktuProses: `${waktuProses}ms`
     }, null, 200);

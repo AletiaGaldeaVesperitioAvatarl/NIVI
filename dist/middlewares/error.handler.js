@@ -1,5 +1,5 @@
-import { errorResponse } from "../utils/response";
-import { Prisma } from "../../dist/generated";
+import { errorResponse } from "../utils/response.js";
+import { Prisma } from "../../dist/generated/index.js";
 export const errorHandler = (err, _req, res, _next) => {
     console.error("ERROR:", err.message);
     const statusCode = err.message.includes("tidak ditemukan") ? 404 : 400;
