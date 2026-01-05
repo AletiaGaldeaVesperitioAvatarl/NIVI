@@ -1,4 +1,4 @@
-import { PrismaClient, Absensi } from "../generated/client";
+import { PrismaClient, Absensi } from "../../dist/generated";
 
 export class AbsensiRepository {
   constructor(private prisma: PrismaClient) {}

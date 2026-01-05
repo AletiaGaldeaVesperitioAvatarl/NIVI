@@ -1,4 +1,4 @@
-import { PrismaClient, LogAktivitas } from "../generated/client";
+import { PrismaClient, LogAktivitas } from "../../dist/generated";
 
 export class LogAktivitasRepository {
   constructor(private prisma: PrismaClient) {}

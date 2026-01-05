@@ -1,4 +1,4 @@
-import { PrismaClient, User, Role } from "../generated/client";
+import { PrismaClient, User, Role } from "../../dist/generated";
 import bcrypt from "bcrypt";
 
 export class AuthRepository {
