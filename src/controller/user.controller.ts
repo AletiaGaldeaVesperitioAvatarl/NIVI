@@ -7,7 +7,7 @@ export class UserController {
 
   getAll = async (_req: Request, res: Response) => {
     const users = await this.userService.getAll();
-    successResponse(res, "Semua user berhasil diambil", users);
+    return  successResponse(res, "Semua user berhasil diambil", users);
   };
 
   getById = async (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ export class UserController {
       throw new Error("User tidak ditemukan");
     }
 
-    successResponse(res, "User berhasil ditemukan", user);
+    return successResponse(res, "User berhasil ditemukan", user);
   };
 
   create = async (req: Request, res: Response) => {
