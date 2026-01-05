@@ -20,7 +20,7 @@ const app: Application = Express()
 app.use(helmet())
 app.use(morgan("dev"))
 app.use(cors({
-  origin: "http://localhost:5000",
+  origin: "*",
 }))
 app.use(Express.json());
 app.set('query parser', 'extended')
@@ -38,7 +38,6 @@ app.use("/api/kelas", kelasRoute)
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());
   successResponse(res, "Selamat datang di API perpustakaan saya !!", {
-    hari: 6,
     status: "Server Hidup",
     waktuProses: `${waktuProses}ms`
   }, null, 200)
