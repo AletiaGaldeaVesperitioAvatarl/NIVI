@@ -1,5 +1,5 @@
 import { AuthRepository } from "../repository/auth.repository.js";
-import { User, Role } from "../generated/client.js";
+import { User, Role } from "../../dist/generated/index.js";
 export declare class AuthService {
     private authRepository;
     constructor(authRepository: AuthRepository);

@@ -1,4 +1,4 @@
-import { StatusSubmission, Submission } from "../generated/client.js";
+import { StatusSubmission, Submission } from "../../dist/generated/index.js";
 import { SubmissionRepository } from "../repository/submission.repository.js";
 export declare class SubmissionService {
     private submissionRepo;

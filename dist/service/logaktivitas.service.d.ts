@@ -1,4 +1,4 @@
-import { LogAktivitas } from "../generated/client.js";
+import { LogAktivitas } from "../../dist/generated/index.js";
 import { LogAktivitasRepository } from "../repository/logAktivitas.repository.js";
 export declare class LogAktivitasService {
     private logRepo;

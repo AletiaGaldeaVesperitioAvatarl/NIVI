@@ -1,5 +1,5 @@
 import { NilaiRepository } from "../repository/nilai.repository.js";
-import { Nilai } from "../generated/client.js";
+import { Nilai } from "../../dist/generated/index.js";
 export declare class NilaiService {
     private nilaiRepository;
     constructor(nilaiRepository: NilaiRepository);

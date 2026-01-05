@@ -1,4 +1,4 @@
-import { Role, User } from "../generated/client.js";
+import { Role, User } from "../../dist/generated/index.js";
 import { UserRepository } from "../repository/user.repository.js";
 export declare class UserService {
     private userRepository;

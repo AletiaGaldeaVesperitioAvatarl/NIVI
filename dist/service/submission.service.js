@@ -1,4 +1,4 @@
-import { StatusSubmission } from "../generated/client.js";
+import { StatusSubmission } from "../../dist/generated/index.js";
 export class SubmissionService {
     submissionRepo;
     constructor(submissionRepo) {

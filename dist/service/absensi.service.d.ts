@@ -1,4 +1,4 @@
-import { Absensi } from "../generated/client.js";
+import { Absensi } from "../../dist/generated/index.js";
 import { AbsensiRepository } from "../repository/absensi.repository.js";
 export declare class AbsensiService {
     private absensiRepository;

@@ -1,4 +1,4 @@
-import { Kelas } from "../generated/client.js";
+import { Kelas } from "../../dist/generated/index.js";
 import { KelasRepository } from "../repository/kelas.repository.js";
 export declare class KelasService {
     private kelasRepository;

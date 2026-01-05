@@ -1,4 +1,4 @@
-import { Tugas } from "../generated/client.js";
+import { Tugas } from "../../dist/generated/index.js";
 import { TugasRepository } from "../repository/tugas.repository.js";
 export declare class TugasService {
     private tugasRepository;

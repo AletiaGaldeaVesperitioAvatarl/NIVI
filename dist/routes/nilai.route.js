@@ -5,7 +5,7 @@ import { NilaiService } from "../service/nilai.service.js";
 import { NilaiController } from "../controller/nilai.controller.js";
 import { authenticate } from "../middlewares/auth.middleware.js";
 import { roleMiddleware } from "../middlewares/role.middleware.js";
-import { Role } from "../generated/client.js";
+import { Role } from "../../dist/generated/index.js";
 const router = Router();
 // INIT DEPENDENCY
 const nilaiRepo = new NilaiRepository(prismaInstance);
