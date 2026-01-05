@@ -1,25 +1,37 @@
-// type CreateTugasDTO = {
-//   judul?: string
-//   deskripsi?: string
-//   deadline?: string
-// }
+import { Tugas } from "../generated/client";
+import { TugasRepository } from "../repository/tugas.repository";
 
-// export const createTugas = async (data: CreateTugasDTO) => {
-//   return {
-//     id: 1,
-//     judul: data.judul ?? "Tugas Dummy",
-//     deskripsi: data.deskripsi ?? "Deskripsi tugas",
-//     deadline: data.deadline ?? new Date().toISOString()
-//   }
-// }
+export class TugasService {
+  constructor(private tugasRepository: TugasRepository) {}
 
-// export const getAllTugas = async () => {
-//   return [
-//     {
-//       id: 1,
-//       judul: "Tugas 1",
-//       deskripsi: "Contoh tugas",
-//       deadline: new Date().toISOString()
-//     }
-//   ]
-// }
+  // GET ALL TUGAS
+  getAll = async (): Promise<Tugas[]> => {
+    return this.tugasRepository.getAll();
+  };
+
+  // GET TUGAS BY ID
+  getById = async (id: number): Promise<Tugas | null> => {
+    return this.tugasRepository.getById(id);
+  };
+
+  // CREATE NEW TUGAS
+  createTugas = async (data: {
+    kelasId: number;
+    title: string;
+    description?: string;
+    deadline: Date;
+    createdBy: number;
+  }): Promise<Tugas> => {
+    return this.tugasRepository.create(data);
+  };
+
+  // UPDATE TUGAS
+  updateTugas = async (id: number, data: Partial<Tugas>): Promise<Tugas> => {
+    return this.tugasRepository.update(id, data);
+  };
+
+  // DELETE TUGAS
+  deleteTugas = async (id: number): Promise<Tugas> => {
+    return this.tugasRepository.delete(id);
+  };
+}
