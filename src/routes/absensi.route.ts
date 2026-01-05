@@ -1,12 +1,12 @@
-import { Router } from "express";
-import {
-    createAbsensi,
-    getAllAbsensi
-}from "../controller/absensi.controller"
+// import { Router } from "express";
+// import {
+//     createAbsensi,
+//     getAllAbsensi
+// }from "../controller/absensi.controller"
 
-const router = Router()
+// const router = Router()
 
-router.post("/", createAbsensi)
-router.get("/", getAllAbsensi)
+// router.post("/", createAbsensi)
+// router.get("/", getAllAbsensi)
 
-export default router
+// export default router

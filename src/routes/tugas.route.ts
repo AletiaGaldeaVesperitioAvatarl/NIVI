@@ -1,9 +1,9 @@
-import { Router } from "express";
-import {createTugas, getAllTugas}from "../controller/tugas.controller"
+// import { Router } from "express";
+// import {createTugas, getAllTugas}from "../controller/tugas.controller"
 
-const router = Router()
+// const router = Router()
 
-router.post("/", createTugas)
-router.post("/", getAllTugas)
+// router.post("/", createTugas)
+// router.post("/", getAllTugas)
 
-export default router
+// export default router

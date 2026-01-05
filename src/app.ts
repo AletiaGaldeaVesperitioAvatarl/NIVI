@@ -7,10 +7,11 @@ import { errorHandler } from "./middlewares/error.handler";
 import { requestLogger } from "./middlewares/logger.middleware";
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from "./utils/swagger";
-import authRoute from "./routes/auth.route"
+// import authRoute from "./routes/auth.route"
 import userRoute from "./routes/user.route"
-import absensiRoute from "./routes/absensi.route"
-import tugasRoute from "./routes/tugas.route"
+// import absensiRoute from "./routes/absensi.route"
+// import tugasRoute from "./routes/tugas.route"
+import kelasRoute from "./routes/kelas.routes"
 
 
 
@@ -28,11 +29,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
 app.use(requestLogger);  
-app.use("/api/auth", authRoute)
+// app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
-app.use("/api/absensi", absensiRoute)
-app.use("/api/tugas", tugasRoute)
-
+// app.use("/api/absensi", absensiRoute)
+// app.use("/api/tugas", tugasRoute)
+app.use("/api/kelas", kelasRoute)
 
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());
