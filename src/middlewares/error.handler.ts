@@ -1,6 +1,6 @@
 import type { NextFunction, Response, Request } from "express";
 import { errorResponse } from "../utils/response";
-import { Prisma } from "../../dist/generated";
+import { Prisma } from "../../dist/generated"
 
 export const errorHandler = (
   err: Error,

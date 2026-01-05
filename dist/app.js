@@ -4,13 +4,6 @@ import morgan from "morgan";
 import cors from "cors";
 import { successResponse } from "./utils/response";
 import { errorHandler } from "./middlewares/error.handler";
-import booksRouter from "./routes/book.route";
-import userRouter from "./routes/user.route";
-import categoryRouter from './routes/category.route';
-import loanRouter from './routes/loan.route';
-import loanItemRouter from './routes/loanItem.route';
-import authRouter from './routes/auth.route';
-import adminRouter from './routes/admin.route';
 import { requestLogger } from "./middlewares/logger.middleware";
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from "./utils/swagger";
@@ -31,13 +24,6 @@ app.get("/", (req, res) => {
         waktuProses: `${waktuProses}ms`
     }, null, 200);
 });
-app.use('/api/auth', authRouter);
-app.use('/api/admin', adminRouter);
-app.use('/api/book', booksRouter);
-app.use('/api/users', userRouter);
-app.use('/api/category', categoryRouter);
-app.use('/api/loan', loanRouter);
-app.use('/api/loan-items', loanItemRouter);
 app.use(/.*/, (req, _res) => {
     throw new Error(`Route ${req.originalUrl} tidak ada di API`);
 });
