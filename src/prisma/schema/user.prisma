@@ -7,6 +7,7 @@ model User {
   kelasId    Int?
   isActive   Boolean    @default(true)
   createdAt  DateTime   @default(now())
+  deletedAt  DateTime?
 
   kelas      Kelas?     @relation(fields: [kelasId], references: [id])
   absensi    Absensi[]

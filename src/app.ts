@@ -7,6 +7,11 @@ import { errorHandler } from "./middlewares/error.handler";
 import { requestLogger } from "./middlewares/logger.middleware";
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from "./utils/swagger";
+import authRoute from "./routes/auth.route"
+import userRoute from "./routes/user.route"
+import absensiRoute from "./routes/absensi.route"
+import tugasRoute from "./routes/tugas.route"
+import kelasRoute from "./routes/kelas.routes"
 
 
 
@@ -14,18 +19,25 @@ const app: Application = Express()
 
 app.use(helmet())
 app.use(morgan("dev"))
-app.use(cors())
+app.use(cors({
+  origin: "*",
+}))
 app.use(Express.json());
 app.set('query parser', 'extended')
 app.use(Express.static("public"))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
-app.use(requestLogger);
+
+app.use(requestLogger);  
+app.use("/api/auth", authRoute)
+app.use("/api/users", userRoute)
+app.use("/api/absensi", absensiRoute)
+app.use("/api/tugas", tugasRoute)
+app.use("/api/kelas", kelasRoute)
 
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());
   successResponse(res, "Selamat datang di API perpustakaan saya !!", {
-    hari: 6,
     status: "Server Hidup",
     waktuProses: `${waktuProses}ms`
   }, null, 200)
