@@ -62,7 +62,7 @@ export class AbsensiController {
     getMyTodayAbsensi = async (req: Request, res: Response) => {
     const userId = req.user!.id;
 
-    const data = await this.absen.getTodayByUser(userId);
+    const data = await this.absensiService.getTodayByUser(Number(userId));
 
     successResponse(res, "Absensi hari ini", data);
   };
