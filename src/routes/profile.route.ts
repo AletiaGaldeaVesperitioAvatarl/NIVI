@@ -9,22 +9,59 @@ import { Role } from "../../dist/generated";
 
 const router = Router();
 
-
 // DEPENDENCY INJECTION
 const profileRepository = new ProfileRepository(prismaInstance);
 const profileService = new ProfileService(profileRepository);
 const profileController = new ProfileController(profileService);
 
-// ROUTES
+/**
+ * @swagger
+ * tags:
+ *   name: Profile
+ *   description: Manajemen profile user
+ */
 
-//  GET profile user login
+/**
+ * @swagger
+ * /profile/me:
+ *   get:
+ *     summary: Ambil profile user yang sedang login
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile berhasil diambil
+ *       404:
+ *         description: Profile belum dibuat
+ */
 router.get(
   "/me",
   authenticate,
   profileController.getMyProfile
 );
 
-//  GET profile by userId (ADMIN ONLY)
+/**
+ * @swagger
+ * /profile/user/{userId}:
+ *   get:
+ *     summary: Ambil profile berdasarkan userId (Admin only)
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *     responses:
+ *       200:
+ *         description: Profile user ditemukan
+ *       403:
+ *         description: Akses ditolak
+ */
 router.get(
   "/user/:userId",
   authenticate,
@@ -32,21 +69,117 @@ router.get(
   profileController.getProfileByUserId
 );
 
-//  CREATE profile (user login)
+/**
+ * @swagger
+ * /profile:
+ *   post:
+ *     summary: Buat profile user (user login)
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - namaLengkap
+ *             properties:
+ *               namaLengkap:
+ *                 type: string
+ *                 example: Yusuf Ramadhani
+ *               noHp:
+ *                 type: string
+ *                 example: "08123456789"
+ *               alamat:
+ *                 type: string
+ *                 example: Jakarta
+ *               fotoUrl:
+ *                 type: string
+ *                 example: https://img.com/profile.jpg
+ *               tanggalLahir:
+ *                 type: string
+ *                 format: date
+ *                 example: 2000-01-01
+ *               jenisKelamin:
+ *                 type: string
+ *                 example: Laki-laki
+ *     responses:
+ *       201:
+ *         description: Profile berhasil dibuat
+ */
 router.post(
   "/",
   authenticate,
   profileController.createProfile
 );
 
-//  UPDATE profile (user login)
+/**
+ * @swagger
+ * /profile:
+ *   put:
+ *     summary: Update profile user (user login)
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               namaLengkap:
+ *                 type: string
+ *                 example: Yusuf Ramadhani
+ *               noHp:
+ *                 type: string
+ *                 example: "08123456789"
+ *               alamat:
+ *                 type: string
+ *                 example: Bandung
+ *               fotoUrl:
+ *                 type: string
+ *                 example: https://img.com/profile-new.jpg
+ *               tanggalLahir:
+ *                 type: string
+ *                 format: date
+ *                 example: 2000-01-01
+ *               jenisKelamin:
+ *                 type: string
+ *                 example: Laki-laki
+ *     responses:
+ *       200:
+ *         description: Profile berhasil diupdate
+ */
 router.put(
   "/",
   authenticate,
   profileController.updateProfile
 );
 
-//  DELETE profile (ADMIN ONLY)
+/**
+ * @swagger
+ * /profile/user/{userId}:
+ *   delete:
+ *     summary: Hapus profile user (Admin only)
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *     responses:
+ *       200:
+ *         description: Profile berhasil dihapus
+ *       403:
+ *         description: Akses ditolak
+ */
 router.delete(
   "/user/:userId",
   authenticate,

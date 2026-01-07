@@ -1,73 +1,219 @@
-import { Request, Response } from "express";
+import { Router } from "express";
+import prismaInstance from "../database";
+import { SubmissionRepository } from "../repository/submission.repository";
 import { SubmissionService } from "../service/submission.service";
-import { successResponse } from "../utils/response";
-import { StatusSubmission } from "../../dist/generated";
+import { SubmissionController } from "../controller/submission.controller";
+import { authenticate } from "../middlewares/auth.middleware";
+import { roleMiddleware } from "../middlewares/role.middleware";
+import { Role } from "../../dist/generated";
 
-export class SubmissionController {
-  constructor(private submissionService: SubmissionService) {}
+const router = Router();
 
-  // SUBMIT TUGAS
-  submit = async (req: Request, res: Response) => {
-    const { tugasId, fileUrl, linkUrl } = req.body;
-    const userId = req.user!.id;
+// DEPENDENCY
+const submissionRepo = new SubmissionRepository(prismaInstance);
+const submissionService = new SubmissionService(submissionRepo);
+const submissionController = new SubmissionController(submissionService);
 
-    const result = await this.submissionService.submit({
-      tugasId: Number(tugasId),
-      userId:  Number(userId),
-      fileUrl,
-      linkUrl,
-    });
+/**
+ * @swagger
+ * tags:
+ *   name: Submission
+ *   description: Pengumpulan tugas santri
+ */
 
-    successResponse(res, "Tugas berhasil dikumpulkan", result, null, 201);
-  };
+/**
+ * @swagger
+ * /submission:
+ *   post:
+ *     summary: Submit tugas (Santri)
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - tugasId
+ *             properties:
+ *               tugasId:
+ *                 type: integer
+ *                 example: 1
+ *               fileUrl:
+ *                 type: string
+ *                 example: https://drive.google.com/file.pdf
+ *               linkUrl:
+ *                 type: string
+ *                 example: https://github.com/user/tugas
+ *     responses:
+ *       201:
+ *         description: Tugas berhasil dikumpulkan
+ */
+router.post(
+  "/",
+  authenticate,
+  submissionController.submit
+);
 
-  // GET ALL SUBMISSION
-  getAll = async (_req: Request, res: Response) => {
-    const result = await this.submissionService.getAll();
-    successResponse(res, "Semua submission berhasil diambil", result);
-  };
+/**
+ * @swagger
+ * /submission:
+ *   get:
+ *     summary: Ambil semua submission (Admin / Pengajar)
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Semua submission berhasil diambil
+ */
+router.get(
+  "/",
+  authenticate,
+  roleMiddleware([Role.admin, Role.pengajar]),
+  submissionController.getAll
+);
 
-  // GET SUBMISSION BY ID
-  getById = async (req: Request, res: Response) => {
-    const result = await this.submissionService.getById(
-      Number(req.params.id)
-    );
-    successResponse(res, "Submission ditemukan", result);
-  };
+/**
+ * @swagger
+ * /submission/{id}:
+ *   get:
+ *     summary: Ambil submission berdasarkan ID
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 5
+ *     responses:
+ *       200:
+ *         description: Submission ditemukan
+ */
+router.get(
+  "/:id",
+  authenticate,
+  submissionController.getById
+);
 
-  // GET SUBMISSION BY USER
-  getByUser = async (req: Request, res: Response) => {
-    const result = await this.submissionService.getByUser(
-      Number(req.params.userId)
-    );
-    successResponse(res, "Submission user berhasil diambil", result);
-  };
+/**
+ * @swagger
+ * /submission/user/{userId}:
+ *   get:
+ *     summary: Ambil submission berdasarkan user
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 3
+ *     responses:
+ *       200:
+ *         description: Submission user berhasil diambil
+ */
+router.get(
+  "/user/:userId",
+  authenticate,
+  submissionController.getByUser
+);
 
-  // GET SUBMISSION BY TUGAS
-  getByTugas = async (req: Request, res: Response) => {
-    const result = await this.submissionService.getByTugas(
-      Number(req.params.tugasId)
-    );
-    successResponse(res, "Submission tugas berhasil diambil", result);
-  };
+/**
+ * @swagger
+ * /submission/tugas/{tugasId}:
+ *   get:
+ *     summary: Ambil submission berdasarkan tugas
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: tugasId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 2
+ *     responses:
+ *       200:
+ *         description: Submission tugas berhasil diambil
+ */
+router.get(
+  "/tugas/:tugasId",
+  authenticate,
+  submissionController.getByTugas
+);
 
-  // UPDATE STATUS
-  updateStatus = async (req: Request, res: Response) => {
-    const { status } = req.body;
+/**
+ * @swagger
+ * /submission/{id}/status:
+ *   put:
+ *     summary: Update status submission (Admin / Pengajar)
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - status
+ *             properties:
+ *               status:
+ *                 type: string
+ *                 enum: [pending, diterima, ditolak]
+ *                 example: diterima
+ *     responses:
+ *       200:
+ *         description: Status submission berhasil diubah
+ */
+router.put(
+  "/:id/status",
+  authenticate,
+  roleMiddleware([Role.admin, Role.pengajar]),
+  submissionController.updateStatus
+);
 
-    const result = await this.submissionService.updateStatus(
-      Number(req.params.id),
-      status as StatusSubmission
-    );
+/**
+ * @swagger
+ * /submission/{id}:
+ *   delete:
+ *     summary: Hapus submission (Admin only)
+ *     tags: [Submission]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           example: 10
+ *     responses:
+ *       200:
+ *         description: Submission berhasil dihapus
+ */
+router.delete(
+  "/:id",
+  authenticate,
+  roleMiddleware([Role.admin]),
+  submissionController.delete
+);
 
-    successResponse(res, "Status submission berhasil diubah", result);
-  };
-
-  // DELETE SUBMISSION
-  delete = async (req: Request, res: Response) => {
-    const result = await this.submissionService.delete(
-      Number(req.params.id)
-    );
-    successResponse(res, "Submission berhasil dihapus", result);
-  };
-}
+export default router;
