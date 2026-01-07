@@ -162,6 +162,19 @@ exports.Prisma.NilaiScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  namaLengkap: 'namaLengkap',
+  noHp: 'noHp',
+  alamat: 'alamat',
+  fotoUrl: 'fotoUrl',
+  tanggalLahir: 'tanggalLahir',
+  jenisKelamin: 'jenisKelamin',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SubmissionScalarFieldEnum = {
   id: 'id',
   tugasId: 'tugasId',
@@ -237,6 +250,7 @@ exports.Prisma.ModelName = {
   Kelas: 'Kelas',
   LogAktivitas: 'LogAktivitas',
   Nilai: 'Nilai',
+  Profile: 'Profile',
   Submission: 'Submission',
   Tugas: 'Tugas',
   User: 'User'

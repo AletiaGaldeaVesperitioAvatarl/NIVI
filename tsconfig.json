@@ -42,10 +42,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": [
-    "src",
-    "test",
-    "../generated",
-],
+  "include": ["src", "test", "../generated", "dist/generated"],
   "exclude": ["node_modules"]
 }
