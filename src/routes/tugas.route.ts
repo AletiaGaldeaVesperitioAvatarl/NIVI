@@ -3,6 +3,7 @@ import { TugasRepository } from "../repository/tugas.repository";
 import prismaInstance from "../database";
 import { TugasService } from "../service/tugas.service";
 import { TugasController } from "../controller/tugas.controller";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -11,10 +12,7 @@ const tugasRepo = new TugasRepository(prismaInstance);
 const tugasService = new TugasService(tugasRepo);
 const tugasController = new TugasController(tugasService);
 
-// ========================
-// TUGAS ROUTES
-// ========================
-
+router.get("/task", authenticate, tugasController.getForSantri);
 // GET ALL TUGAS
 router.get("/", tugasController.getAll);
 

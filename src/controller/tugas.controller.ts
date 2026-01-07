@@ -49,4 +49,17 @@ export class TugasController {
     const tugas = await this.tugasService.deleteTugas(id);
     successResponse(res, "Tugas berhasil dihapus", tugas);
   };
+
+getForSantri = async (req: any, res: Response) => {
+  const userId = req.user.id;
+
+  const tasks = await this.tugasService.getTasksForSantri(userId);
+
+  res.json({
+    success: true,
+    data: tasks,
+  });
+};
+
+
 }
