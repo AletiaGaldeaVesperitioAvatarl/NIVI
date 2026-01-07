@@ -11,10 +11,7 @@ export class ProfileController {
   getMyProfile = async (req: Request, res: Response) => {
     const userId = req.user!.id;
 
-    const numId = parseInt (userId) 
-
-
-    const profile = await this.profileService.getProfileByUserId(numId);
+    const profile = await this.profileService.getProfileByUserId(userId);
 
     if (!profile) {
       return successResponse(
@@ -53,7 +50,7 @@ getProfileByUserId = async (req: Request, res: Response) => {
   // POST /profile
   // ======================
   createProfile = async (req: Request, res: Response) => {
-    const userId = parseInt  (req.user!.id);
+    const userId = req.user!.id;
     
     const profile = await this.profileService.createProfile({
       userId,
@@ -77,7 +74,7 @@ getProfileByUserId = async (req: Request, res: Response) => {
 
   // PUT /profile
   updateProfile = async (req: Request, res: Response) => {
-    const userId = parseInt(req.user!.id)
+    const userId = req.user!.id
 
     const profile = await this.profileService.updateProfile(userId, {
   namaLengkap: req.body.namaLengkap,
