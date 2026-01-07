@@ -8,6 +8,7 @@ enum StatusAbsensi {
   hadir
   izin
   alpha
+  sakit
 }
 
 enum StatusIzin {
