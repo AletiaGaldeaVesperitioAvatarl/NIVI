@@ -45,10 +45,15 @@ register = async (data: {
 
     // generate JWT
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      config.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
+  {
+    id: user.id,
+    role: user.role,
+    kelasId: user.kelasId,
+  },
+  config.JWT_SECRET,
+  { expiresIn: "1d" }
+);
+
 
     return { token, user };
   };
