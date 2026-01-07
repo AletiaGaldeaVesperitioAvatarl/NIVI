@@ -12,7 +12,6 @@ export class AuthController {
       name,
       email,
       password,
-      role,
       kelasId
     });
     successResponse(res, "User berhasil didaftarkan", user, null, 201);
