@@ -2,28 +2,32 @@ import { AuthRepository } from "../repository/auth.repository";
 import { User, Role } from "../../dist/generated";
 import jwt from "jsonwebtoken";
 import config from "../utils/env";
+import bcrypt from "bcrypt";
 
 export class AuthService {
   constructor(private authRepository: AuthRepository) {}
 
   // REGISTER USER
-  register = async (data: {
-    name: string;
-    email: string;
-    password: string;
-    role: Role;
-    kelasId?: number;
-  }): Promise<User> => {
-    // cek email udah ada apa belum
-    const existingUser = await this.authRepository.getUserByEmail(data.email);
-    if (existingUser) {
-      throw new Error("Email sudah terdaftar!");
-    }
+register = async (data: {
+  name: string;
+  email: string;
+  password: string;
+  role: Role;
+  kelasId?: number;
+}) => {
 
-    // create user
-    const user = await this.authRepository.createUser(data);
-    return user;
-  };
+  const existingUser = await this.authRepository.getUserByEmail(data.email);
+  if (existingUser) {
+    throw new Error("Email sudah terdaftar!");
+  }
+
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  return this.authRepository.createUser({
+    ...data,
+    password: hashedPassword,
+  });
+};
 
   // LOGIN USER
   login = async (
@@ -41,10 +45,15 @@ export class AuthService {
 
     // generate JWT
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      config.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
+  {
+    id: user.id,
+    role: user.role,
+    kelasId: user.kelasId,
+  },
+  config.JWT_SECRET,
+  { expiresIn: "1d" }
+);
+
 
     return { token, user };
   };

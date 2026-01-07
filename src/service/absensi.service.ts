@@ -1,4 +1,4 @@
-import { Absensi } from "../../dist/generated";
+import { Absensi, StatusAbsensi } from "../../dist/generated";
 import { AbsensiRepository } from "../repository/absensi.repository";
 
 export class AbsensiService {
@@ -19,16 +19,23 @@ export class AbsensiService {
     return this.absensiRepository.getByUserId(userId);
   };
 
-  // CREATE ABSENSI
-  createAbsensi = async (data: {
-    userId: number;
-    kelasId: number;
-    tanggal: Date;
-    status: "hadir" | "izin" | "alpha";
-  }): Promise<Absensi> => {
-    return this.absensiRepository.create(data);
+  getTodayByUser = async (userId: number): Promise<Absensi[]> => {
+    return this.absensiRepository.getTodayByUser(userId);
   };
 
+  absenHadir = async (userId: number, kelasId: number): Promise<Absensi> => {
+    const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
+
+    if (todayAbsensi.length >= 4) {
+      throw new Error("Absen hari ini sudah mencapai batas (4x)");
+    }
+
+    return this.absensiRepository.create({
+      userId,
+      kelasId,
+      status: StatusAbsensi.hadir,
+    });
+  };
   // UPDATE ABSENSI
   updateAbsensi = async (
     id: number,
