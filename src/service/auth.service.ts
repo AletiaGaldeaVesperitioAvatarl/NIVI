@@ -12,7 +12,7 @@ register = async (data: {
   name: string;
   email: string;
   password: string;
-  role: Role;
+  
   kelasId?: number;
 }) => {
 
@@ -25,6 +25,7 @@ register = async (data: {
 
   return this.authRepository.createUser({
     ...data,
+    role: Role.santri,    
     password: hashedPassword,
   });
 };
