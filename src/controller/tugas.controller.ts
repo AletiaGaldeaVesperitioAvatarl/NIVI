@@ -41,7 +41,7 @@ export class TugasController {
     const tugas = await this.tugasService.updateTugas(id, data);
     successResponse(res, "Tugas berhasil diperbarui", tugas);
   };
-
+  
   // DELETE TUGAS
   delete = async (req: Request, res: Response) => {
     if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");

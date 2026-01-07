@@ -18,6 +18,7 @@ enum StatusIzin {
 }
 
 enum StatusSubmission {
+  pending
   submitted
   reviewed
   rejected
