@@ -17,16 +17,15 @@ const absensiController = new AbsensiController(absensiService);
 router.get("/", absensiController.getAll);
 
 // GET BY USER ID
+router.get("/me/today", absensiController.getMyTodayAbsensi);
+
+router.post("/me/absen", absensiController.absen);
 router.get("/user/:userId", absensiController.getByUserId);
 // GET BY ID
 
 router.get("/:id", absensiController.getById);
 
 // CREATE
-router.get("/me/today", absensiController.getMyTodayAbsensi);
-
-
-router.post("/me/absen", absensiController.absen);
 
 // UPDATE
 router.put("/:id", absensiController.update);
