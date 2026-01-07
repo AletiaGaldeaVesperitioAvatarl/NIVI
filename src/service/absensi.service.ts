@@ -19,11 +19,17 @@ export class AbsensiService {
     return this.absensiRepository.getByUserId(userId);
   };
 
-   getTodayByUser = async (userId: number) => {
+  getTodayByUser = async (userId: number): Promise<Absensi[]> => {
     return this.absensiRepository.getTodayByUser(userId);
   };
 
-  absenHadir = async (userId: number, kelasId: number) => {
+  absenHadir = async (userId: number, kelasId: number): Promise<Absensi> => {
+    const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
+
+    if (todayAbsensi.length >= 4) {
+      throw new Error("Absen hari ini sudah mencapai batas (4x)");
+    }
+
     return this.absensiRepository.create({
       userId,
       kelasId,

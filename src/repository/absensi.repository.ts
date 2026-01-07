@@ -35,23 +35,6 @@ export class AbsensiRepository {
     });
   };
 
-  // CREATE ABSENSI
-  // CREATE absensi
-  create = async (data: {
-    userId: number;
-    kelasId: number;
-    status: StatusAbsensi;
-  }): Promise<Absensi> => {
-    return this.prisma.absensi.create({
-      data: {
-        userId: data.userId,
-        kelasId: data.kelasId,
-        status: data.status,
-        tanggal: new Date(),
-      },
-    });
-  };
-
   // UPDATE ABSENSI
   update = async (id: number, data: Partial<Absensi>): Promise<Absensi> => {
     return this.prisma.absensi.update({
@@ -71,7 +54,22 @@ export class AbsensiRepository {
     });
   };
 
-    getTodayByUser = async (userId: number): Promise<Absensi[]> => {
+  create = async (data: {
+    userId: number;
+    kelasId: number;
+    status: StatusAbsensi;
+  }): Promise<Absensi> => {
+    return this.prisma.absensi.create({
+      data: {
+        userId: data.userId,
+        kelasId: data.kelasId,
+        status: data.status,
+        tanggal: new Date(),
+      },
+    });
+  };
+
+  getTodayByUser = async (userId: number): Promise<Absensi[]> => {
     const start = new Date();
     start.setHours(0, 0, 0, 0);
 
@@ -86,12 +84,7 @@ export class AbsensiRepository {
           lte: end,
         },
       },
-      include: {
-        kelas: true,
-      },
-      orderBy: {
-        tanggal: "asc",
-      },
+      orderBy: { tanggal: "asc" },
     });
   };
 }
