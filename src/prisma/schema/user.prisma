@@ -10,6 +10,7 @@ model User {
   deletedAt  DateTime?
 
   kelas      Kelas?     @relation(fields: [kelasId], references: [id])
+  profile    Profile?
   absensi    Absensi[]
   izin       Izin[]
   tugasDibuat Tugas[]   @relation("TugasDibuat")

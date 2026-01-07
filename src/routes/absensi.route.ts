@@ -11,9 +11,7 @@ const absensiRepo = new AbsensiRepository(prismaInstance);
 const absensiService = new AbsensiService(absensiRepo);
 const absensiController = new AbsensiController(absensiService);
 
-// ========================
 // ABSENSI ROUTES
-// ========================
 
 // GET ALL
 router.get("/", absensiController.getAll);

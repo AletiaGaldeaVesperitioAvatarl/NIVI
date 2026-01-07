@@ -11,9 +11,8 @@ const authRepo = new AuthRepository(prismaInstance);
 const authService = new AuthService(authRepo);
 const authController = new AuthController(authService);
 
-// ========================
 // AUTH ROUTES
-// ========================
+
 
 // REGISTER
 router.post("/register", authController.register);
