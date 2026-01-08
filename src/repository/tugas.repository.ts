@@ -29,15 +29,27 @@ export class TugasRepository {
   };
 
   // CREATE NEW TUGAS
-  create = async (data: {
+  create(data: {
     kelasId: number;
     title: string;
-    description?: string;
+    description: string;
     deadline: Date;
     createdBy: number;
-  }): Promise<Tugas> => {
+  }): Promise<Tugas> {
     return this.prisma.tugas.create({
-      data,
+      data: {
+        title: data.title,
+        description: data.description,
+        deadline: data.deadline,
+
+        kelas: {
+          connect: { id: data.kelasId }
+        },
+
+        creator: {
+          connect: { id: data.createdBy }
+        }
+      },
       include: {
         kelas: true,
         creator: true,
@@ -45,8 +57,7 @@ export class TugasRepository {
         nilai: true
       }
     });
-  };
-
+  }
   // UPDATE TUGAS
   update = async (id: number, data: Partial<Tugas>): Promise<Tugas> => {
     return this.prisma.tugas.update({

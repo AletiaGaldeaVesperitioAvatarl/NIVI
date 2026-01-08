@@ -14,18 +14,18 @@ const tugasController = new TugasController(tugasService);
 
 router.get("/task", authenticate, tugasController.getForSantri);
 // GET ALL TUGAS
-router.get("/", tugasController.getAll);
+router.get("/", authenticate,tugasController.getAll);
 
 // GET TUGAS BY ID
-router.get("/:id", tugasController.getById);
+router.get("/:id",authenticate, tugasController.getById);
 
 // CREATE TUGAS
-router.post("/", tugasController.create);
+router.post("/", authenticate,tugasController.create);
 
 // UPDATE TUGAS
-router.put("/:id", tugasController.update);
+router.put("/:id",authenticate, tugasController.update);
 
 // DELETE TUGAS
-router.delete("/:id", tugasController.delete);
+router.delete("/:id",authenticate, tugasController.delete);
 
 export default router;

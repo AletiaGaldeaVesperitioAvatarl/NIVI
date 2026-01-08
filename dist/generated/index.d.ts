@@ -13716,19 +13716,19 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutTugasInput
-    creator: UserCreateNestedOneWithoutTugasDibuatInput
+    kelas: KelasCreateNestedOneWithoutTugasInput | undefined
+    creator: UserCreateNestedOneWithoutTugasDibuatInput | undefined
     submission?: SubmissionCreateNestedManyWithoutTugasInput
     nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateInput = {
-    id?: number
-    kelasId: number
+    id?: number | undefined
+    kelasId: number | undefined
     title: string
     description?: string | null
     deadline: Date | string
-    createdBy: number
+    createdBy: number | undefined
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
