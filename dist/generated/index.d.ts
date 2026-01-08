@@ -13522,12 +13522,12 @@ export namespace Prisma {
     jenisKelamin?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProfileInput
+    user: UserCreateNestedOneWithoutProfileInput | undefined
   }
 
   export type ProfileUncheckedCreateInput = {
-    id?: number
-    userId: number
+    id?: number | undefined
+    userId: number | undefined
     namaLengkap: string
     noHp?: string | null
     alamat?: string | null
