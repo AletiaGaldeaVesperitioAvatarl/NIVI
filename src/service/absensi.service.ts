@@ -33,7 +33,7 @@ export class AbsensiService {
     return this.absensiRepository.create({
       userId,
       kelasId,
-      status: StatusAbsensi.hadir,
+      status: StatusAbsensi,
     });
   };
   // UPDATE ABSENSI
