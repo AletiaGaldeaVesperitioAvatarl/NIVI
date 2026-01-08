@@ -23,7 +23,7 @@ export class AbsensiService {
     return this.absensiRepository.getTodayByUser(userId);
   };
 
-  absenHadir = async (userId: number, kelasId: number): Promise<Absensi> => {
+  absenHadir = async (userId: number, kelasId: number , status:StatusAbsensi): Promise<Absensi> => {
     const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
 
     if (todayAbsensi.length >= 4) {
@@ -33,7 +33,7 @@ export class AbsensiService {
     return this.absensiRepository.create({
       userId,
       kelasId,
-      status: StatusAbsensi,
+      status
     });
   };
   // UPDATE ABSENSI
