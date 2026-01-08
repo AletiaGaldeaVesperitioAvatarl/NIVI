@@ -19,8 +19,7 @@ export class SubmissionController {
     });
 
     successResponse(res, "Tugas berhasil dikumpulkan", result, null, 201);
-  };
-
+  }; 
   // GET ALL SUBMISSION
   getAll = async (_req: Request, res: Response) => {
     const result = await this.submissionService.getAll();

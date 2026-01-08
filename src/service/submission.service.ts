@@ -4,18 +4,17 @@ import { SubmissionRepository } from "../repository/submission.repository";
 export class SubmissionService {
   constructor(private submissionRepo: SubmissionRepository) {}
 
-  // SUBMIT TUGAS
-  submit = async (data: {
-    tugasId: number;
-    userId: number;
-    fileUrl?: string;
-    linkUrl?: string;
-  }): Promise<Submission> => {
-    return this.submissionRepo.create({
-      ...data,
-      status: StatusSubmission.tepat_waktu,
-    });
-  };
+submit = async (data: {
+  tugasId: number;
+  userId: number;
+  fileUrl?: string;
+  linkUrl?: string;
+}) => {
+  return this.submissionRepo.create({
+    ...data,
+    status: StatusSubmission.submitted,
+  });
+};
 
   // GET ALL
   getAll = async (): Promise<Submission[]> => {
