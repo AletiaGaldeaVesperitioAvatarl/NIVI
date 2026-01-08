@@ -20,6 +20,7 @@ enum StatusAbsensi {
   hadir
   izin
   alpha
+  sakit
 }
 
 enum StatusIzin {
@@ -29,8 +30,10 @@ enum StatusIzin {
 }
 
 enum StatusSubmission {
-  tepat_waktu
-  terlambat
+  pending
+  submitted
+  reviewed
+  rejected
 }
 
 model Izin {

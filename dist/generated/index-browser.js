@@ -224,7 +224,8 @@ exports.Prisma.NullsOrder = {
 exports.StatusAbsensi = exports.$Enums.StatusAbsensi = {
   hadir: 'hadir',
   izin: 'izin',
-  alpha: 'alpha'
+  alpha: 'alpha',
+  sakit: 'sakit'
 };
 
 exports.StatusIzin = exports.$Enums.StatusIzin = {
@@ -234,8 +235,10 @@ exports.StatusIzin = exports.$Enums.StatusIzin = {
 };
 
 exports.StatusSubmission = exports.$Enums.StatusSubmission = {
-  tepat_waktu: 'tepat_waktu',
-  terlambat: 'terlambat'
+  pending: 'pending',
+  submitted: 'submitted',
+  reviewed: 'reviewed',
+  rejected: 'rejected'
 };
 
 exports.Role = exports.$Enums.Role = {

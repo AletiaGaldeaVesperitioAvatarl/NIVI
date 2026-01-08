@@ -75,7 +75,8 @@ export type Role = (typeof Role)[keyof typeof Role]
 export const StatusAbsensi: {
   hadir: 'hadir',
   izin: 'izin',
-  alpha: 'alpha'
+  alpha: 'alpha',
+  sakit: 'sakit'
 };
 
 export type StatusAbsensi = (typeof StatusAbsensi)[keyof typeof StatusAbsensi]
@@ -91,8 +92,10 @@ export type StatusIzin = (typeof StatusIzin)[keyof typeof StatusIzin]
 
 
 export const StatusSubmission: {
-  tepat_waktu: 'tepat_waktu',
-  terlambat: 'terlambat'
+  pending: 'pending',
+  submitted: 'submitted',
+  reviewed: 'reviewed',
+  rejected: 'rejected'
 };
 
 export type StatusSubmission = (typeof StatusSubmission)[keyof typeof StatusSubmission]
