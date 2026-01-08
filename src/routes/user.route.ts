@@ -16,6 +16,9 @@ const userController = new UserController(userService);
 
 router.get("/", userController.getAll);
 
+router.get("/santri", userController.getSantri)
+
+router.get("/pengajar", userController.getPengajar)
 // GET USER BY ID
 router.get("/:id", userController.getById);
 
@@ -31,8 +34,5 @@ router.delete("/:id", userController.deactivate);
 // GET USER STATS
 router.get("/stats/all", userController.getStats);
 
-router.get("/santri", userController.getSantri)
-
-router.get("/pengajar", userController.getPengajar)
 
 export default router
