@@ -52,4 +52,12 @@ export class UserRepository {
       _count: { id: true },
     });
   }
+
+  async getSantri(){
+    return this.prisma.user.findMany({
+      where:{
+        role:"santri"
+      }
+    })
+  }
 }

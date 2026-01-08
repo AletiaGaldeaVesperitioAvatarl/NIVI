@@ -44,4 +44,8 @@ export class UserService {
   getStats = async () => {
     return this.userRepository.getStats();
   };
+
+  getSantri = async () =>{
+    return this.userRepository.getSantri()
+  }
 }

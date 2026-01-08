@@ -30,4 +30,7 @@ router.delete("/:id", userController.deactivate);
 
 // GET USER STATS
 router.get("/stats/all", userController.getStats);
+
+router.get("/santri", userController.getSantri)
+
 export default router
