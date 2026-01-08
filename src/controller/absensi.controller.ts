@@ -51,12 +51,13 @@ export class AbsensiController {
   };
 
   absen = async (req: Request, res: Response) => {
-    const userId = Number(req.user!.id);
+    const userId = Number(req.user!.id)
     const kelasId = req.user!.kelasId;
+    const {status}=req.body
 
     if (!kelasId) throw new Error("User belum punya kelas");
 
-    const absensi = await this.absensiService.absenHadir(userId, kelasId);
+    const absensi = await this.absensiService.absenHadir(userId, kelasId, status);
     successResponse(res, "Absen berhasil", absensi, null, 201);
   };
 
