@@ -23,11 +23,10 @@ export const authenticate = (
 
   try {
     const payload = jwt.verify(token, config.JWT_SECRET) as {
-  id: string;
-  role: Role;
-  kelasId: number;
-};
-
+      id: number;
+      role: Role;
+      kelasId: number;
+    };
 
     req.user = payload;
     next();

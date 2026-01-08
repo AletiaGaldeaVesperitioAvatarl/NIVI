@@ -12,6 +12,7 @@ import userRoute from "./routes/user.route"
 import absensiRoute from "./routes/absensi.route"
 import tugasRoute from "./routes/tugas.route"
 import kelasRoute from "./routes/kelas.routes"
+import submissionRoute from "./routes/submission.route"
 
 
 
@@ -32,6 +33,7 @@ app.use("/api/users", userRoute)
 app.use("/api/absensi", absensiRoute)
 app.use("/api/tugas", tugasRoute)
 app.use("/api/kelas", kelasRoute)
+app.use("/api/submission", submissionRoute)
 
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());

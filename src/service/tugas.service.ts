@@ -34,4 +34,10 @@ export class TugasService {
   deleteTugas = async (id: number): Promise<Tugas> => {
     return this.tugasRepository.delete(id);
   };
+async getTasksForSantri(userId: number) {
+  return this.tugasRepository.getTasksWithSubmission(userId);
+}
+
+
+
 }

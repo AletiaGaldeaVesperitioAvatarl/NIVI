@@ -41,7 +41,7 @@ export class TugasController {
     const tugas = await this.tugasService.updateTugas(id, data);
     successResponse(res, "Tugas berhasil diperbarui", tugas);
   };
-
+  
   // DELETE TUGAS
   delete = async (req: Request, res: Response) => {
     if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");
@@ -49,4 +49,17 @@ export class TugasController {
     const tugas = await this.tugasService.deleteTugas(id);
     successResponse(res, "Tugas berhasil dihapus", tugas);
   };
+
+getForSantri = async (req: any, res: Response) => {
+  const userId = req.user.id;
+
+  const tasks = await this.tugasService.getTasksForSantri(userId);
+
+  res.json({
+    success: true,
+    data: tasks,
+  });
+};
+
+
 }

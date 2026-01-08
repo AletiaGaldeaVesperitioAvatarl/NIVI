@@ -3,6 +3,7 @@ import { AbsensiRepository } from "../repository/absensi.repository";
 import prismaInstance from "../database";
 import { AbsensiService } from "../service/absensi.service";
 import { AbsensiController } from "../controller/absensi.controller";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -48,7 +49,7 @@ router.get("/", absensiController.getAll);
  *         description: User belum melakukan absensi hari ini
  */
 // GET BY USER ID
-router.get("/me/today", absensiController.getMyTodayAbsensi);
+router.get("/me/today", authenticate,absensiController.getMyTodayAbsensi);
 /**
  * @swagger
  * /absensi/me/absen:
@@ -77,7 +78,7 @@ router.get("/me/today", absensiController.getMyTodayAbsensi);
  *         description: Sudah absen hari ini
  */
 
-router.post("/me/absen", absensiController.absen);""
+router.post("/me/absen", authenticate,absensiController.absen);""
 /**
  * @swagger
  * /absensi/user/{userId}:

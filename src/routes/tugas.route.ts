@@ -14,27 +14,11 @@ const tugasRepo = new TugasRepository(prismaInstance);
 const tugasService = new TugasService(tugasRepo);
 const tugasController = new TugasController(tugasService);
 
-/**
- * @swagger
- * tags:
- *   name: Tugas
- *   description: Manajemen tugas santri
- */
-
 // ========================
 // TUGAS ROUTES
 // ========================
 
-/**
- * @swagger
- * /tugas:
- *   get:
- *     summary: Ambil semua tugas
- *     tags: [Tugas]
- *     responses:
- *       200:
- *         description: Semua tugas berhasil diambil
- */
+// GET ALL TUGAS
 router.get("/", tugasController.getAll);
 
 /**

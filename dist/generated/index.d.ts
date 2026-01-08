@@ -75,7 +75,8 @@ export type Role = (typeof Role)[keyof typeof Role]
 export const StatusAbsensi: {
   hadir: 'hadir',
   izin: 'izin',
-  alpha: 'alpha'
+  alpha: 'alpha',
+  sakit: 'sakit'
 };
 
 export type StatusAbsensi = (typeof StatusAbsensi)[keyof typeof StatusAbsensi]
@@ -91,8 +92,10 @@ export type StatusIzin = (typeof StatusIzin)[keyof typeof StatusIzin]
 
 
 export const StatusSubmission: {
-  tepat_waktu: 'tepat_waktu',
-  terlambat: 'terlambat'
+  pending: 'pending',
+  submitted: 'submitted',
+  reviewed: 'reviewed',
+  rejected: 'rejected'
 };
 
 export type StatusSubmission = (typeof StatusSubmission)[keyof typeof StatusSubmission]
@@ -13739,7 +13742,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -13758,7 +13761,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -13814,7 +13817,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15600,7 +15603,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -15618,7 +15621,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15740,7 +15743,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -15758,7 +15761,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -15880,7 +15883,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -15898,7 +15901,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16125,7 +16128,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16143,7 +16146,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -16211,7 +16214,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16229,7 +16232,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -16355,7 +16358,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16373,7 +16376,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -16467,7 +16470,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16485,7 +16488,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -16609,7 +16612,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
@@ -16627,7 +16630,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
     createdAt?: Date | string
@@ -17213,7 +17216,7 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    role: $Enums.Role
+    role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null

@@ -18,6 +18,8 @@ enum StatusIzin {
 }
 
 enum StatusSubmission {
-  tepat_waktu
-  terlambat
+  pending
+  submitted
+  reviewed
+  rejected
 }
