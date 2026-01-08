@@ -60,4 +60,12 @@ export class UserRepository {
       }
     })
   }
+
+  async getPengajar() {
+    return this.prisma.user.findMany({
+      where:{
+        role:"pengajar"
+      }
+    })
+  }
 }

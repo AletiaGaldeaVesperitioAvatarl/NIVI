@@ -48,4 +48,8 @@ export class UserService {
   getSantri = async () =>{
     return this.userRepository.getSantri()
   }
+
+  getPengajar = async () =>{
+    return this.userRepository.getPengajar()
+  }
 }

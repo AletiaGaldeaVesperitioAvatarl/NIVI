@@ -78,4 +78,14 @@ export class UserController {
       santri
     )
   }
+
+  getPengajar = async (_req:Request, res:Response) =>{
+    const pengajar = await this.userService.getPengajar()
+
+    successResponse(
+      res,
+      "Berhasil mengambil semua pengajar",
+      pengajar
+    )
+  }
 }

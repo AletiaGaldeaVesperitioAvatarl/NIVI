@@ -33,4 +33,6 @@ router.get("/stats/all", userController.getStats);
 
 router.get("/santri", userController.getSantri)
 
+router.get("/pengajar", userController.getPengajar)
+
 export default router
