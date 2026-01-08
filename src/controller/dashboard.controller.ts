@@ -6,7 +6,13 @@ export class DashboardController {
 
   getPengajarDashboard = async (req: Request, res: Response) => {
     try {
-      const pengajarId = req.user!.id;
+      if (!req.user) {
+        return res.status(401).json({
+          message: "Unauthorized",
+        });
+      }
+
+      const pengajarId = req.user.id;
 
       const data = await this.service.getDashboardPengajar(pengajarId);
 
