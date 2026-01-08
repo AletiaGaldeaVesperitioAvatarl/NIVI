@@ -1,11 +1,14 @@
 model Kelas {
-  id         Int      @id @default(autoincrement())
-  namaKelas  String
-  deskripsi  String?
-  createdAt  DateTime @default(now())
+  id          Int        @id @default(autoincrement())
+  namaKelas   String
 
-  users      User[]
-  absensi    Absensi[]
-  izin       Izin[]
-  tugas      Tugas[]
+  // ✅ SANTRI
+  santri      User[]     @relation("SantriKelas")
+
+  // ✅ PENGAJAR
+  pengajar    User[]     @relation("PengajarKelas")
+
+  absensi     Absensi[]
+  izin        Izin[]
+  tugas       Tugas[]
 }

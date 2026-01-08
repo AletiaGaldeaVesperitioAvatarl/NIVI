@@ -23,5 +23,8 @@ export class TugasService {
     deleteTugas = async (id) => {
         return this.tugasRepository.delete(id);
     };
+    async getTasksForSantri(userId) {
+        return this.tugasRepository.getTasksWithSubmission(userId);
+    }
 }
 //# sourceMappingURL=tugas.service.js.map

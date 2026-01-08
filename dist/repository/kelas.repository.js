@@ -7,11 +7,12 @@ export class KelasRepository {
     getAll = async () => {
         return this.prisma.kelas.findMany({
             include: {
-                users: true,
+                santri: true,
+                pengajar: true,
                 absensi: true,
                 izin: true,
                 tugas: true,
-            },
+            }
         });
     };
     // GET KELAS BY ID
@@ -19,7 +20,20 @@ export class KelasRepository {
         return this.prisma.kelas.findFirst({
             where: { id },
             include: {
-                users: true,
+                pengajar: {
+                    select: {
+                        id: true,
+                        email: true,
+                        profiles: true,
+                    },
+                },
+                santri: {
+                    select: {
+                        id: true,
+                        email: true,
+                        profiles: true,
+                    },
+                },
                 absensi: true,
                 izin: true,
                 tugas: true,
@@ -43,6 +57,21 @@ export class KelasRepository {
     delete = async (id) => {
         return this.prisma.kelas.delete({
             where: { id },
+        });
+    };
+    // repository/kelas.repository.ts
+    assignPengajar = async (kelasId, pengajarId) => {
+        return this.prisma.kelas.update({
+            where: { id: kelasId },
+            data: {
+                pengajar: {
+                    connect: { id: pengajarId },
+                },
+            },
+            include: {
+                pengajar: true,
+                santri: true,
+            },
         });
     };
 }

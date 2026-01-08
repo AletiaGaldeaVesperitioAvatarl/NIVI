@@ -11,5 +11,32 @@ export declare class KelasService {
     }) => Promise<Kelas>;
     updateKelas: (id: number, data: Partial<Kelas>) => Promise<Kelas>;
     deleteKelas: (id: number) => Promise<Kelas>;
+    assignPengajarKeKelas: (kelasId: number, pengajarId: number) => Promise<{
+        pengajar: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+        santri: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+    } & {
+        id: number;
+        namaKelas: string;
+    }>;
 }
 //# sourceMappingURL=kelas.service.d.ts.map

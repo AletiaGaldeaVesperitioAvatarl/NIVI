@@ -14,5 +14,14 @@ export declare class TugasService {
     }) => Promise<Tugas>;
     updateTugas: (id: number, data: Partial<Tugas>) => Promise<Tugas>;
     deleteTugas: (id: number) => Promise<Tugas>;
+    getTasksForSantri(userId: number): Promise<{
+        id: number;
+        title: string;
+        description: string | null;
+        deadline: Date;
+        status: import("../../dist/generated/index.js").$Enums.StatusSubmission;
+        submission_link: string | null;
+        submitted_at: Date | null;
+    }[]>;
 }
 //# sourceMappingURL=tugas.service.d.ts.map

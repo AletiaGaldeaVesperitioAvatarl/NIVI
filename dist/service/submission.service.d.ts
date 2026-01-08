@@ -8,7 +8,15 @@ export declare class SubmissionService {
         userId: number;
         fileUrl?: string;
         linkUrl?: string;
-    }) => Promise<Submission>;
+    }) => Promise<{
+        id: number;
+        userId: number;
+        status: import("../../dist/generated/index.js").$Enums.StatusSubmission;
+        tugasId: number;
+        fileUrl: string | null;
+        linkUrl: string | null;
+        submittedAt: Date;
+    }>;
     getAll: () => Promise<Submission[]>;
     getById: (id: number) => Promise<Submission | null>;
     getByUser: (userId: number) => Promise<Submission[]>;

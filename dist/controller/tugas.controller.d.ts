@@ -8,5 +8,6 @@ export declare class TugasController {
     create: (req: Request, res: Response) => Promise<void>;
     update: (req: Request, res: Response) => Promise<void>;
     delete: (req: Request, res: Response) => Promise<void>;
+    getForSantri: (req: any, res: Response) => Promise<void>;
 }
 //# sourceMappingURL=tugas.controller.d.ts.map

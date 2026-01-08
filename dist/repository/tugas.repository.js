@@ -57,5 +57,28 @@ export class TugasRepository {
             where: { id },
         });
     };
+    async getTasksWithSubmission(userId) {
+        const tugas = await this.prisma.tugas.findMany({
+            include: {
+                submission: {
+                    where: { userId },
+                    take: 1,
+                },
+            },
+            orderBy: { deadline: 'asc' },
+        });
+        return tugas.map(t => {
+            const submission = t.submission[0];
+            return {
+                id: t.id,
+                title: t.title,
+                description: t.description,
+                deadline: t.deadline,
+                status: submission ? submission.status : 'pending',
+                submission_link: submission?.linkUrl ?? null,
+                submitted_at: submission?.submittedAt ?? null,
+            };
+        });
+    }
 }
 //# sourceMappingURL=tugas.repository.js.map
