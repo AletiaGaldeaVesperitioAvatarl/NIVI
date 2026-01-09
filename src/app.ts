@@ -15,6 +15,7 @@ import kelasRoute from "./routes/kelas.routes"
 import submissionRoute from "./routes/submission.route"
 import pengajarRouter from "./routes/pengajar.route"
 import halamanRouter from "./routes/dashboard.route"
+import profileRouter from "./routes/profile.route"
 
 
 const app: Application = Express()
@@ -37,6 +38,7 @@ app.use("/api/kelas", kelasRoute)
 app.use("/api/submission", submissionRoute)
 app.use("/api/pengajar", pengajarRouter)
 app.use("/api/halaman", halamanRouter)
+app.use("/api/profile", profileRouter)
 
 app.get("/", (req: Request, res: Response) => {
   const waktuProses = Date.now() - (req.startTime || Date.now());

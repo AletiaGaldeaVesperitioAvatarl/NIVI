@@ -27,15 +27,20 @@ export class ProfileRepository {
   };
 
   // UPDATE PROFILE
-  updateByUserId = async (
-    userId: number,
-    data: Partial<Profile>
-  ): Promise<Profile> => {
-    return this.prisma.profile.update({
-      where: { userId },
-      data,
-    });
-  };
+updateByUserId = async (
+  userId: number,
+  data: Partial<Profile>
+): Promise<Profile> => {
+  // konversi string ke Date jika perlu
+  if (data.tanggalLahir && typeof data.tanggalLahir === 'string') {
+    data.tanggalLahir = new Date(data.tanggalLahir);
+  }
+
+  return this.prisma.profile.update({
+    where: { userId }, // pastikan userId di schema @unique
+    data,
+  });
+};
 
   // DELETE PROFILE (OPSIONAL, JARANG DIPAKE)
   deleteByUserId = async (userId: number): Promise<Profile> => {
