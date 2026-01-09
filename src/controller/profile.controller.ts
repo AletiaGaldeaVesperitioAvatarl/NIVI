@@ -8,23 +8,17 @@ export class ProfileController {
   // ======================
   // GET /profile/me
   // ======================
-  getMyProfile = async (req: Request, res: Response) => {
-    const userId = req.user!.id;
+getMyProfile = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
 
-    const profile = await this.profileService.getProfileByUserId(userId);
+  const profile = await this.profileService.getProfileByUserId(userId);
 
-    if (!profile) {
-      return successResponse(
-        res,
-        "Profile belum dibuat",
-        null,
-        null,
-        404
-      );
-    }
+  successResponse(res, "Profile berhasil diambil", {
+    user: req.user,
+    profile,
+  });
+};
 
-    successResponse(res, "Profile berhasil diambil", profile);
-  };
 // ======================
 // GET /profile/user/:userId (ADMIN)
 // ======================
