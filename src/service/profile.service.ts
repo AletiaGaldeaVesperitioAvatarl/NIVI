@@ -34,4 +34,16 @@ export class ProfileService {
   deletedProfile = async (userId: number): Promise<Profile> => {
     return this.profileRepository.deleteByUserId(userId);
   };
+    upsertProfile = async (userId: number, payload: any) => {
+    const profile = await this.profileRepository.upsertByUserId(userId, {
+      namaLengkap: payload.namaLengkap,
+      noHp: payload.noHp,
+      alamat: payload.alamat,
+      fotoUrl: payload.fotoUrl,
+      tanggalLahir: payload.tanggalLahir ? new Date(payload.tanggalLahir) : null,
+      jenisKelamin: payload.jenisKelamin,
+    });
+
+    return profile;
+  };
 }

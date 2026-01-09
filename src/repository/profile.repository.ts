@@ -48,4 +48,19 @@ updateByUserId = async (
       where: { userId },
     });
   };
+
+    upsertByUserId = async (
+    userId: number,
+    data: Omit<Profile, "id" | "userId" | "createdAt" | "updatedAt">
+  ): Promise<Profile> => {
+    return this.prisma.profile.upsert({
+      where: { userId },
+      update: data,
+      create: {
+        userId,
+        ...data,
+      },
+    });
+  };
+
 }

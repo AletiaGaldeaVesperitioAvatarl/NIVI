@@ -21,8 +21,9 @@ const profileController = new ProfileController(profileService);
 router.get(
   "/me",
   authenticate,
-  profileController.getMyProfile
+  profileController.getMe
 );
+router.put("/me", authenticate, profileController.upsertMe);
 
 //  GET profile by userId (ADMIN ONLY)
 router.get(
