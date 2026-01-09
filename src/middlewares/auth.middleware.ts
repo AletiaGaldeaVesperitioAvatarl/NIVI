@@ -33,4 +33,4 @@ export const authenticate = (
   } catch (error) {
     return errorResponse(res, "Token tidak valid!", 401);
   }
-};
+}; 

@@ -13,5 +13,14 @@ export declare class TugasRepository {
     }) => Promise<Tugas>;
     update: (id: number, data: Partial<Tugas>) => Promise<Tugas>;
     delete: (id: number) => Promise<Tugas>;
+    getTasksWithSubmission(userId: number): Promise<{
+        id: number;
+        title: string;
+        description: string | null;
+        deadline: Date;
+        status: import("../../dist/generated/index.js").$Enums.StatusSubmission;
+        submission_link: string | null;
+        submitted_at: Date | null;
+    }[]>;
 }
 //# sourceMappingURL=tugas.repository.d.ts.map

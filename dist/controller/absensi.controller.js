@@ -27,17 +27,6 @@ export class AbsensiController {
         const absensi = await this.absensiService.getByUserId(userId);
         successResponse(res, `Absensi user ${userId} berhasil diambil`, absensi);
     };
-    // CREATE ABSENSI
-    create = async (req, res) => {
-        const { userId, kelasId, tanggal, status } = req.body;
-        const absensi = await this.absensiService.createAbsensi({
-            userId,
-            kelasId,
-            tanggal: new Date(tanggal),
-            status
-        });
-        successResponse(res, "Absensi berhasil dibuat", absensi, null, 201);
-    };
     // UPDATE ABSENSI
     update = async (req, res) => {
         if (!req.params.id)
@@ -54,6 +43,20 @@ export class AbsensiController {
         const id = Number(req.params.id);
         const absensi = await this.absensiService.deleteAbsensi(id);
         successResponse(res, "Absensi berhasil dihapus", absensi);
+    };
+    getMyTodayAbsensi = async (req, res) => {
+        const userId = Number(req.user.id);
+        const data = await this.absensiService.getTodayByUser(userId);
+        successResponse(res, "Absensi hari ini", data);
+    };
+    absen = async (req, res) => {
+        const userId = Number(req.user.id);
+        const kelasId = req.user.kelasId;
+        const { status } = req.body;
+        if (!kelasId)
+            throw new Error("User belum punya kelas");
+        const absensi = await this.absensiService.absenHadir(userId, kelasId, status);
+        successResponse(res, "Absen berhasil", absensi, null, 201);
     };
 }
 //# sourceMappingURL=absensi.controller.js.map

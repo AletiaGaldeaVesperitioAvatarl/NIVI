@@ -6,27 +6,42 @@ export class KelasRepository {
   // GET ALL KELAS
   getAll = async (): Promise<Kelas[]> => {
     return this.prisma.kelas.findMany({
-      include: {
-        users: true,
-        absensi: true,
-        izin: true,
-        tugas: true,
-      },
+include: {
+  santri: true,
+  pengajar: true,
+  absensi: true,
+  izin: true,
+  tugas: true,
+}
+
     });
   };
 
   // GET KELAS BY ID
-  getById = async (id: number): Promise<Kelas | null> => {
-    return this.prisma.kelas.findFirst({
-      where: { id },
-      include: {
-        users: true,
-        absensi: true,
-        izin: true,
-        tugas: true,
+getById = async (id: number): Promise<Kelas | null> => {
+  return this.prisma.kelas.findFirst({
+    where: { id },
+    include: {
+      pengajar: {
+        select: {
+          id: true,
+          email: true,
+          profiles: true,
+        },
       },
-    });
-  };
+      santri: {
+        select: {
+          id: true,
+          email: true,
+          profiles: true,
+        },
+      },
+      absensi: true,
+      izin: true,
+      tugas: true,
+    },
+  });
+};
 
   // CREATE NEW KELAS
   create = async (data: {
@@ -52,4 +67,20 @@ export class KelasRepository {
       where: { id },
     });
   };
+  // repository/kelas.repository.ts
+assignPengajar = async (kelasId: number, pengajarId: number) => {
+  return this.prisma.kelas.update({
+    where: { id: kelasId },
+    data: {
+      pengajar: {
+        connect: { id: pengajarId },
+      },
+    },
+    include: {
+      pengajar: true,
+      santri: true,
+    },
+  });
+};
+
 }

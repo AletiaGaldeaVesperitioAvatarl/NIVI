@@ -1,5 +1,7 @@
+import { Role } from "../../dist/generated/index.js";
 import jwt from "jsonwebtoken";
 import config from "../utils/env.js";
+import bcrypt from "bcrypt";
 export class AuthService {
     authRepository;
     constructor(authRepository) {
@@ -7,14 +9,16 @@ export class AuthService {
     }
     // REGISTER USER
     register = async (data) => {
-        // cek email udah ada apa belum
         const existingUser = await this.authRepository.getUserByEmail(data.email);
         if (existingUser) {
             throw new Error("Email sudah terdaftar!");
         }
-        // create user
-        const user = await this.authRepository.createUser(data);
-        return user;
+        const hashedPassword = await bcrypt.hash(data.password, 10);
+        return this.authRepository.createUser({
+            ...data,
+            role: Role.santri,
+            password: hashedPassword,
+        });
     };
     // LOGIN USER
     login = async (email, password) => {
@@ -25,7 +29,11 @@ export class AuthService {
         if (!passwordValid)
             throw new Error("Password salah!");
         // generate JWT
-        const token = jwt.sign({ id: user.id, role: user.role }, config.JWT_SECRET, { expiresIn: "1d" });
+        const token = jwt.sign({
+            id: user.id,
+            role: user.role,
+            kelasId: user.kelasId,
+        }, config.JWT_SECRET, { expiresIn: "1d" });
         return { token, user };
     };
 }

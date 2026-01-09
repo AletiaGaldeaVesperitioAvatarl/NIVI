@@ -43,4 +43,13 @@ export class KelasController {
     const kelas = await this.kelasService.deleteKelas(id);
     successResponse(res, "Kelas berhasil dihapus", kelas);
   };
+
+  assignPengajar = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.id);
+  const { pengajarId } = req.body;
+
+  const kelas = await this.kelasService.assignPengajarKeKelas(kelasId, pengajarId);
+  successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
+};
+
 }

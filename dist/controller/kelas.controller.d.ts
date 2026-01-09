@@ -8,5 +8,6 @@ export declare class KelasController {
     create: (req: Request, res: Response) => Promise<void>;
     update: (req: Request, res: Response) => Promise<void>;
     delete: (req: Request, res: Response) => Promise<void>;
+    assignPengajar: (req: Request, res: Response) => Promise<void>;
 }
 //# sourceMappingURL=kelas.controller.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"pengajar.service.d.ts","sourceRoot":"","sources":["../../src/service/pengajar.service.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,mCAAmC,CAAC;AAEvE,qBAAa,eAAe;IAEd,OAAO,CAAC,MAAM;gBAAN,MAAM,EAAC,kBAAkB;IAE7C,cAAc,GAAU,MAAM;QAC5B,IAAI,EAAE,MAAM,CAAC;QACb,KAAK,EAAE,MAAM,CAAC;QACd,QAAQ,EAAE,MAAM,CAAC;KAClB;;;;;;;;;;OAgBC;CACH"}

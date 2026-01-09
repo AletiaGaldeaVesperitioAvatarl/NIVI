@@ -1,20 +1,27 @@
 model User {
   id          Int        @id @default(autoincrement())
-  name        String    
+  name        String
   email       String     @unique
   password    String
   role        Role       @default(santri)
+
+  // ✅ untuk SANTRI
   kelasId     Int?
+  kelas       Kelas?     @relation("SantriKelas", fields: [kelasId], references: [id])
+
+  // ✅ untuk PENGAJAR
+  kelasAjar   Kelas[]    @relation("PengajarKelas")
+
   isActive    Boolean    @default(true)
   createdAt   DateTime   @default(now())
   deletedAt   DateTime?
 
-  kelas       Kelas?     @relation(fields: [kelasId], references: [id])
-  profile     Profile?
   absensi     Absensi[]
   izin        Izin[]
   tugasDibuat Tugas[]    @relation("TugasDibuat")
   submission  Submission[]
   nilai       Nilai[]
   log         LogAktivitas[]
+
+  profiles Profile[]
 }

@@ -23,5 +23,13 @@ export class KelasService {
     deleteKelas = async (id) => {
         return this.kelasRepository.delete(id);
     };
+    assignPengajarKeKelas = async (kelasId, pengajarId) => {
+        // validasi tambahan (opsional tapi bagus)
+        const kelas = await this.kelasRepository.getById(kelasId);
+        if (!kelas) {
+            throw new Error("Kelas tidak ditemukan");
+        }
+        return this.kelasRepository.assignPengajar(kelasId, pengajarId);
+    };
 }
 //# sourceMappingURL=kelas.service.js.map

@@ -3,14 +3,13 @@ import { TugasRepository } from "../repository/tugas.repository.js";
 import prismaInstance from "../database.js";
 import { TugasService } from "../service/tugas.service.js";
 import { TugasController } from "../controller/tugas.controller.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 const router = Router();
 // INIT LAYER
 const tugasRepo = new TugasRepository(prismaInstance);
 const tugasService = new TugasService(tugasRepo);
 const tugasController = new TugasController(tugasService);
-// ========================
-// TUGAS ROUTES
-// ========================
+router.get("/task", authenticate, tugasController.getForSantri);
 // GET ALL TUGAS
 router.get("/", tugasController.getAll);
 // GET TUGAS BY ID

@@ -22,16 +22,24 @@ export class TugasController {
 
   // CREATE TUGAS
   create = async (req: Request, res: Response) => {
-    const { kelasId, title, description, deadline, createdBy } = req.body;
+    if (!req.user?.id) {
+      throw new Error("User tidak ditemukan!")
+    }
+    const userId = req.user.id; // 🔥 DARI JWT
+    const { kelasId, title, description, deadline } = req.body;
+
     const tugas = await this.tugasService.createTugas({
-      kelasId,
+      kelasId: Number(kelasId),
       title,
       description,
       deadline: new Date(deadline),
-      createdBy
+      createdBy: userId
     });
+
     successResponse(res, "Tugas berhasil dibuat", tugas, null, 201);
   };
+
+
 
   // UPDATE TUGAS
   update = async (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import { AuthRepository } from "../repository/auth.repository.js";
-import { User, Role } from "../../dist/generated/index.js";
+import { User } from "../../dist/generated/index.js";
 export declare class AuthService {
     private authRepository;
     constructor(authRepository: AuthRepository);
@@ -7,9 +7,18 @@ export declare class AuthService {
         name: string;
         email: string;
         password: string;
-        role: Role;
         kelasId?: number;
-    }) => Promise<User>;
+    }) => Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }>;
     login: (email: string, password: string) => Promise<{
         token: string;
         user: User;

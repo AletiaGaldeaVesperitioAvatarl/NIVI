@@ -53,7 +53,7 @@ export class AbsensiController {
   absen = async (req: Request, res: Response) => {
     const userId = Number(req.user!.id)
     const kelasId = req.user!.kelasId;
-    const {status}=req.body
+    const { status } = req.body
 
     if (!kelasId) throw new Error("User belum punya kelas");
 

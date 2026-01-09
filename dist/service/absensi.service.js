@@ -15,9 +15,19 @@ export class AbsensiService {
     getByUserId = async (userId) => {
         return this.absensiRepository.getByUserId(userId);
     };
-    // CREATE ABSENSI
-    createAbsensi = async (data) => {
-        return this.absensiRepository.create(data);
+    getTodayByUser = async (userId) => {
+        return this.absensiRepository.getTodayByUser(userId);
+    };
+    absenHadir = async (userId, kelasId, status) => {
+        const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
+        if (todayAbsensi.length >= 4) {
+            throw new Error("Absen hari ini sudah mencapai batas (4x)");
+        }
+        return this.absensiRepository.create({
+            userId,
+            kelasId,
+            status
+        });
     };
     // UPDATE ABSENSI
     updateAbsensi = async (id, data) => {

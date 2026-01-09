@@ -46,6 +46,11 @@ router.get("/", userController.getAll);
  *       200:
  *         description: User ditemukan
  */
+router.get("/santri", userController.getSantri)
+
+router.get("/pengajar", userController.getPengajar)
+
+// GET USER BY ID
 router.get("/:id", userController.getById);
 
 /**

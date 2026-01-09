@@ -4,11 +4,10 @@ export class SubmissionService {
     constructor(submissionRepo) {
         this.submissionRepo = submissionRepo;
     }
-    // SUBMIT TUGAS
     submit = async (data) => {
         return this.submissionRepo.create({
             ...data,
-            status: StatusSubmission.tepat_waktu,
+            status: StatusSubmission.submitted,
         });
     };
     // GET ALL

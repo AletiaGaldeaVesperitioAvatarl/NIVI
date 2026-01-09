@@ -1,4 +1,4 @@
-import { PrismaClient, User, Role } from "../../dist/generated/index.js";
+import { PrismaClient, Role, User } from "../../dist/generated/index.js";
 export declare class AuthRepository {
     private prisma;
     constructor(prisma: PrismaClient);

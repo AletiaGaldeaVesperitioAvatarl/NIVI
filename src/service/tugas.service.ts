@@ -15,16 +15,23 @@ export class TugasService {
   };
 
   // CREATE NEW TUGAS
-  createTugas = async (data: {
+  async createTugas(data: {
     kelasId: number;
     title: string;
-    description?: string;
+    description: string;
     deadline: Date;
     createdBy: number;
-  }): Promise<Tugas> => {
-    return this.tugasRepository.create(data);
-  };
+  }) {
+    if (!data.kelasId) {
+      throw new Error("kelasId wajib diisi");
+    }
 
+    if (!data.createdBy) {
+      throw new Error("createdBy tidak ditemukan");
+    }
+
+    return this.tugasRepository.create(data);
+  }
   // UPDATE TUGAS
   updateTugas = async (id: number, data: Partial<Tugas>): Promise<Tugas> => {
     return this.tugasRepository.update(id, data);
