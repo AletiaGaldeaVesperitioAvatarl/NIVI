@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { DashboardService } from "../service/dashboard.service";
+import { successResponse } from "../utils/response";
 
 export class DashboardController {
   constructor(private service: DashboardService) {}
@@ -23,4 +24,14 @@ export class DashboardController {
       });
     }
   };
+// ====================================================
+  getDashboard = async (req: Request, res: Response) => {
+    const userId = Number(req.user!.id);
+
+    const data = await this.service.getDashboardPengajar(userId);
+
+    return successResponse(res, "Dashboard berhasil diambil", data);
+  };
 }
+
+
