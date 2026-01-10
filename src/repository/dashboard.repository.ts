@@ -49,7 +49,7 @@ async getAbsensiHariIni(kelasIds: number[], date: Date) {
 }
 
 
-  async getTugasAktif(kelasIds: number[], today: Date) {
+  async getTugasAktifSantri(kelasIds: number[], today: Date) {
     return this.prisma.tugas.count({
       where: {
         kelasId: { in: kelasIds },
@@ -89,6 +89,53 @@ async getKelasIdsByPengajar(pengajarId: number) {
 
   return kelas.map(k => k.id);
 }
+// ===============================================
+  getKelasByUser(userId: number) {
+    return this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        kelas: true,
+      },
+    });
+  }
 
+  getAbsensiHariSantri(userId: number, today: Date) {
+    return this.prisma.absensi.findFirst({
+      where: {
+        userId,
+        tanggal: {
+          gte: new Date(today.setHours(0, 0, 0)),
+          lte: new Date(today.setHours(23, 59, 59)),
+        },
+      },
+    });
+  }
 
+  getPersentaseKehadiran(userId: number) {
+    return this.prisma.absensi.groupBy({
+      by: ["status"],
+      where: { userId },
+      _count: true,
+    });
+  }
+
+  getTugasAktif(kelasId: number) {
+    return this.prisma.tugas.findMany({
+      where: {
+        kelasId,
+        deadline: { gte: new Date() },
+      },
+      orderBy: { deadline: "asc" },
+    });
+  }
+
+  getRiwayatAbsensi(userId: number) {
+    return this.prisma.absensi.findMany({
+      where: { userId },
+      orderBy: { tanggal: "desc" },
+      take: 7,
+    });
+  }
 }
+
+

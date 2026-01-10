@@ -48,4 +48,6 @@ export class AbsensiService {
   deleteAbsensi = async (id: number): Promise<Absensi> => {
     return this.absensiRepository.delete(id);
   };
+
+  
 }
