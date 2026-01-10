@@ -49,7 +49,7 @@ async getAbsensiHariIni(kelasIds: number[], date: Date) {
 }
 
 
-  async getTugasAktifSantri(kelasIds: number[], today: Date) {
+  async getTugasAktif(kelasIds: number[], today: Date) {
     return this.prisma.tugas.count({
       where: {
         kelasId: { in: kelasIds },
@@ -119,7 +119,7 @@ async getKelasIdsByPengajar(pengajarId: number) {
     });
   }
 
-  getTugasAktif(kelasId: number) {
+  getTugasAktifSantri(kelasId: number) {
     return this.prisma.tugas.findMany({
       where: {
         kelasId,

@@ -31,7 +31,7 @@ async getDashboardPengajar(pengajarId: number) {
     this.repo.getTotalSantriByPengajar(kelasIds),
     this.repo.getTotalKelasByPengajar(pengajarId),
     this.repo.getAbsensiHariIni(kelasIds, today),
-    this.repo.getTugasAktifSantri(kelasIds, today),
+    this.repo.getTugasAktif(kelasIds, today),
     this.repo.getSubmissionMasuk(kelasIds),
     this.repo.getIzinPending(kelasIds),
   ]);
@@ -64,7 +64,7 @@ async getDashboardPengajar(pengajarId: number) {
     ] = await Promise.all([
       this.repo.getAbsensiHariSantri(userId, today),
       this.repo.getPersentaseKehadiran(userId),
-      this.repo.getTugasAktif(user.kelas.id),
+      this.repo.getTugasAktifSantri(user.kelas.id),
       this.repo.getRiwayatAbsensi(userId),
      
     ]);

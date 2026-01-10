@@ -11,7 +11,7 @@ export class AuthRepository {
   createUser = async (data: {
     name: string;
     email: string;
-    password: string; // SUDAH HASH
+    password: string; 
     role: Role;
     kelasId?: number;
   }): Promise<User> => {

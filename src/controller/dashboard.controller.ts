@@ -28,7 +28,7 @@ export class DashboardController {
   getDashboard = async (req: Request, res: Response) => {
     const userId = Number(req.user!.id);
 
-    const data = await this.service.getDashboardPengajar(userId);
+    const data = await this.service.getDashboard(userId);
 
     return successResponse(res, "Dashboard berhasil diambil", data);
   };
