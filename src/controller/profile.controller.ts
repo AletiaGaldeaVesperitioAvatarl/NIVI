@@ -93,42 +93,4 @@ getProfileByUserId = async (req: Request, res: Response) => {
 
     successResponse(res, "Profile berhasil dihapus", null);
   };
-
-    upsertMe = async (req: Request, res: Response) => {
-      if (!req.user?.id) {
-        throw new Error("User Id tidak ditemukan!")
-      }
-    const userId = req.user.id;
-
-    const profile = await this.profileService.upsertProfile(
-      userId,
-      req.body
-    );
-
-    return res.json({
-      success: true,
-      message: "Profil berhasil disimpan",
-      data: {
-        user: req.user,
-        profile,
-      },
-    });
-  };
-
-    getMe = async (req: Request, res: Response) => {
-       if (!req.user?.id) {
-        throw new Error("User Id tidak ditemukan!")
-      }
-    const userId = req.user.id;
-
-    const profile = await this.profileService.getProfileByUserId(userId);
-
-    return res.json({
-      success: true,
-      data: {
-        user: req.user,
-        profile,
-      },
-    });
-  };
 }

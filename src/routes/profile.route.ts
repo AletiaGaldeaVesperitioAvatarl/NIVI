@@ -38,9 +38,8 @@ const profileController = new ProfileController(profileService);
 router.get(
   "/me",
   authenticate,
-  profileController.getMe
+  profileController.getMyProfile
 );
-router.put("/me", authenticate, profileController.upsertMe);
 
 /**
  * @swagger
