@@ -51,7 +51,7 @@ export class AbsensiController {
   };
 
   absen = async (req: Request, res: Response) => {
-    const userId = Number(req.user!.id);
+    const userId = Number(req.user!.id)
     const kelasId = req.user!.kelasId;
     const { status } = req.body
 

@@ -12,9 +12,13 @@ const tugasRepo = new TugasRepository(prismaInstance);
 const tugasService = new TugasService(tugasRepo);
 const tugasController = new TugasController(tugasService);
 
-router.get("/task", authenticate, tugasController.getForSantri);
+// ========================
+// TUGAS ROUTES
+// ========================
+
 // GET ALL TUGAS
 router.get("/", authenticate,tugasController.getAll);
+
 
 // GET TUGAS BY ID
 router.get("/:id",authenticate, tugasController.getById);

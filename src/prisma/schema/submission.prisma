@@ -9,4 +9,6 @@ model Submission {
 
   tugas       Tugas            @relation(fields: [tugasId], references: [id])
   user        User             @relation(fields: [userId], references: [id])
+
+  @@unique([tugasId, userId]) 
 }
