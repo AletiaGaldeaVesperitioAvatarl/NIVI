@@ -52,4 +52,17 @@ export class KelasController {
   successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
 };
 
+  setPengajar = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.id);
+  const { pengajarIds } = req.body;
+
+  const kelas = await this.kelasService.setPengajarKelas(
+    kelasId,
+    pengajarIds
+  );
+
+  successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
+};
+
+
 }

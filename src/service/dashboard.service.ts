@@ -49,37 +49,4 @@ async getDashboardPengajar(pengajarId: number) {
   };
 }
 
-
-  async getDashboard(userId: number) {
-    const user = await this.repo.getKelasByUser(userId);
-    if (!user || !user.kelas) throw new Error("User belum punya kelas");
-
-    const today = new Date();
-
-    const [
-      absensiHariIni,
-      kehadiran,
-      tugas,
-      riwayat,
-    ] = await Promise.all([
-      this.repo.getAbsensiHariSantri(userId, today),
-      this.repo.getPersentaseKehadiran(userId),
-      this.repo.getTugasAktifSantri(user.kelas.id),
-      this.repo.getRiwayatAbsensi(userId),
-     
-    ]);
-
-    const total = kehadiran.reduce((a, b) => a + b._count, 0);
-    const hadir = kehadiran.find(k => k.status === "hadir")?._count || 0;
-
-    return {
-      kelas: user.kelas.namaKelas,
-      persentaseKehadiran: total === 0 ? 0 : Math.round((hadir / total) * 100),
-      absensiHariIni,
-      tugasAktif: tugas,
-      riwayatAbsensi: riwayat,
-    };
-  }
 }
-
-

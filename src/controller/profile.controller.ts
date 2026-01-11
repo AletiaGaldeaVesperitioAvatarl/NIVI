@@ -81,7 +81,10 @@ getProfileByUserId = async (req: Request, res: Response) => {
   jenisKelamin: req.body.jenisKelamin ?? null,
 });
 
-    successResponse(res, "Profile berhasil diupdate", profile);
+successResponse(res, "Profile berhasil diupdate", {
+  user: req.user,
+  profile,
+});
   };
 
     // DELETE /profile

@@ -16,7 +16,6 @@ describe("AUTH API", () => {
 
     expect(res.status).toBe(201);
     expect(res.body.success).toBe(true);
-    
     expect(res.body.data).toHaveProperty("id");
   });
 

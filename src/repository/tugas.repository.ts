@@ -79,7 +79,17 @@ export class TugasRepository {
     });
   };
 async getTasksWithSubmission(userId: number) {
+  const user = await this.prisma.user.findUnique({
+    where: { id: userId },
+    select: { kelasId: true },
+  });
+
+  if (!user?.kelasId) return [];
+
   const tugas = await this.prisma.tugas.findMany({
+    where: {
+      kelasId: user.kelasId, // 🔥 INI INTINYA
+    },
     include: {
       submission: {
         where: { userId },
@@ -97,13 +107,14 @@ async getTasksWithSubmission(userId: number) {
       title: t.title,
       description: t.description,
       deadline: t.deadline,
-
       status: submission ? submission.status : 'pending',
       submission_link: submission?.linkUrl ?? null,
       submitted_at: submission?.submittedAt ?? null,
     };
   });
-  
 }
-  
+
+
+
+
 }

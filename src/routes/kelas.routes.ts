@@ -127,5 +127,6 @@ router.delete("/:id", kelasController.delete);
 
 router.post("/:id/pengajar", kelasController.assignPengajar);
 
+router.put("/:id/pengajar", kelasController.setPengajar)
 
 export default router;

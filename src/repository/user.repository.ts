@@ -33,21 +33,12 @@ export class UserRepository {
     });
   }
 
-  async update(
-  id: number,
-  data: {
-    name?: string;
-    email?: string;
-    role?: Role;
-    kelasId?: number | null;
+  async update(id: number, data: Partial<User>): Promise<User> {
+    return this.prisma.user.update({
+      where: { id },
+      data,
+    });
   }
-): Promise<User> {
-  return this.prisma.user.update({
-    where: { id },
-    data,
-  });
-}
-
 
   async deactivate(id: number): Promise<User> {
     return this.prisma.user.update({
@@ -65,8 +56,7 @@ export class UserRepository {
   async getSantri(){
     return this.prisma.user.findMany({
       where:{
-        role:"santri",
-        isActive: true
+        role:"santri"
       }
     })
   }
@@ -74,10 +64,8 @@ export class UserRepository {
   async getPengajar() {
     return this.prisma.user.findMany({
       where:{
-        role:"pengajar",
-        isActive: true
+        role:"pengajar"
       }
     })
   }
-
 }

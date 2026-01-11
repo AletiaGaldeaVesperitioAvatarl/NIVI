@@ -154,7 +154,7 @@ router.post(
  *         description: Profile berhasil diupdate
  */
 router.put(
-  "/",
+  "/me",
   authenticate,
   profileController.updateProfile
 );

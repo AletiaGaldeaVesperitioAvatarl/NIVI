@@ -27,18 +27,19 @@ export class ProfileRepository {
   };
 
   // UPDATE PROFILE
-updateByUserId = async (
-  userId: number,
-  data: Partial<Profile>
-): Promise<Profile> => {
-  // konversi string ke Date jika perlu
-  if (data.tanggalLahir && typeof data.tanggalLahir === 'string') {
-    data.tanggalLahir = new Date(data.tanggalLahir);
-  }
-
-  return this.prisma.profile.update({
-    where: { userId }, // pastikan userId di schema @unique
-    data,
+updateByUserId = async (userId: number, data: Partial<Profile>) => {
+  return this.prisma.profile.upsert({
+    where: { userId },
+    update: data,
+    create: {
+      userId,
+      namaLengkap: data.namaLengkap ?? '',
+      noHp: data.noHp ?? null,
+      alamat: data.alamat ?? null,
+      fotoUrl: data.fotoUrl ?? null,
+      tanggalLahir: data.tanggalLahir ?? null,
+      jenisKelamin: data.jenisKelamin ?? null,
+    },
   });
 };
 

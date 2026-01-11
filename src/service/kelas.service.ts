@@ -43,4 +43,12 @@ export class KelasService {
 
     return this.kelasRepository.assignPengajar(kelasId, pengajarId);
   };
+
+  setPengajarKelas = async (kelasId: number, pengajarIds: number[]) => {
+  const kelas = await this.kelasRepository.getById(kelasId);
+  if (!kelas) throw new Error("Kelas tidak ditemukan");
+
+  return this.kelasRepository.setPengajar(kelasId, pengajarIds);
+};
+
 }
