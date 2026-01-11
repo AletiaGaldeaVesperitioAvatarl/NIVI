@@ -3,6 +3,8 @@ import { PrismaClient, Absensi, StatusAbsensi } from "../../dist/generated";
 export class AbsensiRepository {
   constructor(private prisma: PrismaClient) {}
 
+  
+
   // GET ALL ABSENSI
   getAll = async (): Promise<Absensi[]> => {
     return this.prisma.absensi.findMany({
@@ -86,5 +88,39 @@ export class AbsensiRepository {
       },
       orderBy: { tanggal: "asc" },
     });
+  };
+    
+  // AUTO ALPHA SUPPORT
+  
+  // ambil semua santri aktif
+  getAllSantriAktif = async (): Promise<
+    { id: number; kelasId: number | null }[]
+  > => {
+    return this.prisma.user.findMany({
+      where: {
+        role: "santri",
+        isActive: true,
+      },
+      select: {
+        id: true,
+        kelasId: true,
+      },
+    });
+  };
+
+  // ambil absensi hari ini by user
+  hasIzinToday = async (userId: number): Promise<boolean> => {
+    const today = new Date();
+
+    const izin = await this.prisma.izin.findFirst({
+      where: {
+        userId,
+        status: "disetujui",
+        tanggalMulai: { lte: today },
+        tanggalSelesai: { gte: today },
+      },
+    });
+
+    return !!izin;
   };
 }

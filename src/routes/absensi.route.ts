@@ -78,7 +78,7 @@ router.get("/me/today", authenticate,absensiController.getMyTodayAbsensi);
  *         description: Sudah absen hari ini
  */
 
-router.post("/me/absen", authenticate,absensiController.absen);""
+router.post("/me/absen", authenticate,absensiController.absen);
 /**
  * @swagger
  * /absensi/user/{userId}:
@@ -99,6 +99,24 @@ router.post("/me/absen", authenticate,absensiController.absen);""
  *         description: Data absensi user
  */
 router.get("/user/:userId", absensiController.getByUserId);
+
+/**
+ * @swagger
+ * /absensi/auto-alpha:
+ *   post:
+ *     summary: Jalankan auto alpha untuk santri yang belum absen & tidak izin hari ini
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Auto alpha berhasil dijalankan
+ */
+router.post(
+  "/auto-alpha",
+  authenticate,
+  absensiController.autoAlpha
+);
 // GET BY ID
 /**
  * @swagger
@@ -174,5 +192,6 @@ router.put("/:id", absensiController.update);
  */
 // DELETE
 router.delete("/:id", absensiController.delete);
+
 
 export default router;

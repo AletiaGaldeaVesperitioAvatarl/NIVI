@@ -44,10 +44,45 @@ export class AbsensiService {
     return this.absensiRepository.update(id, data);
   };
 
+  
+
   // DELETE ABSENSI
   deleteAbsensi = async (id: number): Promise<Absensi> => {
     return this.absensiRepository.delete(id);
   };
+  autoAlpha = async (): Promise<number> => {
+    const santriList =
+      await this.absensiRepository.getAllSantriAktif();
 
-  
+    let totalAlpha = 0;
+
+    for (const santri of santriList) {
+      // skip santri tanpa kelas
+      if (!santri.kelasId) continue;
+
+      // cek absensi hari ini
+      const todayAbsensi =
+        await this.absensiRepository.getTodayByUser(santri.id);
+
+      if (todayAbsensi.length > 0) continue;
+
+      // cek izin
+      const hasIzin =
+        await this.absensiRepository.hasIzinToday(santri.id);
+
+      if (hasIzin) continue;
+
+      // auto alpha
+      await this.absensiRepository.create({
+        userId: santri.id,
+        kelasId: santri.kelasId,
+        status: StatusAbsensi.alpha,
+      });
+
+      totalAlpha++;
+    }
+
+    return totalAlpha;
+  };
+
 }

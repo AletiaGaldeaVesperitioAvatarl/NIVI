@@ -5,6 +5,15 @@ import { successResponse } from "../utils/response";
 export class IzinController {
   constructor(private izinService: IzinService) {}
 
+   getMyIzin = async (req: Request, res: Response) => {
+    const userId = Number(req.user!.id);
+
+    const result = await this.izinService.getByUserId(userId);
+
+    successResponse(res, "Izin user berhasil diambil", result);
+  };
+
+
   // GET ALL IZIN
   getAll = async (_req: Request, res: Response) => {
     const data = await this.izinService.getAll();
