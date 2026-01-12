@@ -73,4 +73,27 @@ export class AbsensiController {
       return errorResponse(res, err.message);
     }
   };
+
+  // rekapbulanansantri
+  rekapBulananPerKelas = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.kelasId);
+  const { bulan } = req.query;
+
+  if (!bulan) {
+    throw new Error("Query bulan wajib (format: YYYY-MM)");
+  }
+
+  const data =
+    await this.absensiService.rekapBulananPerKelas(
+      kelasId,
+      String(bulan)
+    );
+
+  successResponse(
+    res,
+    "Rekap absensi per kelas berhasil",
+    data
+  );
+};
+
 }

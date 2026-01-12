@@ -137,6 +137,34 @@ router.post(
  *       200:
  *         description: Detail absensi
  */
+
+router.get(
+  "/rekap/kelas/:kelasId",
+  authenticate,
+  absensiController.rekapBulananPerKelas
+);
+/**
+ * @swagger
+ * /absensi/rekap/kelas/{kelasId}:
+ *   get:
+ *     summary: Rekap absensi bulanan per kelas
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: kelasId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - name: bulan
+ *         in: query
+ *         required: true
+ *         example: 2026-01
+ *     responses:
+ *       200:
+ *         description: Rekap absensi per kelas
+ */
 router.get("/:id", absensiController.getById);
 
 /**

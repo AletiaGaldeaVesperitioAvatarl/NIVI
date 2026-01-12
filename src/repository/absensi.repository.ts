@@ -123,4 +123,33 @@ export class AbsensiRepository {
 
     return !!izin;
   };
+
+  // AMBIL JUMLAH SANTRI PER KELAS
+countSantriByKelas = async (kelasId: number): Promise<number> => {
+  return this.prisma.user.count({
+    where: {
+      role: "santri",
+      kelasId,
+      isActive: true,
+    },
+  });
+};
+
+// AMBIL ABSENSI PER KELAS & BULAN
+getAbsensiByKelasAndMonth = async (
+  kelasId: number,
+  start: Date,
+  end: Date
+) => {
+  return this.prisma.absensi.findMany({
+    where: {
+      kelasId,
+      tanggal: {
+        gte: start,
+        lte: end,
+      },
+    },
+  });
+};
+
 }

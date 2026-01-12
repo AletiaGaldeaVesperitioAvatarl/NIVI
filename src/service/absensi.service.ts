@@ -85,4 +85,55 @@ export class AbsensiService {
     return totalAlpha;
   };
 
+  rekapBulananPerKelas = async (
+  kelasId: number,
+  bulan: string // format: YYYY-MM
+) => {
+  const [year, month] = bulan.split("-").map(Number);
+
+  if (!year || !month) {
+    throw new Error("Format bulan harus YYY-MM");
+    
+  }
+
+  const start = new Date(year, month - 1, 1);
+  const end = new Date(year, month, 0, 23, 59, 59);
+
+  const totalSantri =
+    await this.absensiRepository.countSantriByKelas(kelasId);
+
+  const absensi =
+    await this.absensiRepository.getAbsensiByKelasAndMonth(
+      kelasId,
+      start,
+      end
+    );
+
+  let hadir = 0;
+  let izin = 0;
+  let alpha = 0;
+
+  absensi.forEach((a) => {
+    if (a.status === "hadir") hadir++;
+    if (a.status === "izin") izin++;
+    if (a.status === "alpha") alpha++;
+  });
+
+  const totalAbsensi = hadir + izin + alpha;
+  const persentaseHadir =
+    totalAbsensi === 0
+      ? 0
+      : Math.round((hadir / totalAbsensi) * 100);
+
+  return {
+    kelasId,
+    bulan,
+    totalSantri,
+    hadir,
+    izin,
+    alpha,
+    persentaseHadir,
+  };
+};
+
 }
