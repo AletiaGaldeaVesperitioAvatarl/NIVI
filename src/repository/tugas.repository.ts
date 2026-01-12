@@ -1,4 +1,4 @@
-import { PrismaClient, Tugas } from "../../dist/generated";
+import { PrismaClient, StatusSubmission, Tugas } from "../../dist/generated";
 
 export class TugasRepository {
   constructor(private prisma: PrismaClient) {}
@@ -99,19 +99,26 @@ async getTasksWithSubmission(userId: number) {
     orderBy: { deadline: 'asc' },
   });
 
-  return tugas.map(t => {
-    const submission = t.submission[0];
+return tugas.map(t => {
+  const submission = t.submission[0];
 
-    return {
-      id: t.id,
-      title: t.title,
-      description: t.description,
-      deadline: t.deadline,
-      status: submission ? submission.status : 'pending',
-      submission_link: submission?.linkUrl ?? null,
-      submitted_at: submission?.submittedAt ?? null,
-    };
-  });
+  let status: StatusSubmission | "belum_submit" = "belum_submit";
+
+  if (submission) {
+    status = submission.status;
+  }
+
+  return {
+    id: t.id,
+    title: t.title,
+    description: t.description,
+    deadline: t.deadline,
+    status,
+    submission_link: submission?.linkUrl ?? null,
+    submitted_at: submission?.submittedAt ?? null,
+  };
+});
+
 }
 
 

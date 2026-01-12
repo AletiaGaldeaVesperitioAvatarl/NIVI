@@ -32,4 +32,6 @@ router.put("/:id",authenticate, tugasController.update);
 // DELETE TUGAS
 router.delete("/:id",authenticate, tugasController.delete);
 
+router.get("/santri",authenticate,tugasController.getForSantri);
+
 export default router;

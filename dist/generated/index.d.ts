@@ -13063,6 +13063,7 @@ export namespace Prisma {
 
   export type SubmissionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    tugasId_userId?: SubmissionTugasIdUserIdCompoundUniqueInput
     AND?: SubmissionWhereInput | SubmissionWhereInput[]
     OR?: SubmissionWhereInput[]
     NOT?: SubmissionWhereInput | SubmissionWhereInput[]
@@ -13074,7 +13075,7 @@ export namespace Prisma {
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
     tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "tugasId_userId">
 
   export type SubmissionOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13716,19 +13717,19 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutTugasInput | undefined
-    creator: UserCreateNestedOneWithoutTugasDibuatInput | undefined
+    kelas: KelasCreateNestedOneWithoutTugasInput
+    creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
     nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateInput = {
-    id?: number | undefined
-    kelasId: number | undefined
+    id?: number
+    kelasId: number
     title: string
     description?: string | null
     deadline: Date | string
-    createdBy: number | undefined
+    createdBy: number
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
@@ -14363,6 +14364,11 @@ export namespace Prisma {
     in?: $Enums.StatusSubmission[] | ListEnumStatusSubmissionFieldRefInput<$PrismaModel>
     notIn?: $Enums.StatusSubmission[] | ListEnumStatusSubmissionFieldRefInput<$PrismaModel>
     not?: NestedEnumStatusSubmissionFilter<$PrismaModel> | $Enums.StatusSubmission
+  }
+
+  export type SubmissionTugasIdUserIdCompoundUniqueInput = {
+    tugasId: number
+    userId: number
   }
 
   export type SubmissionCountOrderByAggregateInput = {
