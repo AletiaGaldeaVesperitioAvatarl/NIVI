@@ -24,4 +24,5 @@ model User {
   log         LogAktivitas[]
 
   profiles Profile[]
+   notifications Notification[]
 }
