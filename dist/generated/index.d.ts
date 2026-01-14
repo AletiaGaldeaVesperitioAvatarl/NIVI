@@ -4127,16 +4127,19 @@ export namespace Prisma {
   export type KelasMinAggregateOutputType = {
     id: number | null
     namaKelas: string | null
+    deskripsi: string | null
   }
 
   export type KelasMaxAggregateOutputType = {
     id: number | null
     namaKelas: string | null
+    deskripsi: string | null
   }
 
   export type KelasCountAggregateOutputType = {
     id: number
     namaKelas: number
+    deskripsi: number
     _all: number
   }
 
@@ -4152,16 +4155,19 @@ export namespace Prisma {
   export type KelasMinAggregateInputType = {
     id?: true
     namaKelas?: true
+    deskripsi?: true
   }
 
   export type KelasMaxAggregateInputType = {
     id?: true
     namaKelas?: true
+    deskripsi?: true
   }
 
   export type KelasCountAggregateInputType = {
     id?: true
     namaKelas?: true
+    deskripsi?: true
     _all?: true
   }
 
@@ -4254,6 +4260,7 @@ export namespace Prisma {
   export type KelasGroupByOutputType = {
     id: number
     namaKelas: string
+    deskripsi: string | null
     _count: KelasCountAggregateOutputType | null
     _avg: KelasAvgAggregateOutputType | null
     _sum: KelasSumAggregateOutputType | null
@@ -4278,6 +4285,7 @@ export namespace Prisma {
   export type KelasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     namaKelas?: boolean
+    deskripsi?: boolean
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
@@ -4289,19 +4297,22 @@ export namespace Prisma {
   export type KelasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     namaKelas?: boolean
+    deskripsi?: boolean
   }, ExtArgs["result"]["kelas"]>
 
   export type KelasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     namaKelas?: boolean
+    deskripsi?: boolean
   }, ExtArgs["result"]["kelas"]>
 
   export type KelasSelectScalar = {
     id?: boolean
     namaKelas?: boolean
+    deskripsi?: boolean
   }
 
-  export type KelasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "namaKelas", ExtArgs["result"]["kelas"]>
+  export type KelasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "namaKelas" | "deskripsi", ExtArgs["result"]["kelas"]>
   export type KelasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
@@ -4325,6 +4336,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       namaKelas: string
+      deskripsi: string | null
     }, ExtArgs["result"]["kelas"]>
     composites: {}
   }
@@ -4755,6 +4767,7 @@ export namespace Prisma {
   interface KelasFieldRefs {
     readonly id: FieldRef<"Kelas", 'Int'>
     readonly namaKelas: FieldRef<"Kelas", 'String'>
+    readonly deskripsi: FieldRef<"Kelas", 'String'>
   }
     
 
@@ -11003,6 +11016,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password: string | null
+    activationToken: string | null
+    activatedAt: Date | null
     role: $Enums.Role | null
     kelasId: number | null
     isActive: boolean | null
@@ -11015,6 +11030,8 @@ export namespace Prisma {
     name: string | null
     email: string | null
     password: string | null
+    activationToken: string | null
+    activatedAt: Date | null
     role: $Enums.Role | null
     kelasId: number | null
     isActive: boolean | null
@@ -11027,6 +11044,8 @@ export namespace Prisma {
     name: number
     email: number
     password: number
+    activationToken: number
+    activatedAt: number
     role: number
     kelasId: number
     isActive: number
@@ -11051,6 +11070,8 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    activationToken?: true
+    activatedAt?: true
     role?: true
     kelasId?: true
     isActive?: true
@@ -11063,6 +11084,8 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    activationToken?: true
+    activatedAt?: true
     role?: true
     kelasId?: true
     isActive?: true
@@ -11075,6 +11098,8 @@ export namespace Prisma {
     name?: true
     email?: true
     password?: true
+    activationToken?: true
+    activatedAt?: true
     role?: true
     kelasId?: true
     isActive?: true
@@ -11173,7 +11198,9 @@ export namespace Prisma {
     id: number
     name: string
     email: string
-    password: string
+    password: string | null
+    activationToken: string | null
+    activatedAt: Date | null
     role: $Enums.Role
     kelasId: number | null
     isActive: boolean
@@ -11205,6 +11232,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    activationToken?: boolean
+    activatedAt?: boolean
     role?: boolean
     kelasId?: boolean
     isActive?: boolean
@@ -11227,6 +11256,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    activationToken?: boolean
+    activatedAt?: boolean
     role?: boolean
     kelasId?: boolean
     isActive?: boolean
@@ -11240,6 +11271,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    activationToken?: boolean
+    activatedAt?: boolean
     role?: boolean
     kelasId?: boolean
     isActive?: boolean
@@ -11253,6 +11286,8 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     password?: boolean
+    activationToken?: boolean
+    activatedAt?: boolean
     role?: boolean
     kelasId?: boolean
     isActive?: boolean
@@ -11260,7 +11295,7 @@ export namespace Prisma {
     deletedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "kelasId" | "isActive" | "createdAt" | "deletedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "activationToken" | "activatedAt" | "role" | "kelasId" | "isActive" | "createdAt" | "deletedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | User$kelasArgs<ExtArgs>
     kelasAjar?: boolean | User$kelasAjarArgs<ExtArgs>
@@ -11297,7 +11332,9 @@ export namespace Prisma {
       id: number
       name: string
       email: string
-      password: string
+      password: string | null
+      activationToken: string | null
+      activatedAt: Date | null
       role: $Enums.Role
       kelasId: number | null
       isActive: boolean
@@ -11739,6 +11776,8 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly activationToken: FieldRef<"User", 'String'>
+    readonly activatedAt: FieldRef<"User", 'DateTime'>
     readonly role: FieldRef<"User", 'Role'>
     readonly kelasId: FieldRef<"User", 'Int'>
     readonly isActive: FieldRef<"User", 'Boolean'>
@@ -12410,7 +12449,8 @@ export namespace Prisma {
 
   export const KelasScalarFieldEnum: {
     id: 'id',
-    namaKelas: 'namaKelas'
+    namaKelas: 'namaKelas',
+    deskripsi: 'deskripsi'
   };
 
   export type KelasScalarFieldEnum = (typeof KelasScalarFieldEnum)[keyof typeof KelasScalarFieldEnum]
@@ -12485,6 +12525,8 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     password: 'password',
+    activationToken: 'activationToken',
+    activatedAt: 'activatedAt',
     role: 'role',
     kelasId: 'kelasId',
     isActive: 'isActive',
@@ -12787,6 +12829,7 @@ export namespace Prisma {
     NOT?: KelasWhereInput | KelasWhereInput[]
     id?: IntFilter<"Kelas"> | number
     namaKelas?: StringFilter<"Kelas"> | string
+    deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
     absensi?: AbsensiListRelationFilter
@@ -12797,6 +12840,7 @@ export namespace Prisma {
   export type KelasOrderByWithRelationInput = {
     id?: SortOrder
     namaKelas?: SortOrder
+    deskripsi?: SortOrderInput | SortOrder
     santri?: UserOrderByRelationAggregateInput
     pengajar?: UserOrderByRelationAggregateInput
     absensi?: AbsensiOrderByRelationAggregateInput
@@ -12810,6 +12854,7 @@ export namespace Prisma {
     OR?: KelasWhereInput[]
     NOT?: KelasWhereInput | KelasWhereInput[]
     namaKelas?: StringFilter<"Kelas"> | string
+    deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
     absensi?: AbsensiListRelationFilter
@@ -12820,6 +12865,7 @@ export namespace Prisma {
   export type KelasOrderByWithAggregationInput = {
     id?: SortOrder
     namaKelas?: SortOrder
+    deskripsi?: SortOrderInput | SortOrder
     _count?: KelasCountOrderByAggregateInput
     _avg?: KelasAvgOrderByAggregateInput
     _max?: KelasMaxOrderByAggregateInput
@@ -12833,6 +12879,7 @@ export namespace Prisma {
     NOT?: KelasScalarWhereWithAggregatesInput | KelasScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Kelas"> | number
     namaKelas?: StringWithAggregatesFilter<"Kelas"> | string
+    deskripsi?: StringNullableWithAggregatesFilter<"Kelas"> | string | null
   }
 
   export type LogAktivitasWhereInput = {
@@ -13188,7 +13235,9 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
+    activationToken?: StringNullableFilter<"User"> | string | null
+    activatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     kelasId?: IntNullableFilter<"User"> | number | null
     isActive?: BoolFilter<"User"> | boolean
@@ -13209,7 +13258,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
+    activationToken?: SortOrderInput | SortOrder
+    activatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     kelasId?: SortOrderInput | SortOrder
     isActive?: SortOrder
@@ -13233,7 +13284,9 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
+    activationToken?: StringNullableFilter<"User"> | string | null
+    activatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     kelasId?: IntNullableFilter<"User"> | number | null
     isActive?: BoolFilter<"User"> | boolean
@@ -13254,7 +13307,9 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
+    activationToken?: SortOrderInput | SortOrder
+    activatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     kelasId?: SortOrderInput | SortOrder
     isActive?: SortOrder
@@ -13274,7 +13329,9 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    password?: StringWithAggregatesFilter<"User"> | string
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
+    activationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    activatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     kelasId?: IntNullableWithAggregatesFilter<"User"> | number | null
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
@@ -13407,6 +13464,7 @@ export namespace Prisma {
 
   export type KelasCreateInput = {
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
@@ -13417,6 +13475,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
@@ -13426,6 +13485,7 @@ export namespace Prisma {
 
   export type KelasUpdateInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
@@ -13436,6 +13496,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
@@ -13446,15 +13507,18 @@ export namespace Prisma {
   export type KelasCreateManyInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
   }
 
   export type KelasUpdateManyMutationInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type KelasUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LogAktivitasCreateInput = {
@@ -13788,7 +13852,9 @@ export namespace Prisma {
   export type UserCreateInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -13808,7 +13874,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -13827,7 +13895,9 @@ export namespace Prisma {
   export type UserUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13847,7 +13917,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -13867,7 +13939,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -13878,7 +13952,9 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13889,7 +13965,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -14107,6 +14185,21 @@ export namespace Prisma {
     _max?: NestedEnumStatusIzinFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -14131,6 +14224,11 @@ export namespace Prisma {
     none?: TugasWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -14150,6 +14248,7 @@ export namespace Prisma {
   export type KelasCountOrderByAggregateInput = {
     id?: SortOrder
     namaKelas?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type KelasAvgOrderByAggregateInput = {
@@ -14159,15 +14258,35 @@ export namespace Prisma {
   export type KelasMaxOrderByAggregateInput = {
     id?: SortOrder
     namaKelas?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type KelasMinOrderByAggregateInput = {
     id?: SortOrder
     namaKelas?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type KelasSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type LogAktivitasCountOrderByAggregateInput = {
@@ -14201,29 +14320,9 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type TugasScalarRelationFilter = {
     is?: TugasWhereInput
     isNot?: TugasWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type NilaiCountOrderByAggregateInput = {
@@ -14265,24 +14364,6 @@ export namespace Prisma {
     userId?: SortOrder
     tugasId?: SortOrder
     nilai?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -14548,6 +14629,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    activationToken?: SortOrder
+    activatedAt?: SortOrder
     role?: SortOrder
     kelasId?: SortOrder
     isActive?: SortOrder
@@ -14565,6 +14648,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    activationToken?: SortOrder
+    activatedAt?: SortOrder
     role?: SortOrder
     kelasId?: SortOrder
     isActive?: SortOrder
@@ -14577,6 +14662,8 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
+    activationToken?: SortOrder
+    activatedAt?: SortOrder
     role?: SortOrder
     kelasId?: SortOrder
     isActive?: SortOrder
@@ -14771,6 +14858,10 @@ export namespace Prisma {
     connect?: TugasWhereUniqueInput | TugasWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type UserUpdateManyWithoutKelasNestedInput = {
     create?: XOR<UserCreateWithoutKelasInput, UserUncheckedCreateWithoutKelasInput> | UserCreateWithoutKelasInput[] | UserUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: UserCreateOrConnectWithoutKelasInput | UserCreateOrConnectWithoutKelasInput[]
@@ -14933,10 +15024,6 @@ export namespace Prisma {
     create?: XOR<TugasCreateWithoutNilaiInput, TugasUncheckedCreateWithoutNilaiInput>
     connectOrCreate?: TugasCreateOrConnectWithoutNilaiInput
     connect?: TugasWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UserUpdateOneRequiredWithoutNilaiNestedInput = {
@@ -15753,7 +15840,9 @@ export namespace Prisma {
   export type UserCreateWithoutAbsensiInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -15772,7 +15861,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -15794,6 +15885,7 @@ export namespace Prisma {
 
   export type KelasCreateWithoutAbsensiInput = {
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
     izin?: IzinCreateNestedManyWithoutKelasInput
@@ -15803,6 +15895,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateWithoutAbsensiInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
@@ -15828,7 +15921,9 @@ export namespace Prisma {
   export type UserUpdateWithoutAbsensiInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15847,7 +15942,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -15875,6 +15972,7 @@ export namespace Prisma {
 
   export type KelasUpdateWithoutAbsensiInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
@@ -15884,6 +15982,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateWithoutAbsensiInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
@@ -15893,7 +15992,9 @@ export namespace Prisma {
   export type UserCreateWithoutIzinInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -15912,7 +16013,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -15934,6 +16037,7 @@ export namespace Prisma {
 
   export type KelasCreateWithoutIzinInput = {
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
@@ -15943,6 +16047,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateWithoutIzinInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
@@ -15968,7 +16073,9 @@ export namespace Prisma {
   export type UserUpdateWithoutIzinInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15987,7 +16094,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16015,6 +16124,7 @@ export namespace Prisma {
 
   export type KelasUpdateWithoutIzinInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
@@ -16024,6 +16134,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateWithoutIzinInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
@@ -16033,7 +16144,9 @@ export namespace Prisma {
   export type UserCreateWithoutKelasInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16052,7 +16165,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16080,7 +16195,9 @@ export namespace Prisma {
   export type UserCreateWithoutKelasAjarInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16099,7 +16216,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16225,7 +16344,9 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
+    activationToken?: StringNullableFilter<"User"> | string | null
+    activatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     kelasId?: IntNullableFilter<"User"> | number | null
     isActive?: BoolFilter<"User"> | boolean
@@ -16338,7 +16459,9 @@ export namespace Prisma {
   export type UserCreateWithoutLogInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16357,7 +16480,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16391,7 +16516,9 @@ export namespace Prisma {
   export type UserUpdateWithoutLogInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16410,7 +16537,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16428,7 +16557,9 @@ export namespace Prisma {
   export type UserCreateWithoutNilaiInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16447,7 +16578,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16507,7 +16640,9 @@ export namespace Prisma {
   export type UserUpdateWithoutNilaiInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16526,7 +16661,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16576,7 +16713,9 @@ export namespace Prisma {
   export type UserCreateWithoutProfilesInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16595,7 +16734,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16629,7 +16770,9 @@ export namespace Prisma {
   export type UserUpdateWithoutProfilesInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16648,7 +16791,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16692,7 +16837,9 @@ export namespace Prisma {
   export type UserCreateWithoutSubmissionInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16711,7 +16858,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16777,7 +16926,9 @@ export namespace Prisma {
   export type UserUpdateWithoutSubmissionInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16796,7 +16947,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -16813,6 +16966,7 @@ export namespace Prisma {
 
   export type KelasCreateWithoutTugasInput = {
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
@@ -16822,6 +16976,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateWithoutTugasInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
@@ -16836,7 +16991,9 @@ export namespace Prisma {
   export type UserCreateWithoutTugasDibuatInput = {
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -16855,7 +17012,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     kelasId?: number | null
     isActive?: boolean
@@ -16940,6 +17099,7 @@ export namespace Prisma {
 
   export type KelasUpdateWithoutTugasInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
@@ -16949,6 +17109,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateWithoutTugasInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
@@ -16969,7 +17130,9 @@ export namespace Prisma {
   export type UserUpdateWithoutTugasDibuatInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16988,7 +17151,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -17062,6 +17227,7 @@ export namespace Prisma {
 
   export type KelasCreateWithoutSantriInput = {
     namaKelas: string
+    deskripsi?: string | null
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
@@ -17071,6 +17237,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateWithoutSantriInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
@@ -17084,6 +17251,7 @@ export namespace Prisma {
 
   export type KelasCreateWithoutPengajarInput = {
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
@@ -17093,6 +17261,7 @@ export namespace Prisma {
   export type KelasUncheckedCreateWithoutPengajarInput = {
     id?: number
     namaKelas: string
+    deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
@@ -17306,6 +17475,7 @@ export namespace Prisma {
 
   export type KelasUpdateWithoutSantriInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
@@ -17315,6 +17485,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateWithoutSantriInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
@@ -17343,6 +17514,7 @@ export namespace Prisma {
     NOT?: KelasScalarWhereInput | KelasScalarWhereInput[]
     id?: IntFilter<"Kelas"> | number
     namaKelas?: StringFilter<"Kelas"> | string
+    deskripsi?: StringNullableFilter<"Kelas"> | string | null
   }
 
   export type AbsensiUpsertWithWhereUniqueWithoutUserInput = {
@@ -17487,7 +17659,9 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    password: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
     role?: $Enums.Role
     isActive?: boolean
     createdAt?: Date | string
@@ -17523,7 +17697,9 @@ export namespace Prisma {
   export type UserUpdateWithoutKelasInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17542,7 +17718,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17561,7 +17739,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17571,7 +17751,9 @@ export namespace Prisma {
   export type UserUpdateWithoutKelasAjarInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17590,7 +17772,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -17609,7 +17793,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     kelasId?: NullableIntFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
@@ -17825,6 +18011,7 @@ export namespace Prisma {
 
   export type KelasUpdateWithoutPengajarInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
@@ -17834,6 +18021,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateWithoutPengajarInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
@@ -17843,6 +18031,7 @@ export namespace Prisma {
   export type KelasUncheckedUpdateManyWithoutPengajarInput = {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AbsensiUpdateWithoutUserInput = {

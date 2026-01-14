@@ -1,5 +1,6 @@
 import { Role, User } from "../../dist/generated";
 import { UserRepository } from "../repository/user.repository";
+import bcrypt from "bcrypt";
 
 export class UserService {
   constructor(private userRepository: UserRepository) {}
@@ -52,4 +53,26 @@ export class UserService {
   getPengajar = async () =>{
     return this.userRepository.getPengajar()
   }
+
+createAdmin = async (data: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
+  const adminExist = await this.userRepository.isAdminExist();
+
+  if (adminExist) {
+    throw new Error("Admin sudah ada, tidak bisa membuat admin baru");
+  }
+
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
+  return this.userRepository.create({
+    name: data.name,
+    email: data.email,
+    password: hashedPassword, // ✅ HASHED
+    role: Role.admin,
+  });
+};
+
 }

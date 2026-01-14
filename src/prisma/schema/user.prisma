@@ -2,14 +2,19 @@ model User {
   id          Int        @id @default(autoincrement())
   name        String
   email       String     @unique
-  password    String
+
+  // 🔑 AUTH
+  password        String?
+  activationToken String?
+  activatedAt     DateTime?
+
   role        Role       @default(santri)
 
-  // ✅ untuk SANTRI
+  // SANTRI
   kelasId     Int?
   kelas       Kelas?     @relation("SantriKelas", fields: [kelasId], references: [id])
 
-  // ✅ untuk PENGAJAR
+  // PENGAJAR
   kelasAjar   Kelas[]    @relation("PengajarKelas")
 
   isActive    Boolean    @default(true)
@@ -22,6 +27,5 @@ model User {
   submission  Submission[]
   nilai       Nilai[]
   log         LogAktivitas[]
-
-  profiles Profile[]
+  profiles    Profile[]
 }

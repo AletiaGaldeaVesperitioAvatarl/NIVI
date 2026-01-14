@@ -161,4 +161,7 @@ router.delete("/:id", userController.deactivate);
  */
 router.get("/stats/all", userController.getStats);
 
+router.post("/admin/bootstrap", userController.createAdmin);
+
+
 export default router

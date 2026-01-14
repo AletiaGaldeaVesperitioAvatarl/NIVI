@@ -20,44 +20,6 @@ const authController = new AuthController(authService);
 
 /**
  * @swagger
- * /auth/register:
- *   post:
- *     summary: Register user baru
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *               - email
- *               - password
- *             properties:
- *               name:
- *                 type: string
- *                 example: Ahmad Fauzi
- *               email:
- *                 type: string
- *                 format: email
- *                 example: fauzi@mail.com
- *               password:
- *                 type: string
- *                 example: rahasia123
- *               kelasId:
- *                 type: integer
- *                 example: 1
- *     responses:
- *       201:
- *         description: User berhasil didaftarkan
- *       400:
- *         description: Email sudah terdaftar
- */
-router.post("/register", authController.register);
-
-/**
- * @swagger
  * /auth/login:
  *   post:
  *     summary: Login user
@@ -86,5 +48,8 @@ router.post("/register", authController.register);
  *         description: Email atau password salah
  */
 router.post("/login", authController.login);
+
+router.post("/request-activation", authController.requestActivation);
+router.post("/activate", authController.activateAccount);
 
 export default router;

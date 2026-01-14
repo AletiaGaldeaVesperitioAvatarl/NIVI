@@ -68,4 +68,15 @@ export class UserRepository {
       }
     })
   }
+
+  async isAdminExist(): Promise<boolean> {
+  const admin = await this.prisma.user.findFirst({
+    where: {
+      role: "admin",
+      isActive: true,
+    },
+  });
+
+  return !!admin;
+}
 }

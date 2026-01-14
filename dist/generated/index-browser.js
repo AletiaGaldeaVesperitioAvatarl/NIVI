@@ -141,7 +141,8 @@ exports.Prisma.IzinScalarFieldEnum = {
 
 exports.Prisma.KelasScalarFieldEnum = {
   id: 'id',
-  namaKelas: 'namaKelas'
+  namaKelas: 'namaKelas',
+  deskripsi: 'deskripsi'
 };
 
 exports.Prisma.LogAktivitasScalarFieldEnum = {
@@ -198,6 +199,8 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  activationToken: 'activationToken',
+  activatedAt: 'activatedAt',
   role: 'role',
   kelasId: 'kelasId',
   isActive: 'isActive',

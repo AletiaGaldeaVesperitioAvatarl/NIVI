@@ -29,8 +29,9 @@ export const authenticate = (
     };
 
     req.user = payload;
+
     next();
   } catch (error) {
     return errorResponse(res, "Token tidak valid!", 401);
   }
-}; 
+};

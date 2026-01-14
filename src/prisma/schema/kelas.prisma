@@ -1,6 +1,7 @@
 model Kelas {
   id          Int        @id @default(autoincrement())
   namaKelas   String
+  deskripsi   String?    
 
   // ✅ SANTRI
   santri      User[]     @relation("SantriKelas")

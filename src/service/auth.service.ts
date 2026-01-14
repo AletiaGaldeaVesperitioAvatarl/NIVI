@@ -1,5 +1,4 @@
 import { AuthRepository } from "../repository/auth.repository";
-import { User, Role } from "../../dist/generated";
 import jwt from "jsonwebtoken";
 import config from "../utils/env";
 import bcrypt from "bcrypt";
@@ -7,55 +6,61 @@ import bcrypt from "bcrypt";
 export class AuthService {
   constructor(private authRepository: AuthRepository) {}
 
-  // REGISTER USER
-register = async (data: {
-  name: string;
-  email: string;
-  password: string;
-  
-  kelasId?: number;
-}) => {
-
-  const existingUser = await this.authRepository.getUserByEmail(data.email);
-  if (existingUser) {
-    throw new Error("Email sudah terdaftar!");
-  }
-
-  const hashedPassword = await bcrypt.hash(data.password, 10);
-
-  return this.authRepository.createUser({
-    ...data,
-    role: Role.santri,    
-    password: hashedPassword,
-  });
-};
-
   // LOGIN USER
-  login = async (
-    email: string,
-    password: string
-  ): Promise<{ token: string; user: User }> => {
+  login = async (email: string, password: string) => {
     const user = await this.authRepository.getUserByEmail(email);
-    if (!user) throw new Error("Email tidak ditemukan!");
+    if (!user) throw new Error("Email tidak ditemukan");
 
-    const passwordValid = await this.authRepository.verifyPassword(
-      password,
-      user.password
+    // 🔹 cek activatedAt harus benar-benar ada
+    if (!user.activatedAt) {
+      return { status: "NOT_ACTIVE", token: user.activationToken };
+    }
+
+    if (!user.password) throw new Error("Password belum diset");
+
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) throw new Error("Password salah");
+
+    const jwtToken = jwt.sign(
+      { id: user.id, role: user.role, kelasId: user.kelasId ?? null },
+      config.JWT_SECRET,
+      { expiresIn: "1d" }
     );
-    if (!passwordValid) throw new Error("Password salah!");
 
-    // generate JWT
-    const token = jwt.sign(
-  {
-    id: user.id,
-    role: user.role,
-    kelasId: user.kelasId,
-  },
-  config.JWT_SECRET,
-  { expiresIn: "1d" }
-);
-
-
-    return { token, user };
+    return { status: "OK", token: jwtToken, user };
   };
+
+    requestActivation = async (email: string) => {
+    const user = await this.authRepository.getUserByEmail(email);
+
+    if (!user) {
+      throw new Error("Email tidak terdaftar");
+    }
+
+    if (user.activatedAt) {
+      throw new Error("Akun sudah aktif, silakan login");
+    }
+
+    return {
+      email: user.email,
+      token: user.activationToken,
+    };
+  };
+
+  // 🔹 SET PASSWORD / AKTIVASI
+  activateAccount = async (token: string, password: string) => {
+    const user = await this.authRepository.findByActivationToken(token);
+    if (!user) throw new Error("Token aktivasi tidak valid");
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    const updated = await this.authRepository.activateUser(user.id, hashed);
+
+    if (!updated.activatedAt) {
+      throw new Error("Aktivasi gagal, silakan coba lagi");
+    }
+
+    return { message: "Akun berhasil diaktifkan" };
+  };
+
 }

@@ -88,4 +88,21 @@ export class UserController {
       pengajar
     )
   }
+
+  createAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const admin = await this.userService.createAdmin(req.body);
+
+    return successResponse(
+      res,
+      "Admin pertama berhasil dibuat",
+      admin,
+      null,
+      201
+    );
+  } catch (err) {
+    next(err);
+  }
+};
+
 }
