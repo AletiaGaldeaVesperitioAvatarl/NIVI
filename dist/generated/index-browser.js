@@ -126,7 +126,8 @@ exports.Prisma.AbsensiScalarFieldEnum = {
   kelasId: 'kelasId',
   tanggal: 'tanggal',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  mataPelajaranId: 'mataPelajaranId'
 };
 
 exports.Prisma.IzinScalarFieldEnum = {
@@ -152,12 +153,31 @@ exports.Prisma.LogAktivitasScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MataPelajaranScalarFieldEnum = {
+  id: 'id',
+  nama: 'nama',
+  kode: 'kode',
+  kelasId: 'kelasId',
+  pengajarId: 'pengajarId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NilaiScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   tugasId: 'tugasId',
   nilai: 'nilai',
   catatan: 'catatan',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  level: 'level',
+  isRead: 'isRead',
   createdAt: 'createdAt'
 };
 
@@ -253,7 +273,9 @@ exports.Prisma.ModelName = {
   Izin: 'Izin',
   Kelas: 'Kelas',
   LogAktivitas: 'LogAktivitas',
+  MataPelajaran: 'MataPelajaran',
   Nilai: 'Nilai',
+  Notification: 'Notification',
   Profile: 'Profile',
   Submission: 'Submission',
   Tugas: 'Tugas',

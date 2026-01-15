@@ -34,10 +34,20 @@ export type Kelas = $Result.DefaultSelection<Prisma.$KelasPayload>
  */
 export type LogAktivitas = $Result.DefaultSelection<Prisma.$LogAktivitasPayload>
 /**
+ * Model MataPelajaran
+ * 
+ */
+export type MataPelajaran = $Result.DefaultSelection<Prisma.$MataPelajaranPayload>
+/**
  * Model Nilai
  * 
  */
 export type Nilai = $Result.DefaultSelection<Prisma.$NilaiPayload>
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
 /**
  * Model Profile
  * 
@@ -276,6 +286,16 @@ export class PrismaClient<
   get logAktivitas(): Prisma.LogAktivitasDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.mataPelajaran`: Exposes CRUD operations for the **MataPelajaran** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MataPelajarans
+    * const mataPelajarans = await prisma.mataPelajaran.findMany()
+    * ```
+    */
+  get mataPelajaran(): Prisma.MataPelajaranDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.nilai`: Exposes CRUD operations for the **Nilai** model.
     * Example usage:
     * ```ts
@@ -284,6 +304,16 @@ export class PrismaClient<
     * ```
     */
   get nilai(): Prisma.NilaiDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.profile`: Exposes CRUD operations for the **Profile** model.
@@ -762,7 +792,9 @@ export namespace Prisma {
     Izin: 'Izin',
     Kelas: 'Kelas',
     LogAktivitas: 'LogAktivitas',
+    MataPelajaran: 'MataPelajaran',
     Nilai: 'Nilai',
+    Notification: 'Notification',
     Profile: 'Profile',
     Submission: 'Submission',
     Tugas: 'Tugas',
@@ -782,7 +814,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "absensi" | "izin" | "kelas" | "logAktivitas" | "nilai" | "profile" | "submission" | "tugas" | "user"
+      modelProps: "absensi" | "izin" | "kelas" | "logAktivitas" | "mataPelajaran" | "nilai" | "notification" | "profile" | "submission" | "tugas" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1082,6 +1114,80 @@ export namespace Prisma {
           }
         }
       }
+      MataPelajaran: {
+        payload: Prisma.$MataPelajaranPayload<ExtArgs>
+        fields: Prisma.MataPelajaranFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MataPelajaranFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MataPelajaranFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          findFirst: {
+            args: Prisma.MataPelajaranFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MataPelajaranFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          findMany: {
+            args: Prisma.MataPelajaranFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>[]
+          }
+          create: {
+            args: Prisma.MataPelajaranCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          createMany: {
+            args: Prisma.MataPelajaranCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MataPelajaranCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>[]
+          }
+          delete: {
+            args: Prisma.MataPelajaranDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          update: {
+            args: Prisma.MataPelajaranUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          deleteMany: {
+            args: Prisma.MataPelajaranDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MataPelajaranUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MataPelajaranUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>[]
+          }
+          upsert: {
+            args: Prisma.MataPelajaranUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MataPelajaranPayload>
+          }
+          aggregate: {
+            args: Prisma.MataPelajaranAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMataPelajaran>
+          }
+          groupBy: {
+            args: Prisma.MataPelajaranGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MataPelajaranGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MataPelajaranCountArgs<ExtArgs>
+            result: $Utils.Optional<MataPelajaranCountAggregateOutputType> | number
+          }
+        }
+      }
       Nilai: {
         payload: Prisma.$NilaiPayload<ExtArgs>
         fields: Prisma.NilaiFieldRefs
@@ -1153,6 +1259,80 @@ export namespace Prisma {
           count: {
             args: Prisma.NilaiCountArgs<ExtArgs>
             result: $Utils.Optional<NilaiCountAggregateOutputType> | number
+          }
+        }
+      }
+      Notification: {
+        payload: Prisma.$NotificationPayload<ExtArgs>
+        fields: Prisma.NotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          update: {
+            args: Prisma.NotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification>
+          }
+          groupBy: {
+            args: Prisma.NotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationCountAggregateOutputType> | number
           }
         }
       }
@@ -1564,7 +1744,9 @@ export namespace Prisma {
     izin?: IzinOmit
     kelas?: KelasOmit
     logAktivitas?: LogAktivitasOmit
+    mataPelajaran?: MataPelajaranOmit
     nilai?: NilaiOmit
+    notification?: NotificationOmit
     profile?: ProfileOmit
     submission?: SubmissionOmit
     tugas?: TugasOmit
@@ -1651,6 +1833,7 @@ export namespace Prisma {
   export type KelasCountOutputType = {
     santri: number
     pengajar: number
+    mataPelajaran: number
     absensi: number
     izin: number
     tugas: number
@@ -1659,6 +1842,7 @@ export namespace Prisma {
   export type KelasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | KelasCountOutputTypeCountSantriArgs
     pengajar?: boolean | KelasCountOutputTypeCountPengajarArgs
+    mataPelajaran?: boolean | KelasCountOutputTypeCountMataPelajaranArgs
     absensi?: boolean | KelasCountOutputTypeCountAbsensiArgs
     izin?: boolean | KelasCountOutputTypeCountIzinArgs
     tugas?: boolean | KelasCountOutputTypeCountTugasArgs
@@ -1692,6 +1876,13 @@ export namespace Prisma {
   /**
    * KelasCountOutputType without action
    */
+  export type KelasCountOutputTypeCountMataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MataPelajaranWhereInput
+  }
+
+  /**
+   * KelasCountOutputType without action
+   */
   export type KelasCountOutputTypeCountAbsensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AbsensiWhereInput
   }
@@ -1708,6 +1899,37 @@ export namespace Prisma {
    */
   export type KelasCountOutputTypeCountTugasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TugasWhereInput
+  }
+
+
+  /**
+   * Count Type MataPelajaranCountOutputType
+   */
+
+  export type MataPelajaranCountOutputType = {
+    absensi: number
+  }
+
+  export type MataPelajaranCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    absensi?: boolean | MataPelajaranCountOutputTypeCountAbsensiArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MataPelajaranCountOutputType without action
+   */
+  export type MataPelajaranCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaranCountOutputType
+     */
+    select?: MataPelajaranCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MataPelajaranCountOutputType without action
+   */
+  export type MataPelajaranCountOutputTypeCountAbsensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AbsensiWhereInput
   }
 
 
@@ -1757,6 +1979,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     kelasAjar: number
+    mataPelajaran: number
     absensi: number
     izin: number
     tugasDibuat: number
@@ -1764,10 +1987,12 @@ export namespace Prisma {
     nilai: number
     log: number
     profiles: number
+    notifications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelasAjar?: boolean | UserCountOutputTypeCountKelasAjarArgs
+    mataPelajaran?: boolean | UserCountOutputTypeCountMataPelajaranArgs
     absensi?: boolean | UserCountOutputTypeCountAbsensiArgs
     izin?: boolean | UserCountOutputTypeCountIzinArgs
     tugasDibuat?: boolean | UserCountOutputTypeCountTugasDibuatArgs
@@ -1775,6 +2000,7 @@ export namespace Prisma {
     nilai?: boolean | UserCountOutputTypeCountNilaiArgs
     log?: boolean | UserCountOutputTypeCountLogArgs
     profiles?: boolean | UserCountOutputTypeCountProfilesArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
   // Custom InputTypes
@@ -1793,6 +2019,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountKelasAjarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: KelasWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MataPelajaranWhereInput
   }
 
   /**
@@ -1844,6 +2077,13 @@ export namespace Prisma {
     where?: ProfileWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
 
   /**
    * Models
@@ -1865,12 +2105,14 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     kelasId: number | null
+    mataPelajaranId: number | null
   }
 
   export type AbsensiSumAggregateOutputType = {
     id: number | null
     userId: number | null
     kelasId: number | null
+    mataPelajaranId: number | null
   }
 
   export type AbsensiMinAggregateOutputType = {
@@ -1880,6 +2122,7 @@ export namespace Prisma {
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
+    mataPelajaranId: number | null
   }
 
   export type AbsensiMaxAggregateOutputType = {
@@ -1889,6 +2132,7 @@ export namespace Prisma {
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
+    mataPelajaranId: number | null
   }
 
   export type AbsensiCountAggregateOutputType = {
@@ -1898,6 +2142,7 @@ export namespace Prisma {
     tanggal: number
     status: number
     createdAt: number
+    mataPelajaranId: number
     _all: number
   }
 
@@ -1906,12 +2151,14 @@ export namespace Prisma {
     id?: true
     userId?: true
     kelasId?: true
+    mataPelajaranId?: true
   }
 
   export type AbsensiSumAggregateInputType = {
     id?: true
     userId?: true
     kelasId?: true
+    mataPelajaranId?: true
   }
 
   export type AbsensiMinAggregateInputType = {
@@ -1921,6 +2168,7 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    mataPelajaranId?: true
   }
 
   export type AbsensiMaxAggregateInputType = {
@@ -1930,6 +2178,7 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    mataPelajaranId?: true
   }
 
   export type AbsensiCountAggregateInputType = {
@@ -1939,6 +2188,7 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    mataPelajaranId?: true
     _all?: true
   }
 
@@ -2035,6 +2285,7 @@ export namespace Prisma {
     tanggal: Date
     status: $Enums.StatusAbsensi
     createdAt: Date
+    mataPelajaranId: number
     _count: AbsensiCountAggregateOutputType | null
     _avg: AbsensiAvgAggregateOutputType | null
     _sum: AbsensiSumAggregateOutputType | null
@@ -2063,8 +2314,10 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    mataPelajaranId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2074,8 +2327,10 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    mataPelajaranId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2085,8 +2340,10 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    mataPelajaranId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectScalar = {
@@ -2096,20 +2353,24 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    mataPelajaranId?: boolean
   }
 
-  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "tanggal" | "status" | "createdAt", ExtArgs["result"]["absensi"]>
+  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "tanggal" | "status" | "createdAt" | "mataPelajaranId", ExtArgs["result"]["absensi"]>
   export type AbsensiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }
   export type AbsensiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }
   export type AbsensiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
   }
 
   export type $AbsensiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2117,6 +2378,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       kelas: Prisma.$KelasPayload<ExtArgs>
+      mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2125,6 +2387,7 @@ export namespace Prisma {
       tanggal: Date
       status: $Enums.StatusAbsensi
       createdAt: Date
+      mataPelajaranId: number
     }, ExtArgs["result"]["absensi"]>
     composites: {}
   }
@@ -2521,6 +2784,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    mataPelajaran<T extends MataPelajaranDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MataPelajaranDefaultArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2556,6 +2820,7 @@ export namespace Prisma {
     readonly tanggal: FieldRef<"Absensi", 'DateTime'>
     readonly status: FieldRef<"Absensi", 'StatusAbsensi'>
     readonly createdAt: FieldRef<"Absensi", 'DateTime'>
+    readonly mataPelajaranId: FieldRef<"Absensi", 'Int'>
   }
     
 
@@ -4288,6 +4553,7 @@ export namespace Prisma {
     deskripsi?: boolean
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
+    mataPelajaran?: boolean | Kelas$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
@@ -4316,6 +4582,7 @@ export namespace Prisma {
   export type KelasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
+    mataPelajaran?: boolean | Kelas$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
@@ -4329,6 +4596,7 @@ export namespace Prisma {
     objects: {
       santri: Prisma.$UserPayload<ExtArgs>[]
       pengajar: Prisma.$UserPayload<ExtArgs>[]
+      mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>[]
       absensi: Prisma.$AbsensiPayload<ExtArgs>[]
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugas: Prisma.$TugasPayload<ExtArgs>[]
@@ -4733,6 +5001,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     santri<T extends Kelas$santriArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pengajar<T extends Kelas$pengajarArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$pengajarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mataPelajaran<T extends Kelas$mataPelajaranArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$mataPelajaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absensi<T extends Kelas$absensiArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     izin<T extends Kelas$izinArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugas<T extends Kelas$tugasArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5201,6 +5470,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Kelas.mataPelajaran
+   */
+  export type Kelas$mataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    where?: MataPelajaranWhereInput
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    cursor?: MataPelajaranWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
   }
 
   /**
@@ -6378,6 +6671,1157 @@ export namespace Prisma {
 
 
   /**
+   * Model MataPelajaran
+   */
+
+  export type AggregateMataPelajaran = {
+    _count: MataPelajaranCountAggregateOutputType | null
+    _avg: MataPelajaranAvgAggregateOutputType | null
+    _sum: MataPelajaranSumAggregateOutputType | null
+    _min: MataPelajaranMinAggregateOutputType | null
+    _max: MataPelajaranMaxAggregateOutputType | null
+  }
+
+  export type MataPelajaranAvgAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    pengajarId: number | null
+  }
+
+  export type MataPelajaranSumAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    pengajarId: number | null
+  }
+
+  export type MataPelajaranMinAggregateOutputType = {
+    id: number | null
+    nama: string | null
+    kode: string | null
+    kelasId: number | null
+    pengajarId: number | null
+    createdAt: Date | null
+  }
+
+  export type MataPelajaranMaxAggregateOutputType = {
+    id: number | null
+    nama: string | null
+    kode: string | null
+    kelasId: number | null
+    pengajarId: number | null
+    createdAt: Date | null
+  }
+
+  export type MataPelajaranCountAggregateOutputType = {
+    id: number
+    nama: number
+    kode: number
+    kelasId: number
+    pengajarId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MataPelajaranAvgAggregateInputType = {
+    id?: true
+    kelasId?: true
+    pengajarId?: true
+  }
+
+  export type MataPelajaranSumAggregateInputType = {
+    id?: true
+    kelasId?: true
+    pengajarId?: true
+  }
+
+  export type MataPelajaranMinAggregateInputType = {
+    id?: true
+    nama?: true
+    kode?: true
+    kelasId?: true
+    pengajarId?: true
+    createdAt?: true
+  }
+
+  export type MataPelajaranMaxAggregateInputType = {
+    id?: true
+    nama?: true
+    kode?: true
+    kelasId?: true
+    pengajarId?: true
+    createdAt?: true
+  }
+
+  export type MataPelajaranCountAggregateInputType = {
+    id?: true
+    nama?: true
+    kode?: true
+    kelasId?: true
+    pengajarId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MataPelajaranAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MataPelajaran to aggregate.
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MataPelajarans to fetch.
+     */
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MataPelajaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MataPelajarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MataPelajarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MataPelajarans
+    **/
+    _count?: true | MataPelajaranCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MataPelajaranAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MataPelajaranSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MataPelajaranMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MataPelajaranMaxAggregateInputType
+  }
+
+  export type GetMataPelajaranAggregateType<T extends MataPelajaranAggregateArgs> = {
+        [P in keyof T & keyof AggregateMataPelajaran]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMataPelajaran[P]>
+      : GetScalarType<T[P], AggregateMataPelajaran[P]>
+  }
+
+
+
+
+  export type MataPelajaranGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MataPelajaranWhereInput
+    orderBy?: MataPelajaranOrderByWithAggregationInput | MataPelajaranOrderByWithAggregationInput[]
+    by: MataPelajaranScalarFieldEnum[] | MataPelajaranScalarFieldEnum
+    having?: MataPelajaranScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MataPelajaranCountAggregateInputType | true
+    _avg?: MataPelajaranAvgAggregateInputType
+    _sum?: MataPelajaranSumAggregateInputType
+    _min?: MataPelajaranMinAggregateInputType
+    _max?: MataPelajaranMaxAggregateInputType
+  }
+
+  export type MataPelajaranGroupByOutputType = {
+    id: number
+    nama: string
+    kode: string
+    kelasId: number
+    pengajarId: number
+    createdAt: Date
+    _count: MataPelajaranCountAggregateOutputType | null
+    _avg: MataPelajaranAvgAggregateOutputType | null
+    _sum: MataPelajaranSumAggregateOutputType | null
+    _min: MataPelajaranMinAggregateOutputType | null
+    _max: MataPelajaranMaxAggregateOutputType | null
+  }
+
+  type GetMataPelajaranGroupByPayload<T extends MataPelajaranGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MataPelajaranGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MataPelajaranGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MataPelajaranGroupByOutputType[P]>
+            : GetScalarType<T[P], MataPelajaranGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MataPelajaranSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nama?: boolean
+    kode?: boolean
+    kelasId?: boolean
+    pengajarId?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+    absensi?: boolean | MataPelajaran$absensiArgs<ExtArgs>
+    _count?: boolean | MataPelajaranCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mataPelajaran"]>
+
+  export type MataPelajaranSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nama?: boolean
+    kode?: boolean
+    kelasId?: boolean
+    pengajarId?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mataPelajaran"]>
+
+  export type MataPelajaranSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    nama?: boolean
+    kode?: boolean
+    kelasId?: boolean
+    pengajarId?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mataPelajaran"]>
+
+  export type MataPelajaranSelectScalar = {
+    id?: boolean
+    nama?: boolean
+    kode?: boolean
+    kelasId?: boolean
+    pengajarId?: boolean
+    createdAt?: boolean
+  }
+
+  export type MataPelajaranOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "kode" | "kelasId" | "pengajarId" | "createdAt", ExtArgs["result"]["mataPelajaran"]>
+  export type MataPelajaranInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+    absensi?: boolean | MataPelajaran$absensiArgs<ExtArgs>
+    _count?: boolean | MataPelajaranCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MataPelajaranIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MataPelajaranIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    pengajar?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MataPelajaranPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MataPelajaran"
+    objects: {
+      kelas: Prisma.$KelasPayload<ExtArgs>
+      pengajar: Prisma.$UserPayload<ExtArgs>
+      absensi: Prisma.$AbsensiPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      nama: string
+      kode: string
+      kelasId: number
+      pengajarId: number
+      createdAt: Date
+    }, ExtArgs["result"]["mataPelajaran"]>
+    composites: {}
+  }
+
+  type MataPelajaranGetPayload<S extends boolean | null | undefined | MataPelajaranDefaultArgs> = $Result.GetResult<Prisma.$MataPelajaranPayload, S>
+
+  type MataPelajaranCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MataPelajaranFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MataPelajaranCountAggregateInputType | true
+    }
+
+  export interface MataPelajaranDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MataPelajaran'], meta: { name: 'MataPelajaran' } }
+    /**
+     * Find zero or one MataPelajaran that matches the filter.
+     * @param {MataPelajaranFindUniqueArgs} args - Arguments to find a MataPelajaran
+     * @example
+     * // Get one MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MataPelajaranFindUniqueArgs>(args: SelectSubset<T, MataPelajaranFindUniqueArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MataPelajaran that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MataPelajaranFindUniqueOrThrowArgs} args - Arguments to find a MataPelajaran
+     * @example
+     * // Get one MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MataPelajaranFindUniqueOrThrowArgs>(args: SelectSubset<T, MataPelajaranFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MataPelajaran that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranFindFirstArgs} args - Arguments to find a MataPelajaran
+     * @example
+     * // Get one MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MataPelajaranFindFirstArgs>(args?: SelectSubset<T, MataPelajaranFindFirstArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MataPelajaran that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranFindFirstOrThrowArgs} args - Arguments to find a MataPelajaran
+     * @example
+     * // Get one MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MataPelajaranFindFirstOrThrowArgs>(args?: SelectSubset<T, MataPelajaranFindFirstOrThrowArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MataPelajarans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MataPelajarans
+     * const mataPelajarans = await prisma.mataPelajaran.findMany()
+     * 
+     * // Get first 10 MataPelajarans
+     * const mataPelajarans = await prisma.mataPelajaran.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mataPelajaranWithIdOnly = await prisma.mataPelajaran.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MataPelajaranFindManyArgs>(args?: SelectSubset<T, MataPelajaranFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MataPelajaran.
+     * @param {MataPelajaranCreateArgs} args - Arguments to create a MataPelajaran.
+     * @example
+     * // Create one MataPelajaran
+     * const MataPelajaran = await prisma.mataPelajaran.create({
+     *   data: {
+     *     // ... data to create a MataPelajaran
+     *   }
+     * })
+     * 
+     */
+    create<T extends MataPelajaranCreateArgs>(args: SelectSubset<T, MataPelajaranCreateArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MataPelajarans.
+     * @param {MataPelajaranCreateManyArgs} args - Arguments to create many MataPelajarans.
+     * @example
+     * // Create many MataPelajarans
+     * const mataPelajaran = await prisma.mataPelajaran.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MataPelajaranCreateManyArgs>(args?: SelectSubset<T, MataPelajaranCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MataPelajarans and returns the data saved in the database.
+     * @param {MataPelajaranCreateManyAndReturnArgs} args - Arguments to create many MataPelajarans.
+     * @example
+     * // Create many MataPelajarans
+     * const mataPelajaran = await prisma.mataPelajaran.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MataPelajarans and only return the `id`
+     * const mataPelajaranWithIdOnly = await prisma.mataPelajaran.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MataPelajaranCreateManyAndReturnArgs>(args?: SelectSubset<T, MataPelajaranCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MataPelajaran.
+     * @param {MataPelajaranDeleteArgs} args - Arguments to delete one MataPelajaran.
+     * @example
+     * // Delete one MataPelajaran
+     * const MataPelajaran = await prisma.mataPelajaran.delete({
+     *   where: {
+     *     // ... filter to delete one MataPelajaran
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MataPelajaranDeleteArgs>(args: SelectSubset<T, MataPelajaranDeleteArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MataPelajaran.
+     * @param {MataPelajaranUpdateArgs} args - Arguments to update one MataPelajaran.
+     * @example
+     * // Update one MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MataPelajaranUpdateArgs>(args: SelectSubset<T, MataPelajaranUpdateArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MataPelajarans.
+     * @param {MataPelajaranDeleteManyArgs} args - Arguments to filter MataPelajarans to delete.
+     * @example
+     * // Delete a few MataPelajarans
+     * const { count } = await prisma.mataPelajaran.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MataPelajaranDeleteManyArgs>(args?: SelectSubset<T, MataPelajaranDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MataPelajarans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MataPelajarans
+     * const mataPelajaran = await prisma.mataPelajaran.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MataPelajaranUpdateManyArgs>(args: SelectSubset<T, MataPelajaranUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MataPelajarans and returns the data updated in the database.
+     * @param {MataPelajaranUpdateManyAndReturnArgs} args - Arguments to update many MataPelajarans.
+     * @example
+     * // Update many MataPelajarans
+     * const mataPelajaran = await prisma.mataPelajaran.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MataPelajarans and only return the `id`
+     * const mataPelajaranWithIdOnly = await prisma.mataPelajaran.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MataPelajaranUpdateManyAndReturnArgs>(args: SelectSubset<T, MataPelajaranUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MataPelajaran.
+     * @param {MataPelajaranUpsertArgs} args - Arguments to update or create a MataPelajaran.
+     * @example
+     * // Update or create a MataPelajaran
+     * const mataPelajaran = await prisma.mataPelajaran.upsert({
+     *   create: {
+     *     // ... data to create a MataPelajaran
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MataPelajaran we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MataPelajaranUpsertArgs>(args: SelectSubset<T, MataPelajaranUpsertArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MataPelajarans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranCountArgs} args - Arguments to filter MataPelajarans to count.
+     * @example
+     * // Count the number of MataPelajarans
+     * const count = await prisma.mataPelajaran.count({
+     *   where: {
+     *     // ... the filter for the MataPelajarans we want to count
+     *   }
+     * })
+    **/
+    count<T extends MataPelajaranCountArgs>(
+      args?: Subset<T, MataPelajaranCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MataPelajaranCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MataPelajaran.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MataPelajaranAggregateArgs>(args: Subset<T, MataPelajaranAggregateArgs>): Prisma.PrismaPromise<GetMataPelajaranAggregateType<T>>
+
+    /**
+     * Group by MataPelajaran.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MataPelajaranGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MataPelajaranGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MataPelajaranGroupByArgs['orderBy'] }
+        : { orderBy?: MataPelajaranGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MataPelajaranGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMataPelajaranGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MataPelajaran model
+   */
+  readonly fields: MataPelajaranFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MataPelajaran.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MataPelajaranClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    pengajar<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    absensi<T extends MataPelajaran$absensiArgs<ExtArgs> = {}>(args?: Subset<T, MataPelajaran$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MataPelajaran model
+   */
+  interface MataPelajaranFieldRefs {
+    readonly id: FieldRef<"MataPelajaran", 'Int'>
+    readonly nama: FieldRef<"MataPelajaran", 'String'>
+    readonly kode: FieldRef<"MataPelajaran", 'String'>
+    readonly kelasId: FieldRef<"MataPelajaran", 'Int'>
+    readonly pengajarId: FieldRef<"MataPelajaran", 'Int'>
+    readonly createdAt: FieldRef<"MataPelajaran", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MataPelajaran findUnique
+   */
+  export type MataPelajaranFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter, which MataPelajaran to fetch.
+     */
+    where: MataPelajaranWhereUniqueInput
+  }
+
+  /**
+   * MataPelajaran findUniqueOrThrow
+   */
+  export type MataPelajaranFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter, which MataPelajaran to fetch.
+     */
+    where: MataPelajaranWhereUniqueInput
+  }
+
+  /**
+   * MataPelajaran findFirst
+   */
+  export type MataPelajaranFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter, which MataPelajaran to fetch.
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MataPelajarans to fetch.
+     */
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MataPelajarans.
+     */
+    cursor?: MataPelajaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MataPelajarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MataPelajarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MataPelajarans.
+     */
+    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
+  }
+
+  /**
+   * MataPelajaran findFirstOrThrow
+   */
+  export type MataPelajaranFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter, which MataPelajaran to fetch.
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MataPelajarans to fetch.
+     */
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MataPelajarans.
+     */
+    cursor?: MataPelajaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MataPelajarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MataPelajarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MataPelajarans.
+     */
+    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
+  }
+
+  /**
+   * MataPelajaran findMany
+   */
+  export type MataPelajaranFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter, which MataPelajarans to fetch.
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MataPelajarans to fetch.
+     */
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MataPelajarans.
+     */
+    cursor?: MataPelajaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MataPelajarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MataPelajarans.
+     */
+    skip?: number
+    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
+  }
+
+  /**
+   * MataPelajaran create
+   */
+  export type MataPelajaranCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MataPelajaran.
+     */
+    data: XOR<MataPelajaranCreateInput, MataPelajaranUncheckedCreateInput>
+  }
+
+  /**
+   * MataPelajaran createMany
+   */
+  export type MataPelajaranCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MataPelajarans.
+     */
+    data: MataPelajaranCreateManyInput | MataPelajaranCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MataPelajaran createManyAndReturn
+   */
+  export type MataPelajaranCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * The data used to create many MataPelajarans.
+     */
+    data: MataPelajaranCreateManyInput | MataPelajaranCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MataPelajaran update
+   */
+  export type MataPelajaranUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MataPelajaran.
+     */
+    data: XOR<MataPelajaranUpdateInput, MataPelajaranUncheckedUpdateInput>
+    /**
+     * Choose, which MataPelajaran to update.
+     */
+    where: MataPelajaranWhereUniqueInput
+  }
+
+  /**
+   * MataPelajaran updateMany
+   */
+  export type MataPelajaranUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MataPelajarans.
+     */
+    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyInput>
+    /**
+     * Filter which MataPelajarans to update
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * Limit how many MataPelajarans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MataPelajaran updateManyAndReturn
+   */
+  export type MataPelajaranUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * The data used to update MataPelajarans.
+     */
+    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyInput>
+    /**
+     * Filter which MataPelajarans to update
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * Limit how many MataPelajarans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MataPelajaran upsert
+   */
+  export type MataPelajaranUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MataPelajaran to update in case it exists.
+     */
+    where: MataPelajaranWhereUniqueInput
+    /**
+     * In case the MataPelajaran found by the `where` argument doesn't exist, create a new MataPelajaran with this data.
+     */
+    create: XOR<MataPelajaranCreateInput, MataPelajaranUncheckedCreateInput>
+    /**
+     * In case the MataPelajaran was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MataPelajaranUpdateInput, MataPelajaranUncheckedUpdateInput>
+  }
+
+  /**
+   * MataPelajaran delete
+   */
+  export type MataPelajaranDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    /**
+     * Filter which MataPelajaran to delete.
+     */
+    where: MataPelajaranWhereUniqueInput
+  }
+
+  /**
+   * MataPelajaran deleteMany
+   */
+  export type MataPelajaranDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MataPelajarans to delete
+     */
+    where?: MataPelajaranWhereInput
+    /**
+     * Limit how many MataPelajarans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MataPelajaran.absensi
+   */
+  export type MataPelajaran$absensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Absensi
+     */
+    select?: AbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Absensi
+     */
+    omit?: AbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiInclude<ExtArgs> | null
+    where?: AbsensiWhereInput
+    orderBy?: AbsensiOrderByWithRelationInput | AbsensiOrderByWithRelationInput[]
+    cursor?: AbsensiWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AbsensiScalarFieldEnum | AbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * MataPelajaran without action
+   */
+  export type MataPelajaranDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Nilai
    */
 
@@ -7499,6 +8943,1128 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: NilaiInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Notification
+   */
+
+  export type AggregateNotification = {
+    _count: NotificationCountAggregateOutputType | null
+    _avg: NotificationAvgAggregateOutputType | null
+    _sum: NotificationSumAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  export type NotificationAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type NotificationSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+  }
+
+  export type NotificationMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    title: string | null
+    message: string | null
+    level: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    title: string | null
+    message: string | null
+    level: string | null
+    isRead: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    message: number
+    level: number
+    isRead: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NotificationAvgAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type NotificationSumAggregateInputType = {
+    id?: true
+    userId?: true
+  }
+
+  export type NotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    level?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type NotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    level?: true
+    isRead?: true
+    createdAt?: true
+  }
+
+  export type NotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    level?: true
+    isRead?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notification to aggregate.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NotificationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NotificationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type GetNotificationAggregateType<T extends NotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification[P]>
+      : GetScalarType<T[P], AggregateNotification[P]>
+  }
+
+
+
+
+  export type NotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithAggregationInput | NotificationOrderByWithAggregationInput[]
+    by: NotificationScalarFieldEnum[] | NotificationScalarFieldEnum
+    having?: NotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationCountAggregateInputType | true
+    _avg?: NotificationAvgAggregateInputType
+    _sum?: NotificationSumAggregateInputType
+    _min?: NotificationMinAggregateInputType
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type NotificationGroupByOutputType = {
+    id: number
+    userId: number
+    title: string
+    message: string
+    level: string
+    isRead: boolean
+    createdAt: Date
+    _count: NotificationCountAggregateOutputType | null
+    _avg: NotificationAvgAggregateOutputType | null
+    _sum: NotificationSumAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  type GetNotificationGroupByPayload<T extends NotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    level?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    level?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    level?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    level?: boolean
+    isRead?: boolean
+    createdAt?: boolean
+  }
+
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "message" | "level" | "isRead" | "createdAt", ExtArgs["result"]["notification"]>
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      title: string
+      message: string
+      level: string
+      isRead: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["notification"]>
+    composites: {}
+  }
+
+  type NotificationGetPayload<S extends boolean | null | undefined | NotificationDefaultArgs> = $Result.GetResult<Prisma.$NotificationPayload, S>
+
+  type NotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationCountAggregateInputType | true
+    }
+
+  export interface NotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notification'], meta: { name: 'Notification' } }
+    /**
+     * Find zero or one Notification that matches the filter.
+     * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationFindUniqueArgs>(args: SelectSubset<T, NotificationFindUniqueArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationFindUniqueOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationFindFirstArgs>(args?: SelectSubset<T, NotificationFindFirstArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notification.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationWithIdOnly = await prisma.notification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationFindManyArgs>(args?: SelectSubset<T, NotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notification.
+     * @param {NotificationCreateArgs} args - Arguments to create a Notification.
+     * @example
+     * // Create one Notification
+     * const Notification = await prisma.notification.create({
+     *   data: {
+     *     // ... data to create a Notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationCreateArgs>(args: SelectSubset<T, NotificationCreateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notification.
+     * @param {NotificationDeleteArgs} args - Arguments to delete one Notification.
+     * @example
+     * // Delete one Notification
+     * const Notification = await prisma.notification.delete({
+     *   where: {
+     *     // ... filter to delete one Notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeleteArgs>(args: SelectSubset<T, NotificationDeleteArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notification.
+     * @param {NotificationUpdateArgs} args - Arguments to update one Notification.
+     * @example
+     * // Update one Notification
+     * const notification = await prisma.notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationUpdateArgs>(args: SelectSubset<T, NotificationUpdateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeleteManyArgs>(args?: SelectSubset<T, NotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationUpdateManyArgs>(args: SelectSubset<T, NotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications and returns the data updated in the database.
+     * @param {NotificationUpdateManyAndReturnArgs} args - Arguments to update many Notifications.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notification.
+     * @param {NotificationUpsertArgs} args - Arguments to update or create a Notification.
+     * @example
+     * // Update or create a Notification
+     * const notification = await prisma.notification.upsert({
+     *   create: {
+     *     // ... data to create a Notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationUpsertArgs>(args: SelectSubset<T, NotificationUpsertArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notification.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationCountArgs>(
+      args?: Subset<T, NotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationAggregateArgs>(args: Subset<T, NotificationAggregateArgs>): Prisma.PrismaPromise<GetNotificationAggregateType<T>>
+
+    /**
+     * Group by Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notification model
+   */
+  interface NotificationFieldRefs {
+    readonly id: FieldRef<"Notification", 'Int'>
+    readonly userId: FieldRef<"Notification", 'Int'>
+    readonly title: FieldRef<"Notification", 'String'>
+    readonly message: FieldRef<"Notification", 'String'>
+    readonly level: FieldRef<"Notification", 'String'>
+    readonly isRead: FieldRef<"Notification", 'Boolean'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notification findUnique
+   */
+  export type NotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findUniqueOrThrow
+   */
+  export type NotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findFirst
+   */
+  export type NotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findFirstOrThrow
+   */
+  export type NotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findMany
+   */
+  export type NotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification create
+   */
+  export type NotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notification.
+     */
+    data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+  }
+
+  /**
+   * Notification createMany
+   */
+  export type NotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notification createManyAndReturn
+   */
+  export type NotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification update
+   */
+  export type NotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notification.
+     */
+    data: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+    /**
+     * Choose, which Notification to update.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification updateMany
+   */
+  export type NotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification updateManyAndReturn
+   */
+  export type NotificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification upsert
+   */
+  export type NotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notification to update in case it exists.
+     */
+    where: NotificationWhereUniqueInput
+    /**
+     * In case the Notification found by the `where` argument doesn't exist, create a new Notification with this data.
+     */
+    create: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+    /**
+     * In case the Notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * Notification delete
+   */
+  export type NotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter which Notification to delete.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification deleteMany
+   */
+  export type NotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification without action
+   */
+  export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
   }
 
 
@@ -11241,6 +13807,7 @@ export namespace Prisma {
     deletedAt?: boolean
     kelas?: boolean | User$kelasArgs<ExtArgs>
     kelasAjar?: boolean | User$kelasAjarArgs<ExtArgs>
+    mataPelajaran?: boolean | User$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | User$absensiArgs<ExtArgs>
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
@@ -11248,6 +13815,7 @@ export namespace Prisma {
     nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
     profiles?: boolean | User$profilesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -11299,6 +13867,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | User$kelasArgs<ExtArgs>
     kelasAjar?: boolean | User$kelasAjarArgs<ExtArgs>
+    mataPelajaran?: boolean | User$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | User$absensiArgs<ExtArgs>
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
@@ -11306,6 +13875,7 @@ export namespace Prisma {
     nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
     profiles?: boolean | User$profilesArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11320,6 +13890,7 @@ export namespace Prisma {
     objects: {
       kelas: Prisma.$KelasPayload<ExtArgs> | null
       kelasAjar: Prisma.$KelasPayload<ExtArgs>[]
+      mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>[]
       absensi: Prisma.$AbsensiPayload<ExtArgs>[]
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugasDibuat: Prisma.$TugasPayload<ExtArgs>[]
@@ -11327,6 +13898,7 @@ export namespace Prisma {
       nilai: Prisma.$NilaiPayload<ExtArgs>[]
       log: Prisma.$LogAktivitasPayload<ExtArgs>[]
       profiles: Prisma.$ProfilePayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -11736,6 +14308,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     kelas<T extends User$kelasArgs<ExtArgs> = {}>(args?: Subset<T, User$kelasArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     kelasAjar<T extends User$kelasAjarArgs<ExtArgs> = {}>(args?: Subset<T, User$kelasAjarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mataPelajaran<T extends User$mataPelajaranArgs<ExtArgs> = {}>(args?: Subset<T, User$mataPelajaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absensi<T extends User$absensiArgs<ExtArgs> = {}>(args?: Subset<T, User$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     izin<T extends User$izinArgs<ExtArgs> = {}>(args?: Subset<T, User$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugasDibuat<T extends User$tugasDibuatArgs<ExtArgs> = {}>(args?: Subset<T, User$tugasDibuatArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -11743,6 +14316,7 @@ export namespace Prisma {
     nilai<T extends User$nilaiArgs<ExtArgs> = {}>(args?: Subset<T, User$nilaiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NilaiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     log<T extends User$logArgs<ExtArgs> = {}>(args?: Subset<T, User$logArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAktivitasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     profiles<T extends User$profilesArgs<ExtArgs> = {}>(args?: Subset<T, User$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12222,6 +14796,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.mataPelajaran
+   */
+  export type User$mataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MataPelajaran
+     */
+    select?: MataPelajaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MataPelajaran
+     */
+    omit?: MataPelajaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MataPelajaranInclude<ExtArgs> | null
+    where?: MataPelajaranWhereInput
+    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
+    cursor?: MataPelajaranWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
+  }
+
+  /**
    * User.absensi
    */
   export type User$absensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12390,6 +14988,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12428,7 +15050,8 @@ export namespace Prisma {
     kelasId: 'kelasId',
     tanggal: 'tanggal',
     status: 'status',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    mataPelajaranId: 'mataPelajaranId'
   };
 
   export type AbsensiScalarFieldEnum = (typeof AbsensiScalarFieldEnum)[keyof typeof AbsensiScalarFieldEnum]
@@ -12466,6 +15089,18 @@ export namespace Prisma {
   export type LogAktivitasScalarFieldEnum = (typeof LogAktivitasScalarFieldEnum)[keyof typeof LogAktivitasScalarFieldEnum]
 
 
+  export const MataPelajaranScalarFieldEnum: {
+    id: 'id',
+    nama: 'nama',
+    kode: 'kode',
+    kelasId: 'kelasId',
+    pengajarId: 'pengajarId',
+    createdAt: 'createdAt'
+  };
+
+  export type MataPelajaranScalarFieldEnum = (typeof MataPelajaranScalarFieldEnum)[keyof typeof MataPelajaranScalarFieldEnum]
+
+
   export const NilaiScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -12476,6 +15111,19 @@ export namespace Prisma {
   };
 
   export type NilaiScalarFieldEnum = (typeof NilaiScalarFieldEnum)[keyof typeof NilaiScalarFieldEnum]
+
+
+  export const NotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    level: 'level',
+    isRead: 'isRead',
+    createdAt: 'createdAt'
+  };
+
+  export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
   export const ProfileScalarFieldEnum: {
@@ -12637,6 +15285,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'StatusSubmission'
    */
   export type EnumStatusSubmissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusSubmission'>
@@ -12661,13 +15316,6 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -12698,8 +15346,10 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    mataPelajaranId?: IntFilter<"Absensi"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
   }
 
   export type AbsensiOrderByWithRelationInput = {
@@ -12709,8 +15359,10 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    mataPelajaranId?: SortOrder
     user?: UserOrderByWithRelationInput
     kelas?: KelasOrderByWithRelationInput
+    mataPelajaran?: MataPelajaranOrderByWithRelationInput
   }
 
   export type AbsensiWhereUniqueInput = Prisma.AtLeast<{
@@ -12723,8 +15375,10 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    mataPelajaranId?: IntFilter<"Absensi"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
   }, "id">
 
   export type AbsensiOrderByWithAggregationInput = {
@@ -12734,6 +15388,7 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    mataPelajaranId?: SortOrder
     _count?: AbsensiCountOrderByAggregateInput
     _avg?: AbsensiAvgOrderByAggregateInput
     _max?: AbsensiMaxOrderByAggregateInput
@@ -12751,6 +15406,7 @@ export namespace Prisma {
     tanggal?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiWithAggregatesFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
+    mataPelajaranId?: IntWithAggregatesFilter<"Absensi"> | number
   }
 
   export type IzinWhereInput = {
@@ -12832,6 +15488,7 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
+    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
@@ -12843,6 +15500,7 @@ export namespace Prisma {
     deskripsi?: SortOrderInput | SortOrder
     santri?: UserOrderByRelationAggregateInput
     pengajar?: UserOrderByRelationAggregateInput
+    mataPelajaran?: MataPelajaranOrderByRelationAggregateInput
     absensi?: AbsensiOrderByRelationAggregateInput
     izin?: IzinOrderByRelationAggregateInput
     tugas?: TugasOrderByRelationAggregateInput
@@ -12857,6 +15515,7 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
+    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
@@ -12934,6 +15593,74 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"LogAktivitas"> | Date | string
   }
 
+  export type MataPelajaranWhereInput = {
+    AND?: MataPelajaranWhereInput | MataPelajaranWhereInput[]
+    OR?: MataPelajaranWhereInput[]
+    NOT?: MataPelajaranWhereInput | MataPelajaranWhereInput[]
+    id?: IntFilter<"MataPelajaran"> | number
+    nama?: StringFilter<"MataPelajaran"> | string
+    kode?: StringFilter<"MataPelajaran"> | string
+    kelasId?: IntFilter<"MataPelajaran"> | number
+    pengajarId?: IntFilter<"MataPelajaran"> | number
+    createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    pengajar?: XOR<UserScalarRelationFilter, UserWhereInput>
+    absensi?: AbsensiListRelationFilter
+  }
+
+  export type MataPelajaranOrderByWithRelationInput = {
+    id?: SortOrder
+    nama?: SortOrder
+    kode?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+    createdAt?: SortOrder
+    kelas?: KelasOrderByWithRelationInput
+    pengajar?: UserOrderByWithRelationInput
+    absensi?: AbsensiOrderByRelationAggregateInput
+  }
+
+  export type MataPelajaranWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    kode?: string
+    AND?: MataPelajaranWhereInput | MataPelajaranWhereInput[]
+    OR?: MataPelajaranWhereInput[]
+    NOT?: MataPelajaranWhereInput | MataPelajaranWhereInput[]
+    nama?: StringFilter<"MataPelajaran"> | string
+    kelasId?: IntFilter<"MataPelajaran"> | number
+    pengajarId?: IntFilter<"MataPelajaran"> | number
+    createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    pengajar?: XOR<UserScalarRelationFilter, UserWhereInput>
+    absensi?: AbsensiListRelationFilter
+  }, "id" | "kode">
+
+  export type MataPelajaranOrderByWithAggregationInput = {
+    id?: SortOrder
+    nama?: SortOrder
+    kode?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+    createdAt?: SortOrder
+    _count?: MataPelajaranCountOrderByAggregateInput
+    _avg?: MataPelajaranAvgOrderByAggregateInput
+    _max?: MataPelajaranMaxOrderByAggregateInput
+    _min?: MataPelajaranMinOrderByAggregateInput
+    _sum?: MataPelajaranSumOrderByAggregateInput
+  }
+
+  export type MataPelajaranScalarWhereWithAggregatesInput = {
+    AND?: MataPelajaranScalarWhereWithAggregatesInput | MataPelajaranScalarWhereWithAggregatesInput[]
+    OR?: MataPelajaranScalarWhereWithAggregatesInput[]
+    NOT?: MataPelajaranScalarWhereWithAggregatesInput | MataPelajaranScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MataPelajaran"> | number
+    nama?: StringWithAggregatesFilter<"MataPelajaran"> | string
+    kode?: StringWithAggregatesFilter<"MataPelajaran"> | string
+    kelasId?: IntWithAggregatesFilter<"MataPelajaran"> | number
+    pengajarId?: IntWithAggregatesFilter<"MataPelajaran"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"MataPelajaran"> | Date | string
+  }
+
   export type NilaiWhereInput = {
     AND?: NilaiWhereInput | NilaiWhereInput[]
     OR?: NilaiWhereInput[]
@@ -12997,6 +15724,73 @@ export namespace Prisma {
     nilai?: IntWithAggregatesFilter<"Nilai"> | number
     catatan?: StringNullableWithAggregatesFilter<"Nilai"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Nilai"> | Date | string
+  }
+
+  export type NotificationWhereInput = {
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    id?: IntFilter<"Notification"> | number
+    userId?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    level?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    level?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    userId?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    level?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type NotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    level?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+    _count?: NotificationCountOrderByAggregateInput
+    _avg?: NotificationAvgOrderByAggregateInput
+    _max?: NotificationMaxOrderByAggregateInput
+    _min?: NotificationMinOrderByAggregateInput
+    _sum?: NotificationSumOrderByAggregateInput
+  }
+
+  export type NotificationScalarWhereWithAggregatesInput = {
+    AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    OR?: NotificationScalarWhereWithAggregatesInput[]
+    NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Notification"> | number
+    userId?: IntWithAggregatesFilter<"Notification"> | number
+    title?: StringWithAggregatesFilter<"Notification"> | string
+    message?: StringWithAggregatesFilter<"Notification"> | string
+    level?: StringWithAggregatesFilter<"Notification"> | string
+    isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
   export type ProfileWhereInput = {
@@ -13245,6 +16039,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     kelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
     kelasAjar?: KelasListRelationFilter
+    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
@@ -13252,6 +16047,7 @@ export namespace Prisma {
     nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
     profiles?: ProfileListRelationFilter
+    notifications?: NotificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13268,6 +16064,7 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     kelas?: KelasOrderByWithRelationInput
     kelasAjar?: KelasOrderByRelationAggregateInput
+    mataPelajaran?: MataPelajaranOrderByRelationAggregateInput
     absensi?: AbsensiOrderByRelationAggregateInput
     izin?: IzinOrderByRelationAggregateInput
     tugasDibuat?: TugasOrderByRelationAggregateInput
@@ -13275,6 +16072,7 @@ export namespace Prisma {
     nilai?: NilaiOrderByRelationAggregateInput
     log?: LogAktivitasOrderByRelationAggregateInput
     profiles?: ProfileOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13294,6 +16092,7 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     kelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
     kelasAjar?: KelasListRelationFilter
+    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
@@ -13301,6 +16100,7 @@ export namespace Prisma {
     nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
     profiles?: ProfileListRelationFilter
+    notifications?: NotificationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -13345,6 +16145,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAbsensiInput
     kelas: KelasCreateNestedOneWithoutAbsensiInput
+    mataPelajaran: MataPelajaranCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateInput = {
@@ -13354,6 +16155,7 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type AbsensiUpdateInput = {
@@ -13362,6 +16164,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateInput = {
@@ -13371,6 +16174,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AbsensiCreateManyInput = {
@@ -13380,6 +16184,7 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type AbsensiUpdateManyMutationInput = {
@@ -13395,6 +16200,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IzinCreateInput = {
@@ -13467,6 +16273,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -13478,6 +16285,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -13488,6 +16296,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -13499,6 +16308,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -13566,6 +16376,68 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MataPelajaranCreateInput = {
+    nama: string
+    kode: string
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
+    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
+    absensi?: AbsensiCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranUncheckedCreateInput = {
+    id?: number
+    nama: string
+    kode: string
+    kelasId: number
+    pengajarId: number
+    createdAt?: Date | string
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranUpdateInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
+    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
+    absensi?: AbsensiUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    kelasId?: IntFieldUpdateOperationsInput | number
+    pengajarId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUncheckedUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranCreateManyInput = {
+    id?: number
+    nama: string
+    kode: string
+    kelasId: number
+    pengajarId: number
+    createdAt?: Date | string
+  }
+
+  export type MataPelajaranUpdateManyMutationInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MataPelajaranUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    kelasId?: IntFieldUpdateOperationsInput | number
+    pengajarId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NilaiCreateInput = {
     nilai: number
     catatan?: string | null
@@ -13621,6 +16493,72 @@ export namespace Prisma {
     tugasId?: IntFieldUpdateOperationsInput | number
     nilai?: IntFieldUpdateOperationsInput | number
     catatan?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateInput = {
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateInput = {
+    id?: number
+    userId: number
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManyInput = {
+    id?: number
+    userId: number
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -13861,6 +16799,7 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -13868,6 +16807,7 @@ export namespace Prisma {
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13883,6 +16823,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -13890,6 +16831,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -13904,6 +16846,7 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -13911,6 +16854,7 @@ export namespace Prisma {
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13926,6 +16870,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -13933,6 +16878,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14014,6 +16960,11 @@ export namespace Prisma {
     isNot?: KelasWhereInput
   }
 
+  export type MataPelajaranScalarRelationFilter = {
+    is?: MataPelajaranWhereInput
+    isNot?: MataPelajaranWhereInput
+  }
+
   export type AbsensiCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -14021,12 +16972,14 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    mataPelajaranId?: SortOrder
   }
 
   export type AbsensiAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    mataPelajaranId?: SortOrder
   }
 
   export type AbsensiMaxOrderByAggregateInput = {
@@ -14036,6 +16989,7 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    mataPelajaranId?: SortOrder
   }
 
   export type AbsensiMinOrderByAggregateInput = {
@@ -14045,12 +16999,14 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    mataPelajaranId?: SortOrder
   }
 
   export type AbsensiSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    mataPelajaranId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14206,6 +17162,12 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type MataPelajaranListRelationFilter = {
+    every?: MataPelajaranWhereInput
+    some?: MataPelajaranWhereInput
+    none?: MataPelajaranWhereInput
+  }
+
   export type AbsensiListRelationFilter = {
     every?: AbsensiWhereInput
     some?: AbsensiWhereInput
@@ -14230,6 +17192,10 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MataPelajaranOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14320,6 +17286,45 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type MataPelajaranCountOrderByAggregateInput = {
+    id?: SortOrder
+    nama?: SortOrder
+    kode?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MataPelajaranAvgOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+  }
+
+  export type MataPelajaranMaxOrderByAggregateInput = {
+    id?: SortOrder
+    nama?: SortOrder
+    kode?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MataPelajaranMinOrderByAggregateInput = {
+    id?: SortOrder
+    nama?: SortOrder
+    kode?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MataPelajaranSumOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    pengajarId?: SortOrder
+  }
+
   export type TugasScalarRelationFilter = {
     is?: TugasWhereInput
     isNot?: TugasWhereInput
@@ -14364,6 +17369,59 @@ export namespace Prisma {
     userId?: SortOrder
     tugasId?: SortOrder
     nilai?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    level?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type NotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    level?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    level?: SortOrder
+    isRead?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -14584,11 +17642,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type KelasNullableScalarRelationFilter = {
     is?: KelasWhereInput | null
     isNot?: KelasWhereInput | null
@@ -14612,6 +17665,12 @@ export namespace Prisma {
     none?: ProfileWhereInput
   }
 
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
   export type KelasOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -14621,6 +17680,10 @@ export namespace Prisma {
   }
 
   export type ProfileOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14702,14 +17765,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type UserCreateNestedOneWithoutAbsensiInput = {
     create?: XOR<UserCreateWithoutAbsensiInput, UserUncheckedCreateWithoutAbsensiInput>
     connectOrCreate?: UserCreateOrConnectWithoutAbsensiInput
@@ -14720,6 +17775,12 @@ export namespace Prisma {
     create?: XOR<KelasCreateWithoutAbsensiInput, KelasUncheckedCreateWithoutAbsensiInput>
     connectOrCreate?: KelasCreateOrConnectWithoutAbsensiInput
     connect?: KelasWhereUniqueInput
+  }
+
+  export type MataPelajaranCreateNestedOneWithoutAbsensiInput = {
+    create?: XOR<MataPelajaranCreateWithoutAbsensiInput, MataPelajaranUncheckedCreateWithoutAbsensiInput>
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutAbsensiInput
+    connect?: MataPelajaranWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -14744,6 +17805,14 @@ export namespace Prisma {
     upsert?: KelasUpsertWithoutAbsensiInput
     connect?: KelasWhereUniqueInput
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutAbsensiInput, KelasUpdateWithoutAbsensiInput>, KelasUncheckedUpdateWithoutAbsensiInput>
+  }
+
+  export type MataPelajaranUpdateOneRequiredWithoutAbsensiNestedInput = {
+    create?: XOR<MataPelajaranCreateWithoutAbsensiInput, MataPelajaranUncheckedCreateWithoutAbsensiInput>
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutAbsensiInput
+    upsert?: MataPelajaranUpsertWithoutAbsensiInput
+    connect?: MataPelajaranWhereUniqueInput
+    update?: XOR<XOR<MataPelajaranUpdateToOneWithWhereWithoutAbsensiInput, MataPelajaranUpdateWithoutAbsensiInput>, MataPelajaranUncheckedUpdateWithoutAbsensiInput>
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -14803,6 +17872,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type MataPelajaranCreateNestedManyWithoutKelasInput = {
+    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
+    createMany?: MataPelajaranCreateManyKelasInputEnvelope
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+  }
+
   export type AbsensiCreateNestedManyWithoutKelasInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -14835,6 +17911,13 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutKelasAjarInput, UserUncheckedCreateWithoutKelasAjarInput> | UserCreateWithoutKelasAjarInput[] | UserUncheckedCreateWithoutKelasAjarInput[]
     connectOrCreate?: UserCreateOrConnectWithoutKelasAjarInput | UserCreateOrConnectWithoutKelasAjarInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MataPelajaranUncheckedCreateNestedManyWithoutKelasInput = {
+    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
+    createMany?: MataPelajaranCreateManyKelasInputEnvelope
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
   }
 
   export type AbsensiUncheckedCreateNestedManyWithoutKelasInput = {
@@ -14887,6 +17970,20 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutKelasAjarInput | UserUpdateWithWhereUniqueWithoutKelasAjarInput[]
     updateMany?: UserUpdateManyWithWhereWithoutKelasAjarInput | UserUpdateManyWithWhereWithoutKelasAjarInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MataPelajaranUpdateManyWithoutKelasNestedInput = {
+    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
+    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutKelasInput | MataPelajaranUpsertWithWhereUniqueWithoutKelasInput[]
+    createMany?: MataPelajaranCreateManyKelasInputEnvelope
+    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    update?: MataPelajaranUpdateWithWhereUniqueWithoutKelasInput | MataPelajaranUpdateWithWhereUniqueWithoutKelasInput[]
+    updateMany?: MataPelajaranUpdateManyWithWhereWithoutKelasInput | MataPelajaranUpdateManyWithWhereWithoutKelasInput[]
+    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUpdateManyWithoutKelasNestedInput = {
@@ -14958,6 +18055,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput = {
+    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
+    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutKelasInput | MataPelajaranUpsertWithWhereUniqueWithoutKelasInput[]
+    createMany?: MataPelajaranCreateManyKelasInputEnvelope
+    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    update?: MataPelajaranUpdateWithWhereUniqueWithoutKelasInput | MataPelajaranUpdateWithWhereUniqueWithoutKelasInput[]
+    updateMany?: MataPelajaranUpdateManyWithWhereWithoutKelasInput | MataPelajaranUpdateManyWithWhereWithoutKelasInput[]
+    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
+  }
+
   export type AbsensiUncheckedUpdateManyWithoutKelasNestedInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -15014,6 +18125,76 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLogInput, UserUpdateWithoutLogInput>, UserUncheckedUpdateWithoutLogInput>
   }
 
+  export type KelasCreateNestedOneWithoutMataPelajaranInput = {
+    create?: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutMataPelajaranInput
+    connect?: KelasWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMataPelajaranInput = {
+    create?: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMataPelajaranInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AbsensiCreateNestedManyWithoutMataPelajaranInput = {
+    create?: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput> | AbsensiCreateWithoutMataPelajaranInput[] | AbsensiUncheckedCreateWithoutMataPelajaranInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutMataPelajaranInput | AbsensiCreateOrConnectWithoutMataPelajaranInput[]
+    createMany?: AbsensiCreateManyMataPelajaranInputEnvelope
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type AbsensiUncheckedCreateNestedManyWithoutMataPelajaranInput = {
+    create?: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput> | AbsensiCreateWithoutMataPelajaranInput[] | AbsensiUncheckedCreateWithoutMataPelajaranInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutMataPelajaranInput | AbsensiCreateOrConnectWithoutMataPelajaranInput[]
+    createMany?: AbsensiCreateManyMataPelajaranInputEnvelope
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type KelasUpdateOneRequiredWithoutMataPelajaranNestedInput = {
+    create?: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutMataPelajaranInput
+    upsert?: KelasUpsertWithoutMataPelajaranInput
+    connect?: KelasWhereUniqueInput
+    update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutMataPelajaranInput, KelasUpdateWithoutMataPelajaranInput>, KelasUncheckedUpdateWithoutMataPelajaranInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMataPelajaranNestedInput = {
+    create?: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMataPelajaranInput
+    upsert?: UserUpsertWithoutMataPelajaranInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMataPelajaranInput, UserUpdateWithoutMataPelajaranInput>, UserUncheckedUpdateWithoutMataPelajaranInput>
+  }
+
+  export type AbsensiUpdateManyWithoutMataPelajaranNestedInput = {
+    create?: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput> | AbsensiCreateWithoutMataPelajaranInput[] | AbsensiUncheckedCreateWithoutMataPelajaranInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutMataPelajaranInput | AbsensiCreateOrConnectWithoutMataPelajaranInput[]
+    upsert?: AbsensiUpsertWithWhereUniqueWithoutMataPelajaranInput | AbsensiUpsertWithWhereUniqueWithoutMataPelajaranInput[]
+    createMany?: AbsensiCreateManyMataPelajaranInputEnvelope
+    set?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    disconnect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    delete?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    update?: AbsensiUpdateWithWhereUniqueWithoutMataPelajaranInput | AbsensiUpdateWithWhereUniqueWithoutMataPelajaranInput[]
+    updateMany?: AbsensiUpdateManyWithWhereWithoutMataPelajaranInput | AbsensiUpdateManyWithWhereWithoutMataPelajaranInput[]
+    deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
+  export type AbsensiUncheckedUpdateManyWithoutMataPelajaranNestedInput = {
+    create?: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput> | AbsensiCreateWithoutMataPelajaranInput[] | AbsensiUncheckedCreateWithoutMataPelajaranInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutMataPelajaranInput | AbsensiCreateOrConnectWithoutMataPelajaranInput[]
+    upsert?: AbsensiUpsertWithWhereUniqueWithoutMataPelajaranInput | AbsensiUpsertWithWhereUniqueWithoutMataPelajaranInput[]
+    createMany?: AbsensiCreateManyMataPelajaranInputEnvelope
+    set?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    disconnect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    delete?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    update?: AbsensiUpdateWithWhereUniqueWithoutMataPelajaranInput | AbsensiUpdateWithWhereUniqueWithoutMataPelajaranInput[]
+    updateMany?: AbsensiUpdateManyWithWhereWithoutMataPelajaranInput | AbsensiUpdateManyWithWhereWithoutMataPelajaranInput[]
+    deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutNilaiInput = {
     create?: XOR<UserCreateWithoutNilaiInput, UserUncheckedCreateWithoutNilaiInput>
     connectOrCreate?: UserCreateOrConnectWithoutNilaiInput
@@ -15040,6 +18221,24 @@ export namespace Prisma {
     upsert?: TugasUpsertWithoutNilaiInput
     connect?: TugasWhereUniqueInput
     update?: XOR<XOR<TugasUpdateToOneWithWhereWithoutNilaiInput, TugasUpdateWithoutNilaiInput>, TugasUncheckedUpdateWithoutNilaiInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type UserCreateNestedOneWithoutProfilesInput = {
@@ -15216,6 +18415,13 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput | KelasWhereUniqueInput[]
   }
 
+  export type MataPelajaranCreateNestedManyWithoutPengajarInput = {
+    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
+    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+  }
+
   export type AbsensiCreateNestedManyWithoutUserInput = {
     create?: XOR<AbsensiCreateWithoutUserInput, AbsensiUncheckedCreateWithoutUserInput> | AbsensiCreateWithoutUserInput[] | AbsensiUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutUserInput | AbsensiCreateOrConnectWithoutUserInput[]
@@ -15265,10 +18471,24 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
   export type KelasUncheckedCreateNestedManyWithoutPengajarInput = {
     create?: XOR<KelasCreateWithoutPengajarInput, KelasUncheckedCreateWithoutPengajarInput> | KelasCreateWithoutPengajarInput[] | KelasUncheckedCreateWithoutPengajarInput[]
     connectOrCreate?: KelasCreateOrConnectWithoutPengajarInput | KelasCreateOrConnectWithoutPengajarInput[]
     connect?: KelasWhereUniqueInput | KelasWhereUniqueInput[]
+  }
+
+  export type MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput = {
+    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
+    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
   }
 
   export type AbsensiUncheckedCreateNestedManyWithoutUserInput = {
@@ -15320,12 +18540,15 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type KelasUpdateOneWithoutSantriNestedInput = {
@@ -15349,6 +18572,20 @@ export namespace Prisma {
     update?: KelasUpdateWithWhereUniqueWithoutPengajarInput | KelasUpdateWithWhereUniqueWithoutPengajarInput[]
     updateMany?: KelasUpdateManyWithWhereWithoutPengajarInput | KelasUpdateManyWithWhereWithoutPengajarInput[]
     deleteMany?: KelasScalarWhereInput | KelasScalarWhereInput[]
+  }
+
+  export type MataPelajaranUpdateManyWithoutPengajarNestedInput = {
+    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
+    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput | MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput[]
+    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
+    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    update?: MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput | MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput[]
+    updateMany?: MataPelajaranUpdateManyWithWhereWithoutPengajarInput | MataPelajaranUpdateManyWithWhereWithoutPengajarInput[]
+    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUpdateManyWithoutUserNestedInput = {
@@ -15449,6 +18686,20 @@ export namespace Prisma {
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
   }
 
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -15468,6 +18719,20 @@ export namespace Prisma {
     update?: KelasUpdateWithWhereUniqueWithoutPengajarInput | KelasUpdateWithWhereUniqueWithoutPengajarInput[]
     updateMany?: KelasUpdateManyWithWhereWithoutPengajarInput | KelasUpdateManyWithWhereWithoutPengajarInput[]
     deleteMany?: KelasScalarWhereInput | KelasScalarWhereInput[]
+  }
+
+  export type MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput = {
+    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
+    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
+    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput | MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput[]
+    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
+    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
+    update?: MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput | MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput[]
+    updateMany?: MataPelajaranUpdateManyWithWhereWithoutPengajarInput | MataPelajaranUpdateManyWithWhereWithoutPengajarInput[]
+    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15566,6 +18831,20 @@ export namespace Prisma {
     update?: ProfileUpdateWithWhereUniqueWithoutUserInput | ProfileUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProfileUpdateManyWithWhereWithoutUserInput | ProfileUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -15738,6 +19017,19 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -15787,11 +19079,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15829,14 +19116,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type UserCreateWithoutAbsensiInput = {
     name: string
     email: string
@@ -15849,12 +19128,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAbsensiInput = {
@@ -15870,12 +19151,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAbsensiInput = {
@@ -15888,6 +19171,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -15898,6 +19182,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -15905,6 +19190,28 @@ export namespace Prisma {
   export type KelasCreateOrConnectWithoutAbsensiInput = {
     where: KelasWhereUniqueInput
     create: XOR<KelasCreateWithoutAbsensiInput, KelasUncheckedCreateWithoutAbsensiInput>
+  }
+
+  export type MataPelajaranCreateWithoutAbsensiInput = {
+    nama: string
+    kode: string
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
+    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranUncheckedCreateWithoutAbsensiInput = {
+    id?: number
+    nama: string
+    kode: string
+    kelasId: number
+    pengajarId: number
+    createdAt?: Date | string
+  }
+
+  export type MataPelajaranCreateOrConnectWithoutAbsensiInput = {
+    where: MataPelajaranWhereUniqueInput
+    create: XOR<MataPelajaranCreateWithoutAbsensiInput, MataPelajaranUncheckedCreateWithoutAbsensiInput>
   }
 
   export type UserUpsertWithoutAbsensiInput = {
@@ -15930,12 +19237,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAbsensiInput = {
@@ -15951,12 +19260,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type KelasUpsertWithoutAbsensiInput = {
@@ -15975,6 +19286,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -15985,8 +19297,37 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type MataPelajaranUpsertWithoutAbsensiInput = {
+    update: XOR<MataPelajaranUpdateWithoutAbsensiInput, MataPelajaranUncheckedUpdateWithoutAbsensiInput>
+    create: XOR<MataPelajaranCreateWithoutAbsensiInput, MataPelajaranUncheckedCreateWithoutAbsensiInput>
+    where?: MataPelajaranWhereInput
+  }
+
+  export type MataPelajaranUpdateToOneWithWhereWithoutAbsensiInput = {
+    where?: MataPelajaranWhereInput
+    data: XOR<MataPelajaranUpdateWithoutAbsensiInput, MataPelajaranUncheckedUpdateWithoutAbsensiInput>
+  }
+
+  export type MataPelajaranUpdateWithoutAbsensiInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
+    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateWithoutAbsensiInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    kelasId?: IntFieldUpdateOperationsInput | number
+    pengajarId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutIzinInput = {
@@ -16001,12 +19342,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIzinInput = {
@@ -16022,12 +19365,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIzinInput = {
@@ -16040,6 +19385,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -16050,6 +19396,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -16082,12 +19429,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIzinInput = {
@@ -16103,12 +19452,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type KelasUpsertWithoutIzinInput = {
@@ -16127,6 +19478,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -16137,6 +19489,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -16152,6 +19505,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -16159,6 +19513,7 @@ export namespace Prisma {
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutKelasInput = {
@@ -16173,6 +19528,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -16180,6 +19536,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutKelasInput = {
@@ -16203,6 +19560,7 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -16210,6 +19568,7 @@ export namespace Prisma {
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutKelasAjarInput = {
@@ -16224,6 +19583,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -16231,6 +19591,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutKelasAjarInput = {
@@ -16238,11 +19599,39 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutKelasAjarInput, UserUncheckedCreateWithoutKelasAjarInput>
   }
 
+  export type MataPelajaranCreateWithoutKelasInput = {
+    nama: string
+    kode: string
+    createdAt?: Date | string
+    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
+    absensi?: AbsensiCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranUncheckedCreateWithoutKelasInput = {
+    id?: number
+    nama: string
+    kode: string
+    pengajarId: number
+    createdAt?: Date | string
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranCreateOrConnectWithoutKelasInput = {
+    where: MataPelajaranWhereUniqueInput
+    create: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput>
+  }
+
+  export type MataPelajaranCreateManyKelasInputEnvelope = {
+    data: MataPelajaranCreateManyKelasInput | MataPelajaranCreateManyKelasInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AbsensiCreateWithoutKelasInput = {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAbsensiInput
+    mataPelajaran: MataPelajaranCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateWithoutKelasInput = {
@@ -16251,6 +19640,7 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type AbsensiCreateOrConnectWithoutKelasInput = {
@@ -16370,6 +19760,34 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutKelasAjarInput>
   }
 
+  export type MataPelajaranUpsertWithWhereUniqueWithoutKelasInput = {
+    where: MataPelajaranWhereUniqueInput
+    update: XOR<MataPelajaranUpdateWithoutKelasInput, MataPelajaranUncheckedUpdateWithoutKelasInput>
+    create: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput>
+  }
+
+  export type MataPelajaranUpdateWithWhereUniqueWithoutKelasInput = {
+    where: MataPelajaranWhereUniqueInput
+    data: XOR<MataPelajaranUpdateWithoutKelasInput, MataPelajaranUncheckedUpdateWithoutKelasInput>
+  }
+
+  export type MataPelajaranUpdateManyWithWhereWithoutKelasInput = {
+    where: MataPelajaranScalarWhereInput
+    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyWithoutKelasInput>
+  }
+
+  export type MataPelajaranScalarWhereInput = {
+    AND?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
+    OR?: MataPelajaranScalarWhereInput[]
+    NOT?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
+    id?: IntFilter<"MataPelajaran"> | number
+    nama?: StringFilter<"MataPelajaran"> | string
+    kode?: StringFilter<"MataPelajaran"> | string
+    kelasId?: IntFilter<"MataPelajaran"> | number
+    pengajarId?: IntFilter<"MataPelajaran"> | number
+    createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
+  }
+
   export type AbsensiUpsertWithWhereUniqueWithoutKelasInput = {
     where: AbsensiWhereUniqueInput
     update: XOR<AbsensiUpdateWithoutKelasInput, AbsensiUncheckedUpdateWithoutKelasInput>
@@ -16396,6 +19814,7 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    mataPelajaranId?: IntFilter<"Absensi"> | number
   }
 
   export type IzinUpsertWithWhereUniqueWithoutKelasInput = {
@@ -16468,12 +19887,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLogInput = {
@@ -16489,12 +19910,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLogInput = {
@@ -16525,15 +19948,208 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLogInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    kelasId?: NullableIntFieldUpdateOperationsInput | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
+    absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
+    izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
+    tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type KelasCreateWithoutMataPelajaranInput = {
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserCreateNestedManyWithoutKelasInput
+    pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    izin?: IzinCreateNestedManyWithoutKelasInput
+    tugas?: TugasCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasUncheckedCreateWithoutMataPelajaranInput = {
+    id?: number
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserUncheckedCreateNestedManyWithoutKelasInput
+    pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
+    tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasCreateOrConnectWithoutMataPelajaranInput = {
+    where: KelasWhereUniqueInput
+    create: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
+  }
+
+  export type UserCreateWithoutMataPelajaranInput = {
+    name: string
+    email: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    kelas?: KelasCreateNestedOneWithoutSantriInput
+    kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    absensi?: AbsensiCreateNestedManyWithoutUserInput
+    izin?: IzinCreateNestedManyWithoutUserInput
+    tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
+    submission?: SubmissionCreateNestedManyWithoutUserInput
+    nilai?: NilaiCreateNestedManyWithoutUserInput
+    log?: LogAktivitasCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMataPelajaranInput = {
+    id?: number
+    name: string
+    email: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
+    role?: $Enums.Role
+    kelasId?: number | null
+    isActive?: boolean
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
+    izin?: IzinUncheckedCreateNestedManyWithoutUserInput
+    tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
+    log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMataPelajaranInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
+  }
+
+  export type AbsensiCreateWithoutMataPelajaranInput = {
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAbsensiInput
+    kelas: KelasCreateNestedOneWithoutAbsensiInput
+  }
+
+  export type AbsensiUncheckedCreateWithoutMataPelajaranInput = {
+    id?: number
+    userId: number
+    kelasId: number
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+  }
+
+  export type AbsensiCreateOrConnectWithoutMataPelajaranInput = {
+    where: AbsensiWhereUniqueInput
+    create: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput>
+  }
+
+  export type AbsensiCreateManyMataPelajaranInputEnvelope = {
+    data: AbsensiCreateManyMataPelajaranInput | AbsensiCreateManyMataPelajaranInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type KelasUpsertWithoutMataPelajaranInput = {
+    update: XOR<KelasUpdateWithoutMataPelajaranInput, KelasUncheckedUpdateWithoutMataPelajaranInput>
+    create: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
+    where?: KelasWhereInput
+  }
+
+  export type KelasUpdateToOneWithWhereWithoutMataPelajaranInput = {
+    where?: KelasWhereInput
+    data: XOR<KelasUpdateWithoutMataPelajaranInput, KelasUncheckedUpdateWithoutMataPelajaranInput>
+  }
+
+  export type KelasUpdateWithoutMataPelajaranInput = {
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    izin?: IzinUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUpdateManyWithoutKelasNestedInput
+  }
+
+  export type KelasUncheckedUpdateWithoutMataPelajaranInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type UserUpsertWithoutMataPelajaranInput = {
+    update: XOR<UserUpdateWithoutMataPelajaranInput, UserUncheckedUpdateWithoutMataPelajaranInput>
+    create: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMataPelajaranInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMataPelajaranInput, UserUncheckedUpdateWithoutMataPelajaranInput>
+  }
+
+  export type UserUpdateWithoutMataPelajaranInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kelas?: KelasUpdateOneWithoutSantriNestedInput
+    kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    absensi?: AbsensiUpdateManyWithoutUserNestedInput
+    izin?: IzinUpdateManyWithoutUserNestedInput
+    tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
+    submission?: SubmissionUpdateManyWithoutUserNestedInput
+    nilai?: NilaiUpdateManyWithoutUserNestedInput
+    log?: LogAktivitasUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMataPelajaranInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -16551,7 +20167,25 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
+    log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AbsensiUpsertWithWhereUniqueWithoutMataPelajaranInput = {
+    where: AbsensiWhereUniqueInput
+    update: XOR<AbsensiUpdateWithoutMataPelajaranInput, AbsensiUncheckedUpdateWithoutMataPelajaranInput>
+    create: XOR<AbsensiCreateWithoutMataPelajaranInput, AbsensiUncheckedCreateWithoutMataPelajaranInput>
+  }
+
+  export type AbsensiUpdateWithWhereUniqueWithoutMataPelajaranInput = {
+    where: AbsensiWhereUniqueInput
+    data: XOR<AbsensiUpdateWithoutMataPelajaranInput, AbsensiUncheckedUpdateWithoutMataPelajaranInput>
+  }
+
+  export type AbsensiUpdateManyWithWhereWithoutMataPelajaranInput = {
+    where: AbsensiScalarWhereInput
+    data: XOR<AbsensiUpdateManyMutationInput, AbsensiUncheckedUpdateManyWithoutMataPelajaranInput>
   }
 
   export type UserCreateWithoutNilaiInput = {
@@ -16566,12 +20200,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNilaiInput = {
@@ -16587,12 +20223,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNilaiInput = {
@@ -16649,12 +20287,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNilaiInput = {
@@ -16670,12 +20310,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TugasUpsertWithoutNilaiInput = {
@@ -16710,6 +20352,112 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
   }
 
+  export type UserCreateWithoutNotificationsInput = {
+    name: string
+    email: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
+    role?: $Enums.Role
+    isActive?: boolean
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    kelas?: KelasCreateNestedOneWithoutSantriInput
+    kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
+    absensi?: AbsensiCreateNestedManyWithoutUserInput
+    izin?: IzinCreateNestedManyWithoutUserInput
+    tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
+    submission?: SubmissionCreateNestedManyWithoutUserInput
+    nilai?: NilaiCreateNestedManyWithoutUserInput
+    log?: LogAktivitasCreateNestedManyWithoutUserInput
+    profiles?: ProfileCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: number
+    name: string
+    email: string
+    password?: string | null
+    activationToken?: string | null
+    activatedAt?: Date | string | null
+    role?: $Enums.Role
+    kelasId?: number | null
+    isActive?: boolean
+    createdAt?: Date | string
+    deletedAt?: Date | string | null
+    kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
+    izin?: IzinUncheckedCreateNestedManyWithoutUserInput
+    tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
+    log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
+    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kelas?: KelasUpdateOneWithoutSantriNestedInput
+    kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
+    absensi?: AbsensiUpdateManyWithoutUserNestedInput
+    izin?: IzinUpdateManyWithoutUserNestedInput
+    tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
+    submission?: SubmissionUpdateManyWithoutUserNestedInput
+    nilai?: NilaiUpdateManyWithoutUserNestedInput
+    log?: LogAktivitasUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    kelasId?: NullableIntFieldUpdateOperationsInput | number | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
+    absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
+    izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
+    tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
+    log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
+    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutProfilesInput = {
     name: string
     email: string
@@ -16722,12 +20470,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfilesInput = {
@@ -16743,12 +20493,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfilesInput = {
@@ -16779,12 +20531,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfilesInput = {
@@ -16800,12 +20554,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TugasCreateWithoutSubmissionInput = {
@@ -16846,12 +20602,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmissionInput = {
@@ -16867,12 +20625,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmissionInput = {
@@ -16935,12 +20695,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmissionInput = {
@@ -16956,12 +20718,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type KelasCreateWithoutTugasInput = {
@@ -16969,6 +20733,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
   }
@@ -16979,6 +20744,7 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -17000,12 +20766,14 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profiles?: ProfileCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTugasDibuatInput = {
@@ -17021,12 +20789,14 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTugasDibuatInput = {
@@ -17102,6 +20872,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
   }
@@ -17112,6 +20883,7 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -17139,12 +20911,14 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTugasDibuatInput = {
@@ -17160,12 +20934,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SubmissionUpsertWithWhereUniqueWithoutTugasInput = {
@@ -17229,6 +21005,7 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -17239,6 +21016,7 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -17253,6 +21031,7 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
+    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -17263,6 +21042,7 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
+    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -17273,11 +21053,39 @@ export namespace Prisma {
     create: XOR<KelasCreateWithoutPengajarInput, KelasUncheckedCreateWithoutPengajarInput>
   }
 
+  export type MataPelajaranCreateWithoutPengajarInput = {
+    nama: string
+    kode: string
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
+    absensi?: AbsensiCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranUncheckedCreateWithoutPengajarInput = {
+    id?: number
+    nama: string
+    kode: string
+    kelasId: number
+    createdAt?: Date | string
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutMataPelajaranInput
+  }
+
+  export type MataPelajaranCreateOrConnectWithoutPengajarInput = {
+    where: MataPelajaranWhereUniqueInput
+    create: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput>
+  }
+
+  export type MataPelajaranCreateManyPengajarInputEnvelope = {
+    data: MataPelajaranCreateManyPengajarInput | MataPelajaranCreateManyPengajarInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AbsensiCreateWithoutUserInput = {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
     kelas: KelasCreateNestedOneWithoutAbsensiInput
+    mataPelajaran: MataPelajaranCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateWithoutUserInput = {
@@ -17286,6 +21094,7 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type AbsensiCreateOrConnectWithoutUserInput = {
@@ -17462,6 +21271,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationCreateWithoutUserInput = {
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: number
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type KelasUpsertWithoutSantriInput = {
     update: XOR<KelasUpdateWithoutSantriInput, KelasUncheckedUpdateWithoutSantriInput>
     create: XOR<KelasCreateWithoutSantriInput, KelasUncheckedCreateWithoutSantriInput>
@@ -17477,6 +21313,7 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -17487,6 +21324,7 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -17515,6 +21353,22 @@ export namespace Prisma {
     id?: IntFilter<"Kelas"> | number
     namaKelas?: StringFilter<"Kelas"> | string
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
+  }
+
+  export type MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput = {
+    where: MataPelajaranWhereUniqueInput
+    update: XOR<MataPelajaranUpdateWithoutPengajarInput, MataPelajaranUncheckedUpdateWithoutPengajarInput>
+    create: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput>
+  }
+
+  export type MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput = {
+    where: MataPelajaranWhereUniqueInput
+    data: XOR<MataPelajaranUpdateWithoutPengajarInput, MataPelajaranUncheckedUpdateWithoutPengajarInput>
+  }
+
+  export type MataPelajaranUpdateManyWithWhereWithoutPengajarInput = {
+    where: MataPelajaranScalarWhereInput
+    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyWithoutPengajarInput>
   }
 
   export type AbsensiUpsertWithWhereUniqueWithoutUserInput = {
@@ -17655,6 +21509,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
   }
 
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: IntFilter<"Notification"> | number
+    userId?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    level?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
   export type UserCreateManyKelasInput = {
     id?: number
     name: string
@@ -17668,12 +21551,21 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
+  export type MataPelajaranCreateManyKelasInput = {
+    id?: number
+    nama: string
+    kode: string
+    pengajarId: number
+    createdAt?: Date | string
+  }
+
   export type AbsensiCreateManyKelasInput = {
     id?: number
     userId: number
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type IzinCreateManyKelasInput = {
@@ -17705,6 +21597,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -17712,6 +21605,7 @@ export namespace Prisma {
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKelasInput = {
@@ -17726,6 +21620,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -17733,6 +21628,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutKelasInput = {
@@ -17759,6 +21655,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -17766,6 +21663,7 @@ export namespace Prisma {
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profiles?: ProfileUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKelasAjarInput = {
@@ -17780,6 +21678,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -17787,6 +21686,7 @@ export namespace Prisma {
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutKelasAjarInput = {
@@ -17803,11 +21703,37 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type MataPelajaranUpdateWithoutKelasInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
+    absensi?: AbsensiUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateWithoutKelasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    pengajarId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUncheckedUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateManyWithoutKelasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    pengajarId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AbsensiUpdateWithoutKelasInput = {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
+    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateWithoutKelasInput = {
@@ -17816,6 +21742,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AbsensiUncheckedUpdateManyWithoutKelasInput = {
@@ -17824,6 +21751,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IzinUpdateWithoutKelasInput = {
@@ -17879,6 +21807,41 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiCreateManyMataPelajaranInput = {
+    id?: number
+    userId: number
+    kelasId: number
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+  }
+
+  export type AbsensiUpdateWithoutMataPelajaranInput = {
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
+    kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+  }
+
+  export type AbsensiUncheckedUpdateWithoutMataPelajaranInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiUncheckedUpdateManyWithoutMataPelajaranInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17948,12 +21911,21 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MataPelajaranCreateManyPengajarInput = {
+    id?: number
+    nama: string
+    kode: string
+    kelasId: number
+    createdAt?: Date | string
+  }
+
   export type AbsensiCreateManyUserInput = {
     id?: number
     kelasId: number
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    mataPelajaranId: number
   }
 
   export type IzinCreateManyUserInput = {
@@ -18009,10 +21981,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type NotificationCreateManyUserInput = {
+    id?: number
+    title: string
+    message: string
+    level: string
+    isRead?: boolean
+    createdAt?: Date | string
+  }
+
   export type KelasUpdateWithoutPengajarInput = {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
+    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -18023,6 +22005,7 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
+    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -18034,11 +22017,37 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MataPelajaranUpdateWithoutPengajarInput = {
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
+    absensi?: AbsensiUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateWithoutPengajarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    kelasId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUncheckedUpdateManyWithoutMataPelajaranNestedInput
+  }
+
+  export type MataPelajaranUncheckedUpdateManyWithoutPengajarInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    kelasId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AbsensiUpdateWithoutUserInput = {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateWithoutUserInput = {
@@ -18047,6 +22056,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type AbsensiUncheckedUpdateManyWithoutUserInput = {
@@ -18055,6 +22065,7 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IzinUpdateWithoutUserInput = {
@@ -18212,6 +22223,32 @@ export namespace Prisma {
     jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

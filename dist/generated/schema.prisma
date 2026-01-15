@@ -1,13 +1,15 @@
 model Absensi {
-  id        Int           @id @default(autoincrement())
-  userId    Int
-  kelasId   Int
-  tanggal   DateTime
-  status    StatusAbsensi
-  createdAt DateTime      @default(now())
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  kelasId         Int
+  tanggal         DateTime
+  status          StatusAbsensi
+  createdAt       DateTime      @default(now())
+  mataPelajaranId Int
 
-  user  User  @relation(fields: [userId], references: [id])
-  kelas Kelas @relation(fields: [kelasId], references: [id])
+  user          User          @relation(fields: [userId], references: [id])
+  kelas         Kelas         @relation(fields: [kelasId], references: [id])
+  mataPelajaran MataPelajaran @relation(fields: [mataPelajaranId], references: [id])
 }
 
 enum Role {
@@ -60,6 +62,8 @@ model Kelas {
   // ✅ PENGAJAR
   pengajar User[] @relation("PengajarKelas")
 
+  mataPelajaran MataPelajaran[]
+
   absensi Absensi[]
   izin    Izin[]
   tugas   Tugas[]
@@ -74,6 +78,22 @@ model LogAktivitas {
   user User @relation(fields: [userId], references: [id])
 }
 
+model MataPelajaran {
+  id   Int    @id @default(autoincrement())
+  nama String
+  kode String @unique
+
+  kelasId    Int
+  pengajarId Int
+
+  kelas    Kelas @relation(fields: [kelasId], references: [id])
+  pengajar User  @relation(fields: [pengajarId], references: [id])
+
+  absensi Absensi[]
+
+  createdAt DateTime @default(now())
+}
+
 model Nilai {
   id        Int      @id @default(autoincrement())
   userId    Int
@@ -84,6 +104,18 @@ model Nilai {
 
   user  User  @relation(fields: [userId], references: [id])
   tugas Tugas @relation(fields: [tugasId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String
+  level     String // warning | critical
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Profile {
@@ -150,17 +182,20 @@ model User {
   // PENGAJAR
   kelasAjar Kelas[] @relation("PengajarKelas")
 
+  mataPelajaran MataPelajaran[]
+
   isActive  Boolean   @default(true)
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 
-  absensi     Absensi[]
-  izin        Izin[]
-  tugasDibuat Tugas[]        @relation("TugasDibuat")
-  submission  Submission[]
-  nilai       Nilai[]
-  log         LogAktivitas[]
-  profiles    Profile[]
+  absensi       Absensi[]
+  izin          Izin[]
+  tugasDibuat   Tugas[]        @relation("TugasDibuat")
+  submission    Submission[]
+  nilai         Nilai[]
+  log           LogAktivitas[]
+  profiles      Profile[]
+  notifications Notification[]
 }
 
 // This is your Prisma schema file,
