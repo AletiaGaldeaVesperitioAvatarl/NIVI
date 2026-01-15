@@ -26,6 +26,31 @@ export class AbsensiRepository {
     });
   };
 
+  getByKelasMapelTanggal = async (
+  kelasId: number,
+  mataPelajaranId: number,
+  tanggal: Date
+) => {
+  const start = new Date(tanggal);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(tanggal);
+  end.setHours(23, 59, 59, 999);
+
+  return this.prisma.absensi.findMany({
+    where: {
+      kelasId,
+      mataPelajaranId,
+      tanggal: { gte: start, lte: end },
+    },
+    include: {
+      user: true,
+      mataPelajaran: true,
+    },
+  });
+};
+
+
   // GET ABSENSI BY USER ID
   getByUserId = async (userId: number): Promise<Absensi[]> => {
     return this.prisma.absensi.findMany({
@@ -56,20 +81,22 @@ export class AbsensiRepository {
     });
   };
 
-  create = async (data: {
-    userId: number;
-    kelasId: number;
-    status: StatusAbsensi;
-  }): Promise<Absensi> => {
-    return this.prisma.absensi.create({
-      data: {
-        userId: data.userId,
-        kelasId: data.kelasId,
-        status: data.status,
-        tanggal: new Date(),
-      },
-    });
-  };
+create = async (data: {
+  userId: number;
+  kelasId: number;
+  mataPelajaranId: number;
+  status: StatusAbsensi;
+}): Promise<Absensi> => {
+  return this.prisma.absensi.create({
+    data: {
+      userId: data.userId,
+      kelasId: data.kelasId,
+      mataPelajaranId: data.mataPelajaranId,
+      status: data.status,
+      tanggal: new Date(),
+    },
+  });
+};
 
   getTodayByUser = async (userId: number): Promise<Absensi[]> => {
     const start = new Date();
@@ -182,6 +209,7 @@ getByKelasAndTanggal = async (
 
 createManyPerHari = async (
   kelasId: number,
+  mataPelajaranId: number,
   tanggal: Date,
   data: { userId: number; status: StatusAbsensi }[]
 ) => {
@@ -189,11 +217,13 @@ createManyPerHari = async (
     data: data.map((d) => ({
       userId: d.userId,
       kelasId,
+      mataPelajaranId,
       status: d.status,
       tanggal,
     })),
   });
 };
+
 
 deleteByKelasAndTanggal = async (
   kelasId: number,
@@ -226,7 +256,7 @@ getSantriByKelas = async (kelasId: number) => {
 
 exists = async (
   userId: number,
-  kelasId: number,
+  mataPelajaranId: number,
   tanggal: Date
 ) => {
   const start = new Date(tanggal);
@@ -238,7 +268,7 @@ exists = async (
   const count = await this.prisma.absensi.count({
     where: {
       userId,
-      kelasId,
+      mataPelajaranId,
       tanggal: { gte: start, lte: end },
     },
   });
@@ -246,11 +276,13 @@ exists = async (
   return count > 0;
 };
 
+
 createManual = async (data: {
   userId: number;
   kelasId: number;
   status: StatusAbsensi;
   tanggal: Date;
+  mataPelajaranId:number
 }) => {
   return this.prisma.absensi.create({ data });
 };
