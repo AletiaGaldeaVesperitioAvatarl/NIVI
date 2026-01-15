@@ -1,60 +1,37 @@
-import { MataPelajaran } from "../../dist/generated";
 import { MataPelajaranRepository } from "../repository/mataPelajaran.repository";
 
-export class MataPelajaranService{
-    constructor(private mapelRepo: MataPelajaranRepository) {}
+export class MataPelajaranService {
+  constructor(private repo: MataPelajaranRepository) {}
 
-    //createMapel
-    createMapel = async(
-        nama: string,
-        kode: string,
-        kelasId: number,
-        pengajarId: number,
-    ): Promise<MataPelajaran> => {
-        return this.mapelRepo.create({
-            nama,
-            kode,
-            kelasId,
-            pengajarId,
-        });
-    };
+  getAll = () => this.repo.getAll();
 
-    // getAllMapel
-    getAll = async (): Promise<MataPelajaran[]> => {
-        return this.mapelRepo.getAll();
-    };
+  getById = (id: number) => this.repo.getById(id);
 
-    //getMapel ById
-    getById = async(id: number): Promise<MataPelajaran[] | null> => {
-        return this.mapelRepo.getById(id);
+  create = async (data: {
+    nama: string;
+    kode: string;
+  }) => {
+    if (!data.nama) {
+      throw new Error("Nama mata pelajaran wajib diisi");
+    }
+    if (!data.kode) {
+      throw new Error("Kode mata pelajaran wajib diisi");
     }
 
-    //getMapel perkelas
-    getByKelas = async(kelasId: number): Promise<MataPelajaran[] | null> => {
-        return this.mapelRepo.getByKelas(kelasId)
-    };
-
-    // getMapeYangDiAjarPengawas
-    getByPengajar = async(pengajarId: number): Promise<MataPelajaran | null> => {
-        return this.getByPengajar(pengajarId)
-    };
-
-    //delete Mapelll
-    delete = async(id: number): Promise<MataPelajaran | null> => {
-        return this.delete(id)
-    };
-
-    // cek mapel di kelas    
-    hasMapelInKelas = async (kelasId: number): Promise<boolean> => {
-    const mapel = await this.mapelRepo.getByKelas(kelasId);
-    return mapel.length > 0;
+    return this.repo.create(data);
   };
 
-//   validasi pengajar
-  getTotalMapelPengajar = async (
-    pengajarId: number
-  ): Promise<number> => {
-    const mapel = await this.mapelRepo.getByPengajar(pengajarId);
-    return mapel.length;
+  update = async (
+    id: number,
+    data: {
+      nama?: string;
+      kode?: string;
+    }
+  ) => {
+    return this.repo.update(id, data);
+  };
+
+  delete = async (id: number) => {
+    return this.repo.delete(id);
   };
 }

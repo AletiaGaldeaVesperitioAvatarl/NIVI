@@ -18,7 +18,9 @@ export declare class KelasService {
             kelasId: number | null;
             createdAt: Date;
             email: string;
-            password: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
             role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
             deletedAt: Date | null;
@@ -29,7 +31,9 @@ export declare class KelasService {
             kelasId: number | null;
             createdAt: Date;
             email: string;
-            password: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
             role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
             deletedAt: Date | null;
@@ -37,6 +41,39 @@ export declare class KelasService {
     } & {
         id: number;
         namaKelas: string;
+        deskripsi: string | null;
+    }>;
+    setPengajarKelas: (kelasId: number, pengajarIds: number[]) => Promise<{
+        pengajar: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+        santri: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+    } & {
+        id: number;
+        namaKelas: string;
+        deskripsi: string | null;
     }>;
 }
 //# sourceMappingURL=kelas.service.d.ts.map

@@ -17,8 +17,6 @@ model User {
   // PENGAJAR
   kelasAjar   Kelas[]    @relation("PengajarKelas")
 
-    mataPelajaran MataPelajaran[]
-
   isActive    Boolean    @default(true)
   createdAt   DateTime   @default(now())
   deletedAt   DateTime?

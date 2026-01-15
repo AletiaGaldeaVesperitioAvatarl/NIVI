@@ -3,6 +3,7 @@ import { IzinService } from "../service/izin.service.js";
 export declare class IzinController {
     private izinService;
     constructor(izinService: IzinService);
+    getMyIzin: (req: Request, res: Response) => Promise<void>;
     getAll: (_req: Request, res: Response) => Promise<void>;
     getById: (req: Request, res: Response) => Promise<void>;
     getByUser: (req: Request, res: Response) => Promise<void>;

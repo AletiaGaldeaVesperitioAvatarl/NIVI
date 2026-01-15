@@ -1,50 +1,39 @@
-import { Tugas } from "../../dist/generated";
 import { TugasRepository } from "../repository/tugas.repository";
 
 export class TugasService {
-  constructor(private tugasRepository: TugasRepository) {}
+  constructor(private repo: TugasRepository) {}
 
-  // GET ALL TUGAS
-  getAll = async (): Promise<Tugas[]> => {
-    return this.tugasRepository.getAll();
-  };
+  getAll = () => this.repo.getAll();
 
-  // GET TUGAS BY ID
-  getById = async (id: number): Promise<Tugas | null> => {
-    return this.tugasRepository.getById(id);
-  };
+  getById = (id: number) => this.repo.getById(id);
 
-  // CREATE NEW TUGAS
-  async createTugas(data: {
+  create = async (data: {
     kelasId: number;
+    mataPelajaranId: number;
     title: string;
-    description: string;
+    description?: string;
     deadline: Date;
     createdBy: number;
-  }) {
-    if (!data.kelasId) {
-      throw new Error("kelasId wajib diisi");
-    }
+  }) => {
+    if (!data.kelasId) throw new Error("Kelas wajib diisi");
+    if (!data.mataPelajaranId) throw new Error("Mata pelajaran wajib diisi");
+    if (!data.title) throw new Error("Judul tugas wajib diisi");
 
-    if (!data.createdBy) {
-      throw new Error("createdBy tidak ditemukan");
-    }
-
-    return this.tugasRepository.create(data);
-  }
-  // UPDATE TUGAS
-  updateTugas = async (id: number, data: Partial<Tugas>): Promise<Tugas> => {
-    return this.tugasRepository.update(id, data);
+    return this.repo.create(data);
   };
 
-  // DELETE TUGAS
-  deleteTugas = async (id: number): Promise<Tugas> => {
-    return this.tugasRepository.delete(id);
+  update = (id: number, data: {
+    title?: string;
+    description?: string;
+    deadline?: Date;
+    mataPelajaranId?: number;
+  }) => {
+    return this.repo.update(id, data);
   };
-async getTasksForSantri(userId: number) {
-  return this.tugasRepository.getTasksWithSubmission(userId);
-}
 
+  delete = (id: number) => this.repo.delete(id);
 
-
+  getForSantri = (userId: number) => {
+    return this.repo.getForSantri(userId);
+  };
 }

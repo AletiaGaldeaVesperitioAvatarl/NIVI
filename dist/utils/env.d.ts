@@ -1,7 +1,7 @@
 declare const config: {
-    HOST: string | undefined;
-    PORT: string | undefined;
-    NODE: string | undefined;
+    HOST: string;
+    PORT: number;
+    NODE: string;
     DATABASE_URL: string;
     JWT_SECRET: string;
 };

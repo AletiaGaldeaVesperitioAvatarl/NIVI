@@ -40,5 +40,28 @@ export class UserRepository {
             _count: { id: true },
         });
     }
+    async getSantri() {
+        return this.prisma.user.findMany({
+            where: {
+                role: "santri"
+            }
+        });
+    }
+    async getPengajar() {
+        return this.prisma.user.findMany({
+            where: {
+                role: "pengajar"
+            }
+        });
+    }
+    async isAdminExist() {
+        const admin = await this.prisma.user.findFirst({
+            where: {
+                role: "admin",
+                isActive: true,
+            },
+        });
+        return !!admin;
+    }
 }
 //# sourceMappingURL=user.repository.js.map

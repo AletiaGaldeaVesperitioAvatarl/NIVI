@@ -10,10 +10,10 @@ export class ProfileController {
     getMyProfile = async (req, res) => {
         const userId = req.user.id;
         const profile = await this.profileService.getProfileByUserId(userId);
-        if (!profile) {
-            return successResponse(res, "Profile belum dibuat", null, null, 404);
-        }
-        successResponse(res, "Profile berhasil diambil", profile);
+        successResponse(res, "Profile berhasil diambil", {
+            user: req.user,
+            profile,
+        });
     };
     // ======================
     // GET /profile/user/:userId (ADMIN)
@@ -55,7 +55,10 @@ export class ProfileController {
                 : null,
             jenisKelamin: req.body.jenisKelamin ?? null,
         });
-        successResponse(res, "Profile berhasil diupdate", profile);
+        successResponse(res, "Profile berhasil diupdate", {
+            user: req.user,
+            profile,
+        });
     };
     // DELETE /profile
     deleteProfile = async (req, res) => {

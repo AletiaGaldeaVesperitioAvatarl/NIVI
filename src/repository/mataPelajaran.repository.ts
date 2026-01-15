@@ -1,69 +1,48 @@
 import { PrismaClient, MataPelajaran } from "../../dist/generated";
 
 export class MataPelajaranRepository {
-    constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) {}
 
-    //create
-    create = async (data: {
-        nama: string;
-        kode: string;
-        kelasId: number;
-        pengajarId: number
-    }): Promise<MataPelajaran> => {
-        return this.prisma.mataPelajaran.create({
-            data,
-            include: {
-                kelas: true,
-                pengajar: true,
-            },
-        });
-    };
+  // CREATE
+  create = async (data: {
+    nama: string;
+    kode: string;
+  }): Promise<MataPelajaran> => {
+    return this.prisma.mataPelajaran.create({ data });
+  };
 
-    //getall
-    getAll = async(): Promise<MataPelajaran[]> => {
-        return this.prisma.mataPelajaran.findMany({
-            include: {
-                kelas: true,
-                pengajar: true,
-            },
-        });
-    };
+  // GET ALL
+  getAll = async (): Promise<MataPelajaran[]> => {
+    return this.prisma.mataPelajaran.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  };
 
-    //getbyid
-    getById = async (id: number): Promise<MataPelajaran[] | null> => {
-        return this.prisma.mataPelajaran.findMany({
-             where: {id},
-            include: {
-                kelas: true,
-                pengajar: true,
-            },
-        });
-    };
+  // GET BY ID
+  getById = async (id: number): Promise<MataPelajaran | null> => {
+    return this.prisma.mataPelajaran.findUnique({
+      where: { id },
+      include: {
+        tugas: true, // 🔥 lihat tugas dalam mapel
+      },
+    });
+  };
 
-    // getbykelas
-    getByKelas = async(kelasId: number): Promise<MataPelajaran[]> => {
-        return this.prisma.mataPelajaran.findMany({
-            where: {kelasId},
-            include: {
-                pengajar: true,
-            },
-        });
-    };
+  // UPDATE
+  update = async (
+    id: number,
+    data: Partial<MataPelajaran>
+  ): Promise<MataPelajaran> => {
+    return this.prisma.mataPelajaran.update({
+      where: { id },
+      data,
+    });
+  };
 
-    // getByPengajar
-    getByPengajar = async(pengajarId: number): Promise<MataPelajaran[]> => {
-        return this.prisma.mataPelajaran.findMany({
-            where: {pengajarId},
-            include: {
-                kelas: true,
-            },
-        });
-    };
-
-    // delete
-    delete = async(id: number): Promise<MataPelajaran[]> => {
-        return this.prisma.mataPelajaran.findMany({
-            where: {id}
-        });
-    };
+  // DELETE
+  delete = async (id: number): Promise<MataPelajaran> => {
+    return this.prisma.mataPelajaran.delete({
+      where: { id },
+    });
+  };
 }

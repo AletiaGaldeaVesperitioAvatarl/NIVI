@@ -5,31 +5,33 @@ import { successResponse } from "../utils/response";
 export class MataPelajaranController {
   constructor(private service: MataPelajaranService) {}
 
-  // CREATE MAPEL
-  create = async (req: Request, res: Response) => {
-    const {nama, kode, kelasId, pengajarId} = req.body
-    const data = await this.service.createMapel(nama, kode, kelasId, pengajarId);
-    successResponse(res, "Mata pelajaran berhasil dibuat", data, null, 201);
-  };
-
   // GET ALL
-  getAll = async (_req: Request, res: Response) => {
+  getAll = async (_: Request, res: Response) => {
     const data = await this.service.getAll();
     successResponse(res, "Semua mata pelajaran", data);
   };
 
-  // GET BY KELAS
-  getByKelas = async (req: Request, res: Response) => {
-    const kelasId = Number(req.params.kelasId);
-    const data = await this.service.getByKelas(kelasId);
-    successResponse(res, "Mapel berdasarkan kelas", data);
+  // GET BY ID
+  getById = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const data = await this.service.getById(id);
+    successResponse(res, "Detail mata pelajaran", data);
   };
 
-  // GET BY PENGAJAR
-  getByPengajar = async (req: Request, res: Response) => {
-    const pengajarId = Number(req.params.pengajarId);
-    const data = await this.service.getByPengajar(pengajarId);
-    successResponse(res, "Mapel berdasarkan pengajar", data);
+  // CREATE
+  create = async (req: Request, res: Response) => {
+    const { nama, kode } = req.body;
+
+    const data = await this.service.create({ nama, kode });
+
+    successResponse(res, "Mata pelajaran berhasil dibuat", data, null, 201);
+  };
+
+  // UPDATE
+  update = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const data = await this.service.update(id, req.body);
+    successResponse(res, "Mata pelajaran berhasil diperbarui", data);
   };
 
   // DELETE

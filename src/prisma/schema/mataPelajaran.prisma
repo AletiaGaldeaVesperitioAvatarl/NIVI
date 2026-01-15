@@ -3,12 +3,6 @@ model MataPelajaran {
   nama      String
   kode      String
 
-  kelasId   Int
-  pengajarId Int
-
-  kelas     Kelas   @relation(fields: [kelasId], references: [id])
-  pengajar  User    @relation(fields: [pengajarId], references: [id])
-
   tugas     Tugas[]
 
   createdAt DateTime @default(now())

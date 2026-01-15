@@ -13,8 +13,13 @@ import absensiRoute from "./routes/absensi.route.js";
 import tugasRoute from "./routes/tugas.route.js";
 import kelasRoute from "./routes/kelas.routes.js";
 import submissionRoute from "./routes/submission.route.js";
+import nilaiRoute from "./routes/nilai.route.js";
+import profileRoute from "./routes/profile.route.js";
+import LogAktivitasRoute from "./routes/logAktivitas.route.js";
 import pengajarRouter from "./routes/pengajar.route.js";
-import halamanRouter from "./routes/dashboard.route.js";
+import halamanRouter from "./routes/dashboard/p-dashboard.route.js";
+import PanelRouter from "./routes/dashboard/a.dashboard.route.js";
+import AdminRouter from "./routes/admin.route.js";
 const app = Express();
 app.use(helmet());
 app.use(morgan("dev"));
@@ -30,13 +35,18 @@ app.use("/api/absensi", absensiRoute);
 app.use("/api/tugas", tugasRoute);
 app.use("/api/kelas", kelasRoute);
 app.use("/api/submission", submissionRoute);
+app.use("/api/nilai", nilaiRoute);
+app.use("/api/profile", profileRoute);
+app.use("api/LogAktivitasRoute", LogAktivitasRoute);
 app.use("/api/pengajar", pengajarRouter);
 app.use("/api/halaman", halamanRouter);
+app.use("/api/panel", PanelRouter);
+app.use("/api/admin", AdminRouter);
 app.get("/", (req, res) => {
     const waktuProses = Date.now() - (req.startTime || Date.now());
     successResponse(res, "Selamat datang api NIVI!!", {
         status: "Server Hidup",
-        waktuProses: `${waktuProses}ms`
+        waktuProses: `${waktuProses}ms`,
     }, null, 200);
 });
 app.use(/.*/, (req, _res) => {

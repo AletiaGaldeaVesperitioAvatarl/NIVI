@@ -74,5 +74,29 @@ export class KelasRepository {
             },
         });
     };
+    setPengajar = async (kelasId, pengajarIds) => {
+        return this.prisma.kelas.update({
+            where: { id: kelasId },
+            data: {
+                pengajar: {
+                    set: pengajarIds.map(id => ({ id })),
+                },
+            },
+            include: {
+                pengajar: true,
+                santri: true,
+            },
+        });
+    };
+    addPengajar = async (kelasId, pengajarId) => {
+        return this.prisma.kelas.update({
+            where: { id: kelasId },
+            data: {
+                pengajar: {
+                    connect: { id: pengajarId },
+                },
+            },
+        });
+    };
 }
 //# sourceMappingURL=kelas.repository.js.map

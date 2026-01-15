@@ -1,3 +1,5 @@
+import { Role } from "../../dist/generated/index.js";
+import bcrypt from "bcrypt";
 export class UserService {
     userRepository;
     constructor(userRepository) {
@@ -30,6 +32,25 @@ export class UserService {
     // GET USER STATS
     getStats = async () => {
         return this.userRepository.getStats();
+    };
+    getSantri = async () => {
+        return this.userRepository.getSantri();
+    };
+    getPengajar = async () => {
+        return this.userRepository.getPengajar();
+    };
+    createAdmin = async (data) => {
+        const adminExist = await this.userRepository.isAdminExist();
+        if (adminExist) {
+            throw new Error("Admin sudah ada, tidak bisa membuat admin baru");
+        }
+        const hashedPassword = await bcrypt.hash(data.password, 10);
+        return this.userRepository.create({
+            name: data.name,
+            email: data.email,
+            password: hashedPassword, // ✅ HASHED
+            role: Role.admin,
+        });
     };
 }
 //# sourceMappingURL=user.service.js.map

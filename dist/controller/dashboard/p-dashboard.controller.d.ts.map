@@ -1,0 +1,1 @@
+{"version":3,"file":"p-dashboard.controller.d.ts","sourceRoot":"","sources":["../../../src/controller/dashboard/p-dashboard.controller.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAC5C,OAAO,EAAE,gBAAgB,EAAE,MAAM,6CAA6C,CAAC;AAE/E,qBAAa,mBAAmB;IAClB,OAAO,CAAC,OAAO;gBAAP,OAAO,EAAE,gBAAgB;IAE7C,oBAAoB,GAAU,KAAK,OAAO,EAAE,KAAK,QAAQ,6DAkBvD;CACH"}

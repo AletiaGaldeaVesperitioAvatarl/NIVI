@@ -1,4 +1,4 @@
-import { successResponse } from "../utils/response.js";
+import { errorResponse, successResponse } from "../utils/response.js";
 export class AbsensiController {
     absensiService;
     constructor(absensiService) {
@@ -57,6 +57,66 @@ export class AbsensiController {
             throw new Error("User belum punya kelas");
         const absensi = await this.absensiService.absenHadir(userId, kelasId, status);
         successResponse(res, "Absen berhasil", absensi, null, 201);
+    };
+    autoAlpha = async (_req, res) => {
+        try {
+            const total = await this.absensiService.autoAlpha();
+            return successResponse(res, "Auto alpha berhasil dijalankan", { totalAlpha: total });
+        }
+        catch (err) {
+            return errorResponse(res, err.message);
+        }
+    };
+    // rekapbulanansantri
+    rekapBulananPerKelas = async (req, res) => {
+        const kelasId = Number(req.params.kelasId);
+        const { bulan } = req.query;
+        if (!bulan) {
+            throw new Error("Query bulan wajib (format: YYYY-MM)");
+        }
+        const data = await this.absensiService.rekapBulananPerKelas(kelasId, String(bulan));
+        successResponse(res, "Rekap absensi per kelas berhasil", data);
+    };
+    getByKelasAndTanggal = async (req, res) => {
+        const kelasId = Number(req.params.kelasId);
+        if (!req.params.tanggal) {
+            throw new Error("tanggal tidak ditemukan!");
+        }
+        const tanggal = new Date(req.params.tanggal);
+        const data = await this.absensiService.getByKelasAndTanggal(kelasId, tanggal);
+        successResponse(res, "Absensi per hari", data);
+    };
+    createAbsensiPerHari = async (req, res) => {
+        const kelasId = Number(req.params.kelasId);
+        if (!req.params.tanggal) {
+            throw new Error("tanggal tidak ditemukan!");
+        }
+        const tanggal = new Date(req.params.tanggal);
+        const payload = req.body;
+        // [{ userId, status }]
+        const result = await this.absensiService.createAbsensiPerHari(kelasId, tanggal, payload);
+        successResponse(res, "Absensi harian berhasil dibuat", result, null, 201);
+    };
+    updateAbsensiPerTanggal = async (req, res) => {
+        const id = Number(req.params.id);
+        const { status } = req.body;
+        const data = await this.absensiService.updateAbsensi(id, { status });
+        successResponse(res, "Absensi diperbarui", data);
+    };
+    deleteAbsensiPerHari = async (req, res) => {
+        const kelasId = Number(req.params.kelasId);
+        if (!req.params.tanggal) {
+            throw new Error("tanggal tidak ditemukan!");
+        }
+        const tanggal = new Date(req.params.tanggal);
+        const total = await this.absensiService.deleteByKelasAndTanggal(kelasId, tanggal);
+        successResponse(res, "Absensi harian dihapus", { total });
+    };
+    generateBulanan = async (req, res) => {
+        const { kelasId, bulan } = req.body;
+        // bulan format: YYYY-MM
+        const result = await this.absensiService.generateAbsensiBulanan(kelasId, bulan);
+        successResponse(res, "Absensi bulanan berhasil dibuat", result);
     };
 }
 //# sourceMappingURL=absensi.controller.js.map

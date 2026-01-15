@@ -17,9 +17,18 @@ export class ProfileRepository {
     };
     // UPDATE PROFILE
     updateByUserId = async (userId, data) => {
-        return this.prisma.profile.update({
+        return this.prisma.profile.upsert({
             where: { userId },
-            data,
+            update: data,
+            create: {
+                userId,
+                namaLengkap: data.namaLengkap ?? '',
+                noHp: data.noHp ?? null,
+                alamat: data.alamat ?? null,
+                fotoUrl: data.fotoUrl ?? null,
+                tanggalLahir: data.tanggalLahir ?? null,
+                jenisKelamin: data.jenisKelamin ?? null,
+            },
         });
     };
     // DELETE PROFILE (OPSIONAL, JARANG DIPAKE)

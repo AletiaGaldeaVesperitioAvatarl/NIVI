@@ -69,5 +69,22 @@ export class UserController {
             next(err);
         }
     };
+    getSantri = async (_req, res) => {
+        const santri = await this.userService.getSantri();
+        successResponse(res, "Berhasil mengambil semua santri", santri);
+    };
+    getPengajar = async (_req, res) => {
+        const pengajar = await this.userService.getPengajar();
+        successResponse(res, "Berhasil mengambil semua pengajar", pengajar);
+    };
+    createAdmin = async (req, res, next) => {
+        try {
+            const admin = await this.userService.createAdmin(req.body);
+            return successResponse(res, "Admin pertama berhasil dibuat", admin, null, 201);
+        }
+        catch (err) {
+            next(err);
+        }
+    };
 }
 //# sourceMappingURL=user.controller.js.map

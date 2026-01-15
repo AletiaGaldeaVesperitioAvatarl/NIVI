@@ -12,7 +12,9 @@ export declare class PengajarService {
         kelasId: number | null;
         createdAt: Date;
         email: string;
-        password: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
         role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
         deletedAt: Date | null;

@@ -3,82 +3,97 @@ export class TugasRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    // GET ALL TUGAS
+    // 🔹 GET ALL (ADMIN)
     getAll = async () => {
         return this.prisma.tugas.findMany({
             include: {
-                kelas: true, // relasi ke Kelas
-                creator: true, // relasi ke User yang buat tugas
-                submission: true, // relasi ke submission
-                nilai: true // relasi ke nilai
+                kelas: true,
+                mataPelajaran: true,
+                creator: true,
             },
+            orderBy: { createdAt: "desc" },
         });
     };
-    // GET TUGAS BY ID
+    // 🔹 GET BY ID
     getById = async (id) => {
-        return this.prisma.tugas.findFirst({
+        return this.prisma.tugas.findUnique({
             where: { id },
             include: {
                 kelas: true,
+                mataPelajaran: true,
                 creator: true,
                 submission: true,
-                nilai: true
+                nilai: true,
             },
         });
     };
-    // CREATE NEW TUGAS
+    // 🔹 CREATE
     create = async (data) => {
         return this.prisma.tugas.create({
-            data,
-            include: {
-                kelas: true,
-                creator: true,
-                submission: true,
-                nilai: true
-            }
+            data: {
+                title: data.title,
+                description: data.description ?? null, // 🔥 FIX UTAMA
+                deadline: data.deadline,
+                kelas: { connect: { id: data.kelasId } },
+                mataPelajaran: { connect: { id: data.mataPelajaranId } },
+                creator: { connect: { id: data.createdBy } },
+            },
         });
     };
-    // UPDATE TUGAS
+    // 🔹 UPDATE
     update = async (id, data) => {
         return this.prisma.tugas.update({
             where: { id },
-            data,
-            include: {
-                kelas: true,
-                creator: true,
-                submission: true,
-                nilai: true
-            }
+            data: {
+                ...(data.title !== undefined && { title: data.title }),
+                ...(data.description !== undefined && {
+                    description: data.description ?? null,
+                }),
+                ...(data.deadline !== undefined && { deadline: data.deadline }),
+                ...(data.mataPelajaranId !== undefined && {
+                    mataPelajaran: {
+                        connect: { id: data.mataPelajaranId },
+                    },
+                }),
+            },
         });
     };
-    // DELETE TUGAS
+    // 🔹 DELETE
     delete = async (id) => {
-        return this.prisma.tugas.delete({
-            where: { id },
-        });
+        return this.prisma.tugas.delete({ where: { id } });
     };
-    async getTasksWithSubmission(userId) {
+    // 🔹 GET UNTUK SANTRI
+    getForSantri = async (userId) => {
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId },
+            select: { kelasId: true },
+        });
+        if (!user?.kelasId)
+            return [];
         const tugas = await this.prisma.tugas.findMany({
+            where: { kelasId: user.kelasId },
             include: {
+                mataPelajaran: true,
                 submission: {
                     where: { userId },
                     take: 1,
                 },
             },
-            orderBy: { deadline: 'asc' },
+            orderBy: { deadline: "asc" },
         });
         return tugas.map(t => {
-            const submission = t.submission[0];
+            const sub = t.submission[0];
             return {
                 id: t.id,
                 title: t.title,
                 description: t.description,
                 deadline: t.deadline,
-                status: submission ? submission.status : 'pending',
-                submission_link: submission?.linkUrl ?? null,
-                submitted_at: submission?.submittedAt ?? null,
+                mataPelajaran: t.mataPelajaran.nama,
+                status: sub?.status ?? "belum_submit",
+                submittedAt: sub?.submittedAt ?? null,
+                link: sub?.linkUrl ?? null,
             };
         });
-    }
+    };
 }
 //# sourceMappingURL=tugas.repository.js.map

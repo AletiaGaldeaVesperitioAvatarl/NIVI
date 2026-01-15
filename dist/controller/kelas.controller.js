@@ -48,5 +48,11 @@ export class KelasController {
         const kelas = await this.kelasService.assignPengajarKeKelas(kelasId, pengajarId);
         successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
     };
+    setPengajar = async (req, res) => {
+        const kelasId = Number(req.params.id);
+        const { pengajarIds } = req.body;
+        const kelas = await this.kelasService.setPengajarKelas(kelasId, pengajarIds);
+        successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
+    };
 }
 //# sourceMappingURL=kelas.controller.js.map

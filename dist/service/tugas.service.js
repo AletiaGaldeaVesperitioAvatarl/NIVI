@@ -1,30 +1,25 @@
 export class TugasService {
-    tugasRepository;
-    constructor(tugasRepository) {
-        this.tugasRepository = tugasRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
-    // GET ALL TUGAS
-    getAll = async () => {
-        return this.tugasRepository.getAll();
+    getAll = () => this.repo.getAll();
+    getById = (id) => this.repo.getById(id);
+    create = async (data) => {
+        if (!data.kelasId)
+            throw new Error("Kelas wajib diisi");
+        if (!data.mataPelajaranId)
+            throw new Error("Mata pelajaran wajib diisi");
+        if (!data.title)
+            throw new Error("Judul tugas wajib diisi");
+        return this.repo.create(data);
     };
-    // GET TUGAS BY ID
-    getById = async (id) => {
-        return this.tugasRepository.getById(id);
+    update = (id, data) => {
+        return this.repo.update(id, data);
     };
-    // CREATE NEW TUGAS
-    createTugas = async (data) => {
-        return this.tugasRepository.create(data);
+    delete = (id) => this.repo.delete(id);
+    getForSantri = (userId) => {
+        return this.repo.getForSantri(userId);
     };
-    // UPDATE TUGAS
-    updateTugas = async (id, data) => {
-        return this.tugasRepository.update(id, data);
-    };
-    // DELETE TUGAS
-    deleteTugas = async (id) => {
-        return this.tugasRepository.delete(id);
-    };
-    async getTasksForSantri(userId) {
-        return this.tugasRepository.getTasksWithSubmission(userId);
-    }
 }
 //# sourceMappingURL=tugas.service.js.map

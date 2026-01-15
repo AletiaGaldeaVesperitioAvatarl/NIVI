@@ -156,8 +156,6 @@ exports.Prisma.MataPelajaranScalarFieldEnum = {
   id: 'id',
   nama: 'nama',
   kode: 'kode',
-  kelasId: 'kelasId',
-  pengajarId: 'pengajarId',
   createdAt: 'createdAt'
 };
 

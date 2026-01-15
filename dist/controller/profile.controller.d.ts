@@ -3,7 +3,7 @@ import { ProfileService } from "../service/profile.service.js";
 export declare class ProfileController {
     private profileService;
     constructor(profileService: ProfileService);
-    getMyProfile: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;
+    getMyProfile: (req: Request, res: Response) => Promise<void>;
     getProfileByUserId: (req: Request, res: Response) => Promise<Response<any, Record<string, any>> | undefined>;
     createProfile: (req: Request, res: Response) => Promise<void>;
     updateProfile: (req: Request, res: Response) => Promise<void>;

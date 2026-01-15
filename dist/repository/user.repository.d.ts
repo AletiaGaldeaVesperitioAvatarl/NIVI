@@ -19,5 +19,32 @@ export declare class UserRepository {
             id: true;
         };
     }>>;
+    getSantri(): Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }[]>;
+    getPengajar(): Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }[]>;
+    isAdminExist(): Promise<boolean>;
 }
 //# sourceMappingURL=user.repository.d.ts.map

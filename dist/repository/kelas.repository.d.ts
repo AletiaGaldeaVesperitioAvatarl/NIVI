@@ -17,7 +17,9 @@ export declare class KelasRepository {
             kelasId: number | null;
             createdAt: Date;
             email: string;
-            password: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
             role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
             deletedAt: Date | null;
@@ -28,7 +30,9 @@ export declare class KelasRepository {
             kelasId: number | null;
             createdAt: Date;
             email: string;
-            password: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
             role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
             deletedAt: Date | null;
@@ -36,6 +40,44 @@ export declare class KelasRepository {
     } & {
         id: number;
         namaKelas: string;
+        deskripsi: string | null;
+    }>;
+    setPengajar: (kelasId: number, pengajarIds: number[]) => Promise<{
+        pengajar: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+        santri: {
+            name: string;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activationToken: string | null;
+            activatedAt: Date | null;
+            role: import("../../dist/generated/index.js").$Enums.Role;
+            isActive: boolean;
+            deletedAt: Date | null;
+        }[];
+    } & {
+        id: number;
+        namaKelas: string;
+        deskripsi: string | null;
+    }>;
+    addPengajar: (kelasId: number, pengajarId: number) => Promise<{
+        id: number;
+        namaKelas: string;
+        deskripsi: string | null;
     }>;
 }
 //# sourceMappingURL=kelas.repository.d.ts.map

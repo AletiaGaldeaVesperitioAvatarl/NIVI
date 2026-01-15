@@ -9,8 +9,6 @@ model Kelas {
   // ✅ PENGAJAR
   pengajar    User[]     @relation("PengajarKelas")
 
-   mataPelajaran MataPelajaran[]
-
   absensi     Absensi[]
   izin        Izin[]
   tugas       Tugas[]

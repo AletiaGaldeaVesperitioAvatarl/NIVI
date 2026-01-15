@@ -1,4 +1,4 @@
-import { PrismaClient, Role, User } from "../../dist/generated";
+import { PrismaClient, Role, User } from "../../dist/generated"
 
 export class UserRepository {
   constructor(private prisma: PrismaClient) {}

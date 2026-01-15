@@ -20,5 +20,48 @@ export declare class UserService {
             id: true;
         };
     }>>;
+    getSantri: () => Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }[]>;
+    getPengajar: () => Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }[]>;
+    createAdmin: (data: {
+        name: string;
+        email: string;
+        password: string;
+    }) => Promise<{
+        name: string;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activationToken: string | null;
+        activatedAt: Date | null;
+        role: import("../../dist/generated/index.js").$Enums.Role;
+        isActive: boolean;
+        deletedAt: Date | null;
+    }>;
 }
 //# sourceMappingURL=user.service.d.ts.map

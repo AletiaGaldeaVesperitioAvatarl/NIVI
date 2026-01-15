@@ -73,7 +73,6 @@ router.get("/me/today", authenticate, absensiController.getMyTodayAbsensi);
  *         description: Sudah absen hari ini
  */
 router.post("/me/absen", authenticate, absensiController.absen);
-"";
 /**
  * @swagger
  * /absensi/user/{userId}:
@@ -94,6 +93,19 @@ router.post("/me/absen", authenticate, absensiController.absen);
  *         description: Data absensi user
  */
 router.get("/user/:userId", absensiController.getByUserId);
+/**
+ * @swagger
+ * /absensi/auto-alpha:
+ *   post:
+ *     summary: Jalankan auto alpha untuk santri yang belum absen & tidak izin hari ini
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Auto alpha berhasil dijalankan
+ */
+router.post("/auto-alpha", authenticate, absensiController.autoAlpha);
 // GET BY ID
 /**
  * @swagger
@@ -113,6 +125,29 @@ router.get("/user/:userId", absensiController.getByUserId);
  *     responses:
  *       200:
  *         description: Detail absensi
+ */
+router.get("/rekap/kelas/:kelasId", authenticate, absensiController.rekapBulananPerKelas);
+/**
+ * @swagger
+ * /absensi/rekap/kelas/{kelasId}:
+ *   get:
+ *     summary: Rekap absensi bulanan per kelas
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: kelasId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: integer
+ *       - name: bulan
+ *         in: query
+ *         required: true
+ *         example: 2026-01
+ *     responses:
+ *       200:
+ *         description: Rekap absensi per kelas
  */
 router.get("/:id", absensiController.getById);
 /**
@@ -166,5 +201,44 @@ router.put("/:id", absensiController.update);
  */
 // DELETE
 router.delete("/:id", absensiController.delete);
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   get:
+ *     summary: Ambil absensi per kelas & tanggal (ADMIN)
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get("/kelas/:kelasId/tanggal/:tanggal", authenticate, absensiController.getByKelasAndTanggal);
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   post:
+ *     summary: Input absensi per hari (ADMIN)
+ *     tags: [Absensi]
+ */
+router.post("/kelas/:kelasId/tanggal/:tanggal", authenticate, absensiController.createAbsensiPerHari);
+/**
+ * @swagger
+ * /absensi/{id}/tanggal:
+ *   put:
+ *     summary: Update absensi di tanggal tertentu
+ */
+router.put("/:id/tanggal", authenticate, absensiController.updateAbsensiPerTanggal);
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   delete:
+ *     summary: Hapus semua absensi kelas di tanggal tertentu
+ */
+router.delete("/kelas/:kelasId/tanggal/:tanggal", authenticate, absensiController.deleteAbsensiPerHari);
+/**
+ * @swagger
+ * /absensi/generate/bulan:
+ *   post:
+ *     summary: Generate absensi 1 bulan (ADMIN)
+ */
+router.post("/generate/bulan", authenticate, absensiController.generateBulanan);
 export default router;
 //# sourceMappingURL=absensi.route.js.map

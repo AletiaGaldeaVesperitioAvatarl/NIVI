@@ -1,60 +1,40 @@
 import { successResponse } from "../utils/response.js";
 export class TugasController {
-    tugasService;
-    constructor(tugasService) {
-        this.tugasService = tugasService;
+    service;
+    constructor(service) {
+        this.service = service;
     }
-    // GET ALL TUGAS
-    getAll = async (_req, res) => {
-        const tugas = await this.tugasService.getAll();
-        successResponse(res, "Semua tugas berhasil diambil", tugas);
+    getAll = async (_, res) => {
+        const data = await this.service.getAll();
+        successResponse(res, "Semua tugas", data);
     };
-    // GET TUGAS BY ID
     getById = async (req, res) => {
-        if (!req.params.id)
-            throw new Error("Parameter id tidak ditemukan!");
-        const id = Number(req.params.id);
-        const tugas = await this.tugasService.getById(id);
-        if (!tugas)
-            throw new Error("Tugas tidak ditemukan!");
-        successResponse(res, "Tugas berhasil ditemukan", tugas);
+        const data = await this.service.getById(Number(req.params.id));
+        successResponse(res, "Detail tugas", data);
     };
-    // CREATE TUGAS
     create = async (req, res) => {
-        const { kelasId, title, description, deadline, createdBy } = req.body;
-        const tugas = await this.tugasService.createTugas({
-            kelasId,
+        const { kelasId, mataPelajaranId, title, description, deadline } = req.body;
+        const data = await this.service.create({
+            kelasId: Number(kelasId),
+            mataPelajaranId: Number(mataPelajaranId),
             title,
             description,
             deadline: new Date(deadline),
-            createdBy
+            createdBy: req.user.id,
         });
-        successResponse(res, "Tugas berhasil dibuat", tugas, null, 201);
+        successResponse(res, "Tugas berhasil dibuat", data, null, 201);
     };
-    // UPDATE TUGAS
     update = async (req, res) => {
-        if (!req.params.id)
-            throw new Error("Parameter id tidak ditemukan!");
-        const id = Number(req.params.id);
-        const data = req.body;
-        const tugas = await this.tugasService.updateTugas(id, data);
-        successResponse(res, "Tugas berhasil diperbarui", tugas);
+        const data = await this.service.update(Number(req.params.id), req.body);
+        successResponse(res, "Tugas berhasil diperbarui", data);
     };
-    // DELETE TUGAS
     delete = async (req, res) => {
-        if (!req.params.id)
-            throw new Error("Parameter id tidak ditemukan!");
-        const id = Number(req.params.id);
-        const tugas = await this.tugasService.deleteTugas(id);
-        successResponse(res, "Tugas berhasil dihapus", tugas);
+        const data = await this.service.delete(Number(req.params.id));
+        successResponse(res, "Tugas berhasil dihapus", data);
     };
     getForSantri = async (req, res) => {
-        const userId = req.user.id;
-        const tasks = await this.tugasService.getTasksForSantri(userId);
-        res.json({
-            success: true,
-            data: tasks,
-        });
+        const data = await this.service.getForSantri(req.user.id);
+        successResponse(res, "Tugas santri", data);
     };
 }
 //# sourceMappingURL=tugas.controller.js.map

@@ -7,7 +7,7 @@ export class SubmissionService {
     submit = async (data) => {
         return this.submissionRepo.create({
             ...data,
-            status: StatusSubmission.submitted,
+            status: StatusSubmission.pending,
         });
     };
     // GET ALL

@@ -9,5 +9,8 @@ export declare class UserController {
     update: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
     deactivate: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
     getStats: (_req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
+    getSantri: (_req: Request, res: Response) => Promise<void>;
+    getPengajar: (_req: Request, res: Response) => Promise<void>;
+    createAdmin: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 }
 //# sourceMappingURL=user.controller.d.ts.map

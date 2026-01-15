@@ -31,5 +31,11 @@ export class KelasService {
         }
         return this.kelasRepository.assignPengajar(kelasId, pengajarId);
     };
+    setPengajarKelas = async (kelasId, pengajarIds) => {
+        const kelas = await this.kelasRepository.getById(kelasId);
+        if (!kelas)
+            throw new Error("Kelas tidak ditemukan");
+        return this.kelasRepository.setPengajar(kelasId, pengajarIds);
+    };
 }
 //# sourceMappingURL=kelas.service.js.map

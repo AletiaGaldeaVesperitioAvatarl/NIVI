@@ -1833,7 +1833,6 @@ export namespace Prisma {
   export type KelasCountOutputType = {
     santri: number
     pengajar: number
-    mataPelajaran: number
     absensi: number
     izin: number
     tugas: number
@@ -1842,7 +1841,6 @@ export namespace Prisma {
   export type KelasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | KelasCountOutputTypeCountSantriArgs
     pengajar?: boolean | KelasCountOutputTypeCountPengajarArgs
-    mataPelajaran?: boolean | KelasCountOutputTypeCountMataPelajaranArgs
     absensi?: boolean | KelasCountOutputTypeCountAbsensiArgs
     izin?: boolean | KelasCountOutputTypeCountIzinArgs
     tugas?: boolean | KelasCountOutputTypeCountTugasArgs
@@ -1871,13 +1869,6 @@ export namespace Prisma {
    */
   export type KelasCountOutputTypeCountPengajarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
-  }
-
-  /**
-   * KelasCountOutputType without action
-   */
-  export type KelasCountOutputTypeCountMataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MataPelajaranWhereInput
   }
 
   /**
@@ -1979,7 +1970,6 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     kelasAjar: number
-    mataPelajaran: number
     absensi: number
     izin: number
     tugasDibuat: number
@@ -1992,7 +1982,6 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelasAjar?: boolean | UserCountOutputTypeCountKelasAjarArgs
-    mataPelajaran?: boolean | UserCountOutputTypeCountMataPelajaranArgs
     absensi?: boolean | UserCountOutputTypeCountAbsensiArgs
     izin?: boolean | UserCountOutputTypeCountIzinArgs
     tugasDibuat?: boolean | UserCountOutputTypeCountTugasDibuatArgs
@@ -2019,13 +2008,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountKelasAjarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: KelasWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountMataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MataPelajaranWhereInput
   }
 
   /**
@@ -4528,7 +4510,6 @@ export namespace Prisma {
     deskripsi?: boolean
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
-    mataPelajaran?: boolean | Kelas$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
@@ -4557,7 +4538,6 @@ export namespace Prisma {
   export type KelasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
-    mataPelajaran?: boolean | Kelas$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
@@ -4571,7 +4551,6 @@ export namespace Prisma {
     objects: {
       santri: Prisma.$UserPayload<ExtArgs>[]
       pengajar: Prisma.$UserPayload<ExtArgs>[]
-      mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>[]
       absensi: Prisma.$AbsensiPayload<ExtArgs>[]
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugas: Prisma.$TugasPayload<ExtArgs>[]
@@ -4976,7 +4955,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     santri<T extends Kelas$santriArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pengajar<T extends Kelas$pengajarArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$pengajarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    mataPelajaran<T extends Kelas$mataPelajaranArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$mataPelajaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absensi<T extends Kelas$absensiArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     izin<T extends Kelas$izinArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugas<T extends Kelas$tugasArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5445,30 +5423,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
-
-  /**
-   * Kelas.mataPelajaran
-   */
-  export type Kelas$mataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MataPelajaran
-     */
-    select?: MataPelajaranSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MataPelajaran
-     */
-    omit?: MataPelajaranOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MataPelajaranInclude<ExtArgs> | null
-    where?: MataPelajaranWhereInput
-    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
-    cursor?: MataPelajaranWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
   }
 
   /**
@@ -6659,22 +6613,16 @@ export namespace Prisma {
 
   export type MataPelajaranAvgAggregateOutputType = {
     id: number | null
-    kelasId: number | null
-    pengajarId: number | null
   }
 
   export type MataPelajaranSumAggregateOutputType = {
     id: number | null
-    kelasId: number | null
-    pengajarId: number | null
   }
 
   export type MataPelajaranMinAggregateOutputType = {
     id: number | null
     nama: string | null
     kode: string | null
-    kelasId: number | null
-    pengajarId: number | null
     createdAt: Date | null
   }
 
@@ -6682,8 +6630,6 @@ export namespace Prisma {
     id: number | null
     nama: string | null
     kode: string | null
-    kelasId: number | null
-    pengajarId: number | null
     createdAt: Date | null
   }
 
@@ -6691,8 +6637,6 @@ export namespace Prisma {
     id: number
     nama: number
     kode: number
-    kelasId: number
-    pengajarId: number
     createdAt: number
     _all: number
   }
@@ -6700,22 +6644,16 @@ export namespace Prisma {
 
   export type MataPelajaranAvgAggregateInputType = {
     id?: true
-    kelasId?: true
-    pengajarId?: true
   }
 
   export type MataPelajaranSumAggregateInputType = {
     id?: true
-    kelasId?: true
-    pengajarId?: true
   }
 
   export type MataPelajaranMinAggregateInputType = {
     id?: true
     nama?: true
     kode?: true
-    kelasId?: true
-    pengajarId?: true
     createdAt?: true
   }
 
@@ -6723,8 +6661,6 @@ export namespace Prisma {
     id?: true
     nama?: true
     kode?: true
-    kelasId?: true
-    pengajarId?: true
     createdAt?: true
   }
 
@@ -6732,8 +6668,6 @@ export namespace Prisma {
     id?: true
     nama?: true
     kode?: true
-    kelasId?: true
-    pengajarId?: true
     createdAt?: true
     _all?: true
   }
@@ -6828,8 +6762,6 @@ export namespace Prisma {
     id: number
     nama: string
     kode: string
-    kelasId: number
-    pengajarId: number
     createdAt: Date
     _count: MataPelajaranCountAggregateOutputType | null
     _avg: MataPelajaranAvgAggregateOutputType | null
@@ -6856,11 +6788,7 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     kode?: boolean
-    kelasId?: boolean
-    pengajarId?: boolean
     createdAt?: boolean
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | MataPelajaran$tugasArgs<ExtArgs>
     _count?: boolean | MataPelajaranCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mataPelajaran"]>
@@ -6869,62 +6797,40 @@ export namespace Prisma {
     id?: boolean
     nama?: boolean
     kode?: boolean
-    kelasId?: boolean
-    pengajarId?: boolean
     createdAt?: boolean
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mataPelajaran"]>
 
   export type MataPelajaranSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nama?: boolean
     kode?: boolean
-    kelasId?: boolean
-    pengajarId?: boolean
     createdAt?: boolean
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mataPelajaran"]>
 
   export type MataPelajaranSelectScalar = {
     id?: boolean
     nama?: boolean
     kode?: boolean
-    kelasId?: boolean
-    pengajarId?: boolean
     createdAt?: boolean
   }
 
-  export type MataPelajaranOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "kode" | "kelasId" | "pengajarId" | "createdAt", ExtArgs["result"]["mataPelajaran"]>
+  export type MataPelajaranOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "kode" | "createdAt", ExtArgs["result"]["mataPelajaran"]>
   export type MataPelajaranInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | MataPelajaran$tugasArgs<ExtArgs>
     _count?: boolean | MataPelajaranCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type MataPelajaranIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type MataPelajaranIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    kelas?: boolean | KelasDefaultArgs<ExtArgs>
-    pengajar?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type MataPelajaranIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MataPelajaranIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $MataPelajaranPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MataPelajaran"
     objects: {
-      kelas: Prisma.$KelasPayload<ExtArgs>
-      pengajar: Prisma.$UserPayload<ExtArgs>
       tugas: Prisma.$TugasPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nama: string
       kode: string
-      kelasId: number
-      pengajarId: number
       createdAt: Date
     }, ExtArgs["result"]["mataPelajaran"]>
     composites: {}
@@ -7320,8 +7226,6 @@ export namespace Prisma {
    */
   export interface Prisma__MataPelajaranClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    pengajar<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tugas<T extends MataPelajaran$tugasArgs<ExtArgs> = {}>(args?: Subset<T, MataPelajaran$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7355,8 +7259,6 @@ export namespace Prisma {
     readonly id: FieldRef<"MataPelajaran", 'Int'>
     readonly nama: FieldRef<"MataPelajaran", 'String'>
     readonly kode: FieldRef<"MataPelajaran", 'String'>
-    readonly kelasId: FieldRef<"MataPelajaran", 'Int'>
-    readonly pengajarId: FieldRef<"MataPelajaran", 'Int'>
     readonly createdAt: FieldRef<"MataPelajaran", 'DateTime'>
   }
     
@@ -7607,10 +7509,6 @@ export namespace Prisma {
      */
     data: MataPelajaranCreateManyInput | MataPelajaranCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MataPelajaranIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7681,10 +7579,6 @@ export namespace Prisma {
      * Limit how many MataPelajarans to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MataPelajaranIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13807,7 +13701,6 @@ export namespace Prisma {
     deletedAt?: boolean
     kelas?: boolean | User$kelasArgs<ExtArgs>
     kelasAjar?: boolean | User$kelasAjarArgs<ExtArgs>
-    mataPelajaran?: boolean | User$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | User$absensiArgs<ExtArgs>
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
@@ -13867,7 +13760,6 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | User$kelasArgs<ExtArgs>
     kelasAjar?: boolean | User$kelasAjarArgs<ExtArgs>
-    mataPelajaran?: boolean | User$mataPelajaranArgs<ExtArgs>
     absensi?: boolean | User$absensiArgs<ExtArgs>
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
@@ -13890,7 +13782,6 @@ export namespace Prisma {
     objects: {
       kelas: Prisma.$KelasPayload<ExtArgs> | null
       kelasAjar: Prisma.$KelasPayload<ExtArgs>[]
-      mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>[]
       absensi: Prisma.$AbsensiPayload<ExtArgs>[]
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugasDibuat: Prisma.$TugasPayload<ExtArgs>[]
@@ -14308,7 +14199,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     kelas<T extends User$kelasArgs<ExtArgs> = {}>(args?: Subset<T, User$kelasArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     kelasAjar<T extends User$kelasAjarArgs<ExtArgs> = {}>(args?: Subset<T, User$kelasAjarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    mataPelajaran<T extends User$mataPelajaranArgs<ExtArgs> = {}>(args?: Subset<T, User$mataPelajaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absensi<T extends User$absensiArgs<ExtArgs> = {}>(args?: Subset<T, User$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     izin<T extends User$izinArgs<ExtArgs> = {}>(args?: Subset<T, User$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugasDibuat<T extends User$tugasDibuatArgs<ExtArgs> = {}>(args?: Subset<T, User$tugasDibuatArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -14796,30 +14686,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.mataPelajaran
-   */
-  export type User$mataPelajaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MataPelajaran
-     */
-    select?: MataPelajaranSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MataPelajaran
-     */
-    omit?: MataPelajaranOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MataPelajaranInclude<ExtArgs> | null
-    where?: MataPelajaranWhereInput
-    orderBy?: MataPelajaranOrderByWithRelationInput | MataPelajaranOrderByWithRelationInput[]
-    cursor?: MataPelajaranWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MataPelajaranScalarFieldEnum | MataPelajaranScalarFieldEnum[]
-  }
-
-  /**
    * User.absensi
    */
   export type User$absensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15092,8 +14958,6 @@ export namespace Prisma {
     id: 'id',
     nama: 'nama',
     kode: 'kode',
-    kelasId: 'kelasId',
-    pengajarId: 'pengajarId',
     createdAt: 'createdAt'
   };
 
@@ -15480,7 +15344,6 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
-    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
@@ -15492,7 +15355,6 @@ export namespace Prisma {
     deskripsi?: SortOrderInput | SortOrder
     santri?: UserOrderByRelationAggregateInput
     pengajar?: UserOrderByRelationAggregateInput
-    mataPelajaran?: MataPelajaranOrderByRelationAggregateInput
     absensi?: AbsensiOrderByRelationAggregateInput
     izin?: IzinOrderByRelationAggregateInput
     tugas?: TugasOrderByRelationAggregateInput
@@ -15507,7 +15369,6 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
-    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
@@ -15592,11 +15453,7 @@ export namespace Prisma {
     id?: IntFilter<"MataPelajaran"> | number
     nama?: StringFilter<"MataPelajaran"> | string
     kode?: StringFilter<"MataPelajaran"> | string
-    kelasId?: IntFilter<"MataPelajaran"> | number
-    pengajarId?: IntFilter<"MataPelajaran"> | number
     createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
-    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
-    pengajar?: XOR<UserScalarRelationFilter, UserWhereInput>
     tugas?: TugasListRelationFilter
   }
 
@@ -15604,11 +15461,7 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     kode?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
     createdAt?: SortOrder
-    kelas?: KelasOrderByWithRelationInput
-    pengajar?: UserOrderByWithRelationInput
     tugas?: TugasOrderByRelationAggregateInput
   }
 
@@ -15619,11 +15472,7 @@ export namespace Prisma {
     OR?: MataPelajaranWhereInput[]
     NOT?: MataPelajaranWhereInput | MataPelajaranWhereInput[]
     nama?: StringFilter<"MataPelajaran"> | string
-    kelasId?: IntFilter<"MataPelajaran"> | number
-    pengajarId?: IntFilter<"MataPelajaran"> | number
     createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
-    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
-    pengajar?: XOR<UserScalarRelationFilter, UserWhereInput>
     tugas?: TugasListRelationFilter
   }, "id" | "kode">
 
@@ -15631,8 +15480,6 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     kode?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
     createdAt?: SortOrder
     _count?: MataPelajaranCountOrderByAggregateInput
     _avg?: MataPelajaranAvgOrderByAggregateInput
@@ -15648,8 +15495,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"MataPelajaran"> | number
     nama?: StringWithAggregatesFilter<"MataPelajaran"> | string
     kode?: StringWithAggregatesFilter<"MataPelajaran"> | string
-    kelasId?: IntWithAggregatesFilter<"MataPelajaran"> | number
-    pengajarId?: IntWithAggregatesFilter<"MataPelajaran"> | number
     createdAt?: DateTimeWithAggregatesFilter<"MataPelajaran"> | Date | string
   }
 
@@ -16039,7 +15884,6 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     kelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
     kelasAjar?: KelasListRelationFilter
-    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
@@ -16064,7 +15908,6 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     kelas?: KelasOrderByWithRelationInput
     kelasAjar?: KelasOrderByRelationAggregateInput
-    mataPelajaran?: MataPelajaranOrderByRelationAggregateInput
     absensi?: AbsensiOrderByRelationAggregateInput
     izin?: IzinOrderByRelationAggregateInput
     tugasDibuat?: TugasOrderByRelationAggregateInput
@@ -16092,7 +15935,6 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     kelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
     kelasAjar?: KelasListRelationFilter
-    mataPelajaran?: MataPelajaranListRelationFilter
     absensi?: AbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
@@ -16267,7 +16109,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -16279,7 +16120,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -16290,7 +16130,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -16302,7 +16141,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -16374,8 +16212,6 @@ export namespace Prisma {
     nama: string
     kode: string
     createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
-    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
     tugas?: TugasCreateNestedManyWithoutMataPelajaranInput
   }
 
@@ -16383,8 +16219,6 @@ export namespace Prisma {
     id?: number
     nama: string
     kode: string
-    kelasId: number
-    pengajarId: number
     createdAt?: Date | string
     tugas?: TugasUncheckedCreateNestedManyWithoutMataPelajaranInput
   }
@@ -16393,8 +16227,6 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     kode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
-    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
     tugas?: TugasUpdateManyWithoutMataPelajaranNestedInput
   }
 
@@ -16402,8 +16234,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     kode?: StringFieldUpdateOperationsInput | string
-    kelasId?: IntFieldUpdateOperationsInput | number
-    pengajarId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tugas?: TugasUncheckedUpdateManyWithoutMataPelajaranNestedInput
   }
@@ -16412,8 +16242,6 @@ export namespace Prisma {
     id?: number
     nama: string
     kode: string
-    kelasId: number
-    pengajarId: number
     createdAt?: Date | string
   }
 
@@ -16427,8 +16255,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     kode?: StringFieldUpdateOperationsInput | string
-    kelasId?: IntFieldUpdateOperationsInput | number
-    pengajarId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16799,7 +16625,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -16823,7 +16648,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -16846,7 +16670,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -16870,7 +16693,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -17152,12 +16974,6 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
-  export type MataPelajaranListRelationFilter = {
-    every?: MataPelajaranWhereInput
-    some?: MataPelajaranWhereInput
-    none?: MataPelajaranWhereInput
-  }
-
   export type AbsensiListRelationFilter = {
     every?: AbsensiWhereInput
     some?: AbsensiWhereInput
@@ -17182,10 +16998,6 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MataPelajaranOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17280,23 +17092,17 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     kode?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type MataPelajaranAvgOrderByAggregateInput = {
     id?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
   }
 
   export type MataPelajaranMaxOrderByAggregateInput = {
     id?: SortOrder
     nama?: SortOrder
     kode?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17304,15 +17110,11 @@ export namespace Prisma {
     id?: SortOrder
     nama?: SortOrder
     kode?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type MataPelajaranSumOrderByAggregateInput = {
     id?: SortOrder
-    kelasId?: SortOrder
-    pengajarId?: SortOrder
   }
 
   export type TugasScalarRelationFilter = {
@@ -17858,13 +17660,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
-  export type MataPelajaranCreateNestedManyWithoutKelasInput = {
-    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
-    createMany?: MataPelajaranCreateManyKelasInputEnvelope
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-  }
-
   export type AbsensiCreateNestedManyWithoutKelasInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -17897,13 +17692,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutKelasAjarInput, UserUncheckedCreateWithoutKelasAjarInput> | UserCreateWithoutKelasAjarInput[] | UserUncheckedCreateWithoutKelasAjarInput[]
     connectOrCreate?: UserCreateOrConnectWithoutKelasAjarInput | UserCreateOrConnectWithoutKelasAjarInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type MataPelajaranUncheckedCreateNestedManyWithoutKelasInput = {
-    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
-    createMany?: MataPelajaranCreateManyKelasInputEnvelope
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
   }
 
   export type AbsensiUncheckedCreateNestedManyWithoutKelasInput = {
@@ -17956,20 +17744,6 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutKelasAjarInput | UserUpdateWithWhereUniqueWithoutKelasAjarInput[]
     updateMany?: UserUpdateManyWithWhereWithoutKelasAjarInput | UserUpdateManyWithWhereWithoutKelasAjarInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type MataPelajaranUpdateManyWithoutKelasNestedInput = {
-    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
-    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutKelasInput | MataPelajaranUpsertWithWhereUniqueWithoutKelasInput[]
-    createMany?: MataPelajaranCreateManyKelasInputEnvelope
-    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    update?: MataPelajaranUpdateWithWhereUniqueWithoutKelasInput | MataPelajaranUpdateWithWhereUniqueWithoutKelasInput[]
-    updateMany?: MataPelajaranUpdateManyWithWhereWithoutKelasInput | MataPelajaranUpdateManyWithWhereWithoutKelasInput[]
-    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUpdateManyWithoutKelasNestedInput = {
@@ -18041,20 +17815,6 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
-  export type MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput = {
-    create?: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput> | MataPelajaranCreateWithoutKelasInput[] | MataPelajaranUncheckedCreateWithoutKelasInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutKelasInput | MataPelajaranCreateOrConnectWithoutKelasInput[]
-    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutKelasInput | MataPelajaranUpsertWithWhereUniqueWithoutKelasInput[]
-    createMany?: MataPelajaranCreateManyKelasInputEnvelope
-    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    update?: MataPelajaranUpdateWithWhereUniqueWithoutKelasInput | MataPelajaranUpdateWithWhereUniqueWithoutKelasInput[]
-    updateMany?: MataPelajaranUpdateManyWithWhereWithoutKelasInput | MataPelajaranUpdateManyWithWhereWithoutKelasInput[]
-    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
-  }
-
   export type AbsensiUncheckedUpdateManyWithoutKelasNestedInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -18111,18 +17871,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLogInput, UserUpdateWithoutLogInput>, UserUncheckedUpdateWithoutLogInput>
   }
 
-  export type KelasCreateNestedOneWithoutMataPelajaranInput = {
-    create?: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
-    connectOrCreate?: KelasCreateOrConnectWithoutMataPelajaranInput
-    connect?: KelasWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutMataPelajaranInput = {
-    create?: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMataPelajaranInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type TugasCreateNestedManyWithoutMataPelajaranInput = {
     create?: XOR<TugasCreateWithoutMataPelajaranInput, TugasUncheckedCreateWithoutMataPelajaranInput> | TugasCreateWithoutMataPelajaranInput[] | TugasUncheckedCreateWithoutMataPelajaranInput[]
     connectOrCreate?: TugasCreateOrConnectWithoutMataPelajaranInput | TugasCreateOrConnectWithoutMataPelajaranInput[]
@@ -18135,22 +17883,6 @@ export namespace Prisma {
     connectOrCreate?: TugasCreateOrConnectWithoutMataPelajaranInput | TugasCreateOrConnectWithoutMataPelajaranInput[]
     createMany?: TugasCreateManyMataPelajaranInputEnvelope
     connect?: TugasWhereUniqueInput | TugasWhereUniqueInput[]
-  }
-
-  export type KelasUpdateOneRequiredWithoutMataPelajaranNestedInput = {
-    create?: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
-    connectOrCreate?: KelasCreateOrConnectWithoutMataPelajaranInput
-    upsert?: KelasUpsertWithoutMataPelajaranInput
-    connect?: KelasWhereUniqueInput
-    update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutMataPelajaranInput, KelasUpdateWithoutMataPelajaranInput>, KelasUncheckedUpdateWithoutMataPelajaranInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutMataPelajaranNestedInput = {
-    create?: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMataPelajaranInput
-    upsert?: UserUpsertWithoutMataPelajaranInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMataPelajaranInput, UserUpdateWithoutMataPelajaranInput>, UserUncheckedUpdateWithoutMataPelajaranInput>
   }
 
   export type TugasUpdateManyWithoutMataPelajaranNestedInput = {
@@ -18415,13 +18147,6 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput | KelasWhereUniqueInput[]
   }
 
-  export type MataPelajaranCreateNestedManyWithoutPengajarInput = {
-    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
-    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-  }
-
   export type AbsensiCreateNestedManyWithoutUserInput = {
     create?: XOR<AbsensiCreateWithoutUserInput, AbsensiUncheckedCreateWithoutUserInput> | AbsensiCreateWithoutUserInput[] | AbsensiUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutUserInput | AbsensiCreateOrConnectWithoutUserInput[]
@@ -18482,13 +18207,6 @@ export namespace Prisma {
     create?: XOR<KelasCreateWithoutPengajarInput, KelasUncheckedCreateWithoutPengajarInput> | KelasCreateWithoutPengajarInput[] | KelasUncheckedCreateWithoutPengajarInput[]
     connectOrCreate?: KelasCreateOrConnectWithoutPengajarInput | KelasCreateOrConnectWithoutPengajarInput[]
     connect?: KelasWhereUniqueInput | KelasWhereUniqueInput[]
-  }
-
-  export type MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput = {
-    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
-    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
   }
 
   export type AbsensiUncheckedCreateNestedManyWithoutUserInput = {
@@ -18572,20 +18290,6 @@ export namespace Prisma {
     update?: KelasUpdateWithWhereUniqueWithoutPengajarInput | KelasUpdateWithWhereUniqueWithoutPengajarInput[]
     updateMany?: KelasUpdateManyWithWhereWithoutPengajarInput | KelasUpdateManyWithWhereWithoutPengajarInput[]
     deleteMany?: KelasScalarWhereInput | KelasScalarWhereInput[]
-  }
-
-  export type MataPelajaranUpdateManyWithoutPengajarNestedInput = {
-    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
-    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput | MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput[]
-    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
-    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    update?: MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput | MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput[]
-    updateMany?: MataPelajaranUpdateManyWithWhereWithoutPengajarInput | MataPelajaranUpdateManyWithWhereWithoutPengajarInput[]
-    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUpdateManyWithoutUserNestedInput = {
@@ -18719,20 +18423,6 @@ export namespace Prisma {
     update?: KelasUpdateWithWhereUniqueWithoutPengajarInput | KelasUpdateWithWhereUniqueWithoutPengajarInput[]
     updateMany?: KelasUpdateManyWithWhereWithoutPengajarInput | KelasUpdateManyWithWhereWithoutPengajarInput[]
     deleteMany?: KelasScalarWhereInput | KelasScalarWhereInput[]
-  }
-
-  export type MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput = {
-    create?: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput> | MataPelajaranCreateWithoutPengajarInput[] | MataPelajaranUncheckedCreateWithoutPengajarInput[]
-    connectOrCreate?: MataPelajaranCreateOrConnectWithoutPengajarInput | MataPelajaranCreateOrConnectWithoutPengajarInput[]
-    upsert?: MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput | MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput[]
-    createMany?: MataPelajaranCreateManyPengajarInputEnvelope
-    set?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    disconnect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    delete?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    connect?: MataPelajaranWhereUniqueInput | MataPelajaranWhereUniqueInput[]
-    update?: MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput | MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput[]
-    updateMany?: MataPelajaranUpdateManyWithWhereWithoutPengajarInput | MataPelajaranUpdateManyWithWhereWithoutPengajarInput[]
-    deleteMany?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
   }
 
   export type AbsensiUncheckedUpdateManyWithoutUserNestedInput = {
@@ -19128,7 +18818,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
@@ -19151,7 +18840,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -19171,7 +18859,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -19182,7 +18869,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -19215,7 +18901,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
@@ -19238,7 +18923,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -19264,7 +18948,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -19275,7 +18958,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -19292,7 +18974,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
@@ -19315,7 +18996,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -19335,7 +19015,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -19346,7 +19025,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -19379,7 +19057,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
@@ -19402,7 +19079,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -19428,7 +19104,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -19439,7 +19114,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -19455,7 +19129,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -19478,7 +19151,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -19510,7 +19182,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -19533,7 +19204,6 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     deletedAt?: Date | string | null
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -19547,33 +19217,6 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutKelasAjarInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutKelasAjarInput, UserUncheckedCreateWithoutKelasAjarInput>
-  }
-
-  export type MataPelajaranCreateWithoutKelasInput = {
-    nama: string
-    kode: string
-    createdAt?: Date | string
-    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
-    tugas?: TugasCreateNestedManyWithoutMataPelajaranInput
-  }
-
-  export type MataPelajaranUncheckedCreateWithoutKelasInput = {
-    id?: number
-    nama: string
-    kode: string
-    pengajarId: number
-    createdAt?: Date | string
-    tugas?: TugasUncheckedCreateNestedManyWithoutMataPelajaranInput
-  }
-
-  export type MataPelajaranCreateOrConnectWithoutKelasInput = {
-    where: MataPelajaranWhereUniqueInput
-    create: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput>
-  }
-
-  export type MataPelajaranCreateManyKelasInputEnvelope = {
-    data: MataPelajaranCreateManyKelasInput | MataPelajaranCreateManyKelasInput[]
-    skipDuplicates?: boolean
   }
 
   export type AbsensiCreateWithoutKelasInput = {
@@ -19710,34 +19353,6 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutKelasAjarInput>
   }
 
-  export type MataPelajaranUpsertWithWhereUniqueWithoutKelasInput = {
-    where: MataPelajaranWhereUniqueInput
-    update: XOR<MataPelajaranUpdateWithoutKelasInput, MataPelajaranUncheckedUpdateWithoutKelasInput>
-    create: XOR<MataPelajaranCreateWithoutKelasInput, MataPelajaranUncheckedCreateWithoutKelasInput>
-  }
-
-  export type MataPelajaranUpdateWithWhereUniqueWithoutKelasInput = {
-    where: MataPelajaranWhereUniqueInput
-    data: XOR<MataPelajaranUpdateWithoutKelasInput, MataPelajaranUncheckedUpdateWithoutKelasInput>
-  }
-
-  export type MataPelajaranUpdateManyWithWhereWithoutKelasInput = {
-    where: MataPelajaranScalarWhereInput
-    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyWithoutKelasInput>
-  }
-
-  export type MataPelajaranScalarWhereInput = {
-    AND?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
-    OR?: MataPelajaranScalarWhereInput[]
-    NOT?: MataPelajaranScalarWhereInput | MataPelajaranScalarWhereInput[]
-    id?: IntFilter<"MataPelajaran"> | number
-    nama?: StringFilter<"MataPelajaran"> | string
-    kode?: StringFilter<"MataPelajaran"> | string
-    kelasId?: IntFilter<"MataPelajaran"> | number
-    pengajarId?: IntFilter<"MataPelajaran"> | number
-    createdAt?: DateTimeFilter<"MataPelajaran"> | Date | string
-  }
-
   export type AbsensiUpsertWithWhereUniqueWithoutKelasInput = {
     where: AbsensiWhereUniqueInput
     update: XOR<AbsensiUpdateWithoutKelasInput, AbsensiUncheckedUpdateWithoutKelasInput>
@@ -19837,7 +19452,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -19860,7 +19474,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -19898,7 +19511,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -19921,7 +19533,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -19929,82 +19540,6 @@ export namespace Prisma {
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type KelasCreateWithoutMataPelajaranInput = {
-    namaKelas: string
-    deskripsi?: string | null
-    santri?: UserCreateNestedManyWithoutKelasInput
-    pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    absensi?: AbsensiCreateNestedManyWithoutKelasInput
-    izin?: IzinCreateNestedManyWithoutKelasInput
-    tugas?: TugasCreateNestedManyWithoutKelasInput
-  }
-
-  export type KelasUncheckedCreateWithoutMataPelajaranInput = {
-    id?: number
-    namaKelas: string
-    deskripsi?: string | null
-    santri?: UserUncheckedCreateNestedManyWithoutKelasInput
-    pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
-    izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
-    tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
-  }
-
-  export type KelasCreateOrConnectWithoutMataPelajaranInput = {
-    where: KelasWhereUniqueInput
-    create: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
-  }
-
-  export type UserCreateWithoutMataPelajaranInput = {
-    name: string
-    email: string
-    password?: string | null
-    activationToken?: string | null
-    activatedAt?: Date | string | null
-    role?: $Enums.Role
-    isActive?: boolean
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    kelas?: KelasCreateNestedOneWithoutSantriInput
-    kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    absensi?: AbsensiCreateNestedManyWithoutUserInput
-    izin?: IzinCreateNestedManyWithoutUserInput
-    tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
-    submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
-    log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutMataPelajaranInput = {
-    id?: number
-    name: string
-    email: string
-    password?: string | null
-    activationToken?: string | null
-    activatedAt?: Date | string | null
-    role?: $Enums.Role
-    kelasId?: number | null
-    isActive?: boolean
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
-    izin?: IzinUncheckedCreateNestedManyWithoutUserInput
-    tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
-    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
-    log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutMataPelajaranInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
   }
 
   export type TugasCreateWithoutMataPelajaranInput = {
@@ -20040,94 +19575,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type KelasUpsertWithoutMataPelajaranInput = {
-    update: XOR<KelasUpdateWithoutMataPelajaranInput, KelasUncheckedUpdateWithoutMataPelajaranInput>
-    create: XOR<KelasCreateWithoutMataPelajaranInput, KelasUncheckedCreateWithoutMataPelajaranInput>
-    where?: KelasWhereInput
-  }
-
-  export type KelasUpdateToOneWithWhereWithoutMataPelajaranInput = {
-    where?: KelasWhereInput
-    data: XOR<KelasUpdateWithoutMataPelajaranInput, KelasUncheckedUpdateWithoutMataPelajaranInput>
-  }
-
-  export type KelasUpdateWithoutMataPelajaranInput = {
-    namaKelas?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
-    santri?: UserUpdateManyWithoutKelasNestedInput
-    pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    absensi?: AbsensiUpdateManyWithoutKelasNestedInput
-    izin?: IzinUpdateManyWithoutKelasNestedInput
-    tugas?: TugasUpdateManyWithoutKelasNestedInput
-  }
-
-  export type KelasUncheckedUpdateWithoutMataPelajaranInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    namaKelas?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
-    santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
-    pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
-    izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
-    tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
-  }
-
-  export type UserUpsertWithoutMataPelajaranInput = {
-    update: XOR<UserUpdateWithoutMataPelajaranInput, UserUncheckedUpdateWithoutMataPelajaranInput>
-    create: XOR<UserCreateWithoutMataPelajaranInput, UserUncheckedCreateWithoutMataPelajaranInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutMataPelajaranInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMataPelajaranInput, UserUncheckedUpdateWithoutMataPelajaranInput>
-  }
-
-  export type UserUpdateWithoutMataPelajaranInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kelas?: KelasUpdateOneWithoutSantriNestedInput
-    kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    absensi?: AbsensiUpdateManyWithoutUserNestedInput
-    izin?: IzinUpdateManyWithoutUserNestedInput
-    tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
-    submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
-    log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutMataPelajaranInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    kelasId?: NullableIntFieldUpdateOperationsInput | number | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
-    izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
-    tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
-    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
-    log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type TugasUpsertWithWhereUniqueWithoutMataPelajaranInput = {
     where: TugasWhereUniqueInput
     update: XOR<TugasUpdateWithoutMataPelajaranInput, TugasUncheckedUpdateWithoutMataPelajaranInput>
@@ -20156,7 +19603,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -20179,7 +19625,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -20245,7 +19690,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -20268,7 +19712,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20324,7 +19767,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -20347,7 +19789,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -20385,7 +19826,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -20408,7 +19848,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20430,7 +19869,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -20453,7 +19891,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -20491,7 +19928,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -20514,7 +19950,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20564,7 +19999,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
@@ -20587,7 +20021,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
@@ -20659,7 +20092,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -20682,7 +20114,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -20697,7 +20128,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
   }
@@ -20708,7 +20138,6 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -20722,16 +20151,12 @@ export namespace Prisma {
     nama: string
     kode: string
     createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
-    pengajar: UserCreateNestedOneWithoutMataPelajaranInput
   }
 
   export type MataPelajaranUncheckedCreateWithoutTugasInput = {
     id?: number
     nama: string
     kode: string
-    kelasId: number
-    pengajarId: number
     createdAt?: Date | string
   }
 
@@ -20752,7 +20177,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     kelas?: KelasCreateNestedOneWithoutSantriInput
     kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
@@ -20775,7 +20199,6 @@ export namespace Prisma {
     createdAt?: Date | string
     deletedAt?: Date | string | null
     kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutPengajarInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
@@ -20858,7 +20281,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
   }
@@ -20869,7 +20291,6 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -20889,16 +20310,12 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     kode?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
-    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
   }
 
   export type MataPelajaranUncheckedUpdateWithoutTugasInput = {
     id?: IntFieldUpdateOperationsInput | number
     nama?: StringFieldUpdateOperationsInput | string
     kode?: StringFieldUpdateOperationsInput | string
-    kelasId?: IntFieldUpdateOperationsInput | number
-    pengajarId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20925,7 +20342,6 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
@@ -20948,7 +20364,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
@@ -21019,7 +20434,6 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -21030,7 +20444,6 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -21045,7 +20458,6 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
-    mataPelajaran?: MataPelajaranCreateNestedManyWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
@@ -21056,7 +20468,6 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
-    mataPelajaran?: MataPelajaranUncheckedCreateNestedManyWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
@@ -21065,33 +20476,6 @@ export namespace Prisma {
   export type KelasCreateOrConnectWithoutPengajarInput = {
     where: KelasWhereUniqueInput
     create: XOR<KelasCreateWithoutPengajarInput, KelasUncheckedCreateWithoutPengajarInput>
-  }
-
-  export type MataPelajaranCreateWithoutPengajarInput = {
-    nama: string
-    kode: string
-    createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutMataPelajaranInput
-    tugas?: TugasCreateNestedManyWithoutMataPelajaranInput
-  }
-
-  export type MataPelajaranUncheckedCreateWithoutPengajarInput = {
-    id?: number
-    nama: string
-    kode: string
-    kelasId: number
-    createdAt?: Date | string
-    tugas?: TugasUncheckedCreateNestedManyWithoutMataPelajaranInput
-  }
-
-  export type MataPelajaranCreateOrConnectWithoutPengajarInput = {
-    where: MataPelajaranWhereUniqueInput
-    create: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput>
-  }
-
-  export type MataPelajaranCreateManyPengajarInputEnvelope = {
-    data: MataPelajaranCreateManyPengajarInput | MataPelajaranCreateManyPengajarInput[]
-    skipDuplicates?: boolean
   }
 
   export type AbsensiCreateWithoutUserInput = {
@@ -21327,7 +20711,6 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -21338,7 +20721,6 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -21367,22 +20749,6 @@ export namespace Prisma {
     id?: IntFilter<"Kelas"> | number
     namaKelas?: StringFilter<"Kelas"> | string
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
-  }
-
-  export type MataPelajaranUpsertWithWhereUniqueWithoutPengajarInput = {
-    where: MataPelajaranWhereUniqueInput
-    update: XOR<MataPelajaranUpdateWithoutPengajarInput, MataPelajaranUncheckedUpdateWithoutPengajarInput>
-    create: XOR<MataPelajaranCreateWithoutPengajarInput, MataPelajaranUncheckedCreateWithoutPengajarInput>
-  }
-
-  export type MataPelajaranUpdateWithWhereUniqueWithoutPengajarInput = {
-    where: MataPelajaranWhereUniqueInput
-    data: XOR<MataPelajaranUpdateWithoutPengajarInput, MataPelajaranUncheckedUpdateWithoutPengajarInput>
-  }
-
-  export type MataPelajaranUpdateManyWithWhereWithoutPengajarInput = {
-    where: MataPelajaranScalarWhereInput
-    data: XOR<MataPelajaranUpdateManyMutationInput, MataPelajaranUncheckedUpdateManyWithoutPengajarInput>
   }
 
   export type AbsensiUpsertWithWhereUniqueWithoutUserInput = {
@@ -21565,14 +20931,6 @@ export namespace Prisma {
     deletedAt?: Date | string | null
   }
 
-  export type MataPelajaranCreateManyKelasInput = {
-    id?: number
-    nama: string
-    kode: string
-    pengajarId: number
-    createdAt?: Date | string
-  }
-
   export type AbsensiCreateManyKelasInput = {
     id?: number
     userId: number
@@ -21611,7 +20969,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -21634,7 +20991,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -21669,7 +21025,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneWithoutSantriNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
@@ -21692,7 +21047,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutPengajarNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
@@ -21715,31 +21069,6 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type MataPelajaranUpdateWithoutKelasInput = {
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    pengajar?: UserUpdateOneRequiredWithoutMataPelajaranNestedInput
-    tugas?: TugasUpdateManyWithoutMataPelajaranNestedInput
-  }
-
-  export type MataPelajaranUncheckedUpdateWithoutKelasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    pengajarId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tugas?: TugasUncheckedUpdateManyWithoutMataPelajaranNestedInput
-  }
-
-  export type MataPelajaranUncheckedUpdateManyWithoutKelasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    pengajarId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AbsensiUpdateWithoutKelasInput = {
@@ -21933,14 +21262,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MataPelajaranCreateManyPengajarInput = {
-    id?: number
-    nama: string
-    kode: string
-    kelasId: number
-    createdAt?: Date | string
-  }
-
   export type AbsensiCreateManyUserInput = {
     id?: number
     kelasId: number
@@ -22016,7 +21337,6 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
-    mataPelajaran?: MataPelajaranUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
@@ -22027,7 +21347,6 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
-    mataPelajaran?: MataPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
@@ -22037,31 +21356,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type MataPelajaranUpdateWithoutPengajarInput = {
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    kelas?: KelasUpdateOneRequiredWithoutMataPelajaranNestedInput
-    tugas?: TugasUpdateManyWithoutMataPelajaranNestedInput
-  }
-
-  export type MataPelajaranUncheckedUpdateWithoutPengajarInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    kelasId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tugas?: TugasUncheckedUpdateManyWithoutMataPelajaranNestedInput
-  }
-
-  export type MataPelajaranUncheckedUpdateManyWithoutPengajarInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nama?: StringFieldUpdateOperationsInput | string
-    kode?: StringFieldUpdateOperationsInput | string
-    kelasId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AbsensiUpdateWithoutUserInput = {
