@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AbsensiService } from "../service/absensi.service";
-import { successResponse } from "../utils/response";
+import { errorResponse, successResponse } from "../utils/response";
 
 export class AbsensiController {
   constructor(private absensiService: AbsensiService) {}
@@ -60,5 +60,40 @@ export class AbsensiController {
     const absensi = await this.absensiService.absenHadir(userId, kelasId, status);
     successResponse(res, "Absen berhasil", absensi, null, 201);
   };
+    autoAlpha = async (_req: Request, res: Response) => {
+    try {
+      const total = await this.absensiService.autoAlpha();
+
+      return successResponse(
+        res,
+        "Auto alpha berhasil dijalankan",
+        { totalAlpha: total }
+      );
+    } catch (err: any) {
+      return errorResponse(res, err.message);
+    }
+  };
+
+  // rekapbulanansantri
+  rekapBulananPerKelas = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.kelasId);
+  const { bulan } = req.query;
+
+  if (!bulan) {
+    throw new Error("Query bulan wajib (format: YYYY-MM)");
+  }
+
+  const data =
+    await this.absensiService.rekapBulananPerKelas(
+      kelasId,
+      String(bulan)
+    );
+
+  successResponse(
+    res,
+    "Rekap absensi per kelas berhasil",
+    data
+  );
+};
 
 }

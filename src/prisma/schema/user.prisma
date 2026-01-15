@@ -28,4 +28,5 @@ model User {
   nilai       Nilai[]
   log         LogAktivitas[]
   profiles    Profile[]
+   notifications Notification[]
 }
