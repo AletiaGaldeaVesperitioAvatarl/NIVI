@@ -96,4 +96,82 @@ export class AbsensiController {
   );
 };
 
+getByKelasAndTanggal = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.kelasId);
+  if (!req.params.tanggal) {
+    throw new Error("tanggal tidak ditemukan!")
+  }
+  const tanggal = new Date(req.params.tanggal);
+
+  const data =
+    await this.absensiService.getByKelasAndTanggal(
+      kelasId,
+      tanggal
+    );
+
+  successResponse(res, "Absensi per hari", data);
+};
+
+createAbsensiPerHari = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.kelasId);
+  if (!req.params.tanggal) {
+    throw new Error("tanggal tidak ditemukan!")
+  }
+  const tanggal = new Date(req.params.tanggal);
+  const payload = req.body; 
+  // [{ userId, status }]
+
+  const result =
+    await this.absensiService.createAbsensiPerHari(
+      kelasId,
+      tanggal,
+      payload
+    );
+
+  successResponse(res, "Absensi harian berhasil dibuat", result, null, 201);
+};
+
+updateAbsensiPerTanggal = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { status } = req.body;
+
+  const data =
+    await this.absensiService.updateAbsensi(id, { status });
+
+  successResponse(res, "Absensi diperbarui", data);
+};
+
+deleteAbsensiPerHari = async (req: Request, res: Response) => {
+  const kelasId = Number(req.params.kelasId);
+  if (!req.params.tanggal) {
+    throw new Error("tanggal tidak ditemukan!")
+  }
+  const tanggal = new Date(req.params.tanggal);
+
+  const total =
+    await this.absensiService.deleteByKelasAndTanggal(
+      kelasId,
+      tanggal
+    );
+
+  successResponse(res, "Absensi harian dihapus", { total });
+};
+
+ generateBulanan = async (req: Request, res: Response) => {
+  const { kelasId, bulan } = req.body;
+  // bulan format: YYYY-MM
+
+  const result =
+    await this.absensiService.generateAbsensiBulanan(
+      kelasId,
+      bulan
+    );
+
+  successResponse(
+    res,
+    "Absensi bulanan berhasil dibuat",
+    result
+  );
+};
+
 }

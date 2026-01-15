@@ -109,20 +109,27 @@ export class AbsensiRepository {
   };
 
   // ambil absensi hari ini by user
-  hasIzinToday = async (userId: number): Promise<boolean> => {
-    const today = new Date();
+hasIzinToday = async (userId: number): Promise<boolean> => {
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
 
-    const izin = await this.prisma.izin.findFirst({
-      where: {
-        userId,
-        status: "disetujui",
-        tanggalMulai: { lte: today },
-        tanggalSelesai: { gte: today },
+  const endOfDay = new Date();
+  endOfDay.setHours(23, 59, 59, 999);
+
+  const izin = await this.prisma.izin.findFirst({
+    where: {
+      userId,
+      status: "disetujui",
+      tanggal: {
+        gte: startOfDay,
+        lte: endOfDay,
       },
-    });
+    },
+  });
 
-    return !!izin;
-  };
+  return !!izin;
+};
+
 
   // AMBIL JUMLAH SANTRI PER KELAS
 countSantriByKelas = async (kelasId: number): Promise<number> => {
@@ -151,5 +158,102 @@ getAbsensiByKelasAndMonth = async (
     },
   });
 };
+
+getByKelasAndTanggal = async (
+  kelasId: number,
+  tanggal: Date
+) => {
+  const start = new Date(tanggal);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(tanggal);
+  end.setHours(23, 59, 59, 999);
+
+  return this.prisma.absensi.findMany({
+    where: {
+      kelasId,
+      tanggal: { gte: start, lte: end },
+    },
+    include: {
+      user: true,
+    },
+  });
+};
+
+createManyPerHari = async (
+  kelasId: number,
+  tanggal: Date,
+  data: { userId: number; status: StatusAbsensi }[]
+) => {
+  return this.prisma.absensi.createMany({
+    data: data.map((d) => ({
+      userId: d.userId,
+      kelasId,
+      status: d.status,
+      tanggal,
+    })),
+  });
+};
+
+deleteByKelasAndTanggal = async (
+  kelasId: number,
+  tanggal: Date
+) => {
+  const start = new Date(tanggal);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(tanggal);
+  end.setHours(23, 59, 59, 999);
+
+  return this.prisma.absensi.deleteMany({
+    where: {
+      kelasId,
+      tanggal: { gte: start, lte: end },
+    },
+  });
+};
+
+getSantriByKelas = async (kelasId: number) => {
+  return this.prisma.user.findMany({
+    where: {
+      kelasId,
+      role: "santri",
+      isActive: true,
+    },
+    select: { id: true },
+  });
+};
+
+exists = async (
+  userId: number,
+  kelasId: number,
+  tanggal: Date
+) => {
+  const start = new Date(tanggal);
+  start.setHours(0, 0, 0, 0);
+
+  const end = new Date(tanggal);
+  end.setHours(23, 59, 59, 999);
+
+  const count = await this.prisma.absensi.count({
+    where: {
+      userId,
+      kelasId,
+      tanggal: { gte: start, lte: end },
+    },
+  });
+
+  return count > 0;
+};
+
+createManual = async (data: {
+  userId: number;
+  kelasId: number;
+  status: StatusAbsensi;
+  tanggal: Date;
+}) => {
+  return this.prisma.absensi.create({ data });
+};
+
 
 }

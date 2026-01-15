@@ -221,5 +221,70 @@ router.put("/:id", absensiController.update);
 // DELETE
 router.delete("/:id", absensiController.delete);
 
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   get:
+ *     summary: Ambil absensi per kelas & tanggal (ADMIN)
+ *     tags: [Absensi]
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get(
+  "/kelas/:kelasId/tanggal/:tanggal",
+  authenticate,
+  absensiController.getByKelasAndTanggal
+);
+
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   post:
+ *     summary: Input absensi per hari (ADMIN)
+ *     tags: [Absensi]
+ */
+router.post(
+  "/kelas/:kelasId/tanggal/:tanggal",
+  authenticate,
+  absensiController.createAbsensiPerHari
+);
+
+/**
+ * @swagger
+ * /absensi/{id}/tanggal:
+ *   put:
+ *     summary: Update absensi di tanggal tertentu
+ */
+router.put(
+  "/:id/tanggal",
+  authenticate,
+  absensiController.updateAbsensiPerTanggal
+);
+
+/**
+ * @swagger
+ * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
+ *   delete:
+ *     summary: Hapus semua absensi kelas di tanggal tertentu
+ */
+router.delete(
+  "/kelas/:kelasId/tanggal/:tanggal",
+  authenticate,
+  absensiController.deleteAbsensiPerHari
+);
+
+/**
+ * @swagger
+ * /absensi/generate/bulan:
+ *   post:
+ *     summary: Generate absensi 1 bulan (ADMIN)
+ */
+router.post(
+  "/generate/bulan",
+  authenticate,
+  absensiController.generateBulanan
+);
+
+
 
 export default router;

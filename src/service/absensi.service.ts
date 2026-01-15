@@ -136,4 +136,80 @@ export class AbsensiService {
   };
 };
 
+getByKelasAndTanggal = async (
+  kelasId: number,
+  tanggal: Date
+) => {
+  return this.absensiRepository.getByKelasAndTanggal(
+    kelasId,
+    tanggal
+  );
+};
+
+createAbsensiPerHari = async (
+  kelasId: number,
+  tanggal: Date,
+  data: { userId: number; status: StatusAbsensi }[]
+) => {
+  return this.absensiRepository.createManyPerHari(
+    kelasId,
+    tanggal,
+    data
+  );
+};
+
+deleteByKelasAndTanggal = async (
+  kelasId: number,
+  tanggal: Date
+) => {
+  return this.absensiRepository.deleteByKelasAndTanggal(
+    kelasId,
+    tanggal
+  );
+};
+
+generateAbsensiBulanan = async (
+  kelasId: number,
+  bulan: string
+) => {
+  const [year, month] = bulan.split("-").map(Number);
+  if (!year || !month) throw new Error("Format bulan salah");
+
+  const start = new Date(year, month - 1, 1);
+  const end = new Date(year, month, 0);
+
+  const santri =
+    await this.absensiRepository.getSantriByKelas(kelasId);
+
+  let total = 0;
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+    if (isWeekend) continue;
+
+    for (const s of santri) {
+      const exists =
+        await this.absensiRepository.exists(
+          s.id,
+          kelasId,
+          d
+        );
+
+      if (exists) continue;
+
+      await this.absensiRepository.createManual({
+        userId: s.id,
+        kelasId,
+        status: StatusAbsensi.alpha,
+        tanggal: new Date(d),
+      });
+
+      total++;
+    }
+  }
+
+  return { total };
+};
+
+
 }
