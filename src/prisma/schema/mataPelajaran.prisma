@@ -1,0 +1,15 @@
+model MataPelajaran {
+  id          Int      @id @default(autoincrement())
+  nama        String
+  kode        String   @unique
+
+  kelasId     Int
+  pengajarId  Int
+
+  kelas       Kelas    @relation(fields: [kelasId], references: [id])
+  pengajar    User     @relation(fields: [pengajarId], references: [id])
+
+  absensi     Absensi[]
+
+  createdAt   DateTime @default(now())
+}
