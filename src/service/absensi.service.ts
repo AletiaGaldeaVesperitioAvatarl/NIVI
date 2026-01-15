@@ -23,19 +23,30 @@ export class AbsensiService {
     return this.absensiRepository.getTodayByUser(userId);
   };
 
-  absenHadir = async (userId: number, kelasId: number , status:StatusAbsensi): Promise<Absensi> => {
-    const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
+ absenHadir = async (
+  userId: number,
+  kelasId: number,
+  mataPelajaranId: number,
+  status: StatusAbsensi
+) => {
+  const exists = await this.absensiRepository.exists(
+    userId,
+    mataPelajaranId,
+    new Date()
+  );
 
-    if (todayAbsensi.length >= 4) {
-      throw new Error("Absen hari ini sudah mencapai batas (4x)");
-    }
+  if (exists) {
+    throw new Error("Sudah absen di mapel ini hari ini");
+  }
 
-    return this.absensiRepository.create({
-      userId,
-      kelasId,
-      status
-    });
-  };
+  return this.absensiRepository.create({
+    userId,
+    kelasId,
+    mataPelajaranId,
+    status,
+  });
+};
+
   // UPDATE ABSENSI
   updateAbsensi = async (
     id: number,
@@ -77,6 +88,7 @@ export class AbsensiService {
         userId: santri.id,
         kelasId: santri.kelasId,
         status: StatusAbsensi.alpha,
+        mataPelajaranId:
       });
 
       totalAlpha++;

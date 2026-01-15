@@ -26,31 +26,6 @@ export class AbsensiRepository {
     });
   };
 
-  getByKelasMapelTanggal = async (
-  kelasId: number,
-  mataPelajaranId: number,
-  tanggal: Date
-) => {
-  const start = new Date(tanggal);
-  start.setHours(0, 0, 0, 0);
-
-  const end = new Date(tanggal);
-  end.setHours(23, 59, 59, 999);
-
-  return this.prisma.absensi.findMany({
-    where: {
-      kelasId,
-      mataPelajaranId,
-      tanggal: { gte: start, lte: end },
-    },
-    include: {
-      user: true,
-      mataPelajaran: true,
-    },
-  });
-};
-
-
   // GET ABSENSI BY USER ID
   getByUserId = async (userId: number): Promise<Absensi[]> => {
     return this.prisma.absensi.findMany({
@@ -81,22 +56,22 @@ export class AbsensiRepository {
     });
   };
 
-create = async (data: {
-  userId: number;
-  kelasId: number;
-  mataPelajaranId: number;
-  status: StatusAbsensi;
-}): Promise<Absensi> => {
-  return this.prisma.absensi.create({
-    data: {
-      userId: data.userId,
-      kelasId: data.kelasId,
-      mataPelajaranId: data.mataPelajaranId,
-      status: data.status,
-      tanggal: new Date(),
-    },
-  });
-};
+  create = async (data: {
+    userId: number;
+    kelasId: number;
+    status: StatusAbsensi;
+    mataPelajaran:number
+  }): Promise<Absensi> => {
+    return this.prisma.absensi.create({
+      data: {
+        userId: data.userId,
+        kelasId: data.kelasId,
+        status: data.status,
+        tanggal: new Date(),
+        mataPelajaranId:data.mataPelajaran
+      },
+    });
+  };
 
   getTodayByUser = async (userId: number): Promise<Absensi[]> => {
     const start = new Date();
@@ -256,8 +231,9 @@ getSantriByKelas = async (kelasId: number) => {
 
 exists = async (
   userId: number,
-  mataPelajaranId: number,
-  tanggal: Date
+  kelasId: number,
+  tanggal: Date,
+  mataPelajaranId:number
 ) => {
   const start = new Date(tanggal);
   start.setHours(0, 0, 0, 0);
@@ -268,14 +244,14 @@ exists = async (
   const count = await this.prisma.absensi.count({
     where: {
       userId,
-      mataPelajaranId,
+      kelasId,
       tanggal: { gte: start, lte: end },
+      mataPelajaranId
     },
   });
 
   return count > 0;
 };
-
 
 createManual = async (data: {
   userId: number;
