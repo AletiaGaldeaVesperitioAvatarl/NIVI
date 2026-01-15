@@ -19,20 +19,17 @@ export class AdminService {
     });
   };
 
-activate = async (token: string, password: string) => {
-  const user = await this.repo.findByActivationToken(token);
-  if (!user) throw new Error("Token invalid");
-  if (user.activatedAt) throw new Error("Sudah aktif");
+  activate = async (token: string, password: string) => {
+    const user = await this.repo.findByActivationToken(token);
+    if (!user) throw new Error("Token invalid");
+    if (user.activatedAt) throw new Error("Sudah aktif");
 
-  const hashed = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(password, 10);
 
-  return this.repo.activate(user.id, hashed);
-};
+    return this.repo.activate(user.id, hashed);
+  };
 
-
-
-  
-    async assign(kelasId: number, pengajarId: number) {
+  async assign(kelasId: number, pengajarId: number) {
     return this.repo.assignPengajar(kelasId, pengajarId);
   }
 
@@ -44,10 +41,7 @@ activate = async (token: string, password: string) => {
     return this.repo.getPengajarByKelas(kelasId);
   }
 
-   createPengajarByAdmin = async (data: {
-    name: string;
-    email: string;
-  }) => {
+  createPengajarByAdmin = async (data: { name: string; email: string }) => {
     const activationToken = crypto.randomUUID();
 
     return this.repo.createPengajarByAdmin({
@@ -56,19 +50,17 @@ activate = async (token: string, password: string) => {
     });
   };
 
-createUser = async (data: {
-  name: string;
-  email: string;
-  role: Role;
-  kelasId?: number;
-}) => {
-  const activationToken = crypto.randomUUID();
+  createUser = async (data: {
+    name: string;
+    email: string;
+    role: Role;
+    kelasId?: number;
+  }) => {
+    const activationToken = crypto.randomUUID();
 
-  return this.repo.createUserByAdmin({
-    ...data,
-    activationToken,
-  });
-};
-
-
+    return this.repo.createUserByAdmin({
+      ...data,
+      activationToken,
+    });
+  };
 }
