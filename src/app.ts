@@ -24,7 +24,7 @@ import LogAktivitasRoute from "./routes/logAktivitas.route";
 
 import pengajarRouter from "./routes/pengajar.route";
 import halamanRouter from "./routes/dashboard/p-dashboard.route";
-import PanelRouter from "./routes/dashboard/a.dashboard";
+import PanelRouter from "./routes/dashboard/a.dashboard.route";
 
 import AdminRouter from "./routes/admin.route";
 
