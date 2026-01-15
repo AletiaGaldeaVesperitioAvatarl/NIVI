@@ -126,8 +126,7 @@ exports.Prisma.AbsensiScalarFieldEnum = {
   kelasId: 'kelasId',
   tanggal: 'tanggal',
   status: 'status',
-  createdAt: 'createdAt',
-  mataPelajaranId: 'mataPelajaranId'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.IzinScalarFieldEnum = {
@@ -207,6 +206,7 @@ exports.Prisma.SubmissionScalarFieldEnum = {
 exports.Prisma.TugasScalarFieldEnum = {
   id: 'id',
   kelasId: 'kelasId',
+  mataPelajaranId: 'mataPelajaranId',
   title: 'title',
   description: 'description',
   deadline: 'deadline',

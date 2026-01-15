@@ -1,15 +1,13 @@
 model Absensi {
-  id              Int           @id @default(autoincrement())
-  userId          Int
-  kelasId         Int
-  tanggal         DateTime
-  status          StatusAbsensi
-  createdAt       DateTime      @default(now())
-  mataPelajaranId Int
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  kelasId   Int
+  tanggal   DateTime
+  status    StatusAbsensi
+  createdAt DateTime      @default(now())
 
-  user          User          @relation(fields: [userId], references: [id])
-  kelas         Kelas         @relation(fields: [kelasId], references: [id])
-  mataPelajaran MataPelajaran @relation(fields: [mataPelajaranId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+  kelas Kelas @relation(fields: [kelasId], references: [id])
 }
 
 enum Role {
@@ -81,7 +79,7 @@ model LogAktivitas {
 model MataPelajaran {
   id   Int    @id @default(autoincrement())
   nama String
-  kode String @unique
+  kode String
 
   kelasId    Int
   pengajarId Int
@@ -89,9 +87,11 @@ model MataPelajaran {
   kelas    Kelas @relation(fields: [kelasId], references: [id])
   pengajar User  @relation(fields: [pengajarId], references: [id])
 
-  absensi Absensi[]
+  tugas Tugas[]
 
   createdAt DateTime @default(now())
+
+  @@unique(kode)
 }
 
 model Nilai {
@@ -149,16 +149,20 @@ model Submission {
 }
 
 model Tugas {
-  id          Int      @id @default(autoincrement())
-  kelasId     Int
+  id              Int @id @default(autoincrement())
+  kelasId         Int
+  mataPelajaranId Int
+
   title       String
   description String?
   deadline    DateTime
   createdBy   Int
   createdAt   DateTime @default(now())
 
-  kelas      Kelas        @relation(fields: [kelasId], references: [id])
-  creator    User         @relation("TugasDibuat", fields: [createdBy], references: [id])
+  kelas         Kelas         @relation(fields: [kelasId], references: [id])
+  mataPelajaran MataPelajaran @relation(fields: [mataPelajaranId], references: [id])
+  creator       User          @relation("TugasDibuat", fields: [createdBy], references: [id])
+
   submission Submission[]
   nilai      Nilai[]
 }

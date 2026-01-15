@@ -56,22 +56,20 @@ export class AbsensiRepository {
     });
   };
 
-  create = async (data: {
-    userId: number;
-    kelasId: number;
-    status: StatusAbsensi;
-    mataPelajaran:number
-  }): Promise<Absensi> => {
-    return this.prisma.absensi.create({
-      data: {
-        userId: data.userId,
-        kelasId: data.kelasId,
-        status: data.status,
-        tanggal: new Date(),
-        mataPelajaranId:data.mataPelajaran
-      },
-    });
-  };
+create = async (data: {
+  userId: number;
+  kelasId: number;
+  status: StatusAbsensi;
+}): Promise<Absensi> => {
+  return this.prisma.absensi.create({
+    data: {
+      userId: data.userId,
+      kelasId: data.kelasId,
+      status: data.status,
+      tanggal: new Date(),
+    },
+  });
+};
 
   getTodayByUser = async (userId: number): Promise<Absensi[]> => {
     const start = new Date();
@@ -184,7 +182,6 @@ getByKelasAndTanggal = async (
 
 createManyPerHari = async (
   kelasId: number,
-  mataPelajaranId: number,
   tanggal: Date,
   data: { userId: number; status: StatusAbsensi }[]
 ) => {
@@ -192,7 +189,6 @@ createManyPerHari = async (
     data: data.map((d) => ({
       userId: d.userId,
       kelasId,
-      mataPelajaranId,
       status: d.status,
       tanggal,
     })),
@@ -232,8 +228,7 @@ getSantriByKelas = async (kelasId: number) => {
 exists = async (
   userId: number,
   kelasId: number,
-  tanggal: Date,
-  mataPelajaranId:number
+  tanggal: Date
 ) => {
   const start = new Date(tanggal);
   start.setHours(0, 0, 0, 0);
@@ -246,7 +241,6 @@ exists = async (
       userId,
       kelasId,
       tanggal: { gte: start, lte: end },
-      mataPelajaranId
     },
   });
 
@@ -258,10 +252,8 @@ createManual = async (data: {
   kelasId: number;
   status: StatusAbsensi;
   tanggal: Date;
-  mataPelajaranId:number
 }) => {
   return this.prisma.absensi.create({ data });
 };
-
 
 }
