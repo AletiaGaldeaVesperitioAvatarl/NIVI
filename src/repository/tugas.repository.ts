@@ -30,26 +30,34 @@ export class TugasRepository {
   };
 
   // 🔹 CREATE
-create = async (data: {
-  kelasId: number;
-  mataPelajaranId: number;
+create(data: {
   title: string;
   description?: string;
   deadline: Date;
+  kelasId: number;
+  mataPelajaranId: number;
   createdBy: number;
-}) => {
+}) {
   return this.prisma.tugas.create({
     data: {
       title: data.title,
-      description: data.description ?? null, // 🔥 FIX UTAMA
+      description: data.description ?? null,
       deadline: data.deadline,
 
-      kelas: { connect: { id: data.kelasId } },
-      mataPelajaran: { connect: { id: data.mataPelajaranId } },
-      creator: { connect: { id: data.createdBy } },
+      kelas: {
+        connect: { id: data.kelasId },
+      },
+
+      mataPelajaran: {
+        connect: { id: data.mataPelajaranId }, // 🔥 INI YANG KURANG
+      },
+
+      creator: {
+        connect: { id: data.createdBy },
+      },
     },
   });
-};
+}
 
   // 🔹 UPDATE
 update = async (
