@@ -1,5 +1,7 @@
 import { Absensi, StatusAbsensi } from "../../dist/generated";
 import { AbsensiRepository } from "../repository/absensi.repository";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+
 
 export class AbsensiService {
   constructor(private absensiRepository: AbsensiRepository) {}
@@ -25,6 +27,7 @@ export class AbsensiService {
 
   absenHadir = async (userId: number, kelasId: number , status:StatusAbsensi): Promise<Absensi> => {
     const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
+    
 
     if (todayAbsensi.length >= 4) {
       throw new Error("Absen hari ini sudah mencapai batas (4x)");

@@ -25,9 +25,10 @@ import LogAktivitasRoute from "./routes/logAktivitas.route";
 import pengajarRouter from "./routes/pengajar.route";
 import halamanRouter from "./routes/dashboard/p-dashboard.route";
 import PanelRouter from "./routes/dashboard/a.dashboard.route";
-
+import mapelRouter from "./routes/mataPelajaran.route"
 import AdminRouter from "./routes/admin.route";
-
+import jadwalRouter from "./routes/jadwalAbsen.route"
+import absensiSettingRouter from "./routes/absensiSetting.route"
 
 
 
@@ -55,6 +56,9 @@ app.use("/api/pengajar", pengajarRouter);
 app.use("/api/halaman", halamanRouter);
 app.use("/api/panel", PanelRouter);
 app.use("/api/admin", AdminRouter);
+app.use("/api/mapel", mapelRouter)
+app.use("/api/jadwal", jadwalRouter)
+app.use("/api/absensi-setting", absensiSettingRouter)
 
 
 app.get("/", (req: Request, res: Response) => {

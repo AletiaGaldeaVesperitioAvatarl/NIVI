@@ -2,11 +2,24 @@ model Absensi {
   id        Int           @id @default(autoincrement())
   userId    Int
   kelasId   Int
+  jadwalId  Int? // opsional, relasi ke JadwalAbsensi
   tanggal   DateTime
   status    StatusAbsensi
   createdAt DateTime      @default(now())
 
-  user  User  @relation(fields: [userId], references: [id])
+  // RELASI
+  user   User           @relation(fields: [userId], references: [id])
+  kelas  Kelas          @relation(fields: [kelasId], references: [id])
+  jadwal JadwalAbsensi? @relation(fields: [jadwalId], references: [id])
+}
+
+model AbsensiSetting {
+  id        Int      @id @default(autoincrement())
+  kelasId   Int      @unique
+  maxAbsen  Int      @default(2) // batas absen per hari
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   kelas Kelas @relation(fields: [kelasId], references: [id])
 }
 
@@ -36,6 +49,16 @@ enum StatusSubmission {
   rejected
 }
 
+enum Hari {
+  minggu
+  senin
+  selasa
+  rabu
+  kamis
+  jumat
+  sabtu
+}
+
 model Izin {
   id        Int        @id @default(autoincrement())
   userId    Int
@@ -49,6 +72,19 @@ model Izin {
   kelas Kelas @relation(fields: [kelasId], references: [id])
 }
 
+model JadwalAbsensi {
+  id         Int       @id @default(autoincrement())
+  kelasId    Int
+  hari       Hari
+  jamMulai   String
+  jamSelesai String
+  tanggal    DateTime? // opsional untuk override tanggal tertentu
+  createdAt  DateTime  @default(now())
+
+  kelas   Kelas     @relation(fields: [kelasId], references: [id])
+  absensi Absensi[]
+}
+
 model Kelas {
   id        Int     @id @default(autoincrement())
   namaKelas String
@@ -60,7 +96,10 @@ model Kelas {
   // ✅ PENGAJAR
   pengajar User[] @relation("PengajarKelas")
 
-  absensi Absensi[]
+  absensiSetting AbsensiSetting? // relasi ke setting absen
+
+  absensi Absensi[] // relasi ke absensi
+  jadwal  JadwalAbsensi[]
   izin    Izin[]
   tugas   Tugas[]
 }

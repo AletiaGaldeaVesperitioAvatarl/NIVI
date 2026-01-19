@@ -9,7 +9,10 @@ model Kelas {
   // ✅ PENGAJAR
   pengajar    User[]     @relation("PengajarKelas")
 
-  absensi     Absensi[]
+  absensiSetting AbsensiSetting? // relasi ke setting absen
+
+  absensi     Absensi[]       // relasi ke absensi
+  jadwal      JadwalAbsensi[]   
   izin        Izin[]
   tugas       Tugas[]
 }

@@ -19,10 +19,20 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Absensi = $Result.DefaultSelection<Prisma.$AbsensiPayload>
 /**
+ * Model AbsensiSetting
+ * 
+ */
+export type AbsensiSetting = $Result.DefaultSelection<Prisma.$AbsensiSettingPayload>
+/**
  * Model Izin
  * 
  */
 export type Izin = $Result.DefaultSelection<Prisma.$IzinPayload>
+/**
+ * Model JadwalAbsensi
+ * 
+ */
+export type JadwalAbsensi = $Result.DefaultSelection<Prisma.$JadwalAbsensiPayload>
 /**
  * Model Kelas
  * 
@@ -110,6 +120,19 @@ export const StatusSubmission: {
 
 export type StatusSubmission = (typeof StatusSubmission)[keyof typeof StatusSubmission]
 
+
+export const Hari: {
+  minggu: 'minggu',
+  senin: 'senin',
+  selasa: 'selasa',
+  rabu: 'rabu',
+  kamis: 'kamis',
+  jumat: 'jumat',
+  sabtu: 'sabtu'
+};
+
+export type Hari = (typeof Hari)[keyof typeof Hari]
+
 }
 
 export type Role = $Enums.Role
@@ -127,6 +150,10 @@ export const StatusIzin: typeof $Enums.StatusIzin
 export type StatusSubmission = $Enums.StatusSubmission
 
 export const StatusSubmission: typeof $Enums.StatusSubmission
+
+export type Hari = $Enums.Hari
+
+export const Hari: typeof $Enums.Hari
 
 /**
  * ##  Prisma Client ʲˢ
@@ -256,6 +283,16 @@ export class PrismaClient<
   get absensi(): Prisma.AbsensiDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.absensiSetting`: Exposes CRUD operations for the **AbsensiSetting** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AbsensiSettings
+    * const absensiSettings = await prisma.absensiSetting.findMany()
+    * ```
+    */
+  get absensiSetting(): Prisma.AbsensiSettingDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.izin`: Exposes CRUD operations for the **Izin** model.
     * Example usage:
     * ```ts
@@ -264,6 +301,16 @@ export class PrismaClient<
     * ```
     */
   get izin(): Prisma.IzinDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.jadwalAbsensi`: Exposes CRUD operations for the **JadwalAbsensi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JadwalAbsensis
+    * const jadwalAbsensis = await prisma.jadwalAbsensi.findMany()
+    * ```
+    */
+  get jadwalAbsensi(): Prisma.JadwalAbsensiDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.kelas`: Exposes CRUD operations for the **Kelas** model.
@@ -789,7 +836,9 @@ export namespace Prisma {
 
   export const ModelName: {
     Absensi: 'Absensi',
+    AbsensiSetting: 'AbsensiSetting',
     Izin: 'Izin',
+    JadwalAbsensi: 'JadwalAbsensi',
     Kelas: 'Kelas',
     LogAktivitas: 'LogAktivitas',
     MataPelajaran: 'MataPelajaran',
@@ -814,7 +863,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "absensi" | "izin" | "kelas" | "logAktivitas" | "mataPelajaran" | "nilai" | "notification" | "profile" | "submission" | "tugas" | "user"
+      modelProps: "absensi" | "absensiSetting" | "izin" | "jadwalAbsensi" | "kelas" | "logAktivitas" | "mataPelajaran" | "nilai" | "notification" | "profile" | "submission" | "tugas" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -892,6 +941,80 @@ export namespace Prisma {
           }
         }
       }
+      AbsensiSetting: {
+        payload: Prisma.$AbsensiSettingPayload<ExtArgs>
+        fields: Prisma.AbsensiSettingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AbsensiSettingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AbsensiSettingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          findFirst: {
+            args: Prisma.AbsensiSettingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AbsensiSettingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          findMany: {
+            args: Prisma.AbsensiSettingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>[]
+          }
+          create: {
+            args: Prisma.AbsensiSettingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          createMany: {
+            args: Prisma.AbsensiSettingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AbsensiSettingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>[]
+          }
+          delete: {
+            args: Prisma.AbsensiSettingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          update: {
+            args: Prisma.AbsensiSettingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          deleteMany: {
+            args: Prisma.AbsensiSettingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AbsensiSettingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AbsensiSettingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>[]
+          }
+          upsert: {
+            args: Prisma.AbsensiSettingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsensiSettingPayload>
+          }
+          aggregate: {
+            args: Prisma.AbsensiSettingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAbsensiSetting>
+          }
+          groupBy: {
+            args: Prisma.AbsensiSettingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AbsensiSettingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AbsensiSettingCountArgs<ExtArgs>
+            result: $Utils.Optional<AbsensiSettingCountAggregateOutputType> | number
+          }
+        }
+      }
       Izin: {
         payload: Prisma.$IzinPayload<ExtArgs>
         fields: Prisma.IzinFieldRefs
@@ -963,6 +1086,80 @@ export namespace Prisma {
           count: {
             args: Prisma.IzinCountArgs<ExtArgs>
             result: $Utils.Optional<IzinCountAggregateOutputType> | number
+          }
+        }
+      }
+      JadwalAbsensi: {
+        payload: Prisma.$JadwalAbsensiPayload<ExtArgs>
+        fields: Prisma.JadwalAbsensiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JadwalAbsensiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JadwalAbsensiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          findFirst: {
+            args: Prisma.JadwalAbsensiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JadwalAbsensiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          findMany: {
+            args: Prisma.JadwalAbsensiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>[]
+          }
+          create: {
+            args: Prisma.JadwalAbsensiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          createMany: {
+            args: Prisma.JadwalAbsensiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JadwalAbsensiCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>[]
+          }
+          delete: {
+            args: Prisma.JadwalAbsensiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          update: {
+            args: Prisma.JadwalAbsensiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          deleteMany: {
+            args: Prisma.JadwalAbsensiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JadwalAbsensiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.JadwalAbsensiUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>[]
+          }
+          upsert: {
+            args: Prisma.JadwalAbsensiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalAbsensiPayload>
+          }
+          aggregate: {
+            args: Prisma.JadwalAbsensiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJadwalAbsensi>
+          }
+          groupBy: {
+            args: Prisma.JadwalAbsensiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JadwalAbsensiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JadwalAbsensiCountArgs<ExtArgs>
+            result: $Utils.Optional<JadwalAbsensiCountAggregateOutputType> | number
           }
         }
       }
@@ -1741,7 +1938,9 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     absensi?: AbsensiOmit
+    absensiSetting?: AbsensiSettingOmit
     izin?: IzinOmit
+    jadwalAbsensi?: JadwalAbsensiOmit
     kelas?: KelasOmit
     logAktivitas?: LogAktivitasOmit
     mataPelajaran?: MataPelajaranOmit
@@ -1827,6 +2026,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type JadwalAbsensiCountOutputType
+   */
+
+  export type JadwalAbsensiCountOutputType = {
+    absensi: number
+  }
+
+  export type JadwalAbsensiCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    absensi?: boolean | JadwalAbsensiCountOutputTypeCountAbsensiArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * JadwalAbsensiCountOutputType without action
+   */
+  export type JadwalAbsensiCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensiCountOutputType
+     */
+    select?: JadwalAbsensiCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * JadwalAbsensiCountOutputType without action
+   */
+  export type JadwalAbsensiCountOutputTypeCountAbsensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AbsensiWhereInput
+  }
+
+
+  /**
    * Count Type KelasCountOutputType
    */
 
@@ -1834,6 +2064,7 @@ export namespace Prisma {
     santri: number
     pengajar: number
     absensi: number
+    jadwal: number
     izin: number
     tugas: number
   }
@@ -1842,6 +2073,7 @@ export namespace Prisma {
     santri?: boolean | KelasCountOutputTypeCountSantriArgs
     pengajar?: boolean | KelasCountOutputTypeCountPengajarArgs
     absensi?: boolean | KelasCountOutputTypeCountAbsensiArgs
+    jadwal?: boolean | KelasCountOutputTypeCountJadwalArgs
     izin?: boolean | KelasCountOutputTypeCountIzinArgs
     tugas?: boolean | KelasCountOutputTypeCountTugasArgs
   }
@@ -1876,6 +2108,13 @@ export namespace Prisma {
    */
   export type KelasCountOutputTypeCountAbsensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AbsensiWhereInput
+  }
+
+  /**
+   * KelasCountOutputType without action
+   */
+  export type KelasCountOutputTypeCountJadwalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JadwalAbsensiWhereInput
   }
 
   /**
@@ -2087,18 +2326,21 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     kelasId: number | null
+    jadwalId: number | null
   }
 
   export type AbsensiSumAggregateOutputType = {
     id: number | null
     userId: number | null
     kelasId: number | null
+    jadwalId: number | null
   }
 
   export type AbsensiMinAggregateOutputType = {
     id: number | null
     userId: number | null
     kelasId: number | null
+    jadwalId: number | null
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
@@ -2108,6 +2350,7 @@ export namespace Prisma {
     id: number | null
     userId: number | null
     kelasId: number | null
+    jadwalId: number | null
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
@@ -2117,6 +2360,7 @@ export namespace Prisma {
     id: number
     userId: number
     kelasId: number
+    jadwalId: number
     tanggal: number
     status: number
     createdAt: number
@@ -2128,18 +2372,21 @@ export namespace Prisma {
     id?: true
     userId?: true
     kelasId?: true
+    jadwalId?: true
   }
 
   export type AbsensiSumAggregateInputType = {
     id?: true
     userId?: true
     kelasId?: true
+    jadwalId?: true
   }
 
   export type AbsensiMinAggregateInputType = {
     id?: true
     userId?: true
     kelasId?: true
+    jadwalId?: true
     tanggal?: true
     status?: true
     createdAt?: true
@@ -2149,6 +2396,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     kelasId?: true
+    jadwalId?: true
     tanggal?: true
     status?: true
     createdAt?: true
@@ -2158,6 +2406,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     kelasId?: true
+    jadwalId?: true
     tanggal?: true
     status?: true
     createdAt?: true
@@ -2254,6 +2503,7 @@ export namespace Prisma {
     id: number
     userId: number
     kelasId: number
+    jadwalId: number | null
     tanggal: Date
     status: $Enums.StatusAbsensi
     createdAt: Date
@@ -2282,56 +2532,66 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     kelasId?: boolean
+    jadwalId?: boolean
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     kelasId?: boolean
+    jadwalId?: boolean
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     kelasId?: boolean
+    jadwalId?: boolean
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }, ExtArgs["result"]["absensi"]>
 
   export type AbsensiSelectScalar = {
     id?: boolean
     userId?: boolean
     kelasId?: boolean
+    jadwalId?: boolean
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
   }
 
-  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "tanggal" | "status" | "createdAt", ExtArgs["result"]["absensi"]>
+  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "jadwalId" | "tanggal" | "status" | "createdAt", ExtArgs["result"]["absensi"]>
   export type AbsensiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }
   export type AbsensiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }
   export type AbsensiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
   }
 
   export type $AbsensiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2339,11 +2599,13 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       kelas: Prisma.$KelasPayload<ExtArgs>
+      jadwal: Prisma.$JadwalAbsensiPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: number
       kelasId: number
+      jadwalId: number | null
       tanggal: Date
       status: $Enums.StatusAbsensi
       createdAt: Date
@@ -2743,6 +3005,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    jadwal<T extends Absensi$jadwalArgs<ExtArgs> = {}>(args?: Subset<T, Absensi$jadwalArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2775,6 +3038,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Absensi", 'Int'>
     readonly userId: FieldRef<"Absensi", 'Int'>
     readonly kelasId: FieldRef<"Absensi", 'Int'>
+    readonly jadwalId: FieldRef<"Absensi", 'Int'>
     readonly tanggal: FieldRef<"Absensi", 'DateTime'>
     readonly status: FieldRef<"Absensi", 'StatusAbsensi'>
     readonly createdAt: FieldRef<"Absensi", 'DateTime'>
@@ -3174,6 +3438,25 @@ export namespace Prisma {
   }
 
   /**
+   * Absensi.jadwal
+   */
+  export type Absensi$jadwalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    where?: JadwalAbsensiWhereInput
+  }
+
+  /**
    * Absensi without action
    */
   export type AbsensiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3189,6 +3472,1106 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AbsensiInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AbsensiSetting
+   */
+
+  export type AggregateAbsensiSetting = {
+    _count: AbsensiSettingCountAggregateOutputType | null
+    _avg: AbsensiSettingAvgAggregateOutputType | null
+    _sum: AbsensiSettingSumAggregateOutputType | null
+    _min: AbsensiSettingMinAggregateOutputType | null
+    _max: AbsensiSettingMaxAggregateOutputType | null
+  }
+
+  export type AbsensiSettingAvgAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    maxAbsen: number | null
+  }
+
+  export type AbsensiSettingSumAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    maxAbsen: number | null
+  }
+
+  export type AbsensiSettingMinAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    maxAbsen: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AbsensiSettingMaxAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    maxAbsen: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AbsensiSettingCountAggregateOutputType = {
+    id: number
+    kelasId: number
+    maxAbsen: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AbsensiSettingAvgAggregateInputType = {
+    id?: true
+    kelasId?: true
+    maxAbsen?: true
+  }
+
+  export type AbsensiSettingSumAggregateInputType = {
+    id?: true
+    kelasId?: true
+    maxAbsen?: true
+  }
+
+  export type AbsensiSettingMinAggregateInputType = {
+    id?: true
+    kelasId?: true
+    maxAbsen?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AbsensiSettingMaxAggregateInputType = {
+    id?: true
+    kelasId?: true
+    maxAbsen?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AbsensiSettingCountAggregateInputType = {
+    id?: true
+    kelasId?: true
+    maxAbsen?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AbsensiSettingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AbsensiSetting to aggregate.
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsensiSettings to fetch.
+     */
+    orderBy?: AbsensiSettingOrderByWithRelationInput | AbsensiSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AbsensiSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsensiSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsensiSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AbsensiSettings
+    **/
+    _count?: true | AbsensiSettingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AbsensiSettingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AbsensiSettingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AbsensiSettingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AbsensiSettingMaxAggregateInputType
+  }
+
+  export type GetAbsensiSettingAggregateType<T extends AbsensiSettingAggregateArgs> = {
+        [P in keyof T & keyof AggregateAbsensiSetting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAbsensiSetting[P]>
+      : GetScalarType<T[P], AggregateAbsensiSetting[P]>
+  }
+
+
+
+
+  export type AbsensiSettingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AbsensiSettingWhereInput
+    orderBy?: AbsensiSettingOrderByWithAggregationInput | AbsensiSettingOrderByWithAggregationInput[]
+    by: AbsensiSettingScalarFieldEnum[] | AbsensiSettingScalarFieldEnum
+    having?: AbsensiSettingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AbsensiSettingCountAggregateInputType | true
+    _avg?: AbsensiSettingAvgAggregateInputType
+    _sum?: AbsensiSettingSumAggregateInputType
+    _min?: AbsensiSettingMinAggregateInputType
+    _max?: AbsensiSettingMaxAggregateInputType
+  }
+
+  export type AbsensiSettingGroupByOutputType = {
+    id: number
+    kelasId: number
+    maxAbsen: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AbsensiSettingCountAggregateOutputType | null
+    _avg: AbsensiSettingAvgAggregateOutputType | null
+    _sum: AbsensiSettingSumAggregateOutputType | null
+    _min: AbsensiSettingMinAggregateOutputType | null
+    _max: AbsensiSettingMaxAggregateOutputType | null
+  }
+
+  type GetAbsensiSettingGroupByPayload<T extends AbsensiSettingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AbsensiSettingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AbsensiSettingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AbsensiSettingGroupByOutputType[P]>
+            : GetScalarType<T[P], AbsensiSettingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AbsensiSettingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    maxAbsen?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absensiSetting"]>
+
+  export type AbsensiSettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    maxAbsen?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absensiSetting"]>
+
+  export type AbsensiSettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    maxAbsen?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absensiSetting"]>
+
+  export type AbsensiSettingSelectScalar = {
+    id?: boolean
+    kelasId?: boolean
+    maxAbsen?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AbsensiSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kelasId" | "maxAbsen" | "createdAt" | "updatedAt", ExtArgs["result"]["absensiSetting"]>
+  export type AbsensiSettingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }
+  export type AbsensiSettingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }
+  export type AbsensiSettingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }
+
+  export type $AbsensiSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AbsensiSetting"
+    objects: {
+      kelas: Prisma.$KelasPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      kelasId: number
+      maxAbsen: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["absensiSetting"]>
+    composites: {}
+  }
+
+  type AbsensiSettingGetPayload<S extends boolean | null | undefined | AbsensiSettingDefaultArgs> = $Result.GetResult<Prisma.$AbsensiSettingPayload, S>
+
+  type AbsensiSettingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AbsensiSettingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AbsensiSettingCountAggregateInputType | true
+    }
+
+  export interface AbsensiSettingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AbsensiSetting'], meta: { name: 'AbsensiSetting' } }
+    /**
+     * Find zero or one AbsensiSetting that matches the filter.
+     * @param {AbsensiSettingFindUniqueArgs} args - Arguments to find a AbsensiSetting
+     * @example
+     * // Get one AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AbsensiSettingFindUniqueArgs>(args: SelectSubset<T, AbsensiSettingFindUniqueArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AbsensiSetting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AbsensiSettingFindUniqueOrThrowArgs} args - Arguments to find a AbsensiSetting
+     * @example
+     * // Get one AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AbsensiSettingFindUniqueOrThrowArgs>(args: SelectSubset<T, AbsensiSettingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AbsensiSetting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingFindFirstArgs} args - Arguments to find a AbsensiSetting
+     * @example
+     * // Get one AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AbsensiSettingFindFirstArgs>(args?: SelectSubset<T, AbsensiSettingFindFirstArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AbsensiSetting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingFindFirstOrThrowArgs} args - Arguments to find a AbsensiSetting
+     * @example
+     * // Get one AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AbsensiSettingFindFirstOrThrowArgs>(args?: SelectSubset<T, AbsensiSettingFindFirstOrThrowArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AbsensiSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AbsensiSettings
+     * const absensiSettings = await prisma.absensiSetting.findMany()
+     * 
+     * // Get first 10 AbsensiSettings
+     * const absensiSettings = await prisma.absensiSetting.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const absensiSettingWithIdOnly = await prisma.absensiSetting.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AbsensiSettingFindManyArgs>(args?: SelectSubset<T, AbsensiSettingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AbsensiSetting.
+     * @param {AbsensiSettingCreateArgs} args - Arguments to create a AbsensiSetting.
+     * @example
+     * // Create one AbsensiSetting
+     * const AbsensiSetting = await prisma.absensiSetting.create({
+     *   data: {
+     *     // ... data to create a AbsensiSetting
+     *   }
+     * })
+     * 
+     */
+    create<T extends AbsensiSettingCreateArgs>(args: SelectSubset<T, AbsensiSettingCreateArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AbsensiSettings.
+     * @param {AbsensiSettingCreateManyArgs} args - Arguments to create many AbsensiSettings.
+     * @example
+     * // Create many AbsensiSettings
+     * const absensiSetting = await prisma.absensiSetting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AbsensiSettingCreateManyArgs>(args?: SelectSubset<T, AbsensiSettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AbsensiSettings and returns the data saved in the database.
+     * @param {AbsensiSettingCreateManyAndReturnArgs} args - Arguments to create many AbsensiSettings.
+     * @example
+     * // Create many AbsensiSettings
+     * const absensiSetting = await prisma.absensiSetting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AbsensiSettings and only return the `id`
+     * const absensiSettingWithIdOnly = await prisma.absensiSetting.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AbsensiSettingCreateManyAndReturnArgs>(args?: SelectSubset<T, AbsensiSettingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AbsensiSetting.
+     * @param {AbsensiSettingDeleteArgs} args - Arguments to delete one AbsensiSetting.
+     * @example
+     * // Delete one AbsensiSetting
+     * const AbsensiSetting = await prisma.absensiSetting.delete({
+     *   where: {
+     *     // ... filter to delete one AbsensiSetting
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AbsensiSettingDeleteArgs>(args: SelectSubset<T, AbsensiSettingDeleteArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AbsensiSetting.
+     * @param {AbsensiSettingUpdateArgs} args - Arguments to update one AbsensiSetting.
+     * @example
+     * // Update one AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AbsensiSettingUpdateArgs>(args: SelectSubset<T, AbsensiSettingUpdateArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AbsensiSettings.
+     * @param {AbsensiSettingDeleteManyArgs} args - Arguments to filter AbsensiSettings to delete.
+     * @example
+     * // Delete a few AbsensiSettings
+     * const { count } = await prisma.absensiSetting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AbsensiSettingDeleteManyArgs>(args?: SelectSubset<T, AbsensiSettingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AbsensiSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AbsensiSettings
+     * const absensiSetting = await prisma.absensiSetting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AbsensiSettingUpdateManyArgs>(args: SelectSubset<T, AbsensiSettingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AbsensiSettings and returns the data updated in the database.
+     * @param {AbsensiSettingUpdateManyAndReturnArgs} args - Arguments to update many AbsensiSettings.
+     * @example
+     * // Update many AbsensiSettings
+     * const absensiSetting = await prisma.absensiSetting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AbsensiSettings and only return the `id`
+     * const absensiSettingWithIdOnly = await prisma.absensiSetting.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AbsensiSettingUpdateManyAndReturnArgs>(args: SelectSubset<T, AbsensiSettingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AbsensiSetting.
+     * @param {AbsensiSettingUpsertArgs} args - Arguments to update or create a AbsensiSetting.
+     * @example
+     * // Update or create a AbsensiSetting
+     * const absensiSetting = await prisma.absensiSetting.upsert({
+     *   create: {
+     *     // ... data to create a AbsensiSetting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AbsensiSetting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AbsensiSettingUpsertArgs>(args: SelectSubset<T, AbsensiSettingUpsertArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AbsensiSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingCountArgs} args - Arguments to filter AbsensiSettings to count.
+     * @example
+     * // Count the number of AbsensiSettings
+     * const count = await prisma.absensiSetting.count({
+     *   where: {
+     *     // ... the filter for the AbsensiSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends AbsensiSettingCountArgs>(
+      args?: Subset<T, AbsensiSettingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AbsensiSettingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AbsensiSetting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AbsensiSettingAggregateArgs>(args: Subset<T, AbsensiSettingAggregateArgs>): Prisma.PrismaPromise<GetAbsensiSettingAggregateType<T>>
+
+    /**
+     * Group by AbsensiSetting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsensiSettingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AbsensiSettingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AbsensiSettingGroupByArgs['orderBy'] }
+        : { orderBy?: AbsensiSettingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AbsensiSettingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAbsensiSettingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AbsensiSetting model
+   */
+  readonly fields: AbsensiSettingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AbsensiSetting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AbsensiSettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AbsensiSetting model
+   */
+  interface AbsensiSettingFieldRefs {
+    readonly id: FieldRef<"AbsensiSetting", 'Int'>
+    readonly kelasId: FieldRef<"AbsensiSetting", 'Int'>
+    readonly maxAbsen: FieldRef<"AbsensiSetting", 'Int'>
+    readonly createdAt: FieldRef<"AbsensiSetting", 'DateTime'>
+    readonly updatedAt: FieldRef<"AbsensiSetting", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AbsensiSetting findUnique
+   */
+  export type AbsensiSettingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsensiSetting to fetch.
+     */
+    where: AbsensiSettingWhereUniqueInput
+  }
+
+  /**
+   * AbsensiSetting findUniqueOrThrow
+   */
+  export type AbsensiSettingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsensiSetting to fetch.
+     */
+    where: AbsensiSettingWhereUniqueInput
+  }
+
+  /**
+   * AbsensiSetting findFirst
+   */
+  export type AbsensiSettingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsensiSetting to fetch.
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsensiSettings to fetch.
+     */
+    orderBy?: AbsensiSettingOrderByWithRelationInput | AbsensiSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AbsensiSettings.
+     */
+    cursor?: AbsensiSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsensiSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsensiSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AbsensiSettings.
+     */
+    distinct?: AbsensiSettingScalarFieldEnum | AbsensiSettingScalarFieldEnum[]
+  }
+
+  /**
+   * AbsensiSetting findFirstOrThrow
+   */
+  export type AbsensiSettingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsensiSetting to fetch.
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsensiSettings to fetch.
+     */
+    orderBy?: AbsensiSettingOrderByWithRelationInput | AbsensiSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AbsensiSettings.
+     */
+    cursor?: AbsensiSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsensiSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsensiSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AbsensiSettings.
+     */
+    distinct?: AbsensiSettingScalarFieldEnum | AbsensiSettingScalarFieldEnum[]
+  }
+
+  /**
+   * AbsensiSetting findMany
+   */
+  export type AbsensiSettingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsensiSettings to fetch.
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsensiSettings to fetch.
+     */
+    orderBy?: AbsensiSettingOrderByWithRelationInput | AbsensiSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AbsensiSettings.
+     */
+    cursor?: AbsensiSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsensiSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsensiSettings.
+     */
+    skip?: number
+    distinct?: AbsensiSettingScalarFieldEnum | AbsensiSettingScalarFieldEnum[]
+  }
+
+  /**
+   * AbsensiSetting create
+   */
+  export type AbsensiSettingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AbsensiSetting.
+     */
+    data: XOR<AbsensiSettingCreateInput, AbsensiSettingUncheckedCreateInput>
+  }
+
+  /**
+   * AbsensiSetting createMany
+   */
+  export type AbsensiSettingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AbsensiSettings.
+     */
+    data: AbsensiSettingCreateManyInput | AbsensiSettingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AbsensiSetting createManyAndReturn
+   */
+  export type AbsensiSettingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * The data used to create many AbsensiSettings.
+     */
+    data: AbsensiSettingCreateManyInput | AbsensiSettingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AbsensiSetting update
+   */
+  export type AbsensiSettingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AbsensiSetting.
+     */
+    data: XOR<AbsensiSettingUpdateInput, AbsensiSettingUncheckedUpdateInput>
+    /**
+     * Choose, which AbsensiSetting to update.
+     */
+    where: AbsensiSettingWhereUniqueInput
+  }
+
+  /**
+   * AbsensiSetting updateMany
+   */
+  export type AbsensiSettingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AbsensiSettings.
+     */
+    data: XOR<AbsensiSettingUpdateManyMutationInput, AbsensiSettingUncheckedUpdateManyInput>
+    /**
+     * Filter which AbsensiSettings to update
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * Limit how many AbsensiSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AbsensiSetting updateManyAndReturn
+   */
+  export type AbsensiSettingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * The data used to update AbsensiSettings.
+     */
+    data: XOR<AbsensiSettingUpdateManyMutationInput, AbsensiSettingUncheckedUpdateManyInput>
+    /**
+     * Filter which AbsensiSettings to update
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * Limit how many AbsensiSettings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AbsensiSetting upsert
+   */
+  export type AbsensiSettingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AbsensiSetting to update in case it exists.
+     */
+    where: AbsensiSettingWhereUniqueInput
+    /**
+     * In case the AbsensiSetting found by the `where` argument doesn't exist, create a new AbsensiSetting with this data.
+     */
+    create: XOR<AbsensiSettingCreateInput, AbsensiSettingUncheckedCreateInput>
+    /**
+     * In case the AbsensiSetting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AbsensiSettingUpdateInput, AbsensiSettingUncheckedUpdateInput>
+  }
+
+  /**
+   * AbsensiSetting delete
+   */
+  export type AbsensiSettingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    /**
+     * Filter which AbsensiSetting to delete.
+     */
+    where: AbsensiSettingWhereUniqueInput
+  }
+
+  /**
+   * AbsensiSetting deleteMany
+   */
+  export type AbsensiSettingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AbsensiSettings to delete
+     */
+    where?: AbsensiSettingWhereInput
+    /**
+     * Limit how many AbsensiSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AbsensiSetting without action
+   */
+  export type AbsensiSettingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
   }
 
 
@@ -4327,6 +5710,1158 @@ export namespace Prisma {
 
 
   /**
+   * Model JadwalAbsensi
+   */
+
+  export type AggregateJadwalAbsensi = {
+    _count: JadwalAbsensiCountAggregateOutputType | null
+    _avg: JadwalAbsensiAvgAggregateOutputType | null
+    _sum: JadwalAbsensiSumAggregateOutputType | null
+    _min: JadwalAbsensiMinAggregateOutputType | null
+    _max: JadwalAbsensiMaxAggregateOutputType | null
+  }
+
+  export type JadwalAbsensiAvgAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+  }
+
+  export type JadwalAbsensiSumAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+  }
+
+  export type JadwalAbsensiMinAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    hari: $Enums.Hari | null
+    jamMulai: string | null
+    jamSelesai: string | null
+    tanggal: Date | null
+    createdAt: Date | null
+  }
+
+  export type JadwalAbsensiMaxAggregateOutputType = {
+    id: number | null
+    kelasId: number | null
+    hari: $Enums.Hari | null
+    jamMulai: string | null
+    jamSelesai: string | null
+    tanggal: Date | null
+    createdAt: Date | null
+  }
+
+  export type JadwalAbsensiCountAggregateOutputType = {
+    id: number
+    kelasId: number
+    hari: number
+    jamMulai: number
+    jamSelesai: number
+    tanggal: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type JadwalAbsensiAvgAggregateInputType = {
+    id?: true
+    kelasId?: true
+  }
+
+  export type JadwalAbsensiSumAggregateInputType = {
+    id?: true
+    kelasId?: true
+  }
+
+  export type JadwalAbsensiMinAggregateInputType = {
+    id?: true
+    kelasId?: true
+    hari?: true
+    jamMulai?: true
+    jamSelesai?: true
+    tanggal?: true
+    createdAt?: true
+  }
+
+  export type JadwalAbsensiMaxAggregateInputType = {
+    id?: true
+    kelasId?: true
+    hari?: true
+    jamMulai?: true
+    jamSelesai?: true
+    tanggal?: true
+    createdAt?: true
+  }
+
+  export type JadwalAbsensiCountAggregateInputType = {
+    id?: true
+    kelasId?: true
+    hari?: true
+    jamMulai?: true
+    jamSelesai?: true
+    tanggal?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type JadwalAbsensiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JadwalAbsensi to aggregate.
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalAbsensis to fetch.
+     */
+    orderBy?: JadwalAbsensiOrderByWithRelationInput | JadwalAbsensiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JadwalAbsensiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalAbsensis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalAbsensis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JadwalAbsensis
+    **/
+    _count?: true | JadwalAbsensiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: JadwalAbsensiAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: JadwalAbsensiSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JadwalAbsensiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JadwalAbsensiMaxAggregateInputType
+  }
+
+  export type GetJadwalAbsensiAggregateType<T extends JadwalAbsensiAggregateArgs> = {
+        [P in keyof T & keyof AggregateJadwalAbsensi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJadwalAbsensi[P]>
+      : GetScalarType<T[P], AggregateJadwalAbsensi[P]>
+  }
+
+
+
+
+  export type JadwalAbsensiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JadwalAbsensiWhereInput
+    orderBy?: JadwalAbsensiOrderByWithAggregationInput | JadwalAbsensiOrderByWithAggregationInput[]
+    by: JadwalAbsensiScalarFieldEnum[] | JadwalAbsensiScalarFieldEnum
+    having?: JadwalAbsensiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JadwalAbsensiCountAggregateInputType | true
+    _avg?: JadwalAbsensiAvgAggregateInputType
+    _sum?: JadwalAbsensiSumAggregateInputType
+    _min?: JadwalAbsensiMinAggregateInputType
+    _max?: JadwalAbsensiMaxAggregateInputType
+  }
+
+  export type JadwalAbsensiGroupByOutputType = {
+    id: number
+    kelasId: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal: Date | null
+    createdAt: Date
+    _count: JadwalAbsensiCountAggregateOutputType | null
+    _avg: JadwalAbsensiAvgAggregateOutputType | null
+    _sum: JadwalAbsensiSumAggregateOutputType | null
+    _min: JadwalAbsensiMinAggregateOutputType | null
+    _max: JadwalAbsensiMaxAggregateOutputType | null
+  }
+
+  type GetJadwalAbsensiGroupByPayload<T extends JadwalAbsensiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JadwalAbsensiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JadwalAbsensiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JadwalAbsensiGroupByOutputType[P]>
+            : GetScalarType<T[P], JadwalAbsensiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JadwalAbsensiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    hari?: boolean
+    jamMulai?: boolean
+    jamSelesai?: boolean
+    tanggal?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    absensi?: boolean | JadwalAbsensi$absensiArgs<ExtArgs>
+    _count?: boolean | JadwalAbsensiCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalAbsensi"]>
+
+  export type JadwalAbsensiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    hari?: boolean
+    jamMulai?: boolean
+    jamSelesai?: boolean
+    tanggal?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalAbsensi"]>
+
+  export type JadwalAbsensiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kelasId?: boolean
+    hari?: boolean
+    jamMulai?: boolean
+    jamSelesai?: boolean
+    tanggal?: boolean
+    createdAt?: boolean
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalAbsensi"]>
+
+  export type JadwalAbsensiSelectScalar = {
+    id?: boolean
+    kelasId?: boolean
+    hari?: boolean
+    jamMulai?: boolean
+    jamSelesai?: boolean
+    tanggal?: boolean
+    createdAt?: boolean
+  }
+
+  export type JadwalAbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kelasId" | "hari" | "jamMulai" | "jamSelesai" | "tanggal" | "createdAt", ExtArgs["result"]["jadwalAbsensi"]>
+  export type JadwalAbsensiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    absensi?: boolean | JadwalAbsensi$absensiArgs<ExtArgs>
+    _count?: boolean | JadwalAbsensiCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type JadwalAbsensiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }
+  export type JadwalAbsensiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kelas?: boolean | KelasDefaultArgs<ExtArgs>
+  }
+
+  export type $JadwalAbsensiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JadwalAbsensi"
+    objects: {
+      kelas: Prisma.$KelasPayload<ExtArgs>
+      absensi: Prisma.$AbsensiPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      kelasId: number
+      hari: $Enums.Hari
+      jamMulai: string
+      jamSelesai: string
+      tanggal: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["jadwalAbsensi"]>
+    composites: {}
+  }
+
+  type JadwalAbsensiGetPayload<S extends boolean | null | undefined | JadwalAbsensiDefaultArgs> = $Result.GetResult<Prisma.$JadwalAbsensiPayload, S>
+
+  type JadwalAbsensiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<JadwalAbsensiFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: JadwalAbsensiCountAggregateInputType | true
+    }
+
+  export interface JadwalAbsensiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JadwalAbsensi'], meta: { name: 'JadwalAbsensi' } }
+    /**
+     * Find zero or one JadwalAbsensi that matches the filter.
+     * @param {JadwalAbsensiFindUniqueArgs} args - Arguments to find a JadwalAbsensi
+     * @example
+     * // Get one JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JadwalAbsensiFindUniqueArgs>(args: SelectSubset<T, JadwalAbsensiFindUniqueArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one JadwalAbsensi that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {JadwalAbsensiFindUniqueOrThrowArgs} args - Arguments to find a JadwalAbsensi
+     * @example
+     * // Get one JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JadwalAbsensiFindUniqueOrThrowArgs>(args: SelectSubset<T, JadwalAbsensiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JadwalAbsensi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiFindFirstArgs} args - Arguments to find a JadwalAbsensi
+     * @example
+     * // Get one JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JadwalAbsensiFindFirstArgs>(args?: SelectSubset<T, JadwalAbsensiFindFirstArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JadwalAbsensi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiFindFirstOrThrowArgs} args - Arguments to find a JadwalAbsensi
+     * @example
+     * // Get one JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JadwalAbsensiFindFirstOrThrowArgs>(args?: SelectSubset<T, JadwalAbsensiFindFirstOrThrowArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more JadwalAbsensis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JadwalAbsensis
+     * const jadwalAbsensis = await prisma.jadwalAbsensi.findMany()
+     * 
+     * // Get first 10 JadwalAbsensis
+     * const jadwalAbsensis = await prisma.jadwalAbsensi.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const jadwalAbsensiWithIdOnly = await prisma.jadwalAbsensi.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JadwalAbsensiFindManyArgs>(args?: SelectSubset<T, JadwalAbsensiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a JadwalAbsensi.
+     * @param {JadwalAbsensiCreateArgs} args - Arguments to create a JadwalAbsensi.
+     * @example
+     * // Create one JadwalAbsensi
+     * const JadwalAbsensi = await prisma.jadwalAbsensi.create({
+     *   data: {
+     *     // ... data to create a JadwalAbsensi
+     *   }
+     * })
+     * 
+     */
+    create<T extends JadwalAbsensiCreateArgs>(args: SelectSubset<T, JadwalAbsensiCreateArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many JadwalAbsensis.
+     * @param {JadwalAbsensiCreateManyArgs} args - Arguments to create many JadwalAbsensis.
+     * @example
+     * // Create many JadwalAbsensis
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JadwalAbsensiCreateManyArgs>(args?: SelectSubset<T, JadwalAbsensiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JadwalAbsensis and returns the data saved in the database.
+     * @param {JadwalAbsensiCreateManyAndReturnArgs} args - Arguments to create many JadwalAbsensis.
+     * @example
+     * // Create many JadwalAbsensis
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JadwalAbsensis and only return the `id`
+     * const jadwalAbsensiWithIdOnly = await prisma.jadwalAbsensi.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JadwalAbsensiCreateManyAndReturnArgs>(args?: SelectSubset<T, JadwalAbsensiCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a JadwalAbsensi.
+     * @param {JadwalAbsensiDeleteArgs} args - Arguments to delete one JadwalAbsensi.
+     * @example
+     * // Delete one JadwalAbsensi
+     * const JadwalAbsensi = await prisma.jadwalAbsensi.delete({
+     *   where: {
+     *     // ... filter to delete one JadwalAbsensi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JadwalAbsensiDeleteArgs>(args: SelectSubset<T, JadwalAbsensiDeleteArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one JadwalAbsensi.
+     * @param {JadwalAbsensiUpdateArgs} args - Arguments to update one JadwalAbsensi.
+     * @example
+     * // Update one JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JadwalAbsensiUpdateArgs>(args: SelectSubset<T, JadwalAbsensiUpdateArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more JadwalAbsensis.
+     * @param {JadwalAbsensiDeleteManyArgs} args - Arguments to filter JadwalAbsensis to delete.
+     * @example
+     * // Delete a few JadwalAbsensis
+     * const { count } = await prisma.jadwalAbsensi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JadwalAbsensiDeleteManyArgs>(args?: SelectSubset<T, JadwalAbsensiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JadwalAbsensis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JadwalAbsensis
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JadwalAbsensiUpdateManyArgs>(args: SelectSubset<T, JadwalAbsensiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JadwalAbsensis and returns the data updated in the database.
+     * @param {JadwalAbsensiUpdateManyAndReturnArgs} args - Arguments to update many JadwalAbsensis.
+     * @example
+     * // Update many JadwalAbsensis
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more JadwalAbsensis and only return the `id`
+     * const jadwalAbsensiWithIdOnly = await prisma.jadwalAbsensi.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends JadwalAbsensiUpdateManyAndReturnArgs>(args: SelectSubset<T, JadwalAbsensiUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one JadwalAbsensi.
+     * @param {JadwalAbsensiUpsertArgs} args - Arguments to update or create a JadwalAbsensi.
+     * @example
+     * // Update or create a JadwalAbsensi
+     * const jadwalAbsensi = await prisma.jadwalAbsensi.upsert({
+     *   create: {
+     *     // ... data to create a JadwalAbsensi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JadwalAbsensi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JadwalAbsensiUpsertArgs>(args: SelectSubset<T, JadwalAbsensiUpsertArgs<ExtArgs>>): Prisma__JadwalAbsensiClient<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of JadwalAbsensis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiCountArgs} args - Arguments to filter JadwalAbsensis to count.
+     * @example
+     * // Count the number of JadwalAbsensis
+     * const count = await prisma.jadwalAbsensi.count({
+     *   where: {
+     *     // ... the filter for the JadwalAbsensis we want to count
+     *   }
+     * })
+    **/
+    count<T extends JadwalAbsensiCountArgs>(
+      args?: Subset<T, JadwalAbsensiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JadwalAbsensiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JadwalAbsensi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JadwalAbsensiAggregateArgs>(args: Subset<T, JadwalAbsensiAggregateArgs>): Prisma.PrismaPromise<GetJadwalAbsensiAggregateType<T>>
+
+    /**
+     * Group by JadwalAbsensi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalAbsensiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JadwalAbsensiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JadwalAbsensiGroupByArgs['orderBy'] }
+        : { orderBy?: JadwalAbsensiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JadwalAbsensiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJadwalAbsensiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JadwalAbsensi model
+   */
+  readonly fields: JadwalAbsensiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JadwalAbsensi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JadwalAbsensiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    absensi<T extends JadwalAbsensi$absensiArgs<ExtArgs> = {}>(args?: Subset<T, JadwalAbsensi$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JadwalAbsensi model
+   */
+  interface JadwalAbsensiFieldRefs {
+    readonly id: FieldRef<"JadwalAbsensi", 'Int'>
+    readonly kelasId: FieldRef<"JadwalAbsensi", 'Int'>
+    readonly hari: FieldRef<"JadwalAbsensi", 'Hari'>
+    readonly jamMulai: FieldRef<"JadwalAbsensi", 'String'>
+    readonly jamSelesai: FieldRef<"JadwalAbsensi", 'String'>
+    readonly tanggal: FieldRef<"JadwalAbsensi", 'DateTime'>
+    readonly createdAt: FieldRef<"JadwalAbsensi", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JadwalAbsensi findUnique
+   */
+  export type JadwalAbsensiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalAbsensi to fetch.
+     */
+    where: JadwalAbsensiWhereUniqueInput
+  }
+
+  /**
+   * JadwalAbsensi findUniqueOrThrow
+   */
+  export type JadwalAbsensiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalAbsensi to fetch.
+     */
+    where: JadwalAbsensiWhereUniqueInput
+  }
+
+  /**
+   * JadwalAbsensi findFirst
+   */
+  export type JadwalAbsensiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalAbsensi to fetch.
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalAbsensis to fetch.
+     */
+    orderBy?: JadwalAbsensiOrderByWithRelationInput | JadwalAbsensiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JadwalAbsensis.
+     */
+    cursor?: JadwalAbsensiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalAbsensis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalAbsensis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JadwalAbsensis.
+     */
+    distinct?: JadwalAbsensiScalarFieldEnum | JadwalAbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalAbsensi findFirstOrThrow
+   */
+  export type JadwalAbsensiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalAbsensi to fetch.
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalAbsensis to fetch.
+     */
+    orderBy?: JadwalAbsensiOrderByWithRelationInput | JadwalAbsensiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JadwalAbsensis.
+     */
+    cursor?: JadwalAbsensiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalAbsensis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalAbsensis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JadwalAbsensis.
+     */
+    distinct?: JadwalAbsensiScalarFieldEnum | JadwalAbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalAbsensi findMany
+   */
+  export type JadwalAbsensiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalAbsensis to fetch.
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalAbsensis to fetch.
+     */
+    orderBy?: JadwalAbsensiOrderByWithRelationInput | JadwalAbsensiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JadwalAbsensis.
+     */
+    cursor?: JadwalAbsensiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalAbsensis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalAbsensis.
+     */
+    skip?: number
+    distinct?: JadwalAbsensiScalarFieldEnum | JadwalAbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalAbsensi create
+   */
+  export type JadwalAbsensiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JadwalAbsensi.
+     */
+    data: XOR<JadwalAbsensiCreateInput, JadwalAbsensiUncheckedCreateInput>
+  }
+
+  /**
+   * JadwalAbsensi createMany
+   */
+  export type JadwalAbsensiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JadwalAbsensis.
+     */
+    data: JadwalAbsensiCreateManyInput | JadwalAbsensiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JadwalAbsensi createManyAndReturn
+   */
+  export type JadwalAbsensiCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * The data used to create many JadwalAbsensis.
+     */
+    data: JadwalAbsensiCreateManyInput | JadwalAbsensiCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JadwalAbsensi update
+   */
+  export type JadwalAbsensiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JadwalAbsensi.
+     */
+    data: XOR<JadwalAbsensiUpdateInput, JadwalAbsensiUncheckedUpdateInput>
+    /**
+     * Choose, which JadwalAbsensi to update.
+     */
+    where: JadwalAbsensiWhereUniqueInput
+  }
+
+  /**
+   * JadwalAbsensi updateMany
+   */
+  export type JadwalAbsensiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JadwalAbsensis.
+     */
+    data: XOR<JadwalAbsensiUpdateManyMutationInput, JadwalAbsensiUncheckedUpdateManyInput>
+    /**
+     * Filter which JadwalAbsensis to update
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * Limit how many JadwalAbsensis to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * JadwalAbsensi updateManyAndReturn
+   */
+  export type JadwalAbsensiUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * The data used to update JadwalAbsensis.
+     */
+    data: XOR<JadwalAbsensiUpdateManyMutationInput, JadwalAbsensiUncheckedUpdateManyInput>
+    /**
+     * Filter which JadwalAbsensis to update
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * Limit how many JadwalAbsensis to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JadwalAbsensi upsert
+   */
+  export type JadwalAbsensiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JadwalAbsensi to update in case it exists.
+     */
+    where: JadwalAbsensiWhereUniqueInput
+    /**
+     * In case the JadwalAbsensi found by the `where` argument doesn't exist, create a new JadwalAbsensi with this data.
+     */
+    create: XOR<JadwalAbsensiCreateInput, JadwalAbsensiUncheckedCreateInput>
+    /**
+     * In case the JadwalAbsensi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JadwalAbsensiUpdateInput, JadwalAbsensiUncheckedUpdateInput>
+  }
+
+  /**
+   * JadwalAbsensi delete
+   */
+  export type JadwalAbsensiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    /**
+     * Filter which JadwalAbsensi to delete.
+     */
+    where: JadwalAbsensiWhereUniqueInput
+  }
+
+  /**
+   * JadwalAbsensi deleteMany
+   */
+  export type JadwalAbsensiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JadwalAbsensis to delete
+     */
+    where?: JadwalAbsensiWhereInput
+    /**
+     * Limit how many JadwalAbsensis to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * JadwalAbsensi.absensi
+   */
+  export type JadwalAbsensi$absensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Absensi
+     */
+    select?: AbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Absensi
+     */
+    omit?: AbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiInclude<ExtArgs> | null
+    where?: AbsensiWhereInput
+    orderBy?: AbsensiOrderByWithRelationInput | AbsensiOrderByWithRelationInput[]
+    cursor?: AbsensiWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AbsensiScalarFieldEnum | AbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalAbsensi without action
+   */
+  export type JadwalAbsensiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Kelas
    */
 
@@ -4510,7 +7045,9 @@ export namespace Prisma {
     deskripsi?: boolean
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
+    absensiSetting?: boolean | Kelas$absensiSettingArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
+    jadwal?: boolean | Kelas$jadwalArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
     _count?: boolean | KelasCountOutputTypeDefaultArgs<ExtArgs>
@@ -4538,7 +7075,9 @@ export namespace Prisma {
   export type KelasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     santri?: boolean | Kelas$santriArgs<ExtArgs>
     pengajar?: boolean | Kelas$pengajarArgs<ExtArgs>
+    absensiSetting?: boolean | Kelas$absensiSettingArgs<ExtArgs>
     absensi?: boolean | Kelas$absensiArgs<ExtArgs>
+    jadwal?: boolean | Kelas$jadwalArgs<ExtArgs>
     izin?: boolean | Kelas$izinArgs<ExtArgs>
     tugas?: boolean | Kelas$tugasArgs<ExtArgs>
     _count?: boolean | KelasCountOutputTypeDefaultArgs<ExtArgs>
@@ -4551,7 +7090,9 @@ export namespace Prisma {
     objects: {
       santri: Prisma.$UserPayload<ExtArgs>[]
       pengajar: Prisma.$UserPayload<ExtArgs>[]
+      absensiSetting: Prisma.$AbsensiSettingPayload<ExtArgs> | null
       absensi: Prisma.$AbsensiPayload<ExtArgs>[]
+      jadwal: Prisma.$JadwalAbsensiPayload<ExtArgs>[]
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugas: Prisma.$TugasPayload<ExtArgs>[]
     }
@@ -4955,7 +7496,9 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     santri<T extends Kelas$santriArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$santriArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pengajar<T extends Kelas$pengajarArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$pengajarArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    absensiSetting<T extends Kelas$absensiSettingArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$absensiSettingArgs<ExtArgs>>): Prisma__AbsensiSettingClient<$Result.GetResult<Prisma.$AbsensiSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     absensi<T extends Kelas$absensiArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$absensiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    jadwal<T extends Kelas$jadwalArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$jadwalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalAbsensiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     izin<T extends Kelas$izinArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugas<T extends Kelas$tugasArgs<ExtArgs> = {}>(args?: Subset<T, Kelas$tugasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -5426,6 +7969,25 @@ export namespace Prisma {
   }
 
   /**
+   * Kelas.absensiSetting
+   */
+  export type Kelas$absensiSettingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsensiSetting
+     */
+    select?: AbsensiSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsensiSetting
+     */
+    omit?: AbsensiSettingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsensiSettingInclude<ExtArgs> | null
+    where?: AbsensiSettingWhereInput
+  }
+
+  /**
    * Kelas.absensi
    */
   export type Kelas$absensiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5447,6 +8009,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AbsensiScalarFieldEnum | AbsensiScalarFieldEnum[]
+  }
+
+  /**
+   * Kelas.jadwal
+   */
+  export type Kelas$jadwalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalAbsensi
+     */
+    select?: JadwalAbsensiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalAbsensi
+     */
+    omit?: JadwalAbsensiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalAbsensiInclude<ExtArgs> | null
+    where?: JadwalAbsensiWhereInput
+    orderBy?: JadwalAbsensiOrderByWithRelationInput | JadwalAbsensiOrderByWithRelationInput[]
+    cursor?: JadwalAbsensiWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JadwalAbsensiScalarFieldEnum | JadwalAbsensiScalarFieldEnum[]
   }
 
   /**
@@ -14914,12 +17500,24 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     kelasId: 'kelasId',
+    jadwalId: 'jadwalId',
     tanggal: 'tanggal',
     status: 'status',
     createdAt: 'createdAt'
   };
 
   export type AbsensiScalarFieldEnum = (typeof AbsensiScalarFieldEnum)[keyof typeof AbsensiScalarFieldEnum]
+
+
+  export const AbsensiSettingScalarFieldEnum: {
+    id: 'id',
+    kelasId: 'kelasId',
+    maxAbsen: 'maxAbsen',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AbsensiSettingScalarFieldEnum = (typeof AbsensiSettingScalarFieldEnum)[keyof typeof AbsensiSettingScalarFieldEnum]
 
 
   export const IzinScalarFieldEnum: {
@@ -14933,6 +17531,19 @@ export namespace Prisma {
   };
 
   export type IzinScalarFieldEnum = (typeof IzinScalarFieldEnum)[keyof typeof IzinScalarFieldEnum]
+
+
+  export const JadwalAbsensiScalarFieldEnum: {
+    id: 'id',
+    kelasId: 'kelasId',
+    hari: 'hari',
+    jamMulai: 'jamMulai',
+    jamSelesai: 'jamSelesai',
+    tanggal: 'tanggal',
+    createdAt: 'createdAt'
+  };
+
+  export type JadwalAbsensiScalarFieldEnum = (typeof JadwalAbsensiScalarFieldEnum)[keyof typeof JadwalAbsensiScalarFieldEnum]
 
 
   export const KelasScalarFieldEnum: {
@@ -15057,20 +17668,20 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
-  };
-
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
   export const NullsOrder: {
     first: 'first',
     last: 'last'
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   /**
@@ -15149,6 +17760,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Hari'
+   */
+  export type EnumHariFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Hari'>
+    
+
+
+  /**
+   * Reference to a field of type 'Hari[]'
+   */
+  export type ListEnumHariFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Hari[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -15207,22 +17832,26 @@ export namespace Prisma {
     id?: IntFilter<"Absensi"> | number
     userId?: IntFilter<"Absensi"> | number
     kelasId?: IntFilter<"Absensi"> | number
+    jadwalId?: IntNullableFilter<"Absensi"> | number | null
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    jadwal?: XOR<JadwalAbsensiNullableScalarRelationFilter, JadwalAbsensiWhereInput> | null
   }
 
   export type AbsensiOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrderInput | SortOrder
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     kelas?: KelasOrderByWithRelationInput
+    jadwal?: JadwalAbsensiOrderByWithRelationInput
   }
 
   export type AbsensiWhereUniqueInput = Prisma.AtLeast<{
@@ -15232,17 +17861,20 @@ export namespace Prisma {
     NOT?: AbsensiWhereInput | AbsensiWhereInput[]
     userId?: IntFilter<"Absensi"> | number
     kelasId?: IntFilter<"Absensi"> | number
+    jadwalId?: IntNullableFilter<"Absensi"> | number | null
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    jadwal?: XOR<JadwalAbsensiNullableScalarRelationFilter, JadwalAbsensiWhereInput> | null
   }, "id">
 
   export type AbsensiOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrderInput | SortOrder
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -15260,9 +17892,67 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Absensi"> | number
     userId?: IntWithAggregatesFilter<"Absensi"> | number
     kelasId?: IntWithAggregatesFilter<"Absensi"> | number
+    jadwalId?: IntNullableWithAggregatesFilter<"Absensi"> | number | null
     tanggal?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiWithAggregatesFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
+  }
+
+  export type AbsensiSettingWhereInput = {
+    AND?: AbsensiSettingWhereInput | AbsensiSettingWhereInput[]
+    OR?: AbsensiSettingWhereInput[]
+    NOT?: AbsensiSettingWhereInput | AbsensiSettingWhereInput[]
+    id?: IntFilter<"AbsensiSetting"> | number
+    kelasId?: IntFilter<"AbsensiSetting"> | number
+    maxAbsen?: IntFilter<"AbsensiSetting"> | number
+    createdAt?: DateTimeFilter<"AbsensiSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"AbsensiSetting"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+  }
+
+  export type AbsensiSettingOrderByWithRelationInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    kelas?: KelasOrderByWithRelationInput
+  }
+
+  export type AbsensiSettingWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    kelasId?: number
+    AND?: AbsensiSettingWhereInput | AbsensiSettingWhereInput[]
+    OR?: AbsensiSettingWhereInput[]
+    NOT?: AbsensiSettingWhereInput | AbsensiSettingWhereInput[]
+    maxAbsen?: IntFilter<"AbsensiSetting"> | number
+    createdAt?: DateTimeFilter<"AbsensiSetting"> | Date | string
+    updatedAt?: DateTimeFilter<"AbsensiSetting"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+  }, "id" | "kelasId">
+
+  export type AbsensiSettingOrderByWithAggregationInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AbsensiSettingCountOrderByAggregateInput
+    _avg?: AbsensiSettingAvgOrderByAggregateInput
+    _max?: AbsensiSettingMaxOrderByAggregateInput
+    _min?: AbsensiSettingMinOrderByAggregateInput
+    _sum?: AbsensiSettingSumOrderByAggregateInput
+  }
+
+  export type AbsensiSettingScalarWhereWithAggregatesInput = {
+    AND?: AbsensiSettingScalarWhereWithAggregatesInput | AbsensiSettingScalarWhereWithAggregatesInput[]
+    OR?: AbsensiSettingScalarWhereWithAggregatesInput[]
+    NOT?: AbsensiSettingScalarWhereWithAggregatesInput | AbsensiSettingScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AbsensiSetting"> | number
+    kelasId?: IntWithAggregatesFilter<"AbsensiSetting"> | number
+    maxAbsen?: IntWithAggregatesFilter<"AbsensiSetting"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"AbsensiSetting"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AbsensiSetting"> | Date | string
   }
 
   export type IzinWhereInput = {
@@ -15335,6 +18025,76 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Izin"> | Date | string
   }
 
+  export type JadwalAbsensiWhereInput = {
+    AND?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
+    OR?: JadwalAbsensiWhereInput[]
+    NOT?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
+    id?: IntFilter<"JadwalAbsensi"> | number
+    kelasId?: IntFilter<"JadwalAbsensi"> | number
+    hari?: EnumHariFilter<"JadwalAbsensi"> | $Enums.Hari
+    jamMulai?: StringFilter<"JadwalAbsensi"> | string
+    jamSelesai?: StringFilter<"JadwalAbsensi"> | string
+    tanggal?: DateTimeNullableFilter<"JadwalAbsensi"> | Date | string | null
+    createdAt?: DateTimeFilter<"JadwalAbsensi"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    absensi?: AbsensiListRelationFilter
+  }
+
+  export type JadwalAbsensiOrderByWithRelationInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    hari?: SortOrder
+    jamMulai?: SortOrder
+    jamSelesai?: SortOrder
+    tanggal?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    kelas?: KelasOrderByWithRelationInput
+    absensi?: AbsensiOrderByRelationAggregateInput
+  }
+
+  export type JadwalAbsensiWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
+    OR?: JadwalAbsensiWhereInput[]
+    NOT?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
+    kelasId?: IntFilter<"JadwalAbsensi"> | number
+    hari?: EnumHariFilter<"JadwalAbsensi"> | $Enums.Hari
+    jamMulai?: StringFilter<"JadwalAbsensi"> | string
+    jamSelesai?: StringFilter<"JadwalAbsensi"> | string
+    tanggal?: DateTimeNullableFilter<"JadwalAbsensi"> | Date | string | null
+    createdAt?: DateTimeFilter<"JadwalAbsensi"> | Date | string
+    kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    absensi?: AbsensiListRelationFilter
+  }, "id">
+
+  export type JadwalAbsensiOrderByWithAggregationInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    hari?: SortOrder
+    jamMulai?: SortOrder
+    jamSelesai?: SortOrder
+    tanggal?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: JadwalAbsensiCountOrderByAggregateInput
+    _avg?: JadwalAbsensiAvgOrderByAggregateInput
+    _max?: JadwalAbsensiMaxOrderByAggregateInput
+    _min?: JadwalAbsensiMinOrderByAggregateInput
+    _sum?: JadwalAbsensiSumOrderByAggregateInput
+  }
+
+  export type JadwalAbsensiScalarWhereWithAggregatesInput = {
+    AND?: JadwalAbsensiScalarWhereWithAggregatesInput | JadwalAbsensiScalarWhereWithAggregatesInput[]
+    OR?: JadwalAbsensiScalarWhereWithAggregatesInput[]
+    NOT?: JadwalAbsensiScalarWhereWithAggregatesInput | JadwalAbsensiScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"JadwalAbsensi"> | number
+    kelasId?: IntWithAggregatesFilter<"JadwalAbsensi"> | number
+    hari?: EnumHariWithAggregatesFilter<"JadwalAbsensi"> | $Enums.Hari
+    jamMulai?: StringWithAggregatesFilter<"JadwalAbsensi"> | string
+    jamSelesai?: StringWithAggregatesFilter<"JadwalAbsensi"> | string
+    tanggal?: DateTimeNullableWithAggregatesFilter<"JadwalAbsensi"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"JadwalAbsensi"> | Date | string
+  }
+
   export type KelasWhereInput = {
     AND?: KelasWhereInput | KelasWhereInput[]
     OR?: KelasWhereInput[]
@@ -15344,7 +18104,9 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
+    absensiSetting?: XOR<AbsensiSettingNullableScalarRelationFilter, AbsensiSettingWhereInput> | null
     absensi?: AbsensiListRelationFilter
+    jadwal?: JadwalAbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
   }
@@ -15355,7 +18117,9 @@ export namespace Prisma {
     deskripsi?: SortOrderInput | SortOrder
     santri?: UserOrderByRelationAggregateInput
     pengajar?: UserOrderByRelationAggregateInput
+    absensiSetting?: AbsensiSettingOrderByWithRelationInput
     absensi?: AbsensiOrderByRelationAggregateInput
+    jadwal?: JadwalAbsensiOrderByRelationAggregateInput
     izin?: IzinOrderByRelationAggregateInput
     tugas?: TugasOrderByRelationAggregateInput
   }
@@ -15369,7 +18133,9 @@ export namespace Prisma {
     deskripsi?: StringNullableFilter<"Kelas"> | string | null
     santri?: UserListRelationFilter
     pengajar?: UserListRelationFilter
+    absensiSetting?: XOR<AbsensiSettingNullableScalarRelationFilter, AbsensiSettingWhereInput> | null
     absensi?: AbsensiListRelationFilter
+    jadwal?: JadwalAbsensiListRelationFilter
     izin?: IzinListRelationFilter
     tugas?: TugasListRelationFilter
   }, "id">
@@ -15987,12 +18753,14 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAbsensiInput
     kelas: KelasCreateNestedOneWithoutAbsensiInput
+    jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateInput = {
     id?: number
     userId: number
     kelasId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
@@ -16004,12 +18772,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+    jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     kelasId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16019,6 +18789,7 @@ export namespace Prisma {
     id?: number
     userId: number
     kelasId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
@@ -16034,9 +18805,62 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     kelasId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiSettingCreateInput = {
+    maxAbsen?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutAbsensiSettingInput
+  }
+
+  export type AbsensiSettingUncheckedCreateInput = {
+    id?: number
+    kelasId: number
+    maxAbsen?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AbsensiSettingUpdateInput = {
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutAbsensiSettingNestedInput
+  }
+
+  export type AbsensiSettingUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiSettingCreateManyInput = {
+    id?: number
+    kelasId: number
+    maxAbsen?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AbsensiSettingUpdateManyMutationInput = {
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiSettingUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IzinCreateInput = {
@@ -16104,12 +18928,84 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type JadwalAbsensiCreateInput = {
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutJadwalInput
+    absensi?: AbsensiCreateNestedManyWithoutJadwalInput
+  }
+
+  export type JadwalAbsensiUncheckedCreateInput = {
+    id?: number
+    kelasId: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutJadwalInput
+  }
+
+  export type JadwalAbsensiUpdateInput = {
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutJadwalNestedInput
+    absensi?: AbsensiUpdateManyWithoutJadwalNestedInput
+  }
+
+  export type JadwalAbsensiUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUncheckedUpdateManyWithoutJadwalNestedInput
+  }
+
+  export type JadwalAbsensiCreateManyInput = {
+    id?: number
+    kelasId: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type JadwalAbsensiUpdateManyMutationInput = {
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JadwalAbsensiUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type KelasCreateInput = {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -16120,7 +19016,9 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -16130,7 +19028,9 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -16141,7 +19041,9 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -16754,6 +19656,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16782,10 +19695,21 @@ export namespace Prisma {
     isNot?: KelasWhereInput
   }
 
+  export type JadwalAbsensiNullableScalarRelationFilter = {
+    is?: JadwalAbsensiWhereInput | null
+    isNot?: JadwalAbsensiWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type AbsensiCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -16795,12 +19719,14 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrder
   }
 
   export type AbsensiMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -16810,6 +19736,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -16819,6 +19746,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     kelasId?: SortOrder
+    jadwalId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -16835,6 +19763,22 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16859,6 +19803,42 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusAbsensiFilter<$PrismaModel>
     _max?: NestedEnumStatusAbsensiFilter<$PrismaModel>
+  }
+
+  export type AbsensiSettingCountOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AbsensiSettingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+  }
+
+  export type AbsensiSettingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AbsensiSettingMinOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AbsensiSettingSumOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    maxAbsen?: SortOrder
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -16953,6 +19933,98 @@ export namespace Prisma {
     _max?: NestedEnumStatusIzinFilter<$PrismaModel>
   }
 
+  export type EnumHariFilter<$PrismaModel = never> = {
+    equals?: $Enums.Hari | EnumHariFieldRefInput<$PrismaModel>
+    in?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    not?: NestedEnumHariFilter<$PrismaModel> | $Enums.Hari
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type AbsensiListRelationFilter = {
+    every?: AbsensiWhereInput
+    some?: AbsensiWhereInput
+    none?: AbsensiWhereInput
+  }
+
+  export type AbsensiOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JadwalAbsensiCountOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    hari?: SortOrder
+    jamMulai?: SortOrder
+    jamSelesai?: SortOrder
+    tanggal?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JadwalAbsensiAvgOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+  }
+
+  export type JadwalAbsensiMaxOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    hari?: SortOrder
+    jamMulai?: SortOrder
+    jamSelesai?: SortOrder
+    tanggal?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JadwalAbsensiMinOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+    hari?: SortOrder
+    jamMulai?: SortOrder
+    jamSelesai?: SortOrder
+    tanggal?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type JadwalAbsensiSumOrderByAggregateInput = {
+    id?: SortOrder
+    kelasId?: SortOrder
+  }
+
+  export type EnumHariWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Hari | EnumHariFieldRefInput<$PrismaModel>
+    in?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    not?: NestedEnumHariWithAggregatesFilter<$PrismaModel> | $Enums.Hari
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHariFilter<$PrismaModel>
+    _max?: NestedEnumHariFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16974,10 +20046,15 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
-  export type AbsensiListRelationFilter = {
-    every?: AbsensiWhereInput
-    some?: AbsensiWhereInput
-    none?: AbsensiWhereInput
+  export type AbsensiSettingNullableScalarRelationFilter = {
+    is?: AbsensiSettingWhereInput | null
+    isNot?: AbsensiSettingWhereInput | null
+  }
+
+  export type JadwalAbsensiListRelationFilter = {
+    every?: JadwalAbsensiWhereInput
+    some?: JadwalAbsensiWhereInput
+    none?: JadwalAbsensiWhereInput
   }
 
   export type IzinListRelationFilter = {
@@ -16992,16 +20069,11 @@ export namespace Prisma {
     none?: TugasWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type AbsensiOrderByRelationAggregateInput = {
+  export type JadwalAbsensiOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17216,17 +20288,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -17274,20 +20335,6 @@ export namespace Prisma {
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumStatusSubmissionFilter<$PrismaModel = never> = {
@@ -17433,17 +20480,6 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type KelasNullableScalarRelationFilter = {
     is?: KelasWhereInput | null
     isNot?: KelasWhereInput | null
@@ -17551,22 +20587,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
   export type UserCreateNestedOneWithoutAbsensiInput = {
     create?: XOR<UserCreateWithoutAbsensiInput, UserUncheckedCreateWithoutAbsensiInput>
     connectOrCreate?: UserCreateOrConnectWithoutAbsensiInput
@@ -17577,6 +20597,12 @@ export namespace Prisma {
     create?: XOR<KelasCreateWithoutAbsensiInput, KelasUncheckedCreateWithoutAbsensiInput>
     connectOrCreate?: KelasCreateOrConnectWithoutAbsensiInput
     connect?: KelasWhereUniqueInput
+  }
+
+  export type JadwalAbsensiCreateNestedOneWithoutAbsensiInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutAbsensiInput, JadwalAbsensiUncheckedCreateWithoutAbsensiInput>
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutAbsensiInput
+    connect?: JadwalAbsensiWhereUniqueInput
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -17603,12 +20629,44 @@ export namespace Prisma {
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutAbsensiInput, KelasUpdateWithoutAbsensiInput>, KelasUncheckedUpdateWithoutAbsensiInput>
   }
 
+  export type JadwalAbsensiUpdateOneWithoutAbsensiNestedInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutAbsensiInput, JadwalAbsensiUncheckedCreateWithoutAbsensiInput>
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutAbsensiInput
+    upsert?: JadwalAbsensiUpsertWithoutAbsensiInput
+    disconnect?: JadwalAbsensiWhereInput | boolean
+    delete?: JadwalAbsensiWhereInput | boolean
+    connect?: JadwalAbsensiWhereUniqueInput
+    update?: XOR<XOR<JadwalAbsensiUpdateToOneWithWhereWithoutAbsensiInput, JadwalAbsensiUpdateWithoutAbsensiInput>, JadwalAbsensiUncheckedUpdateWithoutAbsensiInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type KelasCreateNestedOneWithoutAbsensiSettingInput = {
+    create?: XOR<KelasCreateWithoutAbsensiSettingInput, KelasUncheckedCreateWithoutAbsensiSettingInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutAbsensiSettingInput
+    connect?: KelasWhereUniqueInput
+  }
+
+  export type KelasUpdateOneRequiredWithoutAbsensiSettingNestedInput = {
+    create?: XOR<KelasCreateWithoutAbsensiSettingInput, KelasUncheckedCreateWithoutAbsensiSettingInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutAbsensiSettingInput
+    upsert?: KelasUpsertWithoutAbsensiSettingInput
+    connect?: KelasWhereUniqueInput
+    update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutAbsensiSettingInput, KelasUpdateWithoutAbsensiSettingInput>, KelasUncheckedUpdateWithoutAbsensiSettingInput>
   }
 
   export type UserCreateNestedOneWithoutIzinInput = {
@@ -17647,6 +20705,70 @@ export namespace Prisma {
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutIzinInput, KelasUpdateWithoutIzinInput>, KelasUncheckedUpdateWithoutIzinInput>
   }
 
+  export type KelasCreateNestedOneWithoutJadwalInput = {
+    create?: XOR<KelasCreateWithoutJadwalInput, KelasUncheckedCreateWithoutJadwalInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutJadwalInput
+    connect?: KelasWhereUniqueInput
+  }
+
+  export type AbsensiCreateNestedManyWithoutJadwalInput = {
+    create?: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput> | AbsensiCreateWithoutJadwalInput[] | AbsensiUncheckedCreateWithoutJadwalInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutJadwalInput | AbsensiCreateOrConnectWithoutJadwalInput[]
+    createMany?: AbsensiCreateManyJadwalInputEnvelope
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type AbsensiUncheckedCreateNestedManyWithoutJadwalInput = {
+    create?: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput> | AbsensiCreateWithoutJadwalInput[] | AbsensiUncheckedCreateWithoutJadwalInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutJadwalInput | AbsensiCreateOrConnectWithoutJadwalInput[]
+    createMany?: AbsensiCreateManyJadwalInputEnvelope
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type EnumHariFieldUpdateOperationsInput = {
+    set?: $Enums.Hari
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type KelasUpdateOneRequiredWithoutJadwalNestedInput = {
+    create?: XOR<KelasCreateWithoutJadwalInput, KelasUncheckedCreateWithoutJadwalInput>
+    connectOrCreate?: KelasCreateOrConnectWithoutJadwalInput
+    upsert?: KelasUpsertWithoutJadwalInput
+    connect?: KelasWhereUniqueInput
+    update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutJadwalInput, KelasUpdateWithoutJadwalInput>, KelasUncheckedUpdateWithoutJadwalInput>
+  }
+
+  export type AbsensiUpdateManyWithoutJadwalNestedInput = {
+    create?: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput> | AbsensiCreateWithoutJadwalInput[] | AbsensiUncheckedCreateWithoutJadwalInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutJadwalInput | AbsensiCreateOrConnectWithoutJadwalInput[]
+    upsert?: AbsensiUpsertWithWhereUniqueWithoutJadwalInput | AbsensiUpsertWithWhereUniqueWithoutJadwalInput[]
+    createMany?: AbsensiCreateManyJadwalInputEnvelope
+    set?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    disconnect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    delete?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    update?: AbsensiUpdateWithWhereUniqueWithoutJadwalInput | AbsensiUpdateWithWhereUniqueWithoutJadwalInput[]
+    updateMany?: AbsensiUpdateManyWithWhereWithoutJadwalInput | AbsensiUpdateManyWithWhereWithoutJadwalInput[]
+    deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
+  export type AbsensiUncheckedUpdateManyWithoutJadwalNestedInput = {
+    create?: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput> | AbsensiCreateWithoutJadwalInput[] | AbsensiUncheckedCreateWithoutJadwalInput[]
+    connectOrCreate?: AbsensiCreateOrConnectWithoutJadwalInput | AbsensiCreateOrConnectWithoutJadwalInput[]
+    upsert?: AbsensiUpsertWithWhereUniqueWithoutJadwalInput | AbsensiUpsertWithWhereUniqueWithoutJadwalInput[]
+    createMany?: AbsensiCreateManyJadwalInputEnvelope
+    set?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    disconnect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    delete?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+    update?: AbsensiUpdateWithWhereUniqueWithoutJadwalInput | AbsensiUpdateWithWhereUniqueWithoutJadwalInput[]
+    updateMany?: AbsensiUpdateManyWithWhereWithoutJadwalInput | AbsensiUpdateManyWithWhereWithoutJadwalInput[]
+    deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
   export type UserCreateNestedManyWithoutKelasInput = {
     create?: XOR<UserCreateWithoutKelasInput, UserUncheckedCreateWithoutKelasInput> | UserCreateWithoutKelasInput[] | UserUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: UserCreateOrConnectWithoutKelasInput | UserCreateOrConnectWithoutKelasInput[]
@@ -17660,11 +20782,24 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type AbsensiSettingCreateNestedOneWithoutKelasInput = {
+    create?: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+    connectOrCreate?: AbsensiSettingCreateOrConnectWithoutKelasInput
+    connect?: AbsensiSettingWhereUniqueInput
+  }
+
   export type AbsensiCreateNestedManyWithoutKelasInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
     createMany?: AbsensiCreateManyKelasInputEnvelope
     connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type JadwalAbsensiCreateNestedManyWithoutKelasInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput> | JadwalAbsensiCreateWithoutKelasInput[] | JadwalAbsensiUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutKelasInput | JadwalAbsensiCreateOrConnectWithoutKelasInput[]
+    createMany?: JadwalAbsensiCreateManyKelasInputEnvelope
+    connect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
   }
 
   export type IzinCreateNestedManyWithoutKelasInput = {
@@ -17694,11 +20829,24 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput = {
+    create?: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+    connectOrCreate?: AbsensiSettingCreateOrConnectWithoutKelasInput
+    connect?: AbsensiSettingWhereUniqueInput
+  }
+
   export type AbsensiUncheckedCreateNestedManyWithoutKelasInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
     createMany?: AbsensiCreateManyKelasInputEnvelope
     connect?: AbsensiWhereUniqueInput | AbsensiWhereUniqueInput[]
+  }
+
+  export type JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput> | JadwalAbsensiCreateWithoutKelasInput[] | JadwalAbsensiUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutKelasInput | JadwalAbsensiCreateOrConnectWithoutKelasInput[]
+    createMany?: JadwalAbsensiCreateManyKelasInputEnvelope
+    connect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
   }
 
   export type IzinUncheckedCreateNestedManyWithoutKelasInput = {
@@ -17746,6 +20894,16 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type AbsensiSettingUpdateOneWithoutKelasNestedInput = {
+    create?: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+    connectOrCreate?: AbsensiSettingCreateOrConnectWithoutKelasInput
+    upsert?: AbsensiSettingUpsertWithoutKelasInput
+    disconnect?: AbsensiSettingWhereInput | boolean
+    delete?: AbsensiSettingWhereInput | boolean
+    connect?: AbsensiSettingWhereUniqueInput
+    update?: XOR<XOR<AbsensiSettingUpdateToOneWithWhereWithoutKelasInput, AbsensiSettingUpdateWithoutKelasInput>, AbsensiSettingUncheckedUpdateWithoutKelasInput>
+  }
+
   export type AbsensiUpdateManyWithoutKelasNestedInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -17758,6 +20916,20 @@ export namespace Prisma {
     update?: AbsensiUpdateWithWhereUniqueWithoutKelasInput | AbsensiUpdateWithWhereUniqueWithoutKelasInput[]
     updateMany?: AbsensiUpdateManyWithWhereWithoutKelasInput | AbsensiUpdateManyWithWhereWithoutKelasInput[]
     deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
+  export type JadwalAbsensiUpdateManyWithoutKelasNestedInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput> | JadwalAbsensiCreateWithoutKelasInput[] | JadwalAbsensiUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutKelasInput | JadwalAbsensiCreateOrConnectWithoutKelasInput[]
+    upsert?: JadwalAbsensiUpsertWithWhereUniqueWithoutKelasInput | JadwalAbsensiUpsertWithWhereUniqueWithoutKelasInput[]
+    createMany?: JadwalAbsensiCreateManyKelasInputEnvelope
+    set?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    disconnect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    delete?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    connect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    update?: JadwalAbsensiUpdateWithWhereUniqueWithoutKelasInput | JadwalAbsensiUpdateWithWhereUniqueWithoutKelasInput[]
+    updateMany?: JadwalAbsensiUpdateManyWithWhereWithoutKelasInput | JadwalAbsensiUpdateManyWithWhereWithoutKelasInput[]
+    deleteMany?: JadwalAbsensiScalarWhereInput | JadwalAbsensiScalarWhereInput[]
   }
 
   export type IzinUpdateManyWithoutKelasNestedInput = {
@@ -17815,6 +20987,16 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput = {
+    create?: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+    connectOrCreate?: AbsensiSettingCreateOrConnectWithoutKelasInput
+    upsert?: AbsensiSettingUpsertWithoutKelasInput
+    disconnect?: AbsensiSettingWhereInput | boolean
+    delete?: AbsensiSettingWhereInput | boolean
+    connect?: AbsensiSettingWhereUniqueInput
+    update?: XOR<XOR<AbsensiSettingUpdateToOneWithWhereWithoutKelasInput, AbsensiSettingUpdateWithoutKelasInput>, AbsensiSettingUncheckedUpdateWithoutKelasInput>
+  }
+
   export type AbsensiUncheckedUpdateManyWithoutKelasNestedInput = {
     create?: XOR<AbsensiCreateWithoutKelasInput, AbsensiUncheckedCreateWithoutKelasInput> | AbsensiCreateWithoutKelasInput[] | AbsensiUncheckedCreateWithoutKelasInput[]
     connectOrCreate?: AbsensiCreateOrConnectWithoutKelasInput | AbsensiCreateOrConnectWithoutKelasInput[]
@@ -17827,6 +21009,20 @@ export namespace Prisma {
     update?: AbsensiUpdateWithWhereUniqueWithoutKelasInput | AbsensiUpdateWithWhereUniqueWithoutKelasInput[]
     updateMany?: AbsensiUpdateManyWithWhereWithoutKelasInput | AbsensiUpdateManyWithWhereWithoutKelasInput[]
     deleteMany?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+  }
+
+  export type JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput = {
+    create?: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput> | JadwalAbsensiCreateWithoutKelasInput[] | JadwalAbsensiUncheckedCreateWithoutKelasInput[]
+    connectOrCreate?: JadwalAbsensiCreateOrConnectWithoutKelasInput | JadwalAbsensiCreateOrConnectWithoutKelasInput[]
+    upsert?: JadwalAbsensiUpsertWithWhereUniqueWithoutKelasInput | JadwalAbsensiUpsertWithWhereUniqueWithoutKelasInput[]
+    createMany?: JadwalAbsensiCreateManyKelasInputEnvelope
+    set?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    disconnect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    delete?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    connect?: JadwalAbsensiWhereUniqueInput | JadwalAbsensiWhereUniqueInput[]
+    update?: JadwalAbsensiUpdateWithWhereUniqueWithoutKelasInput | JadwalAbsensiUpdateWithWhereUniqueWithoutKelasInput[]
+    updateMany?: JadwalAbsensiUpdateManyWithWhereWithoutKelasInput | JadwalAbsensiUpdateManyWithWhereWithoutKelasInput[]
+    deleteMany?: JadwalAbsensiScalarWhereInput | JadwalAbsensiScalarWhereInput[]
   }
 
   export type IzinUncheckedUpdateManyWithoutKelasNestedInput = {
@@ -17963,10 +21159,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfilesInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutProfilesNestedInput = {
@@ -18404,14 +21596,6 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type KelasUncheckedUpdateManyWithoutPengajarNestedInput = {
     create?: XOR<KelasCreateWithoutPengajarInput, KelasUncheckedCreateWithoutPengajarInput> | KelasCreateWithoutPengajarInput[] | KelasUncheckedCreateWithoutPengajarInput[]
     connectOrCreate?: KelasCreateOrConnectWithoutPengajarInput | KelasCreateOrConnectWithoutPengajarInput[]
@@ -18548,6 +21732,17 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -18591,6 +21786,33 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -18665,6 +21887,48 @@ export namespace Prisma {
     _max?: NestedEnumStatusIzinFilter<$PrismaModel>
   }
 
+  export type NestedEnumHariFilter<$PrismaModel = never> = {
+    equals?: $Enums.Hari | EnumHariFieldRefInput<$PrismaModel>
+    in?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    not?: NestedEnumHariFilter<$PrismaModel> | $Enums.Hari
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedEnumHariWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Hari | EnumHariFieldRefInput<$PrismaModel>
+    in?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Hari[] | ListEnumHariFieldRefInput<$PrismaModel>
+    not?: NestedEnumHariWithAggregatesFilter<$PrismaModel> | $Enums.Hari
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHariFilter<$PrismaModel>
+    _max?: NestedEnumHariFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -18696,17 +21960,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -18718,31 +21971,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusSubmissionFilter<$PrismaModel = never> = {
@@ -18777,33 +22005,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type UserCreateWithoutAbsensiInput = {
@@ -18859,6 +22060,8 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -18869,6 +22072,8 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -18876,6 +22081,30 @@ export namespace Prisma {
   export type KelasCreateOrConnectWithoutAbsensiInput = {
     where: KelasWhereUniqueInput
     create: XOR<KelasCreateWithoutAbsensiInput, KelasUncheckedCreateWithoutAbsensiInput>
+  }
+
+  export type JadwalAbsensiCreateWithoutAbsensiInput = {
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutJadwalInput
+  }
+
+  export type JadwalAbsensiUncheckedCreateWithoutAbsensiInput = {
+    id?: number
+    kelasId: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type JadwalAbsensiCreateOrConnectWithoutAbsensiInput = {
+    where: JadwalAbsensiWhereUniqueInput
+    create: XOR<JadwalAbsensiCreateWithoutAbsensiInput, JadwalAbsensiUncheckedCreateWithoutAbsensiInput>
   }
 
   export type UserUpsertWithoutAbsensiInput = {
@@ -18948,6 +22177,8 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -18958,6 +22189,100 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type JadwalAbsensiUpsertWithoutAbsensiInput = {
+    update: XOR<JadwalAbsensiUpdateWithoutAbsensiInput, JadwalAbsensiUncheckedUpdateWithoutAbsensiInput>
+    create: XOR<JadwalAbsensiCreateWithoutAbsensiInput, JadwalAbsensiUncheckedCreateWithoutAbsensiInput>
+    where?: JadwalAbsensiWhereInput
+  }
+
+  export type JadwalAbsensiUpdateToOneWithWhereWithoutAbsensiInput = {
+    where?: JadwalAbsensiWhereInput
+    data: XOR<JadwalAbsensiUpdateWithoutAbsensiInput, JadwalAbsensiUncheckedUpdateWithoutAbsensiInput>
+  }
+
+  export type JadwalAbsensiUpdateWithoutAbsensiInput = {
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutJadwalNestedInput
+  }
+
+  export type JadwalAbsensiUncheckedUpdateWithoutAbsensiInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KelasCreateWithoutAbsensiSettingInput = {
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserCreateNestedManyWithoutKelasInput
+    pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
+    izin?: IzinCreateNestedManyWithoutKelasInput
+    tugas?: TugasCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasUncheckedCreateWithoutAbsensiSettingInput = {
+    id?: number
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserUncheckedCreateNestedManyWithoutKelasInput
+    pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
+    izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
+    tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasCreateOrConnectWithoutAbsensiSettingInput = {
+    where: KelasWhereUniqueInput
+    create: XOR<KelasCreateWithoutAbsensiSettingInput, KelasUncheckedCreateWithoutAbsensiSettingInput>
+  }
+
+  export type KelasUpsertWithoutAbsensiSettingInput = {
+    update: XOR<KelasUpdateWithoutAbsensiSettingInput, KelasUncheckedUpdateWithoutAbsensiSettingInput>
+    create: XOR<KelasCreateWithoutAbsensiSettingInput, KelasUncheckedCreateWithoutAbsensiSettingInput>
+    where?: KelasWhereInput
+  }
+
+  export type KelasUpdateToOneWithWhereWithoutAbsensiSettingInput = {
+    where?: KelasWhereInput
+    data: XOR<KelasUpdateWithoutAbsensiSettingInput, KelasUncheckedUpdateWithoutAbsensiSettingInput>
+  }
+
+  export type KelasUpdateWithoutAbsensiSettingInput = {
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
+    izin?: IzinUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUpdateManyWithoutKelasNestedInput
+  }
+
+  export type KelasUncheckedUpdateWithoutAbsensiSettingInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -19015,7 +22340,9 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
 
@@ -19025,7 +22352,9 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
 
@@ -19104,7 +22433,9 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
 
@@ -19114,8 +22445,128 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type KelasCreateWithoutJadwalInput = {
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserCreateNestedManyWithoutKelasInput
+    pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
+    absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    izin?: IzinCreateNestedManyWithoutKelasInput
+    tugas?: TugasCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasUncheckedCreateWithoutJadwalInput = {
+    id?: number
+    namaKelas: string
+    deskripsi?: string | null
+    santri?: UserUncheckedCreateNestedManyWithoutKelasInput
+    pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
+    tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
+  }
+
+  export type KelasCreateOrConnectWithoutJadwalInput = {
+    where: KelasWhereUniqueInput
+    create: XOR<KelasCreateWithoutJadwalInput, KelasUncheckedCreateWithoutJadwalInput>
+  }
+
+  export type AbsensiCreateWithoutJadwalInput = {
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAbsensiInput
+    kelas: KelasCreateNestedOneWithoutAbsensiInput
+  }
+
+  export type AbsensiUncheckedCreateWithoutJadwalInput = {
+    id?: number
+    userId: number
+    kelasId: number
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+  }
+
+  export type AbsensiCreateOrConnectWithoutJadwalInput = {
+    where: AbsensiWhereUniqueInput
+    create: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput>
+  }
+
+  export type AbsensiCreateManyJadwalInputEnvelope = {
+    data: AbsensiCreateManyJadwalInput | AbsensiCreateManyJadwalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type KelasUpsertWithoutJadwalInput = {
+    update: XOR<KelasUpdateWithoutJadwalInput, KelasUncheckedUpdateWithoutJadwalInput>
+    create: XOR<KelasCreateWithoutJadwalInput, KelasUncheckedCreateWithoutJadwalInput>
+    where?: KelasWhereInput
+  }
+
+  export type KelasUpdateToOneWithWhereWithoutJadwalInput = {
+    where?: KelasWhereInput
+    data: XOR<KelasUpdateWithoutJadwalInput, KelasUncheckedUpdateWithoutJadwalInput>
+  }
+
+  export type KelasUpdateWithoutJadwalInput = {
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
+    absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    izin?: IzinUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUpdateManyWithoutKelasNestedInput
+  }
+
+  export type KelasUncheckedUpdateWithoutJadwalInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    namaKelas?: StringFieldUpdateOperationsInput | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
+    pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
+    absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
+    tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type AbsensiUpsertWithWhereUniqueWithoutJadwalInput = {
+    where: AbsensiWhereUniqueInput
+    update: XOR<AbsensiUpdateWithoutJadwalInput, AbsensiUncheckedUpdateWithoutJadwalInput>
+    create: XOR<AbsensiCreateWithoutJadwalInput, AbsensiUncheckedCreateWithoutJadwalInput>
+  }
+
+  export type AbsensiUpdateWithWhereUniqueWithoutJadwalInput = {
+    where: AbsensiWhereUniqueInput
+    data: XOR<AbsensiUpdateWithoutJadwalInput, AbsensiUncheckedUpdateWithoutJadwalInput>
+  }
+
+  export type AbsensiUpdateManyWithWhereWithoutJadwalInput = {
+    where: AbsensiScalarWhereInput
+    data: XOR<AbsensiUpdateManyMutationInput, AbsensiUncheckedUpdateManyWithoutJadwalInput>
+  }
+
+  export type AbsensiScalarWhereInput = {
+    AND?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+    OR?: AbsensiScalarWhereInput[]
+    NOT?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
+    id?: IntFilter<"Absensi"> | number
+    userId?: IntFilter<"Absensi"> | number
+    kelasId?: IntFilter<"Absensi"> | number
+    jadwalId?: IntNullableFilter<"Absensi"> | number | null
+    tanggal?: DateTimeFilter<"Absensi"> | Date | string
+    status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
+    createdAt?: DateTimeFilter<"Absensi"> | Date | string
   }
 
   export type UserCreateWithoutKelasInput = {
@@ -19219,16 +22670,36 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutKelasAjarInput, UserUncheckedCreateWithoutKelasAjarInput>
   }
 
+  export type AbsensiSettingCreateWithoutKelasInput = {
+    maxAbsen?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AbsensiSettingUncheckedCreateWithoutKelasInput = {
+    id?: number
+    maxAbsen?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AbsensiSettingCreateOrConnectWithoutKelasInput = {
+    where: AbsensiSettingWhereUniqueInput
+    create: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+  }
+
   export type AbsensiCreateWithoutKelasInput = {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutAbsensiInput
+    jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateWithoutKelasInput = {
     id?: number
     userId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
@@ -19241,6 +22712,35 @@ export namespace Prisma {
 
   export type AbsensiCreateManyKelasInputEnvelope = {
     data: AbsensiCreateManyKelasInput | AbsensiCreateManyKelasInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type JadwalAbsensiCreateWithoutKelasInput = {
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+    absensi?: AbsensiCreateNestedManyWithoutJadwalInput
+  }
+
+  export type JadwalAbsensiUncheckedCreateWithoutKelasInput = {
+    id?: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
+    createdAt?: Date | string
+    absensi?: AbsensiUncheckedCreateNestedManyWithoutJadwalInput
+  }
+
+  export type JadwalAbsensiCreateOrConnectWithoutKelasInput = {
+    where: JadwalAbsensiWhereUniqueInput
+    create: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput>
+  }
+
+  export type JadwalAbsensiCreateManyKelasInputEnvelope = {
+    data: JadwalAbsensiCreateManyKelasInput | JadwalAbsensiCreateManyKelasInput[]
     skipDuplicates?: boolean
   }
 
@@ -19353,6 +22853,30 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutKelasAjarInput>
   }
 
+  export type AbsensiSettingUpsertWithoutKelasInput = {
+    update: XOR<AbsensiSettingUpdateWithoutKelasInput, AbsensiSettingUncheckedUpdateWithoutKelasInput>
+    create: XOR<AbsensiSettingCreateWithoutKelasInput, AbsensiSettingUncheckedCreateWithoutKelasInput>
+    where?: AbsensiSettingWhereInput
+  }
+
+  export type AbsensiSettingUpdateToOneWithWhereWithoutKelasInput = {
+    where?: AbsensiSettingWhereInput
+    data: XOR<AbsensiSettingUpdateWithoutKelasInput, AbsensiSettingUncheckedUpdateWithoutKelasInput>
+  }
+
+  export type AbsensiSettingUpdateWithoutKelasInput = {
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiSettingUncheckedUpdateWithoutKelasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    maxAbsen?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AbsensiUpsertWithWhereUniqueWithoutKelasInput = {
     where: AbsensiWhereUniqueInput
     update: XOR<AbsensiUpdateWithoutKelasInput, AbsensiUncheckedUpdateWithoutKelasInput>
@@ -19369,16 +22893,33 @@ export namespace Prisma {
     data: XOR<AbsensiUpdateManyMutationInput, AbsensiUncheckedUpdateManyWithoutKelasInput>
   }
 
-  export type AbsensiScalarWhereInput = {
-    AND?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
-    OR?: AbsensiScalarWhereInput[]
-    NOT?: AbsensiScalarWhereInput | AbsensiScalarWhereInput[]
-    id?: IntFilter<"Absensi"> | number
-    userId?: IntFilter<"Absensi"> | number
-    kelasId?: IntFilter<"Absensi"> | number
-    tanggal?: DateTimeFilter<"Absensi"> | Date | string
-    status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
-    createdAt?: DateTimeFilter<"Absensi"> | Date | string
+  export type JadwalAbsensiUpsertWithWhereUniqueWithoutKelasInput = {
+    where: JadwalAbsensiWhereUniqueInput
+    update: XOR<JadwalAbsensiUpdateWithoutKelasInput, JadwalAbsensiUncheckedUpdateWithoutKelasInput>
+    create: XOR<JadwalAbsensiCreateWithoutKelasInput, JadwalAbsensiUncheckedCreateWithoutKelasInput>
+  }
+
+  export type JadwalAbsensiUpdateWithWhereUniqueWithoutKelasInput = {
+    where: JadwalAbsensiWhereUniqueInput
+    data: XOR<JadwalAbsensiUpdateWithoutKelasInput, JadwalAbsensiUncheckedUpdateWithoutKelasInput>
+  }
+
+  export type JadwalAbsensiUpdateManyWithWhereWithoutKelasInput = {
+    where: JadwalAbsensiScalarWhereInput
+    data: XOR<JadwalAbsensiUpdateManyMutationInput, JadwalAbsensiUncheckedUpdateManyWithoutKelasInput>
+  }
+
+  export type JadwalAbsensiScalarWhereInput = {
+    AND?: JadwalAbsensiScalarWhereInput | JadwalAbsensiScalarWhereInput[]
+    OR?: JadwalAbsensiScalarWhereInput[]
+    NOT?: JadwalAbsensiScalarWhereInput | JadwalAbsensiScalarWhereInput[]
+    id?: IntFilter<"JadwalAbsensi"> | number
+    kelasId?: IntFilter<"JadwalAbsensi"> | number
+    hari?: EnumHariFilter<"JadwalAbsensi"> | $Enums.Hari
+    jamMulai?: StringFilter<"JadwalAbsensi"> | string
+    jamSelesai?: StringFilter<"JadwalAbsensi"> | string
+    tanggal?: DateTimeNullableFilter<"JadwalAbsensi"> | Date | string | null
+    createdAt?: DateTimeFilter<"JadwalAbsensi"> | Date | string
   }
 
   export type IzinUpsertWithWhereUniqueWithoutKelasInput = {
@@ -20128,7 +23669,9 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
   }
 
@@ -20138,7 +23681,9 @@ export namespace Prisma {
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
   }
 
@@ -20281,7 +23826,9 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
   }
 
@@ -20291,7 +23838,9 @@ export namespace Prisma {
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
   }
 
@@ -20434,7 +23983,9 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -20444,7 +23995,9 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     pengajar?: UserUncheckedCreateNestedManyWithoutKelasAjarInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -20458,7 +24011,9 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserCreateNestedManyWithoutKelasInput
+    absensiSetting?: AbsensiSettingCreateNestedOneWithoutKelasInput
     absensi?: AbsensiCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiCreateNestedManyWithoutKelasInput
     izin?: IzinCreateNestedManyWithoutKelasInput
     tugas?: TugasCreateNestedManyWithoutKelasInput
   }
@@ -20468,7 +24023,9 @@ export namespace Prisma {
     namaKelas: string
     deskripsi?: string | null
     santri?: UserUncheckedCreateNestedManyWithoutKelasInput
+    absensiSetting?: AbsensiSettingUncheckedCreateNestedOneWithoutKelasInput
     absensi?: AbsensiUncheckedCreateNestedManyWithoutKelasInput
+    jadwal?: JadwalAbsensiUncheckedCreateNestedManyWithoutKelasInput
     izin?: IzinUncheckedCreateNestedManyWithoutKelasInput
     tugas?: TugasUncheckedCreateNestedManyWithoutKelasInput
   }
@@ -20483,11 +24040,13 @@ export namespace Prisma {
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
     kelas: KelasCreateNestedOneWithoutAbsensiInput
+    jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
   }
 
   export type AbsensiUncheckedCreateWithoutUserInput = {
     id?: number
     kelasId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
@@ -20711,7 +24270,9 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -20721,7 +24282,9 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     pengajar?: UserUncheckedUpdateManyWithoutKelasAjarNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -20918,6 +24481,41 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
+  export type AbsensiCreateManyJadwalInput = {
+    id?: number
+    userId: number
+    kelasId: number
+    tanggal: Date | string
+    status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+  }
+
+  export type AbsensiUpdateWithoutJadwalInput = {
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
+    kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+  }
+
+  export type AbsensiUncheckedUpdateWithoutJadwalInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AbsensiUncheckedUpdateManyWithoutJadwalInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateManyKelasInput = {
     id?: number
     name: string
@@ -20934,8 +24532,18 @@ export namespace Prisma {
   export type AbsensiCreateManyKelasInput = {
     id?: number
     userId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
+    createdAt?: Date | string
+  }
+
+  export type JadwalAbsensiCreateManyKelasInput = {
+    id?: number
+    hari: $Enums.Hari
+    jamMulai: string
+    jamSelesai: string
+    tanggal?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -21076,11 +24684,13 @@ export namespace Prisma {
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
+    jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateWithoutKelasInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21089,8 +24699,37 @@ export namespace Prisma {
   export type AbsensiUncheckedUpdateManyWithoutKelasInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JadwalAbsensiUpdateWithoutKelasInput = {
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUpdateManyWithoutJadwalNestedInput
+  }
+
+  export type JadwalAbsensiUncheckedUpdateWithoutKelasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    absensi?: AbsensiUncheckedUpdateManyWithoutJadwalNestedInput
+  }
+
+  export type JadwalAbsensiUncheckedUpdateManyWithoutKelasInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    hari?: EnumHariFieldUpdateOperationsInput | $Enums.Hari
+    jamMulai?: StringFieldUpdateOperationsInput | string
+    jamSelesai?: StringFieldUpdateOperationsInput | string
+    tanggal?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21265,6 +24904,7 @@ export namespace Prisma {
   export type AbsensiCreateManyUserInput = {
     id?: number
     kelasId: number
+    jadwalId?: number | null
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
@@ -21337,7 +24977,9 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUpdateManyWithoutKelasNestedInput
+    absensiSetting?: AbsensiSettingUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUpdateManyWithoutKelasNestedInput
     izin?: IzinUpdateManyWithoutKelasNestedInput
     tugas?: TugasUpdateManyWithoutKelasNestedInput
   }
@@ -21347,7 +24989,9 @@ export namespace Prisma {
     namaKelas?: StringFieldUpdateOperationsInput | string
     deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     santri?: UserUncheckedUpdateManyWithoutKelasNestedInput
+    absensiSetting?: AbsensiSettingUncheckedUpdateOneWithoutKelasNestedInput
     absensi?: AbsensiUncheckedUpdateManyWithoutKelasNestedInput
+    jadwal?: JadwalAbsensiUncheckedUpdateManyWithoutKelasNestedInput
     izin?: IzinUncheckedUpdateManyWithoutKelasNestedInput
     tugas?: TugasUncheckedUpdateManyWithoutKelasNestedInput
   }
@@ -21363,11 +25007,13 @@ export namespace Prisma {
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
+    jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
   }
 
   export type AbsensiUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     kelasId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21376,6 +25022,7 @@ export namespace Prisma {
   export type AbsensiUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     kelasId?: IntFieldUpdateOperationsInput | number
+    jadwalId?: NullableIntFieldUpdateOperationsInput | number | null
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

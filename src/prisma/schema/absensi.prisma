@@ -1,11 +1,14 @@
 model Absensi {
-  id        Int            @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   userId    Int
   kelasId   Int
+  jadwalId  Int?          // opsional, relasi ke JadwalAbsensi
   tanggal   DateTime
   status    StatusAbsensi
   createdAt DateTime       @default(now())
 
+  // RELASI
   user      User           @relation(fields: [userId], references: [id])
   kelas     Kelas          @relation(fields: [kelasId], references: [id])
+  jadwal    JadwalAbsensi? @relation(fields: [jadwalId], references: [id])
 }

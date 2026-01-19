@@ -1,0 +1,9 @@
+model AbsensiSetting {
+  id        Int      @id @default(autoincrement())
+  kelasId   Int      @unique
+  maxAbsen  Int      @default(2) // batas absen per hari
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  kelas     Kelas    @relation(fields: [kelasId], references: [id])
+}

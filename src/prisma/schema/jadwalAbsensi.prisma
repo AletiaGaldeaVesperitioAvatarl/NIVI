@@ -1,0 +1,12 @@
+model JadwalAbsensi {
+  id         Int      @id @default(autoincrement())
+  kelasId    Int
+  hari       Hari
+  jamMulai   String
+  jamSelesai String
+  tanggal    DateTime? // opsional untuk override tanggal tertentu
+  createdAt  DateTime @default(now())
+
+  kelas      Kelas    @relation(fields: [kelasId], references: [id])
+  absensi    Absensi[]
+}

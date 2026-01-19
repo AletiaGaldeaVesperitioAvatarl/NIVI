@@ -124,9 +124,18 @@ exports.Prisma.AbsensiScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   kelasId: 'kelasId',
+  jadwalId: 'jadwalId',
   tanggal: 'tanggal',
   status: 'status',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.AbsensiSettingScalarFieldEnum = {
+  id: 'id',
+  kelasId: 'kelasId',
+  maxAbsen: 'maxAbsen',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.IzinScalarFieldEnum = {
@@ -136,6 +145,16 @@ exports.Prisma.IzinScalarFieldEnum = {
   tanggal: 'tanggal',
   alasan: 'alasan',
   status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.JadwalAbsensiScalarFieldEnum = {
+  id: 'id',
+  kelasId: 'kelasId',
+  hari: 'hari',
+  jamMulai: 'jamMulai',
+  jamSelesai: 'jamSelesai',
+  tanggal: 'tanggal',
   createdAt: 'createdAt'
 };
 
@@ -231,14 +250,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 exports.StatusAbsensi = exports.$Enums.StatusAbsensi = {
   hadir: 'hadir',
@@ -251,6 +270,16 @@ exports.StatusIzin = exports.$Enums.StatusIzin = {
   menunggu: 'menunggu',
   disetujui: 'disetujui',
   ditolak: 'ditolak'
+};
+
+exports.Hari = exports.$Enums.Hari = {
+  minggu: 'minggu',
+  senin: 'senin',
+  selasa: 'selasa',
+  rabu: 'rabu',
+  kamis: 'kamis',
+  jumat: 'jumat',
+  sabtu: 'sabtu'
 };
 
 exports.StatusSubmission = exports.$Enums.StatusSubmission = {
@@ -268,7 +297,9 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   Absensi: 'Absensi',
+  AbsensiSetting: 'AbsensiSetting',
   Izin: 'Izin',
+  JadwalAbsensi: 'JadwalAbsensi',
   Kelas: 'Kelas',
   LogAktivitas: 'LogAktivitas',
   MataPelajaran: 'MataPelajaran',

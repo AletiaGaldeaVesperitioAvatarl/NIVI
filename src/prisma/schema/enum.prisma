@@ -23,3 +23,13 @@ enum StatusSubmission {
   reviewed
   rejected
 }
+
+enum Hari {
+  minggu
+  senin
+  selasa
+  rabu
+  kamis
+  jumat
+  sabtu
+}

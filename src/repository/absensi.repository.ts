@@ -89,10 +89,7 @@ create = async (data: {
       orderBy: { tanggal: "asc" },
     });
   };
-    
-  // AUTO ALPHA SUPPORT
-  
-  // ambil semua santri aktif
+      
   getAllSantriAktif = async (): Promise<
     { id: number; kelasId: number | null }[]
   > => {
