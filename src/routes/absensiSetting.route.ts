@@ -12,7 +12,7 @@ const controller = new AbsensiSettingController(service);
 const router = Router();
 
 // GET semua setting
-router.get("/", authenticate, controller.getAll);
+router.get("/", controller.getAll);
 
 // GET setting per kelas
 router.get("/kelas/:kelasId", authenticate, controller.getByKelas);

@@ -1,290 +1,32 @@
 import { Router } from "express";
-import { AbsensiRepository } from "../repository/absensi.repository";
-import prismaInstance from "../database";
-import { AbsensiService } from "../service/absensi.service";
 import { AbsensiController } from "../controller/absensi.controller";
+import { AbsensiService } from "../service/absensi.service";
+import { AbsensiRepository } from "../repository/absensi.repository";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
+import prismaInstance from "../database";
 import { authenticate } from "../middlewares/auth.middleware";
+
 
 const router = Router();
 
-// INIT LAYER
+// 🔹 Inisialisasi repository & service & controller
 const absensiRepo = new AbsensiRepository(prismaInstance);
-const absensiService = new AbsensiService(absensiRepo);
+const settingRepo = new AbsensiSettingRepository(prismaInstance);
+const jadwalRepo = new JadwalAbsensiRepository(prismaInstance); // wajib punya method findActiveSchedule
+const absensiService = new AbsensiService(absensiRepo, settingRepo, jadwalRepo);
 const absensiController = new AbsensiController(absensiService);
 
-/**
- * @swagger
- * tags:
- *   name: Absensi
- *   description: Manajemen absensi santri
- */
+// POST absen (HADIR/IZIN/SAKIT) opsional jadwalId
+router.post("/absen", authenticate,absensiController.absen);
 
-/**
- * @swagger
- * /absensi:
- *   get:
- *     summary: Ambil semua data absensi
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Berhasil mengambil semua absensi
- */
+// GET absensi hari ini
+router.get("/me/today",authenticate, absensiController.getMyTodayAbsensi);
 
-// GET ALL
-router.get("/", absensiController.getAll);
-/**
- * @swagger
- * /absensi/me/today:
- *   get:
- *     summary: Ambil absensi hari ini (user login)
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Data absensi hari ini
- *       404:
- *         description: User belum melakukan absensi hari ini
- */
-// GET BY USER ID
-router.get("/me/today", authenticate,absensiController.getMyTodayAbsensi);
-/**
- * @swagger
- * /absensi/me/absen:
- *   post:
- *     summary: Melakukan absensi hari ini
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - status
- *             properties:
- *               status:
- *                 type: string
- *                 enum: [hadir, izin, alpha]
- *                 example: hadir
- *     responses:
- *       201:
- *         description: Absensi berhasil dicatat
- *       400:
- *         description: Sudah absen hari ini
- */
-
-router.post("/me/absen", authenticate,absensiController.absen);
-/**
- * @swagger
- * /absensi/user/{userId}:
- *   get:
- *     summary: Ambil absensi berdasarkan userId
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: userId
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *           example: 1
- *     responses:
- *       200:
- *         description: Data absensi user
- */
-router.get("/user/:userId", absensiController.getByUserId);
-
-/**
- * @swagger
- * /absensi/auto-alpha:
- *   post:
- *     summary: Jalankan auto alpha untuk santri yang belum absen & tidak izin hari ini
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Auto alpha berhasil dijalankan
- */
-router.post(
-  "/auto-alpha",
-  authenticate,
-  absensiController.autoAlpha
-);
-// GET BY ID
-/**
- * @swagger
- * /absensi/{id}:
- *   get:
- *     summary: Ambil detail absensi berdasarkan ID
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *           example: 10
- *     responses:
- *       200:
- *         description: Detail absensi
- */
-
-router.get(
-  "/rekap/kelas/:kelasId",
-  authenticate,
-  absensiController.rekapBulananPerKelas
-);
-/**
- * @swagger
- * /absensi/rekap/kelas/{kelasId}:
- *   get:
- *     summary: Rekap absensi bulanan per kelas
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: kelasId
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *       - name: bulan
- *         in: query
- *         required: true
- *         example: 2026-01
- *     responses:
- *       200:
- *         description: Rekap absensi per kelas
- */
-router.get("/:id", absensiController.getById);
-
-/**
- * @swagger
- * /absensi/{id}:
- *   put:
- *     summary: Update data absensi
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               status:
- *                 type: string
- *                 enum: [hadir, izin, alpha]
- *     responses:
- *       200:
- *         description: Absensi berhasil diupdate
- */
-// CREATE
-
-// UPDATE
-router.put("/:id", absensiController.update);
-
-/**
- * @swagger
- * /absensi/{id}:
- *   delete:
- *     summary: Hapus data absensi
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Absensi berhasil dihapus
- */
-// DELETE
-router.delete("/:id", absensiController.delete);
-
-/**
- * @swagger
- * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
- *   get:
- *     summary: Ambil absensi per kelas & tanggal (ADMIN)
- *     tags: [Absensi]
- *     security:
- *       - bearerAuth: []
- */
-router.get(
-  "/kelas/:kelasId/tanggal/:tanggal",
-  authenticate,
-  absensiController.getByKelasAndTanggal
-);
-
-/**
- * @swagger
- * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
- *   post:
- *     summary: Input absensi per hari (ADMIN)
- *     tags: [Absensi]
- */
-router.post(
-  "/kelas/:kelasId/tanggal/:tanggal",
-  authenticate,
-  absensiController.createAbsensiPerHari
-);
-
-/**
- * @swagger
- * /absensi/{id}/tanggal:
- *   put:
- *     summary: Update absensi di tanggal tertentu
- */
-router.put(
-  "/:id/tanggal",
-  authenticate,
-  absensiController.updateAbsensiPerTanggal
-);
-
-/**
- * @swagger
- * /absensi/kelas/{kelasId}/tanggal/{tanggal}:
- *   delete:
- *     summary: Hapus semua absensi kelas di tanggal tertentu
- */
-router.delete(
-  "/kelas/:kelasId/tanggal/:tanggal",
-  authenticate,
-  absensiController.deleteAbsensiPerHari
-);
-
-/**
- * @swagger
- * /absensi/generate/bulan:
- *   post:
- *     summary: Generate absensi 1 bulan (ADMIN)
- */
-router.post(
-  "/generate/bulan",
-  authenticate,
-  absensiController.generateBulanan
-);
-
-
+// 🔹 ADMIN CRUD (opsional, kalau admin ingin mengelola absensi manual)
+router.get("/", authenticate,absensiController.getAll); // semua absensi
+router.get("/:id", authenticate,absensiController.getByUserId); // lihat absensi per user
+router.put("/:id", authenticate,absensiController.update); // update status
+router.delete("/:id",authenticate, absensiController.delete); // hapus absensi
 
 export default router;

@@ -1,218 +1,71 @@
-import { Absensi, StatusAbsensi } from "../../dist/generated";
 import { AbsensiRepository } from "../repository/absensi.repository";
 import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
-
+import { JadwalAbsensi, StatusAbsensi } from "../../dist/generated";
 
 export class AbsensiService {
-  constructor(private absensiRepository: AbsensiRepository) {}
+  constructor(
+    private absensiRepo: AbsensiRepository,
+    private settingRepo: AbsensiSettingRepository,
+    private jadwalRepo: { findActiveSchedule: (kelasId: number, now: Date, jadwalId?: number) => Promise<JadwalAbsensi | null> }
+  ) {}
 
-  // GET ALL ABSENSI
-  getAll = async (): Promise<Absensi[]> => {
-    return this.absensiRepository.getAll();
-  };
+  async absenHadir(
+    userId: number,
+    kelasId: number,
+    status: StatusAbsensi,
+    jadwalId?: number
+  ) {
+    const now = new Date();
 
-  // GET ABSENSI BY ID
-  getById = async (id: number): Promise<Absensi | null> => {
-    return this.absensiRepository.getById(id);
-  };
+    // 1️⃣ Ambil setting maxAbsen
+    const setting = await this.settingRepo.getByKelas(kelasId);
+    if (!setting) throw new Error("Admin belum set absensi untuk kelas ini");
+    const maxAbsen = setting.maxAbsen;
 
-  // GET ABSENSI BY USER ID
-  getByUserId = async (userId: number): Promise<Absensi[]> => {
-    return this.absensiRepository.getByUserId(userId);
-  };
-
-  getTodayByUser = async (userId: number): Promise<Absensi[]> => {
-    return this.absensiRepository.getTodayByUser(userId);
-  };
-
-  absenHadir = async (userId: number, kelasId: number , status:StatusAbsensi): Promise<Absensi> => {
-    const todayAbsensi = await this.absensiRepository.getTodayByUser(userId);
-    
-
-    if (todayAbsensi.length >= 4) {
-      throw new Error("Absen hari ini sudah mencapai batas (4x)");
+    // 2️⃣ Ambil jadwal aktif
+    let jadwal: JadwalAbsensi | null = null;
+    if (jadwalId) {
+      // jika jadwalId diberikan, ambil jadwal itu
+      jadwal = await this.jadwalRepo.findActiveSchedule(kelasId, now, jadwalId);
+    } else {
+      // ambil jadwal aktif hari ini (override tanggal khusus atau hari reguler)
+      jadwal = await this.jadwalRepo.findActiveSchedule(kelasId, now);
     }
 
-    return this.absensiRepository.create({
+    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif saat ini");
+
+    // 3️⃣ Hitung absensi hari ini
+    const todayCount = await this.absensiRepo.countTodayByUser(userId);
+    if (todayCount >= maxAbsen)
+      throw new Error(`Absensi hari ini sudah mencapai batas (${maxAbsen}x)`);
+
+    // 4️⃣ Simpan absensi (tanggal wajib ada)
+    return this.absensiRepo.create({
       userId,
       kelasId,
-      status
+      jadwalId: jadwal.id,
+      status,
+      tanggal: now, // selalu ada
     });
-  };
-  // UPDATE ABSENSI
-  updateAbsensi = async (
-    id: number,
-    data: Partial<Absensi>
-  ): Promise<Absensi> => {
-    return this.absensiRepository.update(id, data);
-  };
-
-  
-
-  // DELETE ABSENSI
-  deleteAbsensi = async (id: number): Promise<Absensi> => {
-    return this.absensiRepository.delete(id);
-  };
-  autoAlpha = async (): Promise<number> => {
-    const santriList =
-      await this.absensiRepository.getAllSantriAktif();
-
-    let totalAlpha = 0;
-
-    for (const santri of santriList) {
-      // skip santri tanpa kelas
-      if (!santri.kelasId) continue;
-
-      // cek absensi hari ini
-      const todayAbsensi =
-        await this.absensiRepository.getTodayByUser(santri.id);
-
-      if (todayAbsensi.length > 0) continue;
-
-      // cek izin
-      const hasIzin =
-        await this.absensiRepository.hasIzinToday(santri.id);
-
-      if (hasIzin) continue;
-
-      // auto alpha
-      await this.absensiRepository.create({
-        userId: santri.id,
-        kelasId: santri.kelasId,
-        status: StatusAbsensi.alpha,
-      });
-
-      totalAlpha++;
-    }
-
-    return totalAlpha;
-  };
-
-  rekapBulananPerKelas = async (
-  kelasId: number,
-  bulan: string // format: YYYY-MM
-) => {
-  const [year, month] = bulan.split("-").map(Number);
-
-  if (!year || !month) {
-    throw new Error("Format bulan harus YYY-MM");
-    
   }
 
-  const start = new Date(year, month - 1, 1);
-  const end = new Date(year, month, 0, 23, 59, 59);
-
-  const totalSantri =
-    await this.absensiRepository.countSantriByKelas(kelasId);
-
-  const absensi =
-    await this.absensiRepository.getAbsensiByKelasAndMonth(
-      kelasId,
-      start,
-      end
-    );
-
-  let hadir = 0;
-  let izin = 0;
-  let alpha = 0;
-
-  absensi.forEach((a) => {
-    if (a.status === "hadir") hadir++;
-    if (a.status === "izin") izin++;
-    if (a.status === "alpha") alpha++;
-  });
-
-  const totalAbsensi = hadir + izin + alpha;
-  const persentaseHadir =
-    totalAbsensi === 0
-      ? 0
-      : Math.round((hadir / totalAbsensi) * 100);
-
-  return {
-    kelasId,
-    bulan,
-    totalSantri,
-    hadir,
-    izin,
-    alpha,
-    persentaseHadir,
-  };
-};
-
-getByKelasAndTanggal = async (
-  kelasId: number,
-  tanggal: Date
-) => {
-  return this.absensiRepository.getByKelasAndTanggal(
-    kelasId,
-    tanggal
-  );
-};
-
-createAbsensiPerHari = async (
-  kelasId: number,
-  tanggal: Date,
-  data: { userId: number; status: StatusAbsensi }[]
-) => {
-  return this.absensiRepository.createManyPerHari(
-    kelasId,
-    tanggal,
-    data
-  );
-};
-
-deleteByKelasAndTanggal = async (
-  kelasId: number,
-  tanggal: Date
-) => {
-  return this.absensiRepository.deleteByKelasAndTanggal(
-    kelasId,
-    tanggal
-  );
-};
-
-generateAbsensiBulanan = async (
-  kelasId: number,
-  bulan: string
-) => {
-  const [year, month] = bulan.split("-").map(Number);
-  if (!year || !month) throw new Error("Format bulan salah");
-
-  const start = new Date(year, month - 1, 1);
-  const end = new Date(year, month, 0);
-
-  const santri =
-    await this.absensiRepository.getSantriByKelas(kelasId);
-
-  let total = 0;
-
-  for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-    if (isWeekend) continue;
-
-    for (const s of santri) {
-      const exists =
-        await this.absensiRepository.exists(
-          s.id,
-          kelasId,
-          d
-        );
-
-      if (exists) continue;
-
-      await this.absensiRepository.createManual({
-        userId: s.id,
-        kelasId,
-        status: StatusAbsensi.alpha,
-        tanggal: new Date(d),
-      });
-
-      total++;
-    }
+  getTodayByUser(userId: number) {
+    return this.absensiRepo.getTodayByUser(userId);
   }
 
-  return { total };
-};
+  getByUserId(userId: number) {
+    return this.absensiRepo.getByUserId(userId);
+  }
 
+  getAll() {
+    return this.absensiRepo.getAll();
+  }
 
+  updateAbsensi(id: number, data: Partial<{ status: StatusAbsensi }>) {
+    return this.absensiRepo.update(id, data);
+  }
+
+  deleteAbsensi(id: number) {
+    return this.absensiRepo.delete(id);
+  }
 }

@@ -3,6 +3,45 @@ import { PrismaClient, JadwalAbsensi, Hari } from "../../dist/generated";
 export class JadwalAbsensiRepository {
   constructor(private prisma: PrismaClient) {}
 
+  findActiveSchedule = async (
+    kelasId: number,
+    now: Date,
+    jadwalId?: number
+  ): Promise<JadwalAbsensi | null> => {
+    if (jadwalId) {
+      return this.prisma.jadwalAbsensi.findUnique({ where: { id: jadwalId } });
+    }
+
+    // ✅ gunakan switch agar TypeScript yakin tipe Hari
+    let hari: Hari;
+    switch (now.getDay()) {
+      case 0: hari = "minggu"; break;
+      case 1: hari = "senin"; break;
+      case 2: hari = "selasa"; break;
+      case 3: hari = "rabu"; break;
+      case 4: hari = "kamis"; break;
+      case 5: hari = "jumat"; break;
+      case 6: hari = "sabtu"; break;
+      default: hari = "senin"; // fallback aman
+    }
+
+    const start = new Date(now);
+    start.setHours(0,0,0,0);
+    const end = new Date(now);
+    end.setHours(23,59,59,999);
+
+    return this.prisma.jadwalAbsensi.findFirst({
+      where: {
+        kelasId,
+        OR: [
+          { tanggal: { gte: start, lte: end } },
+          { hari: hari } // ✅ pasti tipe Hari
+        ]
+      },
+      orderBy: { tanggal: 'asc' }
+    });
+  };
+
   // CREATE single
   create = async (data: {
     kelasId: number;
