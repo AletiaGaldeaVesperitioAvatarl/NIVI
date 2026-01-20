@@ -92,39 +92,33 @@ update = async (
   };
 
   // 🔹 GET UNTUK SANTRI
-  getForSantri = async (userId: number) => {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      select: { kelasId: true },
-    });
+async getForSantri(userId: number) {
+  const santri = await this.prisma.user.findUnique({
+    where: { id: userId },
+    select: { kelasId: true },
+  });
 
-    if (!user?.kelasId) return [];
+  if (!santri?.kelasId) return [];
 
-    const tugas = await this.prisma.tugas.findMany({
-      where: { kelasId: user.kelasId },
-      include: {
-        mataPelajaran: true,
-        submission: {
-          where: { userId },
-          take: 1,
+  return this.prisma.tugas.findMany({
+    where: {
+      kelasId: santri.kelasId,
+    },
+    include: {
+      kelas: true,
+      mataPelajaran: true,
+      creator: true,
+      submission: {
+        where: {
+          userId: userId,
         },
       },
-      orderBy: { deadline: "asc" },
-    });
+    },
+    orderBy: {
+      deadline: 'asc',
+    },
+  });
+}
 
-    return tugas.map(t => {
-      const sub = t.submission[0];
 
-      return {
-        id: t.id,
-        title: t.title,
-        description: t.description,
-        deadline: t.deadline,
-        mataPelajaran: t.mataPelajaran.nama,
-        status: sub?.status ?? "belum_submit",
-        submittedAt: sub?.submittedAt ?? null,
-        link: sub?.linkUrl ?? null,
-      };
-    });
-  };
 }

@@ -15,20 +15,28 @@ export class TugasController {
     successResponse(res, "Detail tugas", data);
   };
 
-  create = async (req: any, res: Response) => {
-    const { kelasId, mataPelajaranId, title, description, deadline } = req.body;
+create = async (req: any, res: Response) => {
+  const {
+    kelasId,
+    mataPelajaranId,
+    mapelId,
+    title,
+    description,
+    deadline,
+  } = req.body;
 
-    const data = await this.service.create({
-      kelasId: Number(kelasId),
-      mataPelajaranId: Number(mataPelajaranId),
-      title,
-      description,
-      deadline: new Date(deadline),
-      createdBy: req.user.id,
-    });
+  const data = await this.service.create({
+    kelasId: Number(kelasId),
+    mataPelajaranId: Number(mataPelajaranId ?? mapelId),
+    title,
+    description,
+    deadline: new Date(deadline),
+    createdBy: req.user.id,
+  });
 
-    successResponse(res, "Tugas berhasil dibuat", data, null, 201);
-  };
+  successResponse(res, "Tugas berhasil dibuat", data, null, 201);
+};
+
 
   update = async (req: Request, res: Response) => {
     const data = await this.service.update(
@@ -45,6 +53,8 @@ export class TugasController {
 
   getForSantri = async (req: any, res: Response) => {
     const data = await this.service.getForSantri(req.user.id);
+    console.log("🔥 getForSantri DIPANGGIL");
+
     successResponse(res, "Tugas santri", data);
   };
 }
