@@ -1,0 +1,247 @@
+model Absensi {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  kelasId   Int
+  jadwalId  Int? // opsional, relasi ke JadwalAbsensi
+  tanggal   DateTime
+  status    StatusAbsensi
+  createdAt DateTime      @default(now())
+
+  // RELASI
+  user   User           @relation(fields: [userId], references: [id])
+  kelas  Kelas          @relation(fields: [kelasId], references: [id])
+  jadwal JadwalAbsensi? @relation(fields: [jadwalId], references: [id])
+}
+
+model AbsensiSetting {
+  id        Int      @id @default(autoincrement())
+  kelasId   Int      @unique
+  maxAbsen  Int      @default(2) // batas absen per hari
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  kelas Kelas @relation(fields: [kelasId], references: [id])
+}
+
+enum Role {
+  admin
+  pengajar
+  santri
+}
+
+enum StatusAbsensi {
+  hadir
+  izin
+  alpha
+  sakit
+}
+
+enum StatusIzin {
+  menunggu
+  disetujui
+  ditolak
+}
+
+enum StatusSubmission {
+  pending
+  submitted
+  reviewed
+  rejected
+}
+
+enum Hari {
+  minggu
+  senin
+  selasa
+  rabu
+  kamis
+  jumat
+  sabtu
+}
+
+model Izin {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  kelasId   Int
+  tanggal   DateTime
+  alasan    String
+  status    StatusIzin @default(menunggu)
+  createdAt DateTime   @default(now())
+
+  user  User  @relation(fields: [userId], references: [id])
+  kelas Kelas @relation(fields: [kelasId], references: [id])
+}
+
+model JadwalAbsensi {
+  id         Int       @id @default(autoincrement())
+  kelasId    Int
+  hari       Hari
+  jamMulai   String
+  jamSelesai String
+  tanggal    DateTime? // opsional untuk override tanggal tertentu
+  createdAt  DateTime  @default(now())
+
+  kelas   Kelas     @relation(fields: [kelasId], references: [id])
+  absensi Absensi[]
+}
+
+model Kelas {
+  id        Int     @id @default(autoincrement())
+  namaKelas String
+  deskripsi String?
+
+  // ✅ SANTRI
+  santri User[] @relation("SantriKelas")
+
+  // ✅ PENGAJAR
+  pengajar User[] @relation("PengajarKelas")
+
+  absensiSetting AbsensiSetting? // relasi ke setting absen
+
+  absensi Absensi[] // relasi ke absensi
+  jadwal  JadwalAbsensi[]
+  izin    Izin[]
+  tugas   Tugas[]
+}
+
+model LogAktivitas {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  aktivitas String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model MataPelajaran {
+  id   Int    @id @default(autoincrement())
+  nama String
+  kode String
+
+  tugas Tugas[]
+
+  createdAt DateTime @default(now())
+
+  @@unique(kode)
+}
+
+model Nilai {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  tugasId   Int
+  nilai     Int
+  catatan   String?
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id])
+  tugas Tugas @relation(fields: [tugasId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String
+  level     String // warning | critical
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Profile {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @unique
+  namaLengkap  String
+  noHp         String?
+  alamat       String?
+  fotoUrl      String?
+  tanggalLahir DateTime?
+  jenisKelamin String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id          Int              @id @default(autoincrement())
+  tugasId     Int
+  userId      Int
+  fileUrl     String?
+  linkUrl     String?
+  submittedAt DateTime         @default(now())
+  status      StatusSubmission
+
+  tugas Tugas @relation(fields: [tugasId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([tugasId, userId])
+}
+
+model Tugas {
+  id              Int @id @default(autoincrement())
+  kelasId         Int
+  mataPelajaranId Int
+
+  title       String
+  description String?
+  deadline    DateTime
+  createdBy   Int
+  createdAt   DateTime @default(now())
+
+  kelas         Kelas         @relation(fields: [kelasId], references: [id])
+  mataPelajaran MataPelajaran @relation(fields: [mataPelajaranId], references: [id])
+  creator       User          @relation("TugasDibuat", fields: [createdBy], references: [id])
+
+  submission Submission[]
+  nilai      Nilai[]
+}
+
+model User {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+
+  // 🔑 AUTH
+  password        String?
+  activationToken String?
+  activatedAt     DateTime?
+
+  role Role @default(santri)
+
+  // SANTRI
+  kelasId Int?
+  kelas   Kelas? @relation("SantriKelas", fields: [kelasId], references: [id])
+
+  // PENGAJAR
+  kelasAjar Kelas[] @relation("PengajarKelas")
+
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+
+  absensi       Absensi[]
+  izin          Izin[]
+  tugasDibuat   Tugas[]        @relation("TugasDibuat")
+  submission    Submission[]
+  nilai         Nilai[]
+  log           LogAktivitas[]
+  profiles      Profile[]
+  notifications Notification[]
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}

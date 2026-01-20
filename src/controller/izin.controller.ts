@@ -35,10 +35,20 @@ export class IzinController {
   };
 
   // CREATE IZIN
-  create = async (req: Request, res: Response) => {
-    const data = await this.izinService.createIzin(req.body);
-    successResponse(res, "Izin berhasil dibuat", data, null, 201);
-  };
+create = async (req: Request, res: Response) => {
+  const userId = Number(req.user!.id);
+  const kelasId = Number(req.user!.kelasId);
+
+  const data = await this.izinService.createIzin({
+    userId,
+    kelasId,
+    tanggal: new Date(),
+    alasan: req.body.alasan,
+  });
+
+  successResponse(res, "Izin berhasil dibuat", data, null, 201);
+};
+
 
   // UPDATE IZIN
   update = async (req: Request, res: Response) => {
