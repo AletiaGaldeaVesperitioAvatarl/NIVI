@@ -5,12 +5,14 @@ import { IzinService } from "../service/izin.service";
 import { IzinController } from "../controller/izin.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
+import { AbsensiRepository } from "../repository/absensi.repository";
 
 const router = Router();
 
 // INIT DEPENDENCY
 const izinRepo = new IzinRepository(prismaInstance);
-const izinService = new IzinService(izinRepo);
+const absensiRepo = new AbsensiRepository(prismaInstance)
+const izinService = new IzinService(izinRepo,absensiRepo);
 const izinController = new IzinController(izinService);
 
 /**

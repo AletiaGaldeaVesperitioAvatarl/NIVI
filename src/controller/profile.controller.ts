@@ -67,25 +67,35 @@ getProfileByUserId = async (req: Request, res: Response) => {
   };
 
   // PUT /profile
-  updateProfile = async (req: Request, res: Response) => {
-    const userId = req.user!.id
+updateProfile = async (req: Request, res: Response) => {
+  const userId = req.user!.id;
 
-    const profile = await this.profileService.updateProfile(userId, {
-  namaLengkap: req.body.namaLengkap,
-  noHp: req.body.noHp ?? null,
-  alamat: req.body.alamat ?? null,
-  fotoUrl: req.body.fotoUrl ?? null,
-  tanggalLahir: req.body.tanggalLahir
-    ? new Date(req.body.tanggalLahir)
-    : null,
-  jenisKelamin: req.body.jenisKelamin ?? null,
-});
+  const file = req.file
+  
+  if (!file) {
+  throw new Error("Foto tidak ditemukan!")
+}
+const fotoUrl = `/uploads/${file.filename}`
 
-successResponse(res, "Profile berhasil diupdate", {
-  user: req.user,
-  profile,
-});
-  };
+
+
+  const profile = await this.profileService.updateProfile(userId, {
+    namaLengkap: req.body.namaLengkap,
+    noHp: req.body.noHp ?? null,
+    alamat: req.body.alamat ?? null,
+    fotoUrl: fotoUrl , 
+    tanggalLahir: req.body.tanggalLahir
+      ? new Date(req.body.tanggalLahir)
+      : null,
+    jenisKelamin: req.body.jenisKelamin ?? null,
+  });
+
+  successResponse(res, "Profile berhasil diupdate", {
+    user: req.user,
+    profile,
+  });
+};
+
 
     // DELETE /profile
   

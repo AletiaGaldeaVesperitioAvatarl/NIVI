@@ -6,6 +6,7 @@ import prismaInstance from "../database";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { Role } from "../../dist/generated";
+import { upload } from "../middlewares/upload.middleware";
 
 const router = Router();
 
@@ -154,10 +155,12 @@ router.post(
  *         description: Profile berhasil diupdate
  */
 router.put(
-  "/me",
+  '/me',
   authenticate,
+  upload.single("image"),
   profileController.updateProfile
 );
+
 
 /**
  * @swagger

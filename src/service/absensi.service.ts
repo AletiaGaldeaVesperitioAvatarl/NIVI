@@ -68,4 +68,5 @@ export class AbsensiService {
   deleteAbsensi(id: number) {
     return this.absensiRepo.delete(id);
   }
+  
 }

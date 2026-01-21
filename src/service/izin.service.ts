@@ -1,8 +1,12 @@
 import { IzinRepository } from "../repository/izin.repository";
 import { Izin, StatusIzin } from "../../dist/generated";
+import { AbsensiRepository } from "../repository/absensi.repository";
 
 export class IzinService {
-  constructor(private izinRepository: IzinRepository) {}
+  constructor(
+    private izinRepository: IzinRepository,
+    private absensiRepository: AbsensiRepository,
+  ) {}
 
   // GET ALL IZIN
   getAll = async (): Promise<Izin[]> => {
@@ -31,8 +35,28 @@ export class IzinService {
   };
 
   // UPDATE IZIN
-  updateIzin = async (id: number, data: Partial<Izin>): Promise<Izin> => {
-    return this.izinRepository.update(id, data);
+  updateIzin = async (id: number, data: Partial<Izin>) => {
+    const izin = await this.izinRepository.getById(id);
+    if (!izin) throw new Error("Izin tidak ditemukan");
+
+    const updated = await this.izinRepository.update(id, data);
+
+    if (data.status === "disetujui") {
+      const exists = await this.absensiRepository.findByUserAndTanggal(
+        izin.userId,
+        izin.tanggal,
+      );
+
+      if (!exists) {
+        await this.absensiRepository.createIzinAbsensi(
+          izin.userId,
+          izin.kelasId, // ✅ AMBIL DARI IZIN
+          izin.tanggal,
+        );
+      }
+    }
+
+    return updated;
   };
 
   // DELETE IZIN

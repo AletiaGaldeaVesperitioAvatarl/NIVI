@@ -1,4 +1,4 @@
-import { Profile } from "../../dist/generated/client";
+import { Profile } from "../../dist/generated";
 import { ProfileRepository } from "../repository/profile.repository";
 
 export class ProfileService {

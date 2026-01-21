@@ -4,18 +4,27 @@ export class KelasRepository {
   constructor(private prisma: PrismaClient) {}
 
   // GET ALL KELAS
-  getAll = async (): Promise<Kelas[]> => {
-    return this.prisma.kelas.findMany({
-include: {
-  santri: true,
-  pengajar: true,
-  absensi: true,
-  izin: true,
-  tugas: true,
-}
+getAll = async (): Promise<Kelas[]> => {
+  return this.prisma.kelas.findMany({
+    include: {
+      santri: {
+        include: {
+          profile: {
+            select: {
+              fotoUrl: true,
+            },
+          },
+        },
+      },
+      pengajar: true,
+      absensi: true,
+      izin: true,
+      tugas: true,
+    },
+  });
+};
 
-    });
-  };
+
 
   // GET KELAS BY ID
 getById = async (id: number): Promise<Kelas | null> => {
@@ -26,14 +35,14 @@ getById = async (id: number): Promise<Kelas | null> => {
         select: {
           id: true,
           email: true,
-          profiles: true,
+          profile: true,
         },
       },
       santri: {
         select: {
           id: true,
           email: true,
-          profiles: true,
+          profile: true,
         },
       },
       absensi: true,

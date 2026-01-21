@@ -2215,7 +2215,6 @@ export namespace Prisma {
     submission: number
     nilai: number
     log: number
-    profiles: number
     notifications: number
   }
 
@@ -2227,7 +2226,6 @@ export namespace Prisma {
     submission?: boolean | UserCountOutputTypeCountSubmissionArgs
     nilai?: boolean | UserCountOutputTypeCountNilaiArgs
     log?: boolean | UserCountOutputTypeCountLogArgs
-    profiles?: boolean | UserCountOutputTypeCountProfilesArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
 
@@ -2289,13 +2287,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LogAktivitasWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountProfilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfileWhereInput
   }
 
   /**
@@ -16293,7 +16284,7 @@ export namespace Prisma {
     submission?: boolean | User$submissionArgs<ExtArgs>
     nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
-    profiles?: boolean | User$profilesArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -16352,7 +16343,7 @@ export namespace Prisma {
     submission?: boolean | User$submissionArgs<ExtArgs>
     nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
-    profiles?: boolean | User$profilesArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -16374,7 +16365,7 @@ export namespace Prisma {
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
       nilai: Prisma.$NilaiPayload<ExtArgs>[]
       log: Prisma.$LogAktivitasPayload<ExtArgs>[]
-      profiles: Prisma.$ProfilePayload<ExtArgs>[]
+      profile: Prisma.$ProfilePayload<ExtArgs> | null
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -16791,7 +16782,7 @@ export namespace Prisma {
     submission<T extends User$submissionArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     nilai<T extends User$nilaiArgs<ExtArgs> = {}>(args?: Subset<T, User$nilaiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NilaiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     log<T extends User$logArgs<ExtArgs> = {}>(args?: Subset<T, User$logArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAktivitasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    profiles<T extends User$profilesArgs<ExtArgs> = {}>(args?: Subset<T, User$profilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17416,9 +17407,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.profiles
+   * User.profile
    */
-  export type User$profilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Profile
      */
@@ -17432,11 +17423,6 @@ export namespace Prisma {
      */
     include?: ProfileInclude<ExtArgs> | null
     where?: ProfileWhereInput
-    orderBy?: ProfileOrderByWithRelationInput | ProfileOrderByWithRelationInput[]
-    cursor?: ProfileWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
   }
 
   /**
@@ -18656,7 +18642,7 @@ export namespace Prisma {
     submission?: SubmissionListRelationFilter
     nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
-    profiles?: ProfileListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     notifications?: NotificationListRelationFilter
   }
 
@@ -18680,7 +18666,7 @@ export namespace Prisma {
     submission?: SubmissionOrderByRelationAggregateInput
     nilai?: NilaiOrderByRelationAggregateInput
     log?: LogAktivitasOrderByRelationAggregateInput
-    profiles?: ProfileOrderByRelationAggregateInput
+    profile?: ProfileOrderByWithRelationInput
     notifications?: NotificationOrderByRelationAggregateInput
   }
 
@@ -18707,7 +18693,7 @@ export namespace Prisma {
     submission?: SubmissionListRelationFilter
     nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
-    profiles?: ProfileListRelationFilter
+    profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     notifications?: NotificationListRelationFilter
   }, "id" | "email">
 
@@ -19293,7 +19279,7 @@ export namespace Prisma {
     jenisKelamin?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProfilesInput
+    user: UserCreateNestedOneWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -19318,7 +19304,7 @@ export namespace Prisma {
     jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProfilesNestedInput
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -19533,7 +19519,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -19556,7 +19542,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19578,7 +19564,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -19601,7 +19587,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -20497,10 +20483,9 @@ export namespace Prisma {
     none?: LogAktivitasWhereInput
   }
 
-  export type ProfileListRelationFilter = {
-    every?: ProfileWhereInput
-    some?: ProfileWhereInput
-    none?: ProfileWhereInput
+  export type ProfileNullableScalarRelationFilter = {
+    is?: ProfileWhereInput | null
+    isNot?: ProfileWhereInput | null
   }
 
   export type NotificationListRelationFilter = {
@@ -20514,10 +20499,6 @@ export namespace Prisma {
   }
 
   export type LogAktivitasOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProfileOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21155,18 +21136,18 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
-  export type UserCreateNestedOneWithoutProfilesInput = {
-    create?: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProfilesInput
+  export type UserCreateNestedOneWithoutProfileInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutProfilesNestedInput = {
-    create?: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutProfilesInput
-    upsert?: UserUpsertWithoutProfilesInput
+  export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+    create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProfileInput
+    upsert?: UserUpsertWithoutProfileInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfilesInput, UserUpdateWithoutProfilesInput>, UserUncheckedUpdateWithoutProfilesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
   export type TugasCreateNestedOneWithoutSubmissionInput = {
@@ -21381,11 +21362,10 @@ export namespace Prisma {
     connect?: LogAktivitasWhereUniqueInput | LogAktivitasWhereUniqueInput[]
   }
 
-  export type ProfileCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput> | ProfileCreateWithoutUserInput[] | ProfileUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
-    createMany?: ProfileCreateManyUserInputEnvelope
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  export type ProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    connect?: ProfileWhereUniqueInput
   }
 
   export type NotificationCreateNestedManyWithoutUserInput = {
@@ -21443,11 +21423,10 @@ export namespace Prisma {
     connect?: LogAktivitasWhereUniqueInput | LogAktivitasWhereUniqueInput[]
   }
 
-  export type ProfileUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput> | ProfileCreateWithoutUserInput[] | ProfileUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
-    createMany?: ProfileCreateManyUserInputEnvelope
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  export type ProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    connect?: ProfileWhereUniqueInput
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -21568,18 +21547,14 @@ export namespace Prisma {
     deleteMany?: LogAktivitasScalarWhereInput | LogAktivitasScalarWhereInput[]
   }
 
-  export type ProfileUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput> | ProfileCreateWithoutUserInput[] | ProfileUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
-    upsert?: ProfileUpsertWithWhereUniqueWithoutUserInput | ProfileUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProfileCreateManyUserInputEnvelope
-    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    update?: ProfileUpdateWithWhereUniqueWithoutUserInput | ProfileUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProfileUpdateManyWithWhereWithoutUserInput | ProfileUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  export type ProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type NotificationUpdateManyWithoutUserNestedInput = {
@@ -21693,18 +21668,14 @@ export namespace Prisma {
     deleteMany?: LogAktivitasScalarWhereInput | LogAktivitasScalarWhereInput[]
   }
 
-  export type ProfileUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput> | ProfileCreateWithoutUserInput[] | ProfileUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput | ProfileCreateOrConnectWithoutUserInput[]
-    upsert?: ProfileUpsertWithWhereUniqueWithoutUserInput | ProfileUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProfileCreateManyUserInputEnvelope
-    set?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    disconnect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    delete?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
-    update?: ProfileUpdateWithWhereUniqueWithoutUserInput | ProfileUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProfileUpdateManyWithWhereWithoutUserInput | ProfileUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
+  export type ProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
+    upsert?: ProfileUpsertWithoutUserInput
+    disconnect?: ProfileWhereInput | boolean
+    delete?: ProfileWhereInput | boolean
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutUserInput, ProfileUpdateWithoutUserInput>, ProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -22024,7 +21995,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -22046,7 +22017,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22135,7 +22106,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -22157,7 +22128,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22304,7 +22275,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -22326,7 +22297,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22391,7 +22362,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -22413,7 +22384,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22586,7 +22557,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -22608,7 +22579,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22639,7 +22610,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -22661,7 +22632,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22998,7 +22969,7 @@ export namespace Prisma {
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -23020,7 +22991,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -23057,7 +23028,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -23079,7 +23050,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -23149,7 +23120,7 @@ export namespace Prisma {
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -23171,7 +23142,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -23236,7 +23207,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -23258,7 +23229,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -23314,7 +23285,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -23336,7 +23307,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -23373,7 +23344,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -23395,10 +23366,10 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutProfilesInput = {
+  export type UserCreateWithoutProfileInput = {
     name: string
     email: string
     password?: string | null
@@ -23419,7 +23390,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutProfilesInput = {
+  export type UserUncheckedCreateWithoutProfileInput = {
     id?: number
     name: string
     email: string
@@ -23441,23 +23412,23 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutProfilesInput = {
+  export type UserCreateOrConnectWithoutProfileInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
   }
 
-  export type UserUpsertWithoutProfilesInput = {
-    update: XOR<UserUpdateWithoutProfilesInput, UserUncheckedUpdateWithoutProfilesInput>
-    create: XOR<UserCreateWithoutProfilesInput, UserUncheckedCreateWithoutProfilesInput>
+  export type UserUpsertWithoutProfileInput = {
+    update: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
+    create: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutProfilesInput = {
+  export type UserUpdateToOneWithWhereWithoutProfileInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutProfilesInput, UserUncheckedUpdateWithoutProfilesInput>
+    data: XOR<UserUpdateWithoutProfileInput, UserUncheckedUpdateWithoutProfileInput>
   }
 
-  export type UserUpdateWithoutProfilesInput = {
+  export type UserUpdateWithoutProfileInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23478,7 +23449,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutProfilesInput = {
+  export type UserUncheckedUpdateWithoutProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -23545,7 +23516,7 @@ export namespace Prisma {
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -23567,7 +23538,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -23638,7 +23609,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -23660,7 +23631,7 @@ export namespace Prisma {
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -23727,7 +23698,7 @@ export namespace Prisma {
     submission?: SubmissionCreateNestedManyWithoutUserInput
     nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profiles?: ProfileCreateNestedManyWithoutUserInput
+    profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
 
@@ -23749,7 +23720,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profiles?: ProfileUncheckedCreateNestedManyWithoutUserInput
+    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -23896,7 +23867,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -23918,7 +23889,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24223,11 +24194,6 @@ export namespace Prisma {
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
   }
 
-  export type ProfileCreateManyUserInputEnvelope = {
-    data: ProfileCreateManyUserInput | ProfileCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type NotificationCreateWithoutUserInput = {
     title: string
     message: string
@@ -24420,36 +24386,38 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LogAktivitas"> | Date | string
   }
 
-  export type ProfileUpsertWithWhereUniqueWithoutUserInput = {
-    where: ProfileWhereUniqueInput
+  export type ProfileUpsertWithoutUserInput = {
     update: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
     create: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
+    where?: ProfileWhereInput
   }
 
-  export type ProfileUpdateWithWhereUniqueWithoutUserInput = {
-    where: ProfileWhereUniqueInput
+  export type ProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: ProfileWhereInput
     data: XOR<ProfileUpdateWithoutUserInput, ProfileUncheckedUpdateWithoutUserInput>
   }
 
-  export type ProfileUpdateManyWithWhereWithoutUserInput = {
-    where: ProfileScalarWhereInput
-    data: XOR<ProfileUpdateManyMutationInput, ProfileUncheckedUpdateManyWithoutUserInput>
+  export type ProfileUpdateWithoutUserInput = {
+    namaLengkap?: StringFieldUpdateOperationsInput | string
+    noHp?: NullableStringFieldUpdateOperationsInput | string | null
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tanggalLahir?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProfileScalarWhereInput = {
-    AND?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
-    OR?: ProfileScalarWhereInput[]
-    NOT?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
-    id?: IntFilter<"Profile"> | number
-    userId?: IntFilter<"Profile"> | number
-    namaLengkap?: StringFilter<"Profile"> | string
-    noHp?: StringNullableFilter<"Profile"> | string | null
-    alamat?: StringNullableFilter<"Profile"> | string | null
-    fotoUrl?: StringNullableFilter<"Profile"> | string | null
-    tanggalLahir?: DateTimeNullableFilter<"Profile"> | Date | string | null
-    jenisKelamin?: StringNullableFilter<"Profile"> | string | null
-    createdAt?: DateTimeFilter<"Profile"> | Date | string
-    updatedAt?: DateTimeFilter<"Profile"> | Date | string
+  export type ProfileUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    namaLengkap?: StringFieldUpdateOperationsInput | string
+    noHp?: NullableStringFieldUpdateOperationsInput | string | null
+    alamat?: NullableStringFieldUpdateOperationsInput | string | null
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    tanggalLahir?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -24583,7 +24551,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -24605,7 +24573,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24639,7 +24607,7 @@ export namespace Prisma {
     submission?: SubmissionUpdateManyWithoutUserNestedInput
     nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUpdateManyWithoutUserNestedInput
+    profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -24661,7 +24629,7 @@ export namespace Prisma {
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
+    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -24952,18 +24920,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ProfileCreateManyUserInput = {
-    id?: number
-    namaLengkap: string
-    noHp?: string | null
-    alamat?: string | null
-    fotoUrl?: string | null
-    tanggalLahir?: Date | string | null
-    jenisKelamin?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type NotificationCreateManyUserInput = {
     id?: number
     title: string
@@ -25151,41 +25107,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     aktivitas?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProfileUpdateWithoutUserInput = {
-    namaLengkap?: StringFieldUpdateOperationsInput | string
-    noHp?: NullableStringFieldUpdateOperationsInput | string | null
-    alamat?: NullableStringFieldUpdateOperationsInput | string | null
-    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tanggalLahir?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProfileUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    namaLengkap?: StringFieldUpdateOperationsInput | string
-    noHp?: NullableStringFieldUpdateOperationsInput | string | null
-    alamat?: NullableStringFieldUpdateOperationsInput | string | null
-    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tanggalLahir?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProfileUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    namaLengkap?: StringFieldUpdateOperationsInput | string
-    noHp?: NullableStringFieldUpdateOperationsInput | string | null
-    alamat?: NullableStringFieldUpdateOperationsInput | string | null
-    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    tanggalLahir?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    jenisKelamin?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpdateWithoutUserInput = {

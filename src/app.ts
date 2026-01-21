@@ -30,6 +30,7 @@ import AdminRouter from "./routes/admin.route";
 import jadwalRouter from "./routes/jadwalAbsen.route"
 import absensiSettingRouter from "./routes/absensiSetting.route"
 import izinRouter from "./routes/izin.route"
+import path from "path";
 
 
 
@@ -39,8 +40,12 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(cors());
 app.use(Express.json());
-app.set("query parser", "extended");
-app.use(Express.static("public"));
+app.set('query parser', 'extended')
+app.use(
+  "/api/uploads",
+  Express.static(path.join(process.cwd(), "public/uploads"))
+);
+app.use(Express.static("public"))
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(requestLogger);

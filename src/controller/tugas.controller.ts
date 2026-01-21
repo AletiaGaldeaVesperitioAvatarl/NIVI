@@ -10,10 +10,16 @@ export class TugasController {
     successResponse(res, "Semua tugas", data);
   };
 
-  getById = async (req: Request, res: Response) => {
-    const data = await this.service.getById(Number(req.params.id));
-    successResponse(res, "Detail tugas", data);
-  };
+getById = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).json({ message: 'ID tidak valid' });
+  }
+
+  const data = await this.service.getById(id);
+  successResponse(res, "Detail tugas", data);
+};
+
 
 create = async (req: any, res: Response) => {
   const {
@@ -53,7 +59,6 @@ create = async (req: any, res: Response) => {
 
   getForSantri = async (req: any, res: Response) => {
     const data = await this.service.getForSantri(req.user.id);
-    console.log("🔥 getForSantri DIPANGGIL");
 
     successResponse(res, "Tugas santri", data);
   };

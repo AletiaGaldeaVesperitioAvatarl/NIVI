@@ -227,7 +227,7 @@ model User {
   submission    Submission[]
   nilai         Nilai[]
   log           LogAktivitas[]
-  profiles      Profile[]
+  profile       Profile?
   notifications Notification[]
 }
 

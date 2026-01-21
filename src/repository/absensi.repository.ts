@@ -55,4 +55,26 @@ export class AbsensiRepository {
   delete(id: number): Promise<Absensi> {
     return this.prisma.absensi.delete({ where: { id }, include: { jadwal: true } });
   }
+
+    findByUserAndTanggal(userId: number, tanggal: Date) {
+    return this.prisma.absensi.findFirst({
+      where: { userId, tanggal },
+    });
+  }
+
+createIzinAbsensi(
+  userId: number,
+  kelasId: number,
+  tanggal: Date
+) {
+  return this.prisma.absensi.create({
+    data: {
+      userId,
+      kelasId, // ✅ INI YANG HILANG
+      tanggal,
+      status: "izin",
+    },
+  });
+}
+
 }
