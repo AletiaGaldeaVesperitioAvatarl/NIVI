@@ -1,178 +1,97 @@
 import { Router } from "express";
 import prismaInstance from "../database";
+
 import { IzinRepository } from "../repository/izin.repository";
+import { AbsensiRepository } from "../repository/absensi.repository";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
+
 import { IzinService } from "../service/izin.service";
+import { AbsensiService } from "../service/absensi.service";
+import { AbsensiSettingService } from "../service/absensiSetting.service";
+import { JadwalAbsensiService } from "../service/jadwalAbsensi.service";
+
 import { IzinController } from "../controller/izin.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
-import { AbsensiRepository } from "../repository/absensi.repository";
 
 const router = Router();
 
-// INIT DEPENDENCY
+/* =======================
+   INIT REPOSITORY
+======================= */
 const izinRepo = new IzinRepository(prismaInstance);
-const absensiRepo = new AbsensiRepository(prismaInstance)
-const izinService = new IzinService(izinRepo,absensiRepo);
+const absensiRepo = new AbsensiRepository(prismaInstance);
+const settingRepo = new AbsensiSettingRepository(prismaInstance);
+const jadwalRepo = new JadwalAbsensiRepository(prismaInstance);
+
+/* =======================
+   INIT SERVICE
+======================= */
+const settingService = new AbsensiSettingService(settingRepo);
+
+const jadwalAbsensiService = new JadwalAbsensiService(jadwalRepo);
+
+const absensiService = new AbsensiService(
+  absensiRepo,
+  settingService,
+  jadwalRepo
+);
+const izinService = new IzinService(
+  izinRepo,
+  absensiRepo,
+  absensiService,
+  settingService,
+  jadwalAbsensiService
+);
+
+/* =======================
+   CONTROLLER
+======================= */
 const izinController = new IzinController(izinService);
 
-/**
- * @swagger
- * tags:
- *   name: Izin
- *   description: Manajemen izin santri
- */
+/* =======================
+   ROUTES
+======================= */
 
-/**
- * @swagger
- * /izin/me:
- *   get:
- *     summary: Ambil data izin milik user login
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Berhasil mengambil izin user login
- */
+// ROUTES UNTUK SANTRI
 router.get("/me", authenticate, izinController.getMyIzin);
-
-/**
- * @swagger
- * /izin:
- *   get:
- *     summary: Ambil semua data izin
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Berhasil mengambil semua data izin
- */
-router.get("/", authenticate, izinController.getAll);
-
-/**
- * @swagger
- * /izin/user/{userId}:
- *   get:
- *     summary: Ambil data izin berdasarkan userId
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: userId
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Data izin user
- */
-router.get("/user/:userId", authenticate, izinController.getByUser);
-
-/**
- * @swagger
- * /izin/{id}:
- *   get:
- *     summary: Ambil detail izin berdasarkan ID
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Detail izin ditemukan
- *       404:
- *         description: Izin tidak ditemukan
- */
-router.get("/:id", authenticate, izinController.getById);
-
-/**
- * @swagger
- * /izin:
- *   post:
- *     summary: Ajukan izin
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - alasan
- *               - tanggalMulai
- *               - tanggalSelesai
- *             properties:
- *               alasan:
- *                 type: string
- *               tanggalMulai:
- *                 type: string
- *                 format: date
- *               tanggalSelesai:
- *                 type: string
- *                 format: date
- *     responses:
- *       201:
- *         description: Izin berhasil diajukan
- */
 router.post("/", authenticate, izinController.create);
 
-/**
- * @swagger
- * /izin/{id}:
- *   put:
- *     summary: Update status izin (approve / reject)
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               status:
- *                 type: string
- *                 enum: [menunggu, disetujui, ditolak]
- *     responses:
- *       200:
- *         description: Izin berhasil diupdate
- */
-router.put("/:id", authenticate, roleMiddleware(["admin", "pengajar"]), izinController.update);
+// ROUTES UNTUK ADMIN / PENGAJAR
+router.get(
+  "/",
+  authenticate,
+  roleMiddleware(["admin", "pengajar"]),
+  izinController.getAll
+);
 
-/**
- * @swagger
- * /izin/{id}:
- *   delete:
- *     summary: Hapus data izin
- *     tags: [Izin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Izin berhasil dihapus
- */
-router.delete("/:id", authenticate, izinController.delete);
+router.get(
+  "/user/:userId",
+  authenticate,
+  roleMiddleware(["admin", "pengajar"]),
+  izinController.getByUser
+);
+
+router.get(
+  "/:id",
+  authenticate,
+  roleMiddleware(["admin", "pengajar"]),
+  izinController.getById
+);
+
+router.put(
+  "/:id",
+  authenticate,
+  roleMiddleware(["admin", "pengajar"]),
+  izinController.update
+);
+
+router.delete(
+  "/:id",
+  authenticate,
+  roleMiddleware(["admin", "pengajar"]),
+  izinController.delete
+);
 
 export default router;

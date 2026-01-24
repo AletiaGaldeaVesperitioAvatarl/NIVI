@@ -1,14 +1,23 @@
 import { AbsensiRepository } from "../repository/absensi.repository";
-import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+import { AbsensiSettingService } from "./absensiSetting.service";
 import { JadwalAbsensi, StatusAbsensi } from "../../dist/generated";
 
 export class AbsensiService {
   constructor(
     private absensiRepo: AbsensiRepository,
-    private settingRepo: AbsensiSettingRepository,
-    private jadwalRepo: { findActiveSchedule: (kelasId: number, now: Date, jadwalId?: number) => Promise<JadwalAbsensi | null> }
+    private settingService: AbsensiSettingService,
+    private jadwalRepo: {
+      findActiveSchedule: (
+        kelasId: number,
+        now: Date,
+        jadwalId?: number
+      ) => Promise<JadwalAbsensi | null>;
+    }
   ) {}
 
+  // ===============================
+  // ABSEN HADIR / TELAT / DLL
+  // ===============================
   async absenHadir(
     userId: number,
     kelasId: number,
@@ -17,38 +26,72 @@ export class AbsensiService {
   ) {
     const now = new Date();
 
-    // 1️⃣ Ambil setting maxAbsen
-    const setting = await this.settingRepo.getByKelas(kelasId);
-    if (!setting) throw new Error("Admin belum set absensi untuk kelas ini");
-    const maxAbsen = setting.maxAbsen;
+    // 1️⃣ Ambil setting kelas
+    const setting = await this.settingService.getByKelas(kelasId);
+    if (!setting) throw new Error("Admin belum mengatur absensi kelas");
 
     // 2️⃣ Ambil jadwal aktif
-    let jadwal: JadwalAbsensi | null = null;
-    if (jadwalId) {
-      // jika jadwalId diberikan, ambil jadwal itu
-      jadwal = await this.jadwalRepo.findActiveSchedule(kelasId, now, jadwalId);
-    } else {
-      // ambil jadwal aktif hari ini (override tanggal khusus atau hari reguler)
-      jadwal = await this.jadwalRepo.findActiveSchedule(kelasId, now);
-    }
-
-    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif saat ini");
+    const jadwal = await this.jadwalRepo.findActiveSchedule(
+      kelasId,
+      now,
+      jadwalId
+    );
+    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif");
 
     // 3️⃣ Hitung absensi hari ini
     const todayCount = await this.absensiRepo.countTodayByUser(userId);
-    if (todayCount >= maxAbsen)
-      throw new Error(`Absensi hari ini sudah mencapai batas (${maxAbsen}x)`);
+    if (todayCount >= setting.maxAbsen) {
+      throw new Error(
+        `Absensi hari ini sudah mencapai batas (${setting.maxAbsen}x)`
+      );
+    }
 
-    // 4️⃣ Simpan absensi (tanggal wajib ada)
+    // 4️⃣ Simpan absensi
     return this.absensiRepo.create({
       userId,
       kelasId,
       jadwalId: jadwal.id,
       status,
-      tanggal: now, // selalu ada
+      tanggal: now,
     });
   }
 
+  // ===============================
+  // IZIN → ABSENSI (SETELAH DISETUJUI)
+  // ===============================
+  async absenIzinDariPersetujuan(
+    userId: number,
+    kelasId: number,
+    tanggal: Date
+  ) {
+    const setting = await this.settingService.getByKelas(kelasId);
+    if (!setting) throw new Error("Setting absensi belum ada");
+
+    const todayCount = await this.absensiRepo.countTodayByUser(userId);
+    if (todayCount >= setting.maxAbsen) {
+      throw new Error(
+        `Izin ditolak otomatis: batas absensi (${setting.maxAbsen}) tercapai`
+      );
+    }
+
+    // Cegah double absensi
+    const exists = await this.absensiRepo.findByUserAndTanggal(
+      userId,
+      tanggal
+    );
+    if (exists) return exists;
+
+    return this.absensiRepo.create({
+      userId,
+      kelasId,
+      tanggal,
+      status: "izin",
+    });
+  }
+
+  // ===============================
+  // GETTER
+  // ===============================
   getTodayByUser(userId: number) {
     return this.absensiRepo.getTodayByUser(userId);
   }
@@ -61,6 +104,9 @@ export class AbsensiService {
     return this.absensiRepo.getAll();
   }
 
+  // ===============================
+  // UPDATE & DELETE
+  // ===============================
   updateAbsensi(id: number, data: Partial<{ status: StatusAbsensi }>) {
     return this.absensiRepo.update(id, data);
   }
@@ -68,5 +114,39 @@ export class AbsensiService {
   deleteAbsensi(id: number) {
     return this.absensiRepo.delete(id);
   }
-  
+
+  getByKelas = async ({
+    kelasId,
+    page,
+    limit,
+    sort,
+  }: {
+    kelasId: number;
+    page: number;
+    limit: number;
+    sort: 'asc' | 'desc';
+  }) => {
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+      this.absensiRepo.findByKelasPaginated({
+        kelasId,
+        skip,
+        take: limit,
+        sort,
+      }),
+      this.absensiRepo.countByKelas(kelasId),
+    ]);
+
+    return {
+      data,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPage: Math.ceil(total / limit),
+      },
+    };
+  };
+
 }

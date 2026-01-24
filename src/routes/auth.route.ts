@@ -1,55 +1,27 @@
-import { Router } from "express";
+import express from "express";
 import prismaInstance from "../database";
 import { AuthRepository } from "../repository/auth.repository";
 import { AuthService } from "../service/auth.service";
 import { AuthController } from "../controller/auth.controller";
 
-const router = Router();
+const router = express.Router();
+const repo = new AuthRepository(prismaInstance);
+const service = new AuthService(repo);
+const controller = new AuthController(service);
 
-// INIT LAYER
-const authRepo = new AuthRepository(prismaInstance);
-const authService = new AuthService(authRepo);
-const authController = new AuthController(authService);
+// LOGIN biasa
+router.post("/login", controller.login);
 
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Autentikasi & otorisasi pengguna
- */
+// OTP aktivasi pertama user baru
+router.post("/request-activation-otp", controller.requestActivationOtp);
 
-/**
- * @swagger
- * /auth/login:
- *   post:
- *     summary: Login user
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 example: fauzi@mail.com
- *               password:
- *                 type: string
- *                 example: rahasia123
- *     responses:
- *       200:
- *         description: Login berhasil
- *       401:
- *         description: Email atau password salah
- */
-router.post("/login", authController.login);
+// Aktivasi user baru dengan OTP + set password pertama
+router.post("/activate-with-otp", controller.activateWithOtp);
 
-router.post("/request-activation", authController.requestActivation);
-router.post("/activate", authController.activateAccount);
+// Lupa password
+router.post("/forgot-password", controller.forgotPassword);
+
+// Reset password dengan OTP
+router.post("/reset-password", controller.resetPassword);
 
 export default router;

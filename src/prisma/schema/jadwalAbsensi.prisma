@@ -4,9 +4,11 @@ model JadwalAbsensi {
   hari       Hari
   jamMulai   String
   jamSelesai String
-  tanggal    DateTime? // opsional untuk override tanggal tertentu
+  tanggal    DateTime
   createdAt  DateTime @default(now())
 
   kelas      Kelas    @relation(fields: [kelasId], references: [id])
   absensi    Absensi[]
+
+  @@unique([kelasId, tanggal])
 }

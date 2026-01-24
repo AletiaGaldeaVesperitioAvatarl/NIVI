@@ -73,4 +73,21 @@ export class IzinRepository {
       where: { id },
     });
   };
+
+  async findByUserAndDate(
+  userId: number,
+  kelasId: number,
+  tanggal: Date,
+  status?: "menunggu" | "disetujui" | "ditolak"
+): Promise<Izin | null> {
+  const query: any = {
+    userId,
+    kelasId,
+    tanggal,
+  };
+  if (status) query.status = status;
+
+  return this.prisma.izin.findFirst({ where: query });
+}
+
 }

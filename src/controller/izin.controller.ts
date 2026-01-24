@@ -53,7 +53,7 @@ create = async (req: Request, res: Response) => {
   // UPDATE IZIN
   update = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const data = await this.izinService.updateIzin(id, req.body);
+    const data = await this.izinService.updateIzinStatus(id, req.body);
     successResponse(res, "Izin berhasil diupdate", data);
   };
 

@@ -38,7 +38,7 @@ const app: Application = Express();
 
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(Express.json());
 app.set('query parser', 'extended')
 app.use(
@@ -57,7 +57,7 @@ app.use("/api/kelas", kelasRoute);
 app.use("/api/submission", submissionRoute);
 app.use("/api/nilai", nilaiRoute);
 app.use("/api/profile", profileRoute);
-app.use("api/LogAktivitasRoute", LogAktivitasRoute);
+app.use("/api/LogAktivitasRoute", LogAktivitasRoute);
 app.use("/api/pengajar", pengajarRouter);
 app.use("/api/halaman", halamanRouter);
 app.use("/api/panel", PanelRouter);

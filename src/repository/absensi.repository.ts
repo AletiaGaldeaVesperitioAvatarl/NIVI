@@ -77,4 +77,58 @@ createIzinAbsensi(
   });
 }
 
+countTodayByKelas(kelasId: number, tanggal: Date) {
+  return this.prisma.absensi.count({
+    where: {
+      kelasId,
+      tanggal,
+    },
+  });
+}
+  async countByKelasAndTanggal(
+    kelasId: number,
+    tanggal: Date
+  ): Promise<number> {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
+
+    return this.prisma.absensi.count({
+      where: {
+        kelasId,
+        tanggal: {
+          gte: start,
+          lte: end,
+        },
+      },
+    });
+  }
+
+  findByKelasPaginated = async ({
+    kelasId,
+    skip,
+    take,
+    sort,
+  }: {
+    kelasId: number;
+    skip: number;
+    take: number;
+    sort: 'asc' | 'desc';
+  }) => {
+    return this.prisma.absensi.findMany({
+      where: { kelasId },
+      orderBy: { tanggal: sort },
+      skip,
+      take,
+    });
+  };
+
+  countByKelas = async (kelasId: number) => {
+    return this.prisma.absensi.count({
+      where: { kelasId },
+    });
+  };
+
 }

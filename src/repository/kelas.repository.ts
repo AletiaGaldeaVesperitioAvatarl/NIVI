@@ -77,20 +77,24 @@ getById = async (id: number): Promise<Kelas | null> => {
     });
   };
   // repository/kelas.repository.ts
-assignPengajar = async (kelasId: number, pengajarId: number) => {
+assignPengajar(kelasId: number, pengajarIds: number | number[]) {
+  const ids = Array.isArray(pengajarIds) ? pengajarIds : [pengajarIds];
+
+  // filter invalid values
+  const validIds = ids.filter(id => typeof id === 'number');
+
+  if (validIds.length === 0) throw new Error("Tidak ada pengajar valid untuk ditambahkan");
+
   return this.prisma.kelas.update({
     where: { id: kelasId },
     data: {
-      pengajar: {
-        connect: { id: pengajarId },
-      },
+      pengajar: { connect: validIds.map(id => ({ id })) },
     },
-    include: {
-      pengajar: true,
-      santri: true,
-    },
+    include: { pengajar: true },
   });
-};
+}
+
+
 
   setPengajar = async (kelasId: number, pengajarIds: number[]) => {
   return this.prisma.kelas.update({

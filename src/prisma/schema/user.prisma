@@ -1,32 +1,28 @@
 model User {
-  id          Int        @id @default(autoincrement())
-  name        String
-  email       String     @unique
+  id           Int        @id @default(autoincrement())
+  name         String?
+  email        String     @unique
+  password     String?
+  activatedAt  DateTime?
+  isActive     Boolean    @default(true)
 
-  // 🔑 AUTH
-  password        String?
-  activationToken String?
-  activatedAt     DateTime?
+  otp          String?    // OTP sementara untuk aktivasi / reset
+  otpExpiresAt DateTime?  // Waktu expired OTP
 
-  role        Role       @default(santri)
+  role         Role       @default(santri)
+  kelasId      Int?
+  kelas        Kelas?     @relation("SantriKelas", fields: [kelasId], references: [id])
+  kelasAjar    Kelas[]    @relation("PengajarKelas")
 
-  // SANTRI
-  kelasId     Int?
-  kelas       Kelas?     @relation("SantriKelas", fields: [kelasId], references: [id])
+  createdAt    DateTime   @default(now())
+  deletedAt    DateTime?
 
-  // PENGAJAR
-  kelasAjar   Kelas[]    @relation("PengajarKelas")
-
-  isActive    Boolean    @default(true)
-  createdAt   DateTime   @default(now())
-  deletedAt   DateTime?
-
-  absensi     Absensi[]
-  izin        Izin[]
-  tugasDibuat Tugas[]    @relation("TugasDibuat")
-  submission  Submission[]
-  nilai       Nilai[]
-  log         LogAktivitas[]
-  profile    Profile?
-   notifications Notification[]
+  absensi      Absensi[]
+  izin         Izin[]
+  tugasDibuat  Tugas[]    @relation("TugasDibuat")
+  submission   Submission[]
+  nilai        Nilai[]
+  log          LogAktivitas[]
+  profile      Profile?
+  notifications Notification[]
 }

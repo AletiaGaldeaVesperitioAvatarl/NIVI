@@ -73,16 +73,18 @@ model Izin {
 }
 
 model JadwalAbsensi {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   kelasId    Int
   hari       Hari
   jamMulai   String
   jamSelesai String
-  tanggal    DateTime? // opsional untuk override tanggal tertentu
-  createdAt  DateTime  @default(now())
+  tanggal    DateTime
+  createdAt  DateTime @default(now())
 
   kelas   Kelas     @relation(fields: [kelasId], references: [id])
   absensi Absensi[]
+
+  @@unique([kelasId, tanggal])
 }
 
 model Kelas {
@@ -199,25 +201,21 @@ model Tugas {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
+  id          Int       @id @default(autoincrement())
+  name        String?
+  email       String    @unique
+  password    String?
+  activatedAt DateTime?
+  isActive    Boolean   @default(true)
 
-  // 🔑 AUTH
-  password        String?
-  activationToken String?
-  activatedAt     DateTime?
+  otp          String? // OTP sementara untuk aktivasi / reset
+  otpExpiresAt DateTime? // Waktu expired OTP
 
-  role Role @default(santri)
-
-  // SANTRI
-  kelasId Int?
-  kelas   Kelas? @relation("SantriKelas", fields: [kelasId], references: [id])
-
-  // PENGAJAR
+  role      Role    @default(santri)
+  kelasId   Int?
+  kelas     Kelas?  @relation("SantriKelas", fields: [kelasId], references: [id])
   kelasAjar Kelas[] @relation("PengajarKelas")
 
-  isActive  Boolean   @default(true)
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 

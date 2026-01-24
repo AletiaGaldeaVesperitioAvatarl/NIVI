@@ -13,44 +13,18 @@ const repo = new AdminRepository(prismaInstance);
 const service = new AdminService(repo);
 const controller = new AdminController(service);
 
-// ADMIN INPUT SANTRI
-router.post(
-  "/santri",
-  authenticate,
-  roleMiddleware([Role.admin]),
-  controller.createSantriByAdmin
-);
+router.post("/", controller.createFirstAdmin);
 
-router.post(
-  "/activate",
-  controller.activateAccount
-);
+// SANTRI & PENGAJAR
+router.post("/santri", authenticate, roleMiddleware([Role.admin]), controller.createSantriByAdmin);
+router.post("/pengajar", authenticate, roleMiddleware([Role.admin]), controller.createPengajarByAdmin);
 
-// 🔐 ADMIN ONLY
-router.post(
-  "/kelas/pengajar",
-  authenticate,
-  roleMiddleware([Role.admin]),
-  controller.assignPengajar
-);
+// AKTIVASI PERTAMA PASSWORD
+router.post("/activate", controller.activateWithPassword);
 
-router.delete(
-  "/kelas/pengajar",
-  authenticate,
-  roleMiddleware([Role.admin]),
-  controller.removePengajar
-);
+// PENGAJAR KELAS
+router.post("/kelas/pengajar", authenticate, roleMiddleware([Role.admin]), controller.assignPengajar);
+router.delete("/kelas/pengajar", authenticate, roleMiddleware([Role.admin]), controller.removePengajar);
+router.get("/kelas/:kelasId/pengajar", authenticate, roleMiddleware([Role.admin]), controller.getPengajarByKelas);
 
-router.get(
-  "/kelas/:kelasId/pengajar",
-  authenticate,
-  roleMiddleware([Role.admin]),
-  controller.getPengajarByKelas
-);
-
-router.post("/pengajar", controller.createPengajarByAdmin);
-
-router.post(
-  "/create/user", controller.createUser
-)
 export default router;

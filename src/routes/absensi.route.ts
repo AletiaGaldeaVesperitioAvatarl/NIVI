@@ -6,6 +6,9 @@ import { AbsensiSettingRepository } from "../repository/absensiSetting.repositor
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import prismaInstance from "../database";
 import { authenticate } from "../middlewares/auth.middleware";
+import { AbsensiSettingService } from "../service/absensiSetting.service";
+import { UserRepository } from "../repository/user.repository";
+import { UserService } from "../service/user.service";
 
 
 const router = Router();
@@ -14,8 +17,11 @@ const router = Router();
 const absensiRepo = new AbsensiRepository(prismaInstance);
 const settingRepo = new AbsensiSettingRepository(prismaInstance);
 const jadwalRepo = new JadwalAbsensiRepository(prismaInstance); // wajib punya method findActiveSchedule
-const absensiService = new AbsensiService(absensiRepo, settingRepo, jadwalRepo);
-const absensiController = new AbsensiController(absensiService);
+const userRepo = new UserRepository(prismaInstance)
+const userService = new UserService(userRepo)
+const settingService = new AbsensiSettingService(settingRepo)
+const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo);
+const absensiController = new AbsensiController(absensiService, userService);
 
 // POST absen (HADIR/IZIN/SAKIT) opsional jadwalId
 router.post("/absen", authenticate,absensiController.absen);
@@ -24,9 +30,14 @@ router.post("/absen", authenticate,absensiController.absen);
 router.get("/me/today",authenticate, absensiController.getMyTodayAbsensi);
 
 // 🔹 ADMIN CRUD (opsional, kalau admin ingin mengelola absensi manual)
-router.get("/", authenticate,absensiController.getAll); // semua absensi
+router.get("/",absensiController.getAll); // semua absensi
 router.get("/:id", authenticate,absensiController.getByUserId); // lihat absensi per user
 router.put("/:id", authenticate,absensiController.update); // update status
 router.delete("/:id",authenticate, absensiController.delete); // hapus absensi
+router.get(
+  '/kelas/:kelasId/absensi',
+  absensiController.getByKelas,
+);
+
 
 export default router;

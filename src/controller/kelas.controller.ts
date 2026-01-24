@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { KelasService } from "../service/kelas.service";
 import { successResponse } from "../utils/response";
+import { io } from "../socket";
 
 export class KelasController {
   constructor(private kelasService: KelasService) {}
@@ -21,38 +22,56 @@ export class KelasController {
   };
 
   // CREATE KELAS
-  create = async (req: Request, res: Response) => {
-    const { namaKelas, deskripsi } = req.body;
-    const kelas = await this.kelasService.createKelas({ namaKelas, deskripsi });
-    successResponse(res, "Kelas berhasil dibuat", kelas, null, 201);
-  };
+create = async (req: Request, res: Response) => {
+  const { namaKelas, deskripsi } = req.body;
+  const kelas = await this.kelasService.createKelas({ namaKelas, deskripsi });
+
+  // 🔥 EMIT REALTIME
+  io.emit("kelas-created", kelas);
+
+  successResponse(res, "Kelas berhasil dibuat", kelas, null, 201);
+};
+
 
   // UPDATE KELAS
-  update = async (req: Request, res: Response) => {
-    if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");
-    const id = Number(req.params.id);
-    const data = req.body;
-    const kelas = await this.kelasService.updateKelas(id, data);
-    successResponse(res, "Kelas berhasil diperbarui", kelas);
-  };
+update = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const data = req.body;
+
+  const kelas = await this.kelasService.updateKelas(id, data);
+
+  io.emit("kelas-updated", kelas);
+
+  successResponse(res, "Kelas berhasil diperbarui", kelas);
+};
+
 
   // DELETE KELAS
-  delete = async (req: Request, res: Response) => {
-    if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");
-    const id = Number(req.params.id);
-    const kelas = await this.kelasService.deleteKelas(id);
-    successResponse(res, "Kelas berhasil dihapus", kelas);
-  };
+delete = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const kelas = await this.kelasService.deleteKelas(id);
 
-  assignPengajar = async (req: Request, res: Response) => {
+  io.emit("kelas-deleted", { id });
+
+  successResponse(res, "Kelas berhasil dihapus", kelas);
+};
+
+assignPengajar = async (req: Request, res: Response) => {
   const kelasId = Number(req.params.id);
-  const { pengajarId } = req.body;
+  const { pengajarIds } = req.body;
 
-  const kelas = await this.kelasService.assignPengajarKeKelas(kelasId, pengajarId);
+  const kelas = await this.kelasService.assignPengajarKeKelas(
+    kelasId,
+    pengajarIds
+  );
+
+  io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
+
   successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
 };
 
-  setPengajar = async (req: Request, res: Response) => {
+
+setPengajar = async (req: Request, res: Response) => {
   const kelasId = Number(req.params.id);
   const { pengajarIds } = req.body;
 
@@ -61,8 +80,11 @@ export class KelasController {
     pengajarIds
   );
 
+  io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
+
   successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
 };
+
 
 
 }
