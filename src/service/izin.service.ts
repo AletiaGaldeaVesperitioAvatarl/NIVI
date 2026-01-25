@@ -32,7 +32,6 @@ export class IzinService {
   // ===============================
   // CREATE IZIN (SANTRI)
   // ===============================
-  // IzinService.ts
   async createIzin(data: {
     userId: number;
     kelasId: number;
@@ -67,20 +66,19 @@ export class IzinService {
       throw new Error("Masih ada izin menunggu di hari ini");
     }
 
-    // 3️⃣ VALIDASI KUOTA ABSENSI KELAS
-   // Ambil setting absensi
-const setting = await this.settingService.getByKelas(data.kelasId);
-if (!setting?.maxAbsen) {
-    throw new Error("Setting absensi kelas belum lengkap");
-}
+    // 3️⃣ VALIDASI KUOTA ABSENSI SANTRI
+    const setting = await this.settingService.getByKelas(data.kelasId);
+    if (!setting?.maxAbsen) {
+      throw new Error("Setting absensi kelas belum lengkap");
+    }
 
-// Hitung absensi santri hari ini
-const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(data.userId);
+    const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(
+      data.userId,
+    );
 
-if (userAbsensiHariIni >= setting.maxAbsen) {
-    throw new Error("Kuota absensi Anda hari ini sudah penuh");
-}
-
+    if (userAbsensiHariIni >= setting.maxAbsen) {
+      throw new Error("Kuota absensi Anda hari ini sudah penuh");
+    }
 
     // 4️⃣ SIMPAN IZIN
     return this.izinRepo.create({
@@ -96,47 +94,35 @@ if (userAbsensiHariIni >= setting.maxAbsen) {
   // UPDATE IZIN (PENGAJAR)
   // ===============================
   // IzinService.ts
-  async updateIzinStatus(
-    izinId: number,
-    status: StatusIzin
-  ): Promise<Izin> {
-    const izin = await this.izinRepo.getById(izinId);
-    if (!izin) throw new Error("Izin tidak ditemukan");
-
-    if (izin.status !== StatusIzin.menunggu) {
-      throw new Error("Izin sudah diproses");
-    }
+async updateIzinStatus(izinId: number, status: StatusIzin): Promise<Izin> {
+  const izin = await this.izinRepo.getById(izinId);
+  if (!izin) throw new Error("Izin tidak ditemukan");
+  if (izin.status !== StatusIzin.menunggu) throw new Error("Izin sudah diproses");
 
   if (status === StatusIzin.disetujui) {
-    // Validasi kuota user
-    const setting = await this.settingService.getByKelas(izin.kelasId);
-    if (!setting?.maxAbsen) throw new Error("Setting absensi belum lengkap");
-
-    const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(izin.userId);
-
-    if (userAbsensiHariIni >= setting.maxAbsen) {
-        await this.izinRepo.update(izinId, { status: StatusIzin.ditolak });
-        throw new Error("Izin otomatis ditolak: kuota absensi Anda sudah penuh");
-    }
-
-    // Catat sebagai absensi
+    // Catat sebagai absensi izin
     await this.absensiService.absenIzinDariPersetujuan(
-        izin.userId,
-        izin.kelasId,
-        izin.tanggal,
+      izin.userId,
+      izin.kelasId,
+      izin.tanggal
     );
 
+    // Update status izin jadi disetujui
     await this.izinRepo.update(izinId, { status: StatusIzin.disetujui });
-    izin.status = "disetujui";
-}
-else {
-      await this.izinRepo.update(izinId, { status: StatusIzin.ditolak });
-      izin.status = "ditolak";
-    }
+    izin.status = StatusIzin.disetujui;
 
-    return izin;
+  } else {
+    await this.izinRepo.update(izinId, { status: StatusIzin.ditolak });
+    izin.status = StatusIzin.ditolak;
   }
 
+  return izin;
+}
+
+
+  // ===============================
+  // DELETE IZIN
+  // ===============================
   deleteIzin(id: number) {
     return this.izinRepo.delete(id);
   }

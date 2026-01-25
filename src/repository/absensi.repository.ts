@@ -1,4 +1,4 @@
-import { PrismaClient, Absensi, StatusAbsensi } from "../../dist/generated";
+import { PrismaClient, Absensi, StatusAbsensi, User } from "../../dist/generated";
 
 export class AbsensiRepository {
   constructor(private prisma: PrismaClient) {}
@@ -139,4 +139,49 @@ export class AbsensiRepository {
       where: { kelasId },
     });
   };
+
+  async countUserAbsensiByTanggal(
+    userId: number,
+    tanggal: Date,
+  ): Promise<number> {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
+
+    return this.prisma.absensi.count({
+      where: {
+        userId,
+        tanggal: { gte: start, lte: end },
+      },
+    });
+  }
+
+  async countNonIzinAbsensiByTanggal(
+    userId: number,
+    tanggal: Date,
+  ): Promise<number> {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
+
+    return this.prisma.absensi.count({
+      where: {
+        userId,
+        status: { not: "izin" }, // Hitung hanya hadir/telat/dll
+        tanggal: { gte: start, lte: end },
+      },
+    });
+  }
+
+    async getUsersByKelas(kelasId: number): Promise<User[]> {
+    return this.prisma.user.findMany({
+      where: {
+        kelasId,
+        role: "santri",
+        isActive: true,
+      },
+    });
+  }
 }

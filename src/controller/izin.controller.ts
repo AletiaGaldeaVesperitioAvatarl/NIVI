@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { IzinService } from "../service/izin.service";
 import { successResponse } from "../utils/response";
+import { StatusIzin } from "../../dist/generated";
 
 export class IzinController {
   constructor(private izinService: IzinService) {}
@@ -51,11 +52,13 @@ create = async (req: Request, res: Response) => {
 
 
   // UPDATE IZIN
-  update = async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const data = await this.izinService.updateIzinStatus(id, req.body);
-    successResponse(res, "Izin berhasil diupdate", data);
-  };
+update = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const status: StatusIzin = req.body.status; // ✅ Ambil status saja
+  const data = await this.izinService.updateIzinStatus(id, status);
+  successResponse(res, "Izin berhasil diupdate", data);
+};
+
 
   // DELETE IZIN
   delete = async (req: Request, res: Response) => {
