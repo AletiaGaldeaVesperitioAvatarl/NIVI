@@ -46,33 +46,32 @@ export class UserService {
     return this.userRepository.getStats();
   };
 
-  getSantri = async () =>{
-    return this.userRepository.getSantri()
-  }
+  getSantri = async () => {
+    return this.userRepository.getSantri();
+  };
 
-  getPengajar = async () =>{
-    return this.userRepository.getPengajar()
-  }
+  getPengajar = async () => {
+    return this.userRepository.getPengajar();
+  };
 
-createAdmin = async (data: {
-  name: string;
-  email: string;
-  password: string;
-}) => {
-  const adminExist = await this.userRepository.isAdminExist();
+  createAdmin = async (data: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
+    const adminExist = await this.userRepository.isAdminExist();
 
-  if (adminExist) {
-    throw new Error("Admin sudah ada, tidak bisa membuat admin baru");
-  }
+    if (adminExist) {
+      throw new Error("Admin sudah ada, tidak bisa membuat admin baru");
+    }
 
-  const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
 
-  return this.userRepository.create({
-    name: data.name,
-    email: data.email,
-    password: hashedPassword, // ✅ HASHED
-    role: Role.admin,
-  });
-};
-
+    return this.userRepository.create({
+      name: data.name,
+      email: data.email,
+      password: hashedPassword, // ✅ HASHED
+      role: Role.admin,
+    });
+  };
 }

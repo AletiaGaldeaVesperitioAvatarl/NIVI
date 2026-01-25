@@ -44,7 +44,6 @@ enum StatusIzin {
 
 enum StatusSubmission {
   pending
-  submitted
   reviewed
   rejected
 }
@@ -128,15 +127,14 @@ model MataPelajaran {
 }
 
 model Nilai {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  tugasId   Int
-  nilai     Int
-  catatan   String?
-  createdAt DateTime @default(now())
+  id Int @id @default(autoincrement())
 
-  user  User  @relation(fields: [userId], references: [id])
-  tugas Tugas @relation(fields: [tugasId], references: [id])
+  submissionId Int      @unique
+  nilai        Int
+  catatan      String?
+  createdAt    DateTime @default(now())
+
+  submission Submission @relation(fields: [submissionId], references: [id])
 }
 
 model Notification {
@@ -167,18 +165,24 @@ model Profile {
 }
 
 model Submission {
-  id          Int              @id @default(autoincrement())
-  tugasId     Int
-  userId      Int
-  fileUrl     String?
-  linkUrl     String?
+  id Int @id @default(autoincrement())
+
+  userId  Int
+  tugasId Int
+
+  fileUrl String?
+  linkUrl String?
+
+  status      StatusSubmission @default(pending)
   submittedAt DateTime         @default(now())
-  status      StatusSubmission
 
-  tugas Tugas @relation(fields: [tugasId], references: [id])
+  // Relasi
   user  User  @relation(fields: [userId], references: [id])
+  tugas Tugas @relation(fields: [tugasId], references: [id])
 
-  @@unique([tugasId, userId])
+  nilai Nilai?
+
+  @@unique([userId, tugasId])
 }
 
 model Tugas {
@@ -197,7 +201,6 @@ model Tugas {
   creator       User          @relation("TugasDibuat", fields: [createdBy], references: [id])
 
   submission Submission[]
-  nilai      Nilai[]
 }
 
 model User {
@@ -223,7 +226,6 @@ model User {
   izin          Izin[]
   tugasDibuat   Tugas[]        @relation("TugasDibuat")
   submission    Submission[]
-  nilai         Nilai[]
   log           LogAktivitas[]
   profile       Profile?
   notifications Notification[]

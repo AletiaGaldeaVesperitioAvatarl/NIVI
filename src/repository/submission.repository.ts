@@ -1,66 +1,90 @@
-import { PrismaClient, Submission, StatusSubmission } from "../../dist/generated";
+import { PrismaClient, Prisma, Submission } from "../../dist/generated";
 
 export class SubmissionRepository {
   constructor(private prisma: PrismaClient) {}
 
-  // CREATE SUBMISSION
-  async create(data: {
-    tugasId: number;
-    userId: number;
-    fileUrl?: string;
-    linkUrl?: string;
-    status: StatusSubmission;
-  }): Promise<Submission> {
-    return this.prisma.submission.create({
-      data,
-    });
+  /**
+   * ========== CREATE ==========
+   */
+  create(data: Prisma.SubmissionCreateInput): Promise<Submission> {
+    return this.prisma.submission.create({ data });
   }
 
-  // GET ALL SUBMISSION
-  async findAll(): Promise<Submission[]> {
-    return this.prisma.submission.findMany({
-      include: {
-        user: true,
-        tugas: true,
-      },
-    });
-  }
+  /**
+   * ========== READ ==========
+   */
 
-  // GET SUBMISSION BY ID
-  async findById(id: number): Promise<Submission | null> {
+  // by primary key
+  findById(id: number): Promise<Submission | null> {
     return this.prisma.submission.findUnique({
       where: { id },
       include: {
         user: true,
         tugas: true,
+        nilai: true,
       },
     });
   }
 
-  // GET SUBMISSION BY USER
-  async findByUser(userId: number): Promise<Submission[]> {
+  // dipakai di NilaiService
+  findByUserAndTugas(
+    userId: number,
+    tugasId: number
+  ): Promise<Submission | null> {
+    return this.prisma.submission.findUnique({
+      where: {
+        userId_tugasId: {
+          userId,
+          tugasId,
+        },
+      },
+    });
+  }
+
+  // santri: submission milik sendiri
+  findForSantri(userId: number): Promise<Submission[]> {
     return this.prisma.submission.findMany({
       where: { userId },
       include: {
         tugas: true,
+        nilai: true,
       },
     });
   }
 
-  // GET SUBMISSION BY TUGAS
-  async findByTugas(tugasId: number): Promise<Submission[]> {
+  // pengajar: semua submission dari kelas yang dia ajar
+  findForPengajar(pengajarId: number): Promise<Submission[]> {
     return this.prisma.submission.findMany({
-      where: { tugasId },
+      where: {
+        tugas: {
+          kelas: {
+            pengajar: {
+              some: {
+                id: pengajarId,
+              },
+            },
+          },
+        },
+      },
       include: {
-        user: true,
+        user: true, // santri
+        tugas: {
+          include: {
+            kelas: true,
+            mataPelajaran: true,
+          },
+        },
+        nilai: true,
       },
     });
   }
 
-  // UPDATE STATUS / FILE
-  async update(
+  /**
+   * ========== UPDATE ==========
+   */
+  update(
     id: number,
-    data: Partial<Submission>
+    data: Prisma.SubmissionUpdateInput
   ): Promise<Submission> {
     return this.prisma.submission.update({
       where: { id },
@@ -68,8 +92,10 @@ export class SubmissionRepository {
     });
   }
 
-  // DELETE SUBMISSION
-  async delete(id: number): Promise<Submission> {
+  /**
+   * ========== DELETE ==========
+   */
+  delete(id: number): Promise<Submission> {
     return this.prisma.submission.delete({
       where: { id },
     });

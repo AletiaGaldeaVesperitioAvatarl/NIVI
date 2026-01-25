@@ -180,8 +180,7 @@ exports.Prisma.MataPelajaranScalarFieldEnum = {
 
 exports.Prisma.NilaiScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  tugasId: 'tugasId',
+  submissionId: 'submissionId',
   nilai: 'nilai',
   catatan: 'catatan',
   createdAt: 'createdAt'
@@ -212,12 +211,12 @@ exports.Prisma.ProfileScalarFieldEnum = {
 
 exports.Prisma.SubmissionScalarFieldEnum = {
   id: 'id',
-  tugasId: 'tugasId',
   userId: 'userId',
+  tugasId: 'tugasId',
   fileUrl: 'fileUrl',
   linkUrl: 'linkUrl',
-  submittedAt: 'submittedAt',
-  status: 'status'
+  status: 'status',
+  submittedAt: 'submittedAt'
 };
 
 exports.Prisma.TugasScalarFieldEnum = {
@@ -285,7 +284,6 @@ exports.Hari = exports.$Enums.Hari = {
 
 exports.StatusSubmission = exports.$Enums.StatusSubmission = {
   pending: 'pending',
-  submitted: 'submitted',
   reviewed: 'reviewed',
   rejected: 'rejected'
 };

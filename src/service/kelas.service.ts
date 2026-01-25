@@ -31,22 +31,25 @@ export class KelasService {
   deleteKelas = async (id: number): Promise<Kelas> => {
     return this.kelasRepository.delete(id);
   };
-assignPengajarKeKelas = async (
-  kelasId: number,
-  pengajarIds: number | number[]
-) => {
-  const kelas = await this.kelasRepository.getById(kelasId);
-  if (!kelas) throw new Error("Kelas tidak ditemukan");
+  assignPengajarKeKelas = async (
+    kelasId: number,
+    pengajarIds: number | number[],
+  ) => {
+    const kelas = await this.kelasRepository.getById(kelasId);
+    if (!kelas) throw new Error("Kelas tidak ditemukan");
 
-  return this.kelasRepository.assignPengajar(kelasId, pengajarIds);
-};
-
+    return this.kelasRepository.assignPengajar(kelasId, pengajarIds);
+  };
 
   setPengajarKelas = async (kelasId: number, pengajarIds: number[]) => {
-  const kelas = await this.kelasRepository.getById(kelasId);
-  if (!kelas) throw new Error("Kelas tidak ditemukan");
+    const kelas = await this.kelasRepository.getById(kelasId);
+    if (!kelas) throw new Error("Kelas tidak ditemukan");
 
-  return this.kelasRepository.setPengajar(kelasId, pengajarIds);
+    return this.kelasRepository.setPengajar(kelasId, pengajarIds);
+  };
+
+  getKelasByPengajar = (pengajarId: number) => {
+  return this.kelasRepository.getKelasByPengajar(pengajarId);
 };
 
 }

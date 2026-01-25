@@ -113,7 +113,6 @@ export type StatusIzin = (typeof StatusIzin)[keyof typeof StatusIzin]
 
 export const StatusSubmission: {
   pending: 'pending',
-  submitted: 'submitted',
   reviewed: 'reviewed',
   rejected: 'rejected'
 };
@@ -2169,12 +2168,10 @@ export namespace Prisma {
 
   export type TugasCountOutputType = {
     submission: number
-    nilai: number
   }
 
   export type TugasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     submission?: boolean | TugasCountOutputTypeCountSubmissionArgs
-    nilai?: boolean | TugasCountOutputTypeCountNilaiArgs
   }
 
   // Custom InputTypes
@@ -2195,13 +2192,6 @@ export namespace Prisma {
     where?: SubmissionWhereInput
   }
 
-  /**
-   * TugasCountOutputType without action
-   */
-  export type TugasCountOutputTypeCountNilaiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NilaiWhereInput
-  }
-
 
   /**
    * Count Type UserCountOutputType
@@ -2213,7 +2203,6 @@ export namespace Prisma {
     izin: number
     tugasDibuat: number
     submission: number
-    nilai: number
     log: number
     notifications: number
   }
@@ -2224,7 +2213,6 @@ export namespace Prisma {
     izin?: boolean | UserCountOutputTypeCountIzinArgs
     tugasDibuat?: boolean | UserCountOutputTypeCountTugasDibuatArgs
     submission?: boolean | UserCountOutputTypeCountSubmissionArgs
-    nilai?: boolean | UserCountOutputTypeCountNilaiArgs
     log?: boolean | UserCountOutputTypeCountLogArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   }
@@ -2273,13 +2261,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SubmissionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNilaiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NilaiWhereInput
   }
 
   /**
@@ -10281,22 +10262,19 @@ export namespace Prisma {
 
   export type NilaiAvgAggregateOutputType = {
     id: number | null
-    userId: number | null
-    tugasId: number | null
+    submissionId: number | null
     nilai: number | null
   }
 
   export type NilaiSumAggregateOutputType = {
     id: number | null
-    userId: number | null
-    tugasId: number | null
+    submissionId: number | null
     nilai: number | null
   }
 
   export type NilaiMinAggregateOutputType = {
     id: number | null
-    userId: number | null
-    tugasId: number | null
+    submissionId: number | null
     nilai: number | null
     catatan: string | null
     createdAt: Date | null
@@ -10304,8 +10282,7 @@ export namespace Prisma {
 
   export type NilaiMaxAggregateOutputType = {
     id: number | null
-    userId: number | null
-    tugasId: number | null
+    submissionId: number | null
     nilai: number | null
     catatan: string | null
     createdAt: Date | null
@@ -10313,8 +10290,7 @@ export namespace Prisma {
 
   export type NilaiCountAggregateOutputType = {
     id: number
-    userId: number
-    tugasId: number
+    submissionId: number
     nilai: number
     catatan: number
     createdAt: number
@@ -10324,22 +10300,19 @@ export namespace Prisma {
 
   export type NilaiAvgAggregateInputType = {
     id?: true
-    userId?: true
-    tugasId?: true
+    submissionId?: true
     nilai?: true
   }
 
   export type NilaiSumAggregateInputType = {
     id?: true
-    userId?: true
-    tugasId?: true
+    submissionId?: true
     nilai?: true
   }
 
   export type NilaiMinAggregateInputType = {
     id?: true
-    userId?: true
-    tugasId?: true
+    submissionId?: true
     nilai?: true
     catatan?: true
     createdAt?: true
@@ -10347,8 +10320,7 @@ export namespace Prisma {
 
   export type NilaiMaxAggregateInputType = {
     id?: true
-    userId?: true
-    tugasId?: true
+    submissionId?: true
     nilai?: true
     catatan?: true
     createdAt?: true
@@ -10356,8 +10328,7 @@ export namespace Prisma {
 
   export type NilaiCountAggregateInputType = {
     id?: true
-    userId?: true
-    tugasId?: true
+    submissionId?: true
     nilai?: true
     catatan?: true
     createdAt?: true
@@ -10452,8 +10423,7 @@ export namespace Prisma {
 
   export type NilaiGroupByOutputType = {
     id: number
-    userId: number
-    tugasId: number
+    submissionId: number
     nilai: number
     catatan: string | null
     createdAt: Date
@@ -10480,70 +10450,58 @@ export namespace Prisma {
 
   export type NilaiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    tugasId?: boolean
+    submissionId?: boolean
     nilai?: boolean
     catatan?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nilai"]>
 
   export type NilaiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    tugasId?: boolean
+    submissionId?: boolean
     nilai?: boolean
     catatan?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nilai"]>
 
   export type NilaiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    userId?: boolean
-    tugasId?: boolean
+    submissionId?: boolean
     nilai?: boolean
     catatan?: boolean
     createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["nilai"]>
 
   export type NilaiSelectScalar = {
     id?: boolean
-    userId?: boolean
-    tugasId?: boolean
+    submissionId?: boolean
     nilai?: boolean
     catatan?: boolean
     createdAt?: boolean
   }
 
-  export type NilaiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tugasId" | "nilai" | "catatan" | "createdAt", ExtArgs["result"]["nilai"]>
+  export type NilaiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "submissionId" | "nilai" | "catatan" | "createdAt", ExtArgs["result"]["nilai"]>
   export type NilaiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }
   export type NilaiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }
   export type NilaiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submission?: boolean | SubmissionDefaultArgs<ExtArgs>
   }
 
   export type $NilaiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Nilai"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      tugas: Prisma.$TugasPayload<ExtArgs>
+      submission: Prisma.$SubmissionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      userId: number
-      tugasId: number
+      submissionId: number
       nilai: number
       catatan: string | null
       createdAt: Date
@@ -10941,8 +10899,7 @@ export namespace Prisma {
    */
   export interface Prisma__NilaiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    tugas<T extends TugasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TugasDefaultArgs<ExtArgs>>): Prisma__TugasClient<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    submission<T extends SubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubmissionDefaultArgs<ExtArgs>>): Prisma__SubmissionClient<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10973,8 +10930,7 @@ export namespace Prisma {
    */
   interface NilaiFieldRefs {
     readonly id: FieldRef<"Nilai", 'Int'>
-    readonly userId: FieldRef<"Nilai", 'Int'>
-    readonly tugasId: FieldRef<"Nilai", 'Int'>
+    readonly submissionId: FieldRef<"Nilai", 'Int'>
     readonly nilai: FieldRef<"Nilai", 'Int'>
     readonly catatan: FieldRef<"Nilai", 'String'>
     readonly createdAt: FieldRef<"Nilai", 'DateTime'>
@@ -13689,88 +13645,88 @@ export namespace Prisma {
 
   export type SubmissionAvgAggregateOutputType = {
     id: number | null
-    tugasId: number | null
     userId: number | null
+    tugasId: number | null
   }
 
   export type SubmissionSumAggregateOutputType = {
     id: number | null
-    tugasId: number | null
     userId: number | null
+    tugasId: number | null
   }
 
   export type SubmissionMinAggregateOutputType = {
     id: number | null
-    tugasId: number | null
     userId: number | null
+    tugasId: number | null
     fileUrl: string | null
     linkUrl: string | null
-    submittedAt: Date | null
     status: $Enums.StatusSubmission | null
+    submittedAt: Date | null
   }
 
   export type SubmissionMaxAggregateOutputType = {
     id: number | null
-    tugasId: number | null
     userId: number | null
+    tugasId: number | null
     fileUrl: string | null
     linkUrl: string | null
-    submittedAt: Date | null
     status: $Enums.StatusSubmission | null
+    submittedAt: Date | null
   }
 
   export type SubmissionCountAggregateOutputType = {
     id: number
-    tugasId: number
     userId: number
+    tugasId: number
     fileUrl: number
     linkUrl: number
-    submittedAt: number
     status: number
+    submittedAt: number
     _all: number
   }
 
 
   export type SubmissionAvgAggregateInputType = {
     id?: true
-    tugasId?: true
     userId?: true
+    tugasId?: true
   }
 
   export type SubmissionSumAggregateInputType = {
     id?: true
-    tugasId?: true
     userId?: true
+    tugasId?: true
   }
 
   export type SubmissionMinAggregateInputType = {
     id?: true
-    tugasId?: true
     userId?: true
+    tugasId?: true
     fileUrl?: true
     linkUrl?: true
-    submittedAt?: true
     status?: true
+    submittedAt?: true
   }
 
   export type SubmissionMaxAggregateInputType = {
     id?: true
-    tugasId?: true
     userId?: true
+    tugasId?: true
     fileUrl?: true
     linkUrl?: true
-    submittedAt?: true
     status?: true
+    submittedAt?: true
   }
 
   export type SubmissionCountAggregateInputType = {
     id?: true
-    tugasId?: true
     userId?: true
+    tugasId?: true
     fileUrl?: true
     linkUrl?: true
-    submittedAt?: true
     status?: true
+    submittedAt?: true
     _all?: true
   }
 
@@ -13862,12 +13818,12 @@ export namespace Prisma {
 
   export type SubmissionGroupByOutputType = {
     id: number
-    tugasId: number
     userId: number
+    tugasId: number
     fileUrl: string | null
     linkUrl: string | null
-    submittedAt: Date
     status: $Enums.StatusSubmission
+    submittedAt: Date
     _count: SubmissionCountAggregateOutputType | null
     _avg: SubmissionAvgAggregateOutputType | null
     _sum: SubmissionSumAggregateOutputType | null
@@ -13891,78 +13847,81 @@ export namespace Prisma {
 
   export type SubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tugasId?: boolean
     userId?: boolean
+    tugasId?: boolean
     fileUrl?: boolean
     linkUrl?: boolean
-    submittedAt?: boolean
     status?: boolean
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submittedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    nilai?: boolean | Submission$nilaiArgs<ExtArgs>
   }, ExtArgs["result"]["submission"]>
 
   export type SubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tugasId?: boolean
     userId?: boolean
+    tugasId?: boolean
     fileUrl?: boolean
     linkUrl?: boolean
-    submittedAt?: boolean
     status?: boolean
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submittedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["submission"]>
 
   export type SubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    tugasId?: boolean
     userId?: boolean
+    tugasId?: boolean
     fileUrl?: boolean
     linkUrl?: boolean
-    submittedAt?: boolean
     status?: boolean
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    submittedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["submission"]>
 
   export type SubmissionSelectScalar = {
     id?: boolean
-    tugasId?: boolean
     userId?: boolean
+    tugasId?: boolean
     fileUrl?: boolean
     linkUrl?: boolean
-    submittedAt?: boolean
     status?: boolean
+    submittedAt?: boolean
   }
 
-  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tugasId" | "userId" | "fileUrl" | "linkUrl" | "submittedAt" | "status", ExtArgs["result"]["submission"]>
+  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tugasId" | "fileUrl" | "linkUrl" | "status" | "submittedAt", ExtArgs["result"]["submission"]>
   export type SubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
+    nilai?: boolean | Submission$nilaiArgs<ExtArgs>
   }
   export type SubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }
   export type SubmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    tugas?: boolean | TugasDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }
 
   export type $SubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Submission"
     objects: {
-      tugas: Prisma.$TugasPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      tugas: Prisma.$TugasPayload<ExtArgs>
+      nilai: Prisma.$NilaiPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      tugasId: number
       userId: number
+      tugasId: number
       fileUrl: string | null
       linkUrl: string | null
-      submittedAt: Date
       status: $Enums.StatusSubmission
+      submittedAt: Date
     }, ExtArgs["result"]["submission"]>
     composites: {}
   }
@@ -14357,8 +14316,9 @@ export namespace Prisma {
    */
   export interface Prisma__SubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    tugas<T extends TugasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TugasDefaultArgs<ExtArgs>>): Prisma__TugasClient<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tugas<T extends TugasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TugasDefaultArgs<ExtArgs>>): Prisma__TugasClient<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    nilai<T extends Submission$nilaiArgs<ExtArgs> = {}>(args?: Subset<T, Submission$nilaiArgs<ExtArgs>>): Prisma__NilaiClient<$Result.GetResult<Prisma.$NilaiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14389,12 +14349,12 @@ export namespace Prisma {
    */
   interface SubmissionFieldRefs {
     readonly id: FieldRef<"Submission", 'Int'>
-    readonly tugasId: FieldRef<"Submission", 'Int'>
     readonly userId: FieldRef<"Submission", 'Int'>
+    readonly tugasId: FieldRef<"Submission", 'Int'>
     readonly fileUrl: FieldRef<"Submission", 'String'>
     readonly linkUrl: FieldRef<"Submission", 'String'>
-    readonly submittedAt: FieldRef<"Submission", 'DateTime'>
     readonly status: FieldRef<"Submission", 'StatusSubmission'>
+    readonly submittedAt: FieldRef<"Submission", 'DateTime'>
   }
     
 
@@ -14791,6 +14751,25 @@ export namespace Prisma {
   }
 
   /**
+   * Submission.nilai
+   */
+  export type Submission$nilaiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nilai
+     */
+    select?: NilaiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nilai
+     */
+    omit?: NilaiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NilaiInclude<ExtArgs> | null
+    where?: NilaiWhereInput
+  }
+
+  /**
    * Submission without action
    */
   export type SubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15047,7 +15026,6 @@ export namespace Prisma {
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     submission?: boolean | Tugas$submissionArgs<ExtArgs>
-    nilai?: boolean | Tugas$nilaiArgs<ExtArgs>
     _count?: boolean | TugasCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tugas"]>
 
@@ -15096,7 +15074,6 @@ export namespace Prisma {
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
     submission?: boolean | Tugas$submissionArgs<ExtArgs>
-    nilai?: boolean | Tugas$nilaiArgs<ExtArgs>
     _count?: boolean | TugasCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TugasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15117,7 +15094,6 @@ export namespace Prisma {
       mataPelajaran: Prisma.$MataPelajaranPayload<ExtArgs>
       creator: Prisma.$UserPayload<ExtArgs>
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
-      nilai: Prisma.$NilaiPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -15526,7 +15502,6 @@ export namespace Prisma {
     mataPelajaran<T extends MataPelajaranDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MataPelajaranDefaultArgs<ExtArgs>>): Prisma__MataPelajaranClient<$Result.GetResult<Prisma.$MataPelajaranPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     submission<T extends Tugas$submissionArgs<ExtArgs> = {}>(args?: Subset<T, Tugas$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    nilai<T extends Tugas$nilaiArgs<ExtArgs> = {}>(args?: Subset<T, Tugas$nilaiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NilaiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15984,30 +15959,6 @@ export namespace Prisma {
   }
 
   /**
-   * Tugas.nilai
-   */
-  export type Tugas$nilaiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Nilai
-     */
-    select?: NilaiSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Nilai
-     */
-    omit?: NilaiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NilaiInclude<ExtArgs> | null
-    where?: NilaiWhereInput
-    orderBy?: NilaiOrderByWithRelationInput | NilaiOrderByWithRelationInput[]
-    cursor?: NilaiWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NilaiScalarFieldEnum | NilaiScalarFieldEnum[]
-  }
-
-  /**
    * Tugas without action
    */
   export type TugasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16290,7 +16241,6 @@ export namespace Prisma {
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
-    nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
@@ -16352,7 +16302,6 @@ export namespace Prisma {
     izin?: boolean | User$izinArgs<ExtArgs>
     tugasDibuat?: boolean | User$tugasDibuatArgs<ExtArgs>
     submission?: boolean | User$submissionArgs<ExtArgs>
-    nilai?: boolean | User$nilaiArgs<ExtArgs>
     log?: boolean | User$logArgs<ExtArgs>
     profile?: boolean | User$profileArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
@@ -16374,7 +16323,6 @@ export namespace Prisma {
       izin: Prisma.$IzinPayload<ExtArgs>[]
       tugasDibuat: Prisma.$TugasPayload<ExtArgs>[]
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
-      nilai: Prisma.$NilaiPayload<ExtArgs>[]
       log: Prisma.$LogAktivitasPayload<ExtArgs>[]
       profile: Prisma.$ProfilePayload<ExtArgs> | null
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
@@ -16792,7 +16740,6 @@ export namespace Prisma {
     izin<T extends User$izinArgs<ExtArgs> = {}>(args?: Subset<T, User$izinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tugasDibuat<T extends User$tugasDibuatArgs<ExtArgs> = {}>(args?: Subset<T, User$tugasDibuatArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TugasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     submission<T extends User$submissionArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    nilai<T extends User$nilaiArgs<ExtArgs> = {}>(args?: Subset<T, User$nilaiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NilaiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     log<T extends User$logArgs<ExtArgs> = {}>(args?: Subset<T, User$logArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAktivitasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -17372,30 +17319,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.nilai
-   */
-  export type User$nilaiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Nilai
-     */
-    select?: NilaiSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Nilai
-     */
-    omit?: NilaiOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NilaiInclude<ExtArgs> | null
-    where?: NilaiWhereInput
-    orderBy?: NilaiOrderByWithRelationInput | NilaiOrderByWithRelationInput[]
-    cursor?: NilaiWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NilaiScalarFieldEnum | NilaiScalarFieldEnum[]
-  }
-
-  /**
    * User.log
    */
   export type User$logArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17576,8 +17499,7 @@ export namespace Prisma {
 
   export const NilaiScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
-    tugasId: 'tugasId',
+    submissionId: 'submissionId',
     nilai: 'nilai',
     catatan: 'catatan',
     createdAt: 'createdAt'
@@ -17617,12 +17539,12 @@ export namespace Prisma {
 
   export const SubmissionScalarFieldEnum: {
     id: 'id',
-    tugasId: 'tugasId',
     userId: 'userId',
+    tugasId: 'tugasId',
     fileUrl: 'fileUrl',
     linkUrl: 'linkUrl',
-    submittedAt: 'submittedAt',
-    status: 'status'
+    status: 'status',
+    submittedAt: 'submittedAt'
   };
 
   export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
@@ -18270,44 +18192,37 @@ export namespace Prisma {
     OR?: NilaiWhereInput[]
     NOT?: NilaiWhereInput | NilaiWhereInput[]
     id?: IntFilter<"Nilai"> | number
-    userId?: IntFilter<"Nilai"> | number
-    tugasId?: IntFilter<"Nilai"> | number
+    submissionId?: IntFilter<"Nilai"> | number
     nilai?: IntFilter<"Nilai"> | number
     catatan?: StringNullableFilter<"Nilai"> | string | null
     createdAt?: DateTimeFilter<"Nilai"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
+    submission?: XOR<SubmissionScalarRelationFilter, SubmissionWhereInput>
   }
 
   export type NilaiOrderByWithRelationInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
     catatan?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-    tugas?: TugasOrderByWithRelationInput
+    submission?: SubmissionOrderByWithRelationInput
   }
 
   export type NilaiWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    submissionId?: number
     AND?: NilaiWhereInput | NilaiWhereInput[]
     OR?: NilaiWhereInput[]
     NOT?: NilaiWhereInput | NilaiWhereInput[]
-    userId?: IntFilter<"Nilai"> | number
-    tugasId?: IntFilter<"Nilai"> | number
     nilai?: IntFilter<"Nilai"> | number
     catatan?: StringNullableFilter<"Nilai"> | string | null
     createdAt?: DateTimeFilter<"Nilai"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
-  }, "id">
+    submission?: XOR<SubmissionScalarRelationFilter, SubmissionWhereInput>
+  }, "id" | "submissionId">
 
   export type NilaiOrderByWithAggregationInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
     catatan?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -18323,8 +18238,7 @@ export namespace Prisma {
     OR?: NilaiScalarWhereWithAggregatesInput[]
     NOT?: NilaiScalarWhereWithAggregatesInput | NilaiScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Nilai"> | number
-    userId?: IntWithAggregatesFilter<"Nilai"> | number
-    tugasId?: IntWithAggregatesFilter<"Nilai"> | number
+    submissionId?: IntWithAggregatesFilter<"Nilai"> | number
     nilai?: IntWithAggregatesFilter<"Nilai"> | number
     catatan?: StringNullableWithAggregatesFilter<"Nilai"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Nilai"> | Date | string
@@ -18484,52 +18398,55 @@ export namespace Prisma {
     OR?: SubmissionWhereInput[]
     NOT?: SubmissionWhereInput | SubmissionWhereInput[]
     id?: IntFilter<"Submission"> | number
-    tugasId?: IntFilter<"Submission"> | number
     userId?: IntFilter<"Submission"> | number
+    tugasId?: IntFilter<"Submission"> | number
     fileUrl?: StringNullableFilter<"Submission"> | string | null
     linkUrl?: StringNullableFilter<"Submission"> | string | null
-    submittedAt?: DateTimeFilter<"Submission"> | Date | string
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
-    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
+    submittedAt?: DateTimeFilter<"Submission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
+    nilai?: XOR<NilaiNullableScalarRelationFilter, NilaiWhereInput> | null
   }
 
   export type SubmissionOrderByWithRelationInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
     fileUrl?: SortOrderInput | SortOrder
     linkUrl?: SortOrderInput | SortOrder
-    submittedAt?: SortOrder
     status?: SortOrder
-    tugas?: TugasOrderByWithRelationInput
+    submittedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    tugas?: TugasOrderByWithRelationInput
+    nilai?: NilaiOrderByWithRelationInput
   }
 
   export type SubmissionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    tugasId_userId?: SubmissionTugasIdUserIdCompoundUniqueInput
+    userId_tugasId?: SubmissionUserIdTugasIdCompoundUniqueInput
     AND?: SubmissionWhereInput | SubmissionWhereInput[]
     OR?: SubmissionWhereInput[]
     NOT?: SubmissionWhereInput | SubmissionWhereInput[]
-    tugasId?: IntFilter<"Submission"> | number
     userId?: IntFilter<"Submission"> | number
+    tugasId?: IntFilter<"Submission"> | number
     fileUrl?: StringNullableFilter<"Submission"> | string | null
     linkUrl?: StringNullableFilter<"Submission"> | string | null
-    submittedAt?: DateTimeFilter<"Submission"> | Date | string
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
-    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
+    submittedAt?: DateTimeFilter<"Submission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "tugasId_userId">
+    tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
+    nilai?: XOR<NilaiNullableScalarRelationFilter, NilaiWhereInput> | null
+  }, "id" | "userId_tugasId">
 
   export type SubmissionOrderByWithAggregationInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
     fileUrl?: SortOrderInput | SortOrder
     linkUrl?: SortOrderInput | SortOrder
-    submittedAt?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
     _count?: SubmissionCountOrderByAggregateInput
     _avg?: SubmissionAvgOrderByAggregateInput
     _max?: SubmissionMaxOrderByAggregateInput
@@ -18542,12 +18459,12 @@ export namespace Prisma {
     OR?: SubmissionScalarWhereWithAggregatesInput[]
     NOT?: SubmissionScalarWhereWithAggregatesInput | SubmissionScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Submission"> | number
-    tugasId?: IntWithAggregatesFilter<"Submission"> | number
     userId?: IntWithAggregatesFilter<"Submission"> | number
+    tugasId?: IntWithAggregatesFilter<"Submission"> | number
     fileUrl?: StringNullableWithAggregatesFilter<"Submission"> | string | null
     linkUrl?: StringNullableWithAggregatesFilter<"Submission"> | string | null
-    submittedAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
     status?: EnumStatusSubmissionWithAggregatesFilter<"Submission"> | $Enums.StatusSubmission
+    submittedAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
   }
 
   export type TugasWhereInput = {
@@ -18566,7 +18483,6 @@ export namespace Prisma {
     mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     submission?: SubmissionListRelationFilter
-    nilai?: NilaiListRelationFilter
   }
 
   export type TugasOrderByWithRelationInput = {
@@ -18582,7 +18498,6 @@ export namespace Prisma {
     mataPelajaran?: MataPelajaranOrderByWithRelationInput
     creator?: UserOrderByWithRelationInput
     submission?: SubmissionOrderByRelationAggregateInput
-    nilai?: NilaiOrderByRelationAggregateInput
   }
 
   export type TugasWhereUniqueInput = Prisma.AtLeast<{
@@ -18601,7 +18516,6 @@ export namespace Prisma {
     mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
     submission?: SubmissionListRelationFilter
-    nilai?: NilaiListRelationFilter
   }, "id">
 
   export type TugasOrderByWithAggregationInput = {
@@ -18656,7 +18570,6 @@ export namespace Prisma {
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
     submission?: SubmissionListRelationFilter
-    nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     notifications?: NotificationListRelationFilter
@@ -18681,7 +18594,6 @@ export namespace Prisma {
     izin?: IzinOrderByRelationAggregateInput
     tugasDibuat?: TugasOrderByRelationAggregateInput
     submission?: SubmissionOrderByRelationAggregateInput
-    nilai?: NilaiOrderByRelationAggregateInput
     log?: LogAktivitasOrderByRelationAggregateInput
     profile?: ProfileOrderByWithRelationInput
     notifications?: NotificationOrderByRelationAggregateInput
@@ -18709,7 +18621,6 @@ export namespace Prisma {
     izin?: IzinListRelationFilter
     tugasDibuat?: TugasListRelationFilter
     submission?: SubmissionListRelationFilter
-    nilai?: NilaiListRelationFilter
     log?: LogAktivitasListRelationFilter
     profile?: XOR<ProfileNullableScalarRelationFilter, ProfileWhereInput> | null
     notifications?: NotificationListRelationFilter
@@ -19170,14 +19081,12 @@ export namespace Prisma {
     nilai: number
     catatan?: string | null
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutNilaiInput
-    tugas: TugasCreateNestedOneWithoutNilaiInput
+    submission: SubmissionCreateNestedOneWithoutNilaiInput
   }
 
   export type NilaiUncheckedCreateInput = {
     id?: number
-    userId: number
-    tugasId: number
+    submissionId: number
     nilai: number
     catatan?: string | null
     createdAt?: Date | string
@@ -19187,14 +19096,12 @@ export namespace Prisma {
     nilai?: IntFieldUpdateOperationsInput | number
     catatan?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutNilaiNestedInput
-    tugas?: TugasUpdateOneRequiredWithoutNilaiNestedInput
+    submission?: SubmissionUpdateOneRequiredWithoutNilaiNestedInput
   }
 
   export type NilaiUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
+    submissionId?: IntFieldUpdateOperationsInput | number
     nilai?: IntFieldUpdateOperationsInput | number
     catatan?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19202,8 +19109,7 @@ export namespace Prisma {
 
   export type NilaiCreateManyInput = {
     id?: number
-    userId: number
-    tugasId: number
+    submissionId: number
     nilai: number
     catatan?: string | null
     createdAt?: Date | string
@@ -19217,8 +19123,7 @@ export namespace Prisma {
 
   export type NilaiUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
+    submissionId?: IntFieldUpdateOperationsInput | number
     nilai?: IntFieldUpdateOperationsInput | number
     catatan?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19380,66 +19285,70 @@ export namespace Prisma {
   export type SubmissionCreateInput = {
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
-    tugas: TugasCreateNestedOneWithoutSubmissionInput
     user: UserCreateNestedOneWithoutSubmissionInput
+    tugas: TugasCreateNestedOneWithoutSubmissionInput
+    nilai?: NilaiCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionUncheckedCreateInput = {
     id?: number
-    tugasId: number
     userId: number
+    tugasId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
+    nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionUpdateInput = {
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
-    tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
+    tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
+    nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    tugasId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionCreateManyInput = {
     id?: number
-    tugasId: number
     userId: number
+    tugasId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
   }
 
   export type SubmissionUpdateManyMutationInput = {
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubmissionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    tugasId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TugasCreateInput = {
@@ -19451,7 +19360,6 @@ export namespace Prisma {
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
-    nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateInput = {
@@ -19464,7 +19372,6 @@ export namespace Prisma {
     createdBy: number
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUpdateInput = {
@@ -19476,7 +19383,6 @@ export namespace Prisma {
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateInput = {
@@ -19489,7 +19395,6 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasCreateManyInput = {
@@ -19538,7 +19443,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -19562,7 +19466,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -19585,7 +19488,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -19609,7 +19511,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -20182,15 +20083,14 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type TugasScalarRelationFilter = {
-    is?: TugasWhereInput
-    isNot?: TugasWhereInput
+  export type SubmissionScalarRelationFilter = {
+    is?: SubmissionWhereInput
+    isNot?: SubmissionWhereInput
   }
 
   export type NilaiCountOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
     catatan?: SortOrder
     createdAt?: SortOrder
@@ -20198,15 +20098,13 @@ export namespace Prisma {
 
   export type NilaiAvgOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
   }
 
   export type NilaiMaxOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
     catatan?: SortOrder
     createdAt?: SortOrder
@@ -20214,8 +20112,7 @@ export namespace Prisma {
 
   export type NilaiMinOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
     catatan?: SortOrder
     createdAt?: SortOrder
@@ -20223,8 +20120,7 @@ export namespace Prisma {
 
   export type NilaiSumOrderByAggregateInput = {
     id?: SortOrder
-    userId?: SortOrder
-    tugasId?: SortOrder
+    submissionId?: SortOrder
     nilai?: SortOrder
   }
 
@@ -20362,51 +20258,61 @@ export namespace Prisma {
     not?: NestedEnumStatusSubmissionFilter<$PrismaModel> | $Enums.StatusSubmission
   }
 
-  export type SubmissionTugasIdUserIdCompoundUniqueInput = {
-    tugasId: number
+  export type TugasScalarRelationFilter = {
+    is?: TugasWhereInput
+    isNot?: TugasWhereInput
+  }
+
+  export type NilaiNullableScalarRelationFilter = {
+    is?: NilaiWhereInput | null
+    isNot?: NilaiWhereInput | null
+  }
+
+  export type SubmissionUserIdTugasIdCompoundUniqueInput = {
     userId: number
+    tugasId: number
   }
 
   export type SubmissionCountOrderByAggregateInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
     fileUrl?: SortOrder
     linkUrl?: SortOrder
-    submittedAt?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
   }
 
   export type SubmissionAvgOrderByAggregateInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
   }
 
   export type SubmissionMaxOrderByAggregateInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
     fileUrl?: SortOrder
     linkUrl?: SortOrder
-    submittedAt?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
   }
 
   export type SubmissionMinOrderByAggregateInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
     fileUrl?: SortOrder
     linkUrl?: SortOrder
-    submittedAt?: SortOrder
     status?: SortOrder
+    submittedAt?: SortOrder
   }
 
   export type SubmissionSumOrderByAggregateInput = {
     id?: SortOrder
-    tugasId?: SortOrder
     userId?: SortOrder
+    tugasId?: SortOrder
   }
 
   export type EnumStatusSubmissionWithAggregatesFilter<$PrismaModel = never> = {
@@ -20430,17 +20336,7 @@ export namespace Prisma {
     none?: SubmissionWhereInput
   }
 
-  export type NilaiListRelationFilter = {
-    every?: NilaiWhereInput
-    some?: NilaiWhereInput
-    none?: NilaiWhereInput
-  }
-
   export type SubmissionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NilaiOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21121,32 +21017,18 @@ export namespace Prisma {
     deleteMany?: TugasScalarWhereInput | TugasScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutNilaiInput = {
-    create?: XOR<UserCreateWithoutNilaiInput, UserUncheckedCreateWithoutNilaiInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNilaiInput
-    connect?: UserWhereUniqueInput
+  export type SubmissionCreateNestedOneWithoutNilaiInput = {
+    create?: XOR<SubmissionCreateWithoutNilaiInput, SubmissionUncheckedCreateWithoutNilaiInput>
+    connectOrCreate?: SubmissionCreateOrConnectWithoutNilaiInput
+    connect?: SubmissionWhereUniqueInput
   }
 
-  export type TugasCreateNestedOneWithoutNilaiInput = {
-    create?: XOR<TugasCreateWithoutNilaiInput, TugasUncheckedCreateWithoutNilaiInput>
-    connectOrCreate?: TugasCreateOrConnectWithoutNilaiInput
-    connect?: TugasWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutNilaiNestedInput = {
-    create?: XOR<UserCreateWithoutNilaiInput, UserUncheckedCreateWithoutNilaiInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNilaiInput
-    upsert?: UserUpsertWithoutNilaiInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNilaiInput, UserUpdateWithoutNilaiInput>, UserUncheckedUpdateWithoutNilaiInput>
-  }
-
-  export type TugasUpdateOneRequiredWithoutNilaiNestedInput = {
-    create?: XOR<TugasCreateWithoutNilaiInput, TugasUncheckedCreateWithoutNilaiInput>
-    connectOrCreate?: TugasCreateOrConnectWithoutNilaiInput
-    upsert?: TugasUpsertWithoutNilaiInput
-    connect?: TugasWhereUniqueInput
-    update?: XOR<XOR<TugasUpdateToOneWithWhereWithoutNilaiInput, TugasUpdateWithoutNilaiInput>, TugasUncheckedUpdateWithoutNilaiInput>
+  export type SubmissionUpdateOneRequiredWithoutNilaiNestedInput = {
+    create?: XOR<SubmissionCreateWithoutNilaiInput, SubmissionUncheckedCreateWithoutNilaiInput>
+    connectOrCreate?: SubmissionCreateOrConnectWithoutNilaiInput
+    upsert?: SubmissionUpsertWithoutNilaiInput
+    connect?: SubmissionWhereUniqueInput
+    update?: XOR<XOR<SubmissionUpdateToOneWithWhereWithoutNilaiInput, SubmissionUpdateWithoutNilaiInput>, SubmissionUncheckedUpdateWithoutNilaiInput>
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -21185,20 +21067,40 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfileInput, UserUpdateWithoutProfileInput>, UserUncheckedUpdateWithoutProfileInput>
   }
 
-  export type TugasCreateNestedOneWithoutSubmissionInput = {
-    create?: XOR<TugasCreateWithoutSubmissionInput, TugasUncheckedCreateWithoutSubmissionInput>
-    connectOrCreate?: TugasCreateOrConnectWithoutSubmissionInput
-    connect?: TugasWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutSubmissionInput = {
     create?: XOR<UserCreateWithoutSubmissionInput, UserUncheckedCreateWithoutSubmissionInput>
     connectOrCreate?: UserCreateOrConnectWithoutSubmissionInput
     connect?: UserWhereUniqueInput
   }
 
+  export type TugasCreateNestedOneWithoutSubmissionInput = {
+    create?: XOR<TugasCreateWithoutSubmissionInput, TugasUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: TugasCreateOrConnectWithoutSubmissionInput
+    connect?: TugasWhereUniqueInput
+  }
+
+  export type NilaiCreateNestedOneWithoutSubmissionInput = {
+    create?: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: NilaiCreateOrConnectWithoutSubmissionInput
+    connect?: NilaiWhereUniqueInput
+  }
+
+  export type NilaiUncheckedCreateNestedOneWithoutSubmissionInput = {
+    create?: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: NilaiCreateOrConnectWithoutSubmissionInput
+    connect?: NilaiWhereUniqueInput
+  }
+
   export type EnumStatusSubmissionFieldUpdateOperationsInput = {
     set?: $Enums.StatusSubmission
+  }
+
+  export type UserUpdateOneRequiredWithoutSubmissionNestedInput = {
+    create?: XOR<UserCreateWithoutSubmissionInput, UserUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubmissionInput
+    upsert?: UserUpsertWithoutSubmissionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubmissionInput, UserUpdateWithoutSubmissionInput>, UserUncheckedUpdateWithoutSubmissionInput>
   }
 
   export type TugasUpdateOneRequiredWithoutSubmissionNestedInput = {
@@ -21209,12 +21111,24 @@ export namespace Prisma {
     update?: XOR<XOR<TugasUpdateToOneWithWhereWithoutSubmissionInput, TugasUpdateWithoutSubmissionInput>, TugasUncheckedUpdateWithoutSubmissionInput>
   }
 
-  export type UserUpdateOneRequiredWithoutSubmissionNestedInput = {
-    create?: XOR<UserCreateWithoutSubmissionInput, UserUncheckedCreateWithoutSubmissionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSubmissionInput
-    upsert?: UserUpsertWithoutSubmissionInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubmissionInput, UserUpdateWithoutSubmissionInput>, UserUncheckedUpdateWithoutSubmissionInput>
+  export type NilaiUpdateOneWithoutSubmissionNestedInput = {
+    create?: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: NilaiCreateOrConnectWithoutSubmissionInput
+    upsert?: NilaiUpsertWithoutSubmissionInput
+    disconnect?: NilaiWhereInput | boolean
+    delete?: NilaiWhereInput | boolean
+    connect?: NilaiWhereUniqueInput
+    update?: XOR<XOR<NilaiUpdateToOneWithWhereWithoutSubmissionInput, NilaiUpdateWithoutSubmissionInput>, NilaiUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type NilaiUncheckedUpdateOneWithoutSubmissionNestedInput = {
+    create?: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
+    connectOrCreate?: NilaiCreateOrConnectWithoutSubmissionInput
+    upsert?: NilaiUpsertWithoutSubmissionInput
+    disconnect?: NilaiWhereInput | boolean
+    delete?: NilaiWhereInput | boolean
+    connect?: NilaiWhereUniqueInput
+    update?: XOR<XOR<NilaiUpdateToOneWithWhereWithoutSubmissionInput, NilaiUpdateWithoutSubmissionInput>, NilaiUncheckedUpdateWithoutSubmissionInput>
   }
 
   export type KelasCreateNestedOneWithoutTugasInput = {
@@ -21242,25 +21156,11 @@ export namespace Prisma {
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
-  export type NilaiCreateNestedManyWithoutTugasInput = {
-    create?: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput> | NilaiCreateWithoutTugasInput[] | NilaiUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutTugasInput | NilaiCreateOrConnectWithoutTugasInput[]
-    createMany?: NilaiCreateManyTugasInputEnvelope
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-  }
-
   export type SubmissionUncheckedCreateNestedManyWithoutTugasInput = {
     create?: XOR<SubmissionCreateWithoutTugasInput, SubmissionUncheckedCreateWithoutTugasInput> | SubmissionCreateWithoutTugasInput[] | SubmissionUncheckedCreateWithoutTugasInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutTugasInput | SubmissionCreateOrConnectWithoutTugasInput[]
     createMany?: SubmissionCreateManyTugasInputEnvelope
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-  }
-
-  export type NilaiUncheckedCreateNestedManyWithoutTugasInput = {
-    create?: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput> | NilaiCreateWithoutTugasInput[] | NilaiUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutTugasInput | NilaiCreateOrConnectWithoutTugasInput[]
-    createMany?: NilaiCreateManyTugasInputEnvelope
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
   }
 
   export type KelasUpdateOneRequiredWithoutTugasNestedInput = {
@@ -21301,20 +21201,6 @@ export namespace Prisma {
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
-  export type NilaiUpdateManyWithoutTugasNestedInput = {
-    create?: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput> | NilaiCreateWithoutTugasInput[] | NilaiUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutTugasInput | NilaiCreateOrConnectWithoutTugasInput[]
-    upsert?: NilaiUpsertWithWhereUniqueWithoutTugasInput | NilaiUpsertWithWhereUniqueWithoutTugasInput[]
-    createMany?: NilaiCreateManyTugasInputEnvelope
-    set?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    disconnect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    delete?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    update?: NilaiUpdateWithWhereUniqueWithoutTugasInput | NilaiUpdateWithWhereUniqueWithoutTugasInput[]
-    updateMany?: NilaiUpdateManyWithWhereWithoutTugasInput | NilaiUpdateManyWithWhereWithoutTugasInput[]
-    deleteMany?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
-  }
-
   export type SubmissionUncheckedUpdateManyWithoutTugasNestedInput = {
     create?: XOR<SubmissionCreateWithoutTugasInput, SubmissionUncheckedCreateWithoutTugasInput> | SubmissionCreateWithoutTugasInput[] | SubmissionUncheckedCreateWithoutTugasInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutTugasInput | SubmissionCreateOrConnectWithoutTugasInput[]
@@ -21327,20 +21213,6 @@ export namespace Prisma {
     update?: SubmissionUpdateWithWhereUniqueWithoutTugasInput | SubmissionUpdateWithWhereUniqueWithoutTugasInput[]
     updateMany?: SubmissionUpdateManyWithWhereWithoutTugasInput | SubmissionUpdateManyWithWhereWithoutTugasInput[]
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
-  }
-
-  export type NilaiUncheckedUpdateManyWithoutTugasNestedInput = {
-    create?: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput> | NilaiCreateWithoutTugasInput[] | NilaiUncheckedCreateWithoutTugasInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutTugasInput | NilaiCreateOrConnectWithoutTugasInput[]
-    upsert?: NilaiUpsertWithWhereUniqueWithoutTugasInput | NilaiUpsertWithWhereUniqueWithoutTugasInput[]
-    createMany?: NilaiCreateManyTugasInputEnvelope
-    set?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    disconnect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    delete?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    update?: NilaiUpdateWithWhereUniqueWithoutTugasInput | NilaiUpdateWithWhereUniqueWithoutTugasInput[]
-    updateMany?: NilaiUpdateManyWithWhereWithoutTugasInput | NilaiUpdateManyWithWhereWithoutTugasInput[]
-    deleteMany?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
   }
 
   export type KelasCreateNestedOneWithoutSantriInput = {
@@ -21381,13 +21253,6 @@ export namespace Prisma {
     connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
     createMany?: SubmissionCreateManyUserInputEnvelope
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-  }
-
-  export type NilaiCreateNestedManyWithoutUserInput = {
-    create?: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput> | NilaiCreateWithoutUserInput[] | NilaiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutUserInput | NilaiCreateOrConnectWithoutUserInput[]
-    createMany?: NilaiCreateManyUserInputEnvelope
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
   }
 
   export type LogAktivitasCreateNestedManyWithoutUserInput = {
@@ -21442,13 +21307,6 @@ export namespace Prisma {
     connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
     createMany?: SubmissionCreateManyUserInputEnvelope
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-  }
-
-  export type NilaiUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput> | NilaiCreateWithoutUserInput[] | NilaiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutUserInput | NilaiCreateOrConnectWithoutUserInput[]
-    createMany?: NilaiCreateManyUserInputEnvelope
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
   }
 
   export type LogAktivitasUncheckedCreateNestedManyWithoutUserInput = {
@@ -21552,20 +21410,6 @@ export namespace Prisma {
     update?: SubmissionUpdateWithWhereUniqueWithoutUserInput | SubmissionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SubmissionUpdateManyWithWhereWithoutUserInput | SubmissionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
-  }
-
-  export type NilaiUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput> | NilaiCreateWithoutUserInput[] | NilaiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutUserInput | NilaiCreateOrConnectWithoutUserInput[]
-    upsert?: NilaiUpsertWithWhereUniqueWithoutUserInput | NilaiUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NilaiCreateManyUserInputEnvelope
-    set?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    disconnect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    delete?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    update?: NilaiUpdateWithWhereUniqueWithoutUserInput | NilaiUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NilaiUpdateManyWithWhereWithoutUserInput | NilaiUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
   }
 
   export type LogAktivitasUpdateManyWithoutUserNestedInput = {
@@ -21673,20 +21517,6 @@ export namespace Prisma {
     update?: SubmissionUpdateWithWhereUniqueWithoutUserInput | SubmissionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SubmissionUpdateManyWithWhereWithoutUserInput | SubmissionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
-  }
-
-  export type NilaiUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput> | NilaiCreateWithoutUserInput[] | NilaiUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NilaiCreateOrConnectWithoutUserInput | NilaiCreateOrConnectWithoutUserInput[]
-    upsert?: NilaiUpsertWithWhereUniqueWithoutUserInput | NilaiUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NilaiCreateManyUserInputEnvelope
-    set?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    disconnect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    delete?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    connect?: NilaiWhereUniqueInput | NilaiWhereUniqueInput[]
-    update?: NilaiUpdateWithWhereUniqueWithoutUserInput | NilaiUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NilaiUpdateManyWithWhereWithoutUserInput | NilaiUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
   }
 
   export type LogAktivitasUncheckedUpdateManyWithoutUserNestedInput = {
@@ -22029,7 +21859,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -22052,7 +21881,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -22142,7 +21970,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -22165,7 +21992,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -22313,7 +22139,6 @@ export namespace Prisma {
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -22336,7 +22161,6 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -22402,7 +22226,6 @@ export namespace Prisma {
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -22425,7 +22248,6 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -22599,7 +22421,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -22622,7 +22443,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -22654,7 +22474,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -22677,7 +22496,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -22797,7 +22615,6 @@ export namespace Prisma {
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
-    nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateWithoutKelasInput = {
@@ -22809,7 +22626,6 @@ export namespace Prisma {
     createdBy: number
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type TugasCreateOrConnectWithoutKelasInput = {
@@ -23017,7 +22833,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
@@ -23040,7 +22855,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23078,7 +22892,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
@@ -23101,7 +22914,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23114,7 +22926,6 @@ export namespace Prisma {
     kelas: KelasCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
-    nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateWithoutMataPelajaranInput = {
@@ -23126,7 +22937,6 @@ export namespace Prisma {
     createdBy: number
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type TugasCreateOrConnectWithoutMataPelajaranInput = {
@@ -23155,172 +22965,58 @@ export namespace Prisma {
     data: XOR<TugasUpdateManyMutationInput, TugasUncheckedUpdateManyWithoutMataPelajaranInput>
   }
 
-  export type UserCreateWithoutNilaiInput = {
-    name?: string | null
-    email: string
-    password?: string | null
-    activatedAt?: Date | string | null
-    isActive?: boolean
-    otp?: string | null
-    otpExpiresAt?: Date | string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    kelas?: KelasCreateNestedOneWithoutSantriInput
-    kelasAjar?: KelasCreateNestedManyWithoutPengajarInput
-    absensi?: AbsensiCreateNestedManyWithoutUserInput
-    izin?: IzinCreateNestedManyWithoutUserInput
-    tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
-    submission?: SubmissionCreateNestedManyWithoutUserInput
-    log?: LogAktivitasCreateNestedManyWithoutUserInput
-    profile?: ProfileCreateNestedOneWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
+  export type SubmissionCreateWithoutNilaiInput = {
+    fileUrl?: string | null
+    linkUrl?: string | null
+    status?: $Enums.StatusSubmission
+    submittedAt?: Date | string
+    user: UserCreateNestedOneWithoutSubmissionInput
+    tugas: TugasCreateNestedOneWithoutSubmissionInput
   }
 
-  export type UserUncheckedCreateWithoutNilaiInput = {
+  export type SubmissionUncheckedCreateWithoutNilaiInput = {
     id?: number
-    name?: string | null
-    email: string
-    password?: string | null
-    activatedAt?: Date | string | null
-    isActive?: boolean
-    otp?: string | null
-    otpExpiresAt?: Date | string | null
-    role?: $Enums.Role
-    kelasId?: number | null
-    createdAt?: Date | string
-    deletedAt?: Date | string | null
-    kelasAjar?: KelasUncheckedCreateNestedManyWithoutPengajarInput
-    absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
-    izin?: IzinUncheckedCreateNestedManyWithoutUserInput
-    tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
-    submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
-    profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    userId: number
+    tugasId: number
+    fileUrl?: string | null
+    linkUrl?: string | null
+    status?: $Enums.StatusSubmission
+    submittedAt?: Date | string
   }
 
-  export type UserCreateOrConnectWithoutNilaiInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNilaiInput, UserUncheckedCreateWithoutNilaiInput>
+  export type SubmissionCreateOrConnectWithoutNilaiInput = {
+    where: SubmissionWhereUniqueInput
+    create: XOR<SubmissionCreateWithoutNilaiInput, SubmissionUncheckedCreateWithoutNilaiInput>
   }
 
-  export type TugasCreateWithoutNilaiInput = {
-    title: string
-    description?: string | null
-    deadline: Date | string
-    createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutTugasInput
-    mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
-    creator: UserCreateNestedOneWithoutTugasDibuatInput
-    submission?: SubmissionCreateNestedManyWithoutTugasInput
+  export type SubmissionUpsertWithoutNilaiInput = {
+    update: XOR<SubmissionUpdateWithoutNilaiInput, SubmissionUncheckedUpdateWithoutNilaiInput>
+    create: XOR<SubmissionCreateWithoutNilaiInput, SubmissionUncheckedCreateWithoutNilaiInput>
+    where?: SubmissionWhereInput
   }
 
-  export type TugasUncheckedCreateWithoutNilaiInput = {
-    id?: number
-    kelasId: number
-    mataPelajaranId: number
-    title: string
-    description?: string | null
-    deadline: Date | string
-    createdBy: number
-    createdAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
+  export type SubmissionUpdateToOneWithWhereWithoutNilaiInput = {
+    where?: SubmissionWhereInput
+    data: XOR<SubmissionUpdateWithoutNilaiInput, SubmissionUncheckedUpdateWithoutNilaiInput>
   }
 
-  export type TugasCreateOrConnectWithoutNilaiInput = {
-    where: TugasWhereUniqueInput
-    create: XOR<TugasCreateWithoutNilaiInput, TugasUncheckedCreateWithoutNilaiInput>
+  export type SubmissionUpdateWithoutNilaiInput = {
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
+    tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
   }
 
-  export type UserUpsertWithoutNilaiInput = {
-    update: XOR<UserUpdateWithoutNilaiInput, UserUncheckedUpdateWithoutNilaiInput>
-    create: XOR<UserCreateWithoutNilaiInput, UserUncheckedCreateWithoutNilaiInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutNilaiInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutNilaiInput, UserUncheckedUpdateWithoutNilaiInput>
-  }
-
-  export type UserUpdateWithoutNilaiInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    otp?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kelas?: KelasUpdateOneWithoutSantriNestedInput
-    kelasAjar?: KelasUpdateManyWithoutPengajarNestedInput
-    absensi?: AbsensiUpdateManyWithoutUserNestedInput
-    izin?: IzinUpdateManyWithoutUserNestedInput
-    tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
-    submission?: SubmissionUpdateManyWithoutUserNestedInput
-    log?: LogAktivitasUpdateManyWithoutUserNestedInput
-    profile?: ProfileUpdateOneWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutNilaiInput = {
+  export type SubmissionUncheckedUpdateWithoutNilaiInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    activatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    otp?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    kelasId?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kelasAjar?: KelasUncheckedUpdateManyWithoutPengajarNestedInput
-    absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
-    izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
-    tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
-    submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
-    profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TugasUpsertWithoutNilaiInput = {
-    update: XOR<TugasUpdateWithoutNilaiInput, TugasUncheckedUpdateWithoutNilaiInput>
-    create: XOR<TugasCreateWithoutNilaiInput, TugasUncheckedCreateWithoutNilaiInput>
-    where?: TugasWhereInput
-  }
-
-  export type TugasUpdateToOneWithWhereWithoutNilaiInput = {
-    where?: TugasWhereInput
-    data: XOR<TugasUpdateWithoutNilaiInput, TugasUncheckedUpdateWithoutNilaiInput>
-  }
-
-  export type TugasUpdateWithoutNilaiInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
-    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
-    creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
-    submission?: SubmissionUpdateManyWithoutTugasNestedInput
-  }
-
-  export type TugasUncheckedUpdateWithoutNilaiInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    kelasId?: IntFieldUpdateOperationsInput | number
-    mataPelajaranId?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
+    userId?: IntFieldUpdateOperationsInput | number
+    tugasId?: IntFieldUpdateOperationsInput | number
+    fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -23340,7 +23036,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
   }
@@ -23363,7 +23058,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
   }
@@ -23401,7 +23095,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
   }
@@ -23424,7 +23117,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -23446,7 +23138,6 @@ export namespace Prisma {
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
   }
@@ -23469,7 +23160,6 @@ export namespace Prisma {
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
   }
@@ -23507,7 +23197,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
   }
@@ -23530,37 +23219,8 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TugasCreateWithoutSubmissionInput = {
-    title: string
-    description?: string | null
-    deadline: Date | string
-    createdAt?: Date | string
-    kelas: KelasCreateNestedOneWithoutTugasInput
-    mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
-    creator: UserCreateNestedOneWithoutTugasDibuatInput
-    nilai?: NilaiCreateNestedManyWithoutTugasInput
-  }
-
-  export type TugasUncheckedCreateWithoutSubmissionInput = {
-    id?: number
-    kelasId: number
-    mataPelajaranId: number
-    title: string
-    description?: string | null
-    deadline: Date | string
-    createdBy: number
-    createdAt?: Date | string
-    nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
-  }
-
-  export type TugasCreateOrConnectWithoutSubmissionInput = {
-    where: TugasWhereUniqueInput
-    create: XOR<TugasCreateWithoutSubmissionInput, TugasUncheckedCreateWithoutSubmissionInput>
   }
 
   export type UserCreateWithoutSubmissionInput = {
@@ -23579,7 +23239,6 @@ export namespace Prisma {
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasCreateNestedManyWithoutCreatorInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -23602,7 +23261,6 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     tugasDibuat?: TugasUncheckedCreateNestedManyWithoutCreatorInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -23613,38 +23271,48 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutSubmissionInput, UserUncheckedCreateWithoutSubmissionInput>
   }
 
-  export type TugasUpsertWithoutSubmissionInput = {
-    update: XOR<TugasUpdateWithoutSubmissionInput, TugasUncheckedUpdateWithoutSubmissionInput>
+  export type TugasCreateWithoutSubmissionInput = {
+    title: string
+    description?: string | null
+    deadline: Date | string
+    createdAt?: Date | string
+    kelas: KelasCreateNestedOneWithoutTugasInput
+    mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
+    creator: UserCreateNestedOneWithoutTugasDibuatInput
+  }
+
+  export type TugasUncheckedCreateWithoutSubmissionInput = {
+    id?: number
+    kelasId: number
+    mataPelajaranId: number
+    title: string
+    description?: string | null
+    deadline: Date | string
+    createdBy: number
+    createdAt?: Date | string
+  }
+
+  export type TugasCreateOrConnectWithoutSubmissionInput = {
+    where: TugasWhereUniqueInput
     create: XOR<TugasCreateWithoutSubmissionInput, TugasUncheckedCreateWithoutSubmissionInput>
-    where?: TugasWhereInput
   }
 
-  export type TugasUpdateToOneWithWhereWithoutSubmissionInput = {
-    where?: TugasWhereInput
-    data: XOR<TugasUpdateWithoutSubmissionInput, TugasUncheckedUpdateWithoutSubmissionInput>
+  export type NilaiCreateWithoutSubmissionInput = {
+    nilai: number
+    catatan?: string | null
+    createdAt?: Date | string
   }
 
-  export type TugasUpdateWithoutSubmissionInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
-    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
-    creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
-    nilai?: NilaiUpdateManyWithoutTugasNestedInput
+  export type NilaiUncheckedCreateWithoutSubmissionInput = {
+    id?: number
+    nilai: number
+    catatan?: string | null
+    createdAt?: Date | string
   }
 
-  export type TugasUncheckedUpdateWithoutSubmissionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    kelasId?: IntFieldUpdateOperationsInput | number
-    mataPelajaranId?: IntFieldUpdateOperationsInput | number
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    nilai?: NilaiUncheckedUpdateManyWithoutTugasNestedInput
+  export type NilaiCreateOrConnectWithoutSubmissionInput = {
+    where: NilaiWhereUniqueInput
+    create: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
   }
 
   export type UserUpsertWithoutSubmissionInput = {
@@ -23674,7 +23342,6 @@ export namespace Prisma {
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -23697,10 +23364,65 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TugasUpsertWithoutSubmissionInput = {
+    update: XOR<TugasUpdateWithoutSubmissionInput, TugasUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<TugasCreateWithoutSubmissionInput, TugasUncheckedCreateWithoutSubmissionInput>
+    where?: TugasWhereInput
+  }
+
+  export type TugasUpdateToOneWithWhereWithoutSubmissionInput = {
+    where?: TugasWhereInput
+    data: XOR<TugasUpdateWithoutSubmissionInput, TugasUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type TugasUpdateWithoutSubmissionInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
+    mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
+    creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
+  }
+
+  export type TugasUncheckedUpdateWithoutSubmissionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    kelasId?: IntFieldUpdateOperationsInput | number
+    mataPelajaranId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NilaiUpsertWithoutSubmissionInput = {
+    update: XOR<NilaiUpdateWithoutSubmissionInput, NilaiUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<NilaiCreateWithoutSubmissionInput, NilaiUncheckedCreateWithoutSubmissionInput>
+    where?: NilaiWhereInput
+  }
+
+  export type NilaiUpdateToOneWithWhereWithoutSubmissionInput = {
+    where?: NilaiWhereInput
+    data: XOR<NilaiUpdateWithoutSubmissionInput, NilaiUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type NilaiUpdateWithoutSubmissionInput = {
+    nilai?: IntFieldUpdateOperationsInput | number
+    catatan?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NilaiUncheckedUpdateWithoutSubmissionInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nilai?: IntFieldUpdateOperationsInput | number
+    catatan?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type KelasCreateWithoutTugasInput = {
@@ -23765,7 +23487,6 @@ export namespace Prisma {
     absensi?: AbsensiCreateNestedManyWithoutUserInput
     izin?: IzinCreateNestedManyWithoutUserInput
     submission?: SubmissionCreateNestedManyWithoutUserInput
-    nilai?: NilaiCreateNestedManyWithoutUserInput
     log?: LogAktivitasCreateNestedManyWithoutUserInput
     profile?: ProfileCreateNestedOneWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -23788,7 +23509,6 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedCreateNestedManyWithoutUserInput
     izin?: IzinUncheckedCreateNestedManyWithoutUserInput
     submission?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutUserInput
     log?: LogAktivitasUncheckedCreateNestedManyWithoutUserInput
     profile?: ProfileUncheckedCreateNestedOneWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -23802,9 +23522,10 @@ export namespace Prisma {
   export type SubmissionCreateWithoutTugasInput = {
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
     user: UserCreateNestedOneWithoutSubmissionInput
+    nilai?: NilaiCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionUncheckedCreateWithoutTugasInput = {
@@ -23812,8 +23533,9 @@ export namespace Prisma {
     userId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
+    nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionCreateOrConnectWithoutTugasInput = {
@@ -23823,31 +23545,6 @@ export namespace Prisma {
 
   export type SubmissionCreateManyTugasInputEnvelope = {
     data: SubmissionCreateManyTugasInput | SubmissionCreateManyTugasInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NilaiCreateWithoutTugasInput = {
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutNilaiInput
-  }
-
-  export type NilaiUncheckedCreateWithoutTugasInput = {
-    id?: number
-    userId: number
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
-  }
-
-  export type NilaiCreateOrConnectWithoutTugasInput = {
-    where: NilaiWhereUniqueInput
-    create: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput>
-  }
-
-  export type NilaiCreateManyTugasInputEnvelope = {
-    data: NilaiCreateManyTugasInput | NilaiCreateManyTugasInput[]
     skipDuplicates?: boolean
   }
 
@@ -23936,7 +23633,6 @@ export namespace Prisma {
     absensi?: AbsensiUpdateManyWithoutUserNestedInput
     izin?: IzinUpdateManyWithoutUserNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -23959,7 +23655,6 @@ export namespace Prisma {
     absensi?: AbsensiUncheckedUpdateManyWithoutUserNestedInput
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -23986,40 +23681,12 @@ export namespace Prisma {
     OR?: SubmissionScalarWhereInput[]
     NOT?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
     id?: IntFilter<"Submission"> | number
-    tugasId?: IntFilter<"Submission"> | number
     userId?: IntFilter<"Submission"> | number
+    tugasId?: IntFilter<"Submission"> | number
     fileUrl?: StringNullableFilter<"Submission"> | string | null
     linkUrl?: StringNullableFilter<"Submission"> | string | null
-    submittedAt?: DateTimeFilter<"Submission"> | Date | string
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
-  }
-
-  export type NilaiUpsertWithWhereUniqueWithoutTugasInput = {
-    where: NilaiWhereUniqueInput
-    update: XOR<NilaiUpdateWithoutTugasInput, NilaiUncheckedUpdateWithoutTugasInput>
-    create: XOR<NilaiCreateWithoutTugasInput, NilaiUncheckedCreateWithoutTugasInput>
-  }
-
-  export type NilaiUpdateWithWhereUniqueWithoutTugasInput = {
-    where: NilaiWhereUniqueInput
-    data: XOR<NilaiUpdateWithoutTugasInput, NilaiUncheckedUpdateWithoutTugasInput>
-  }
-
-  export type NilaiUpdateManyWithWhereWithoutTugasInput = {
-    where: NilaiScalarWhereInput
-    data: XOR<NilaiUpdateManyMutationInput, NilaiUncheckedUpdateManyWithoutTugasInput>
-  }
-
-  export type NilaiScalarWhereInput = {
-    AND?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
-    OR?: NilaiScalarWhereInput[]
-    NOT?: NilaiScalarWhereInput | NilaiScalarWhereInput[]
-    id?: IntFilter<"Nilai"> | number
-    userId?: IntFilter<"Nilai"> | number
-    tugasId?: IntFilter<"Nilai"> | number
-    nilai?: IntFilter<"Nilai"> | number
-    catatan?: StringNullableFilter<"Nilai"> | string | null
-    createdAt?: DateTimeFilter<"Nilai"> | Date | string
+    submittedAt?: DateTimeFilter<"Submission"> | Date | string
   }
 
   export type KelasCreateWithoutSantriInput = {
@@ -24140,7 +23807,6 @@ export namespace Prisma {
     kelas: KelasCreateNestedOneWithoutTugasInput
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
-    nilai?: NilaiCreateNestedManyWithoutTugasInput
   }
 
   export type TugasUncheckedCreateWithoutCreatorInput = {
@@ -24152,7 +23818,6 @@ export namespace Prisma {
     deadline: Date | string
     createdAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
-    nilai?: NilaiUncheckedCreateNestedManyWithoutTugasInput
   }
 
   export type TugasCreateOrConnectWithoutCreatorInput = {
@@ -24168,9 +23833,10 @@ export namespace Prisma {
   export type SubmissionCreateWithoutUserInput = {
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
     tugas: TugasCreateNestedOneWithoutSubmissionInput
+    nilai?: NilaiCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionUncheckedCreateWithoutUserInput = {
@@ -24178,8 +23844,9 @@ export namespace Prisma {
     tugasId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
+    nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
   export type SubmissionCreateOrConnectWithoutUserInput = {
@@ -24189,31 +23856,6 @@ export namespace Prisma {
 
   export type SubmissionCreateManyUserInputEnvelope = {
     data: SubmissionCreateManyUserInput | SubmissionCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NilaiCreateWithoutUserInput = {
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
-    tugas: TugasCreateNestedOneWithoutNilaiInput
-  }
-
-  export type NilaiUncheckedCreateWithoutUserInput = {
-    id?: number
-    tugasId: number
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
-  }
-
-  export type NilaiCreateOrConnectWithoutUserInput = {
-    where: NilaiWhereUniqueInput
-    create: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput>
-  }
-
-  export type NilaiCreateManyUserInputEnvelope = {
-    data: NilaiCreateManyUserInput | NilaiCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -24416,22 +24058,6 @@ export namespace Prisma {
     data: XOR<SubmissionUpdateManyMutationInput, SubmissionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type NilaiUpsertWithWhereUniqueWithoutUserInput = {
-    where: NilaiWhereUniqueInput
-    update: XOR<NilaiUpdateWithoutUserInput, NilaiUncheckedUpdateWithoutUserInput>
-    create: XOR<NilaiCreateWithoutUserInput, NilaiUncheckedCreateWithoutUserInput>
-  }
-
-  export type NilaiUpdateWithWhereUniqueWithoutUserInput = {
-    where: NilaiWhereUniqueInput
-    data: XOR<NilaiUpdateWithoutUserInput, NilaiUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NilaiUpdateManyWithWhereWithoutUserInput = {
-    where: NilaiScalarWhereInput
-    data: XOR<NilaiUpdateManyMutationInput, NilaiUncheckedUpdateManyWithoutUserInput>
-  }
-
   export type LogAktivitasUpsertWithWhereUniqueWithoutUserInput = {
     where: LogAktivitasWhereUniqueInput
     update: XOR<LogAktivitasUpdateWithoutUserInput, LogAktivitasUncheckedUpdateWithoutUserInput>
@@ -24623,7 +24249,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -24646,7 +24271,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -24682,7 +24306,6 @@ export namespace Prisma {
     izin?: IzinUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUpdateManyWithoutUserNestedInput
     profile?: ProfileUpdateOneWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -24705,7 +24328,6 @@ export namespace Prisma {
     izin?: IzinUncheckedUpdateManyWithoutUserNestedInput
     tugasDibuat?: TugasUncheckedUpdateManyWithoutCreatorNestedInput
     submission?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutUserNestedInput
     log?: LogAktivitasUncheckedUpdateManyWithoutUserNestedInput
     profile?: ProfileUncheckedUpdateOneWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -24814,7 +24436,6 @@ export namespace Prisma {
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateWithoutKelasInput = {
@@ -24826,7 +24447,6 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateManyWithoutKelasInput = {
@@ -24857,7 +24477,6 @@ export namespace Prisma {
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateWithoutMataPelajaranInput = {
@@ -24869,7 +24488,6 @@ export namespace Prisma {
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateManyWithoutMataPelajaranInput = {
@@ -24887,24 +24505,17 @@ export namespace Prisma {
     userId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
-  }
-
-  export type NilaiCreateManyTugasInput = {
-    id?: number
-    userId: number
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
   }
 
   export type SubmissionUpdateWithoutTugasInput = {
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
+    nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionUncheckedUpdateWithoutTugasInput = {
@@ -24912,8 +24523,9 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionUncheckedUpdateManyWithoutTugasInput = {
@@ -24921,31 +24533,8 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
-  }
-
-  export type NilaiUpdateWithoutTugasInput = {
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutNilaiNestedInput
-  }
-
-  export type NilaiUncheckedUpdateWithoutTugasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NilaiUncheckedUpdateManyWithoutTugasInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AbsensiCreateManyUserInput = {
@@ -24981,16 +24570,8 @@ export namespace Prisma {
     tugasId: number
     fileUrl?: string | null
     linkUrl?: string | null
+    status?: $Enums.StatusSubmission
     submittedAt?: Date | string
-    status: $Enums.StatusSubmission
-  }
-
-  export type NilaiCreateManyUserInput = {
-    id?: number
-    tugasId: number
-    nilai: number
-    catatan?: string | null
-    createdAt?: Date | string
   }
 
   export type LogAktivitasCreateManyUserInput = {
@@ -25097,7 +24678,6 @@ export namespace Prisma {
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateWithoutCreatorInput = {
@@ -25109,7 +24689,6 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
-    nilai?: NilaiUncheckedUpdateManyWithoutTugasNestedInput
   }
 
   export type TugasUncheckedUpdateManyWithoutCreatorInput = {
@@ -25125,9 +24704,10 @@ export namespace Prisma {
   export type SubmissionUpdateWithoutUserInput = {
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
+    nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionUncheckedUpdateWithoutUserInput = {
@@ -25135,8 +24715,9 @@ export namespace Prisma {
     tugasId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
   export type SubmissionUncheckedUpdateManyWithoutUserInput = {
@@ -25144,31 +24725,8 @@ export namespace Prisma {
     tugasId?: IntFieldUpdateOperationsInput | number
     fileUrl?: NullableStringFieldUpdateOperationsInput | string | null
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
-  }
-
-  export type NilaiUpdateWithoutUserInput = {
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tugas?: TugasUpdateOneRequiredWithoutNilaiNestedInput
-  }
-
-  export type NilaiUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NilaiUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    tugasId?: IntFieldUpdateOperationsInput | number
-    nilai?: IntFieldUpdateOperationsInput | number
-    catatan?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LogAktivitasUpdateWithoutUserInput = {

@@ -183,20 +183,20 @@ export class JadwalAbsensiRepository {
     return this.prisma.jadwalAbsensi.delete({ where: { id } });
   };
 
-findByTanggal(kelasId: number, tanggal: Date) {
-  const start = new Date(tanggal);
-  start.setHours(0,0,0,0);
+  findByTanggal(kelasId: number, tanggal: Date) {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
 
-  const end = new Date(tanggal);
-  end.setHours(23,59,59,999);
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
 
-  return this.prisma.jadwalAbsensi.findFirst({
-    where: {
-      kelasId,
-      tanggal: { gte: start, lte: end },
-    },
-  });
-}
+    return this.prisma.jadwalAbsensi.findFirst({
+      where: {
+        kelasId,
+        tanggal: { gte: start, lte: end },
+      },
+    });
+  }
 
   findByHari(kelasId: number, hari: Hari) {
     return this.prisma.jadwalAbsensi.findFirst({

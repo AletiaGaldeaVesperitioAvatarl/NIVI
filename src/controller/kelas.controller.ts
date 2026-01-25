@@ -85,6 +85,16 @@ setPengajar = async (req: Request, res: Response) => {
   successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
 };
 
-
+getKelasByPengajar = async (req: Request, res:Response) => {
+  if (!req.user) {
+    throw new Error ("User tidak ditemukan!")
+  }
+  const kelas = await this.kelasService.getKelasByPengajar(req.user.id);
+  successResponse(
+    res,
+    "Kelas berhasil diambil",
+    kelas
+  )
+}
 
 }

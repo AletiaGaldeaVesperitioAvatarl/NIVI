@@ -14,5 +14,6 @@ model Tugas {
   creator          User            @relation("TugasDibuat", fields: [createdBy], references: [id])
 
   submission       Submission[]
-  nilai            Nilai[]
+
 }
+

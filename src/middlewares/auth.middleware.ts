@@ -7,7 +7,7 @@ import { Role } from "../../dist/generated";
 export const authenticate = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const authHeader = req.headers.authorization;
 

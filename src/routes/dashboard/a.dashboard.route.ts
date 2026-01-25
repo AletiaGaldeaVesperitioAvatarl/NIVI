@@ -17,7 +17,7 @@ router.get(
   "/dashboard/admin",
   authenticate,
   roleMiddleware([Role.admin]),
-  controller.getAdminDashboard
+  controller.getAdminDashboard,
 );
 
 export default router;

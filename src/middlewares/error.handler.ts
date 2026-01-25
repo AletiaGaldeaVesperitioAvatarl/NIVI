@@ -1,12 +1,12 @@
 import type { NextFunction, Response, Request } from "express";
 import { errorResponse } from "../utils/response";
-import { Prisma } from "../../dist/generated"
+import { Prisma } from "../../dist/generated";
 
 export const errorHandler = (
   err: Error,
   _req: Request,
   res: Response,
-  _next: NextFunction
+  _next: NextFunction,
 ) => {
   console.error("ERROR:", err.message);
 
@@ -20,7 +20,7 @@ export const errorHandler = (
         statusCode,
         process.env.NODE_ENV === "development"
           ? ({ stack: err.stack } as { stack: string })
-          : null
+          : null,
       );
     }
 
@@ -31,7 +31,7 @@ export const errorHandler = (
         statusCode,
         process.env.NODE_ENV === "development"
           ? ({ stack: err.stack } as { stack?: string })
-          : null
+          : null,
       );
     }
   }
@@ -42,6 +42,6 @@ export const errorHandler = (
     statusCode,
     process.env.NODE_ENV === "development"
       ? ({ stack: err.stack } as { stack: string })
-      : null
+      : null,
   );
 };

@@ -6,8 +6,9 @@ import { io } from "../socket";
 import { UserService } from "../service/user.service";
 
 export class AbsensiController {
-  constructor(private service: AbsensiService,
-    private userService:UserService
+  constructor(
+    private service: AbsensiService,
+    private userService: UserService,
   ) {}
 
   // Tambahkan di AbsensiController.ts
@@ -30,47 +31,45 @@ export class AbsensiController {
     }
   };
 
-absen = async (req: Request, res: Response) => {
-  try {
-    const userId = Number(req.user!.id);
-    const { status, jadwalId } = req.body;
+  absen = async (req: Request, res: Response) => {
+    try {
+      const userId = Number(req.user!.id);
+      const { status, jadwalId } = req.body;
 
-    if (!Object.values(StatusAbsensi).includes(status as StatusAbsensi)) {
-      throw new Error("Status tidak valid");
+      if (!Object.values(StatusAbsensi).includes(status as StatusAbsensi)) {
+        throw new Error("Status tidak valid");
+      }
+
+      // 🔥 AMBIL USER + KELAS DARI DB
+      const user = await this.userService.getById(userId);
+      if (!user?.kelasId) {
+        throw new Error("User belum punya kelas");
+      }
+
+      const kelasId = user.kelasId;
+
+      const data = await this.service.absenHadir(
+        userId,
+        kelasId,
+        status as StatusAbsensi,
+        jadwalId,
+      );
+
+      // 🔥 REALTIME UPDATE
+      const realtimeData = await this.service.getByKelas({
+        kelasId,
+        page: 1,
+        limit: 100,
+        sort: "desc",
+      });
+
+      io.to(`kelas-${kelasId}`).emit("absensi-update", realtimeData.data);
+
+      successResponse(res, "Absen berhasil", data, null, 201);
+    } catch (err: any) {
+      errorResponse(res, err.message);
     }
-
-    // 🔥 AMBIL USER + KELAS DARI DB
-    const user = await this.userService.getById(userId);
-    if (!user?.kelasId) {
-      throw new Error("User belum punya kelas");
-    }
-
-    const kelasId = user.kelasId;
-
-    const data = await this.service.absenHadir(
-      userId,
-      kelasId,
-      status as StatusAbsensi,
-      jadwalId
-    );
-
-    // 🔥 REALTIME UPDATE
-    const realtimeData = await this.service.getByKelas({
-      kelasId,
-      page: 1,
-      limit: 100,
-      sort: "desc",
-    });
-
-    io.to(`kelas-${kelasId}`).emit("absensi-update", realtimeData.data);
-
-    successResponse(res, "Absen berhasil", data, null, 201);
-  } catch (err: any) {
-    errorResponse(res, err.message);
-  }
-};
-
-
+  };
 
   getMyTodayAbsensi = async (req: Request, res: Response) => {
     try {
@@ -86,11 +85,11 @@ absen = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
       const { status } = req.body;
-      
+
       const data = await this.service.updateAbsensi(id, {
         status: status as StatusAbsensi,
       });
-      
+
       successResponse(res, "Absensi diperbarui", data);
     } catch (err: any) {
       errorResponse(res, err.message);
@@ -107,13 +106,12 @@ absen = async (req: Request, res: Response) => {
     }
   };
 
-    getByKelas = async (req: Request, res: Response) => {
+  getByKelas = async (req: Request, res: Response) => {
     try {
       const kelasId = Number(req.params.kelasId);
       const page = Number(req.query.page ?? 1);
       const limit = Number(req.query.limit ?? 20);
-      const sort =
-        req.query.sort === 'asc' ? 'asc' : 'desc';
+      const sort = req.query.sort === "asc" ? "asc" : "desc";
 
       const result = await this.service.getByKelas({
         kelasId,
@@ -133,5 +131,4 @@ absen = async (req: Request, res: Response) => {
       });
     }
   };
-
 }

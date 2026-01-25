@@ -12,7 +12,7 @@ const service = new MataPelajaranService(repo);
 const controller = new MataPelajaranController(service);
 
 // ADMIN / PENGAJAR
-router.get("/", authenticate, controller.getAll);
+router.get("/", controller.getAll);
 router.get("/:id", authenticate, controller.getById);
 router.post("/", authenticate, controller.create);
 router.put("/:id", authenticate, controller.update);

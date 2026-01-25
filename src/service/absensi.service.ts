@@ -10,9 +10,9 @@ export class AbsensiService {
       findActiveSchedule: (
         kelasId: number,
         now: Date,
-        jadwalId?: number
+        jadwalId?: number,
       ) => Promise<JadwalAbsensi | null>;
-    }
+    },
   ) {}
 
   // ===============================
@@ -22,7 +22,7 @@ export class AbsensiService {
     userId: number,
     kelasId: number,
     status: StatusAbsensi,
-    jadwalId?: number
+    jadwalId?: number,
   ) {
     const now = new Date();
 
@@ -34,7 +34,7 @@ export class AbsensiService {
     const jadwal = await this.jadwalRepo.findActiveSchedule(
       kelasId,
       now,
-      jadwalId
+      jadwalId,
     );
     if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif");
 
@@ -42,7 +42,7 @@ export class AbsensiService {
     const todayCount = await this.absensiRepo.countTodayByUser(userId);
     if (todayCount >= setting.maxAbsen) {
       throw new Error(
-        `Absensi hari ini sudah mencapai batas (${setting.maxAbsen}x)`
+        `Absensi hari ini sudah mencapai batas (${setting.maxAbsen}x)`,
       );
     }
 
@@ -62,7 +62,7 @@ export class AbsensiService {
   async absenIzinDariPersetujuan(
     userId: number,
     kelasId: number,
-    tanggal: Date
+    tanggal: Date,
   ) {
     const setting = await this.settingService.getByKelas(kelasId);
     if (!setting) throw new Error("Setting absensi belum ada");
@@ -70,15 +70,12 @@ export class AbsensiService {
     const todayCount = await this.absensiRepo.countTodayByUser(userId);
     if (todayCount >= setting.maxAbsen) {
       throw new Error(
-        `Izin ditolak otomatis: batas absensi (${setting.maxAbsen}) tercapai`
+        `Izin ditolak otomatis: batas absensi (${setting.maxAbsen}) tercapai`,
       );
     }
 
     // Cegah double absensi
-    const exists = await this.absensiRepo.findByUserAndTanggal(
-      userId,
-      tanggal
-    );
+    const exists = await this.absensiRepo.findByUserAndTanggal(userId, tanggal);
     if (exists) return exists;
 
     return this.absensiRepo.create({
@@ -124,7 +121,7 @@ export class AbsensiService {
     kelasId: number;
     page: number;
     limit: number;
-    sort: 'asc' | 'desc';
+    sort: "asc" | "desc";
   }) => {
     const skip = (page - 1) * limit;
 
@@ -148,5 +145,4 @@ export class AbsensiService {
       },
     };
   };
-
 }

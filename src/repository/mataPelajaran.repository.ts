@@ -31,7 +31,7 @@ export class MataPelajaranRepository {
   // UPDATE
   update = async (
     id: number,
-    data: Partial<MataPelajaran>
+    data: Partial<MataPelajaran>,
   ): Promise<MataPelajaran> => {
     return this.prisma.mataPelajaran.update({
       where: { id },

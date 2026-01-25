@@ -7,7 +7,7 @@ export class NotificationService {
   createWarning = async (
     userId: number,
     alpha: number,
-    persentaseHadir: number
+    persentaseHadir: number,
   ) => {
     let level: "warning" | "critical" = "warning";
 

@@ -4,14 +4,18 @@ export class AdminRepository {
   constructor(private prisma: PrismaClient) {}
 
   // CREATE SANTRI
-    createSantriByAdmin = async (data: { name: string; email: string; kelasId: number }): Promise<User> => {
+  createSantriByAdmin = async (data: {
+    name: string;
+    email: string;
+    kelasId: number;
+  }): Promise<User> => {
     return this.prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
         role: Role.santri,
         kelasId: data.kelasId,
-        password: "INACTIVE",    // harus aktivasi
+        password: "INACTIVE", // harus aktivasi
         activatedAt: null,
         isActive: true,
       },
@@ -19,7 +23,10 @@ export class AdminRepository {
   };
 
   // CREATE PENGAJAR
-  createPengajarByAdmin = async (data: { name: string; email: string }): Promise<User> => {
+  createPengajarByAdmin = async (data: {
+    name: string;
+    email: string;
+  }): Promise<User> => {
     return this.prisma.user.create({
       data: {
         name: data.name,
@@ -76,7 +83,11 @@ export class AdminRepository {
     });
   }
 
-  createAdmin = async (data: { name: string; email: string; password: string }): Promise<User> => {
+  createAdmin = async (data: {
+    name: string;
+    email: string;
+    password: string;
+  }): Promise<User> => {
     return this.prisma.user.create({
       data: {
         name: data.name,
@@ -97,7 +108,10 @@ export class AdminRepository {
     return this.prisma.user.findUnique({ where: { id } });
   };
 
-  updateAdmin = async (id: number, data: Partial<{ name: string; email: string; password: string }>) => {
+  updateAdmin = async (
+    id: number,
+    data: Partial<{ name: string; email: string; password: string }>,
+  ) => {
     return this.prisma.user.update({ where: { id }, data });
   };
 

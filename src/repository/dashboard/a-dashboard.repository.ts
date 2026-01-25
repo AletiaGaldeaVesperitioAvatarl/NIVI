@@ -27,10 +27,10 @@ export class AdminDashboardRepository {
 
   getAbsensiHariIni(today: Date) {
     const start = new Date(today);
-    start.setHours(0,0,0,0);
+    start.setHours(0, 0, 0, 0);
 
     const end = new Date(today);
-    end.setHours(23,59,59,999);
+    end.setHours(23, 59, 59, 999);
 
     return this.prisma.absensi.groupBy({
       by: ["status"],
@@ -51,10 +51,10 @@ export class AdminDashboardRepository {
 
   getSubmissionMasukHariIni(today: Date) {
     const start = new Date(today);
-    start.setHours(0,0,0,0);
+    start.setHours(0, 0, 0, 0);
 
     const end = new Date(today);
-    end.setHours(23,59,59,999);
+    end.setHours(23, 59, 59, 999);
 
     return this.prisma.submission.count({
       where: {

@@ -1,14 +1,19 @@
 model Submission {
-  id          Int              @id @default(autoincrement())
-  tugasId     Int
+  id          Int      @id @default(autoincrement())
+
   userId      Int
+  tugasId     Int
+
   fileUrl     String?
   linkUrl     String?
+
+  status      StatusSubmission @default(pending)
   submittedAt DateTime         @default(now())
-  status      StatusSubmission
 
-  tugas       Tugas            @relation(fields: [tugasId], references: [id])
-  user        User             @relation(fields: [userId], references: [id])
+  // Relasi
+  user        User   @relation(fields: [userId], references: [id])
+  tugas       Tugas  @relation(fields: [tugasId], references: [id])
 
-  @@unique([tugasId, userId]) 
+  nilai       Nilai? 
+  @@unique([userId, tugasId])
 }

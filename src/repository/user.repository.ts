@@ -1,4 +1,4 @@
-import { PrismaClient, Role, User } from "../../dist/generated"
+import { PrismaClient, Role, User } from "../../dist/generated";
 
 export class UserRepository {
   constructor(private prisma: PrismaClient) {}
@@ -53,30 +53,30 @@ export class UserRepository {
     });
   }
 
-  async getSantri(){
+  async getSantri() {
     return this.prisma.user.findMany({
-      where:{
-        role:"santri"
-      }
-    })
+      where: {
+        role: "santri",
+      },
+    });
   }
 
   async getPengajar() {
     return this.prisma.user.findMany({
-      where:{
-        role:"pengajar"
-      }
-    })
+      where: {
+        role: "pengajar",
+      },
+    });
   }
 
   async isAdminExist(): Promise<boolean> {
-  const admin = await this.prisma.user.findFirst({
-    where: {
-      role: "admin",
-      isActive: true,
-    },
-  });
+    const admin = await this.prisma.user.findFirst({
+      where: {
+        role: "admin",
+        isActive: true,
+      },
+    });
 
-  return !!admin;
-}
+    return !!admin;
+  }
 }

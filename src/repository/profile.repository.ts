@@ -1,6 +1,5 @@
 import { PrismaClient, Profile } from "../../dist/generated";
 
-
 export class ProfileRepository {
   constructor(private prisma: PrismaClient) {}
 
@@ -27,21 +26,21 @@ export class ProfileRepository {
   };
 
   // UPDATE PROFILE
-updateByUserId = async (userId: number, data: Partial<Profile>) => {
-  return this.prisma.profile.upsert({
-    where: { userId },
-    update: data,
-    create: {
-      userId,
-      namaLengkap: data.namaLengkap ?? '',
-      noHp: data.noHp ?? null,
-      alamat: data.alamat ?? null,
-      fotoUrl: data.fotoUrl ?? null,
-      tanggalLahir: data.tanggalLahir ?? null,
-      jenisKelamin: data.jenisKelamin ?? null,
-    },
-  });
-};
+  updateByUserId = async (userId: number, data: Partial<Profile>) => {
+    return this.prisma.profile.upsert({
+      where: { userId },
+      update: data,
+      create: {
+        userId,
+        namaLengkap: data.namaLengkap ?? "",
+        noHp: data.noHp ?? null,
+        alamat: data.alamat ?? null,
+        fotoUrl: data.fotoUrl ?? null,
+        tanggalLahir: data.tanggalLahir ?? null,
+        jenisKelamin: data.jenisKelamin ?? null,
+      },
+    });
+  };
 
   // DELETE PROFILE (OPSIONAL, JARANG DIPAKE)
   deleteByUserId = async (userId: number): Promise<Profile> => {

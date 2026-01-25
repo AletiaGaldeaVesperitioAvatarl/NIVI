@@ -1,46 +1,43 @@
 import { NilaiRepository } from "../repository/nilai.repository";
-import { Nilai } from "../../dist/generated";
 
 export class NilaiService {
-  constructor(private nilaiRepository: NilaiRepository) {}
+  constructor(private repo: NilaiRepository) {}
 
-  // GET ALL NILAI
-  getAll = async (): Promise<Nilai[]> => {
-    return this.nilaiRepository.getAll();
-  };
+  getAll() {
+    return this.repo.findAll();
+  }
 
-  // GET NILAI BY ID
-  getById = async (id: number): Promise<Nilai | null> => {
-    return this.nilaiRepository.getById(id);
-  };
+  getBySubmission(submissionId: number) {
+    return this.repo.findBySubmissionId(submissionId);
+  }
 
-  // GET NILAI BY USER
-  getByUserId = async (userId: number): Promise<Nilai[]> => {
-    return this.nilaiRepository.getByUserId(userId);
-  };
-
-  // GET NILAI BY TUGAS
-  getByTugasId = async (tugasId: number): Promise<Nilai[]> => {
-    return this.nilaiRepository.getByTugasId(tugasId);
-  };
-
-  // CREATE NILAI
-  createNilai = async (data: {
-    userId: number;
-    tugasId: number;
+  create(payload: {
+    submissionId: number;
     nilai: number;
     catatan?: string;
-  }): Promise<Nilai> => {
-    return this.nilaiRepository.create(data);
-  };
+  }) {
+    const { submissionId, nilai, catatan } = payload;
 
-  // UPDATE NILAI
-  updateNilai = async (id: number, data: Partial<Nilai>): Promise<Nilai> => {
-    return this.nilaiRepository.update(id, data);
-  };
+    return this.repo.create({
+      nilai,
+      catatan: catatan ?? null,
+      submission: {
+        connect: { id: submissionId },
+      },
+    });
+  }
 
-  // DELETE NILAI
-  deleteNilai = async (id: number): Promise<Nilai> => {
-    return this.nilaiRepository.delete(id);
-  };
+  update(
+    submissionId: number,
+    payload: { nilai: number; catatan?: string }
+  ) {
+    return this.repo.update(submissionId, {
+      nilai: payload.nilai,
+      catatan: payload.catatan ?? null,
+    });
+  }
+
+  delete(submissionId: number) {
+    return this.repo.delete(submissionId);
+  }
 }

@@ -4,53 +4,51 @@ export class KelasRepository {
   constructor(private prisma: PrismaClient) {}
 
   // GET ALL KELAS
-getAll = async (): Promise<Kelas[]> => {
-  return this.prisma.kelas.findMany({
-    include: {
-      santri: {
-        include: {
-          profile: {
-            select: {
-              fotoUrl: true,
+  getAll = async (): Promise<Kelas[]> => {
+    return this.prisma.kelas.findMany({
+      include: {
+        santri: {
+          include: {
+            profile: {
+              select: {
+                fotoUrl: true,
+              },
             },
           },
         },
+        pengajar: true,
+        absensi: true,
+        izin: true,
+        tugas: true,
       },
-      pengajar: true,
-      absensi: true,
-      izin: true,
-      tugas: true,
-    },
-  });
-};
-
-
+    });
+  };
 
   // GET KELAS BY ID
-getById = async (id: number): Promise<Kelas | null> => {
-  return this.prisma.kelas.findFirst({
-    where: { id },
-    include: {
-      pengajar: {
-        select: {
-          id: true,
-          email: true,
-          profile: true,
+  getById = async (id: number): Promise<Kelas | null> => {
+    return this.prisma.kelas.findFirst({
+      where: { id },
+      include: {
+        pengajar: {
+          select: {
+            id: true,
+            email: true,
+            profile: true,
+          },
         },
-      },
-      santri: {
-        select: {
-          id: true,
-          email: true,
-          profile: true,
+        santri: {
+          select: {
+            id: true,
+            email: true,
+            profile: true,
+          },
         },
+        absensi: true,
+        izin: true,
+        tugas: true,
       },
-      absensi: true,
-      izin: true,
-      tugas: true,
-    },
-  });
-};
+    });
+  };
 
   // CREATE NEW KELAS
   create = async (data: {
@@ -77,49 +75,54 @@ getById = async (id: number): Promise<Kelas | null> => {
     });
   };
   // repository/kelas.repository.ts
-assignPengajar(kelasId: number, pengajarIds: number | number[]) {
-  const ids = Array.isArray(pengajarIds) ? pengajarIds : [pengajarIds];
+  assignPengajar(kelasId: number, pengajarIds: number | number[]) {
+    const ids = Array.isArray(pengajarIds) ? pengajarIds : [pengajarIds];
 
-  // filter invalid values
-  const validIds = ids.filter(id => typeof id === 'number');
+    // filter invalid values
+    const validIds = ids.filter((id) => typeof id === "number");
 
-  if (validIds.length === 0) throw new Error("Tidak ada pengajar valid untuk ditambahkan");
+    if (validIds.length === 0)
+      throw new Error("Tidak ada pengajar valid untuk ditambahkan");
 
-  return this.prisma.kelas.update({
-    where: { id: kelasId },
-    data: {
-      pengajar: { connect: validIds.map(id => ({ id })) },
-    },
-    include: { pengajar: true },
-  });
-}
-
-
+    return this.prisma.kelas.update({
+      where: { id: kelasId },
+      data: {
+        pengajar: { connect: validIds.map((id) => ({ id })) },
+      },
+      include: { pengajar: true },
+    });
+  }
 
   setPengajar = async (kelasId: number, pengajarIds: number[]) => {
-  return this.prisma.kelas.update({
-    where: { id: kelasId },
-    data: {
-      pengajar: {
-        set: pengajarIds.map(id => ({ id })),
+    return this.prisma.kelas.update({
+      where: { id: kelasId },
+      data: {
+        pengajar: {
+          set: pengajarIds.map((id) => ({ id })),
+        },
       },
-    },
-    include: {
-      pengajar: true,
-      santri: true,
-    },
-  });
-};
-
+      include: {
+        pengajar: true,
+        santri: true,
+      },
+    });
+  };
 
   addPengajar = async (kelasId: number, pengajarId: number) => {
-  return this.prisma.kelas.update({
-    where: { id: kelasId },
-    data: {
-      pengajar: {
-        connect: { id: pengajarId },
+    return this.prisma.kelas.update({
+      where: { id: kelasId },
+      data: {
+        pengajar: {
+          connect: { id: pengajarId },
+        },
       },
-    },
+    });
+  };
+
+  getKelasByPengajar = (pengajarId: number) => {
+  return this.prisma.kelas.findMany({
+    where: { id:pengajarId }, // pastikan di DB ada kolom pengajarId atau relasi
+    orderBy: { namaKelas: "asc" },
   });
 };
 

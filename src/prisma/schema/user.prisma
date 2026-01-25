@@ -21,7 +21,6 @@ model User {
   izin         Izin[]
   tugasDibuat  Tugas[]    @relation("TugasDibuat")
   submission   Submission[]
-  nilai        Nilai[]
   log          LogAktivitas[]
   profile      Profile?
   notifications Notification[]

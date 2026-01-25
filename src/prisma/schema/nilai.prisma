@@ -1,11 +1,10 @@
 model Nilai {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  tugasId   Int
-  nilai     Int
-  catatan   String?
-  createdAt DateTime @default(now())
+  id            Int      @id @default(autoincrement())
 
-  user      User     @relation(fields: [userId], references: [id])
-  tugas     Tugas    @relation(fields: [tugasId], references: [id])
+  submissionId  Int      @unique
+  nilai         Int
+  catatan       String?
+  createdAt     DateTime @default(now())
+
+  submission    Submission @relation(fields: [submissionId], references: [id])
 }

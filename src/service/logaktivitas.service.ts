@@ -7,7 +7,7 @@ export class LogAktivitasService {
   // CREATE LOG (BIASA DIPAKE DI AUTH / ACTION PENTING)
   createLog = async (
     userId: number,
-    aktivitas: string
+    aktivitas: string,
   ): Promise<LogAktivitas> => {
     return this.logRepo.create({
       userId,

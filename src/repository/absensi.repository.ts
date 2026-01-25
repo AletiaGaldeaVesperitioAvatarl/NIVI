@@ -8,11 +8,17 @@ export class AbsensiRepository {
   }
 
   getById(id: number): Promise<Absensi | null> {
-    return this.prisma.absensi.findUnique({ where: { id }, include: { jadwal: true } });
+    return this.prisma.absensi.findUnique({
+      where: { id },
+      include: { jadwal: true },
+    });
   }
 
   getByUserId(userId: number): Promise<Absensi[]> {
-    return this.prisma.absensi.findMany({ where: { userId }, include: { jadwal: true } });
+    return this.prisma.absensi.findMany({
+      where: { userId },
+      include: { jadwal: true },
+    });
   }
 
   getTodayByUser(userId: number): Promise<Absensi[]> {
@@ -49,45 +55,48 @@ export class AbsensiRepository {
   }
 
   update(id: number, data: Partial<Absensi>): Promise<Absensi> {
-    return this.prisma.absensi.update({ where: { id }, data, include: { jadwal: true } });
+    return this.prisma.absensi.update({
+      where: { id },
+      data,
+      include: { jadwal: true },
+    });
   }
 
   delete(id: number): Promise<Absensi> {
-    return this.prisma.absensi.delete({ where: { id }, include: { jadwal: true } });
+    return this.prisma.absensi.delete({
+      where: { id },
+      include: { jadwal: true },
+    });
   }
 
-    findByUserAndTanggal(userId: number, tanggal: Date) {
+  findByUserAndTanggal(userId: number, tanggal: Date) {
     return this.prisma.absensi.findFirst({
       where: { userId, tanggal },
     });
   }
 
-createIzinAbsensi(
-  userId: number,
-  kelasId: number,
-  tanggal: Date
-) {
-  return this.prisma.absensi.create({
-    data: {
-      userId,
-      kelasId, // ✅ INI YANG HILANG
-      tanggal,
-      status: "izin",
-    },
-  });
-}
+  createIzinAbsensi(userId: number, kelasId: number, tanggal: Date) {
+    return this.prisma.absensi.create({
+      data: {
+        userId,
+        kelasId, // ✅ INI YANG HILANG
+        tanggal,
+        status: "izin",
+      },
+    });
+  }
 
-countTodayByKelas(kelasId: number, tanggal: Date) {
-  return this.prisma.absensi.count({
-    where: {
-      kelasId,
-      tanggal,
-    },
-  });
-}
+  countTodayByKelas(kelasId: number, tanggal: Date) {
+    return this.prisma.absensi.count({
+      where: {
+        kelasId,
+        tanggal,
+      },
+    });
+  }
   async countByKelasAndTanggal(
     kelasId: number,
-    tanggal: Date
+    tanggal: Date,
   ): Promise<number> {
     const start = new Date(tanggal);
     start.setHours(0, 0, 0, 0);
@@ -115,7 +124,7 @@ countTodayByKelas(kelasId: number, tanggal: Date) {
     kelasId: number;
     skip: number;
     take: number;
-    sort: 'asc' | 'desc';
+    sort: "asc" | "desc";
   }) => {
     return this.prisma.absensi.findMany({
       where: { kelasId },
@@ -130,5 +139,4 @@ countTodayByKelas(kelasId: number, tanggal: Date) {
       where: { kelasId },
     });
   };
-
 }

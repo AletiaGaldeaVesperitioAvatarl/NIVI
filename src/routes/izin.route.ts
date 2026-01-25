@@ -61,8 +61,7 @@ router.post("/", authenticate, izinController.create);
 // ROUTES UNTUK ADMIN / PENGAJAR
 router.get(
   "/",
-  authenticate,
-  roleMiddleware(["admin", "pengajar"]),
+ 
   izinController.getAll
 );
 

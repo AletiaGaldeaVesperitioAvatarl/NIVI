@@ -36,11 +36,7 @@ const profileController = new ProfileController(profileService);
  *       404:
  *         description: Profile belum dibuat
  */
-router.get(
-  "/me",
-  authenticate,
-  profileController.getMyProfile
-);
+router.get("/me", authenticate, profileController.getMyProfile);
 
 /**
  * @swagger
@@ -67,7 +63,7 @@ router.get(
   "/user/:userId",
   authenticate,
   roleMiddleware([Role.admin]),
-  profileController.getProfileByUserId
+  profileController.getProfileByUserId,
 );
 
 /**
@@ -110,11 +106,7 @@ router.get(
  *       201:
  *         description: Profile berhasil dibuat
  */
-router.post(
-  "/",
-  authenticate,
-  profileController.createProfile
-);
+router.post("/", authenticate, profileController.createProfile);
 
 /**
  * @swagger
@@ -155,12 +147,11 @@ router.post(
  *         description: Profile berhasil diupdate
  */
 router.put(
-  '/me',
+  "/me",
   authenticate,
   upload.single("image"),
-  profileController.updateProfile
+  profileController.updateProfile,
 );
-
 
 /**
  * @swagger

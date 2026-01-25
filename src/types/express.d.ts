@@ -8,8 +8,7 @@ declare global {
       user?: {
         id: number;
         role: Role;
-          kelasId: number;
-
+        kelasId: number;
       };
     }
   }

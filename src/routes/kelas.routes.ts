@@ -3,6 +3,7 @@ import { KelasRepository } from "../repository/kelas.repository";
 import prismaInstance from "../database";
 import { KelasService } from "../service/kelas.service";
 import { KelasController } from "../controller/kelas.controller";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -16,8 +17,9 @@ const kelasController = new KelasController(kelasService);
  * tags:
  *   name: Kelas
  *   description: Manajemen data kelas
- */
+*/
 
+router.get("/pengajar/me", authenticate, kelasController.getKelasByPengajar)
 /**
  * @swagger
  * /kelas:
@@ -128,5 +130,6 @@ router.delete("/:id", kelasController.delete);
 router.post("/:id/pengajar", kelasController.assignPengajar);
 
 router.put("/:id/pengajar", kelasController.setPengajar)
+
 
 export default router;

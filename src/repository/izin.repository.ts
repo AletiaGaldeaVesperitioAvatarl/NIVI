@@ -75,19 +75,18 @@ export class IzinRepository {
   };
 
   async findByUserAndDate(
-  userId: number,
-  kelasId: number,
-  tanggal: Date,
-  status?: "menunggu" | "disetujui" | "ditolak"
-): Promise<Izin | null> {
-  const query: any = {
-    userId,
-    kelasId,
-    tanggal,
-  };
-  if (status) query.status = status;
+    userId: number,
+    kelasId: number,
+    tanggal: Date,
+    status?: "menunggu" | "disetujui" | "ditolak",
+  ): Promise<Izin | null> {
+    const query: any = {
+      userId,
+      kelasId,
+      tanggal,
+    };
+    if (status) query.status = status;
 
-  return this.prisma.izin.findFirst({ where: query });
-}
-
+    return this.prisma.izin.findFirst({ where: query });
+  }
 }
