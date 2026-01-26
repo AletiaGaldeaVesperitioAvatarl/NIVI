@@ -31,45 +31,63 @@ export class AbsensiController {
     }
   };
 
-  absen = async (req: Request, res: Response) => {
-    try {
-      const userId = Number(req.user!.id);
-      const { status, jadwalId } = req.body;
+absen = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.user!.id);
+    const { status, jadwalId } = req.body;
 
-      if (!Object.values(StatusAbsensi).includes(status as StatusAbsensi)) {
-        throw new Error("Status tidak valid");
-      }
+    // 1️⃣ Validasi status
+    if (!Object.values(StatusAbsensi).includes(status as StatusAbsensi)) {
+      throw new Error("Status tidak valid");
+    }
 
-      // 🔥 AMBIL USER + KELAS DARI DB
-      const user = await this.userService.getById(userId);
-      if (!user?.kelasId) {
-        throw new Error("User belum punya kelas");
-      }
+    // 2️⃣ Ambil user
+    const user = await this.userService.getById(userId);
+    if (!user?.kelasId) {
+      throw new Error("User belum punya kelas");
+    }
 
-      const kelasId = user.kelasId;
+    // 3️⃣ Pastikan kelasId selalu array
+    const kelasIds: number[] = Array.isArray(user.kelasId)
+      ? user.kelasId
+      : [user.kelasId];
 
+    if (kelasIds.length === 0) {
+      throw new Error("User belum punya kelas");
+    }
+
+    // 4️⃣ Loop absen untuk semua kelas
+    const dataResults = [];
+    for (const kelasId of kelasIds) {
+      // Absen hadir
       const data = await this.service.absenHadir(
         userId,
         kelasId,
         status as StatusAbsensi,
-        jadwalId,
+        jadwalId
       );
+      dataResults.push(data);
 
-      // 🔥 REALTIME UPDATE
+      // Emit realtime update ke kelas
       const realtimeData = await this.service.getByKelas({
         kelasId,
         page: 1,
         limit: 100,
         sort: "desc",
       });
-
       io.to(`kelas-${kelasId}`).emit("absensi-update", realtimeData.data);
 
-      successResponse(res, "Absen berhasil", data, null, 201);
-    } catch (err: any) {
-      errorResponse(res, err.message);
+      // Emit ke user-specific room
+      io.to(`user-${userId}`).emit("absensi-update", data);
     }
-  };
+
+    successResponse(res, "Absen berhasil", dataResults, null, 201);
+  } catch (err: any) {
+    errorResponse(res, err.message);
+  }
+};
+
+
 
   getMyTodayAbsensi = async (req: Request, res: Response) => {
     try {

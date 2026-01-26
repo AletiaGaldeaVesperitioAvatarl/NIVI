@@ -1,19 +1,14 @@
 import { AbsensiRepository } from "../repository/absensi.repository";
 import { AbsensiSettingService } from "./absensiSetting.service";
-import { JadwalAbsensi, StatusAbsensi } from "../../dist/generated";
+import { StatusAbsensi } from "../../dist/generated";
 import cron from "node-cron";
+import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 
 export class AbsensiService {
   constructor(
     private absensiRepo: AbsensiRepository,
     private settingService: AbsensiSettingService,
-    private jadwalRepo: {
-      findActiveSchedule: (
-        kelasId: number,
-        now: Date,
-        jadwalId?: number,
-      ) => Promise<JadwalAbsensi | null>;
-    },
+    private jadwalRepo:JadwalAbsensiRepository
   ) {}
 
   // ===============================
@@ -178,36 +173,45 @@ export class AbsensiService {
   //     });
   //   }
   // };
-
-  async generateDailyAbsensiStatus(
-    userId: number,
-    kelasId: number,
-    tanggal: Date,
-  ) {
+  async generateDailyAbsensiStatus(userId: number, kelasId: number, tanggal: Date) {
     const setting = await this.settingService.getByKelas(kelasId);
     if (!setting?.maxAbsen) return;
 
-    // Hitung absensi user di tanggal itu
-    const absensiHariIni = await this.absensiRepo.countUserAbsensiByTanggal(
-      userId,
-      tanggal,
-    );
+    // Ambil semua jadwal untuk tanggal ini
+    const jadwalHariIni = await this.jadwalRepo.getByKelasAndTanggal(kelasId, tanggal);
 
-    // Sisa slot dianggap alpha
+    if (!jadwalHariIni || jadwalHariIni.length === 0) {
+      // Hari ini tidak ada jadwal → tidak generate alpha
+      console.log(`Tidak ada jadwal hari ini untuk kelasId=${kelasId}, tanggal=${tanggal.toISOString()}. Alpha tidak dibuat.`);
+      return;
+    }
+
+    // Hitung sisa slot alpha
+    const absensiHariIni = await this.absensiRepo.countNonIzinAbsensiByTanggal(userId, tanggal);
     const alphaCount = setting.maxAbsen - absensiHariIni;
     if (alphaCount <= 0) return;
 
+    // Generate alpha per slot, jadwal di-rotasi
     for (let i = 0; i < alphaCount; i++) {
-      await this.absensiRepo.create({
-        userId,
-        kelasId,
-        tanggal,
-        status: StatusAbsensi.alpha,
-      });
-    }
+  const jadwal = jadwalHariIni[i % jadwalHariIni.length];
+  if (!jadwal) continue; // aman, skip jika undefined (meski tidak akan terjadi)
+  
+  await this.absensiRepo.create({
+    userId,
+    kelasId,
+    tanggal,
+    jadwalId: jadwal.id,
+    status: StatusAbsensi.alpha,
+  });
+}
+
+
+    console.log(`Generate ${alphaCount} alpha untuk userId=${userId}, kelasId=${kelasId}, tanggal=${tanggal.toISOString()}`);
   }
 
-  // Fungsi generate alpha otomatis untuk semua user dan semua kelas di tanggal tertentu
+  // ===============================
+  // GENERATE ALPHA UNTUK SEMUA USER DAN KELAS
+  // ===============================
   async generateAlphaForAll(date: Date) {
     const semuaSetting = await this.settingService.getAll();
     for (const setting of semuaSetting) {
@@ -222,20 +226,28 @@ export class AbsensiService {
     }
   }
 
-  // Scheduler cron job tiap jam 00:00
-  startCron() {
-    cron.schedule("0 0 * * *", async () => {
-      const kemarin = new Date();
-      kemarin.setDate(kemarin.getDate() - 1);
-      kemarin.setHours(0, 0, 0, 0);
+// Cron default tiap jam 00:00
+startCronDaily() {
+  cron.schedule("0 0 * * *", async () => {
+    const kemarin = new Date();
+    kemarin.setDate(kemarin.getDate() - 1); // generate alpha untuk tanggal kemarin
+    kemarin.setHours(0, 0, 0, 0);
 
-      console.log(
-        "Men-generate alpha absensi untuk tanggal:",
-        kemarin.toLocaleDateString(),
-      );
-      await this.generateAlphaForAll(kemarin);
-    });
+    console.log("Men-generate alpha absensi untuk tanggal:", kemarin.toISOString());
+    await this.generateAlphaForAll(kemarin);
+  });
+
+  console.log("Cron alpha harian aktif jam 00:00");
+}
+
+
+  // ================================
+  // TEST MANUAL (tanpa cron)
+  // ================================
+  async testGenerateAlphaForDate(tanggal: Date) {
+    console.log("=== Mulai generate alpha manual ===");
+    await this.generateAlphaForAll(tanggal);
+    console.log("=== Selesai generate alpha manual ===");
   }
-
 
 }

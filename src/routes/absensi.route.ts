@@ -21,6 +21,8 @@ const userRepo = new UserRepository(prismaInstance)
 const userService = new UserService(userRepo)
 const settingService = new AbsensiSettingService(settingRepo)
 const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo);
+// absensiService.startCronTest("*/1 * * * *"); 
+
 const absensiController = new AbsensiController(absensiService, userService);
 
 // POST absen (HADIR/IZIN/SAKIT) opsional jadwalId

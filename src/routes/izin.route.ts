@@ -42,6 +42,7 @@ const izinService = new IzinService(
   absensiRepo,
   absensiService,
   settingService,
+  jadwalRepo,
   jadwalAbsensiService
 );
 

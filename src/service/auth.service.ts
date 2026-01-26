@@ -5,6 +5,7 @@ import { randomInt } from "crypto";
 import sgMail from "@sendgrid/mail";
 import config from "../utils/env";
 
+
 export class AuthService {
   constructor(private repo: AuthRepository) {
     sgMail.setApiKey(config.SENDGRID_API_KEY!);

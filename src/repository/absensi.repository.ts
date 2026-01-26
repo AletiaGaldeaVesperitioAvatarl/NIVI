@@ -44,15 +44,22 @@ export class AbsensiRepository {
     });
   }
 
-  create(data: {
-    userId: number;
-    kelasId: number;
-    jadwalId?: number;
-    status: StatusAbsensi;
-    tanggal: Date;
-  }): Promise<Absensi> {
-    return this.prisma.absensi.create({ data, include: { jadwal: true } });
-  }
+create(data: {
+  userId: number;
+  kelasId: number;
+  jadwalId?: number; 
+  status: StatusAbsensi;
+  tanggal: Date;
+}): Promise<Absensi> {
+  return this.prisma.absensi.create({
+    data: {
+      ...data,
+      jadwalId: data.jadwalId ?? null, // ganti undefined jadi null
+    },
+    include: { jadwal: true },
+  });
+}
+
 
   update(id: number, data: Partial<Absensi>): Promise<Absensi> {
     return this.prisma.absensi.update({
@@ -184,4 +191,6 @@ export class AbsensiRepository {
       },
     });
   }
+
+  
 }

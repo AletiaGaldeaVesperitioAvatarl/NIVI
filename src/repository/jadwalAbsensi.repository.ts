@@ -213,4 +213,31 @@ export class JadwalAbsensiRepository {
       },
     });
   };
+
+    async getByKelasAndTanggal(kelasId: number, tanggal: Date): Promise<JadwalAbsensi[]> {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
+
+    return this.prisma.jadwalAbsensi.findMany({
+      where: {
+        kelasId,
+        tanggal: {
+          gte: start,
+          lte: end,
+        },
+      },
+      orderBy: { jamMulai: "asc" },
+    });
+  }
+
+  // Optional: Ambil semua jadwal kelas (tanpa filter tanggal)
+  async getByKelas(kelasId: number): Promise<JadwalAbsensi[]> {
+    return this.prisma.jadwalAbsensi.findMany({
+      where: { kelasId },
+      orderBy: { jamMulai: "asc" },
+    });
+  }
 }

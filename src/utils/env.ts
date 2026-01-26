@@ -8,7 +8,7 @@ const config = {
   DATABASE_URL: process.env.DATABASE_URL!,
   JWT_SECRET: process.env.JWT_SECRET || "strongpassword123",
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-  FROM_EMAIL: process.env.FROM_EMAIL,
+  FROM_EMAIL: process.env.FROM_EMAIL || 'zidanalbani97@gmail.com',
 };
 
 export default config;

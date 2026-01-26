@@ -4,6 +4,7 @@ import { AbsensiService } from "./absensi.service";
 import { AbsensiSettingService } from "./absensiSetting.service";
 import { AbsensiRepository } from "../repository/absensi.repository";
 import { JadwalAbsensiService } from "./jadwalAbsensi.service";
+import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 
 export class IzinService {
   constructor(
@@ -11,7 +12,9 @@ export class IzinService {
     private absensiRepo: AbsensiRepository,
     private absensiService: AbsensiService,
     private settingService: AbsensiSettingService,
+    private jadwalAbsensiRepo: JadwalAbsensiRepository,
     private jadwalAbsensiService: JadwalAbsensiService,
+    
   ) {}
 
   // ===============================
@@ -32,63 +35,68 @@ export class IzinService {
   // ===============================
   // CREATE IZIN (SANTRI)
   // ===============================
-  async createIzin(data: {
-    userId: number;
-    kelasId: number;
-    tanggal: Date;
-    alasan: string;
-  }): Promise<Izin> {
-    const tanggal = new Date(
-      data.tanggal.getFullYear(),
-      data.tanggal.getMonth(),
-      data.tanggal.getDate(),
+async createIzin(data: {
+  userId: number;
+  kelasId: number;
+  tanggal: Date;
+  alasan: string;
+}): Promise<Izin> {
+  const tanggal = new Date(
+    data.tanggal.getFullYear(),
+    data.tanggal.getMonth(),
+    data.tanggal.getDate()
+  );
+
+  // 1️⃣ CEK JADWAL AKTIF (TANGGAL + JAM)
+  const now = new Date();
+  const jadwalAktif = await this.jadwalAbsensiRepo.findActiveSchedule(
+    data.kelasId,
+    now
+  );
+
+  if (!jadwalAktif) {
+    throw new Error(
+      "Izin hanya bisa diajukan saat jam absensi aktif sesuai jadwal"
     );
-
-    // 1️⃣ VALIDASI JADWAL ABSENSI
-    const hasJadwal = await this.jadwalAbsensiService.hasScheduleOnDate(
-      data.kelasId,
-      tanggal,
-    );
-
-    if (!hasJadwal) {
-      throw new Error("Hari ini tidak ada jadwal absensi");
-    }
-
-    // 2️⃣ CEGAH IZIN DOBEL
-    const pending = await this.izinRepo.findByUserAndDate(
-      data.userId,
-      data.kelasId,
-      tanggal,
-      "menunggu",
-    );
-
-    if (pending) {
-      throw new Error("Masih ada izin menunggu di hari ini");
-    }
-
-    // 3️⃣ VALIDASI KUOTA ABSENSI SANTRI
-    const setting = await this.settingService.getByKelas(data.kelasId);
-    if (!setting?.maxAbsen) {
-      throw new Error("Setting absensi kelas belum lengkap");
-    }
-
-    const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(
-      data.userId,
-    );
-
-    if (userAbsensiHariIni >= setting.maxAbsen) {
-      throw new Error("Kuota absensi Anda hari ini sudah penuh");
-    }
-
-    // 4️⃣ SIMPAN IZIN
-    return this.izinRepo.create({
-      userId: data.userId,
-      kelasId: data.kelasId,
-      tanggal,
-      alasan: data.alasan,
-      status: "menunggu",
-    });
   }
+
+  // 2️⃣ CEGAH IZIN DOBEL
+  const pending = await this.izinRepo.findByUserAndDate(
+    data.userId,
+    data.kelasId,
+    tanggal,
+    "menunggu"
+  );
+
+  if (pending) {
+    throw new Error("Masih ada izin menunggu di hari ini");
+  }
+
+  // 3️⃣ VALIDASI KUOTA ABSENSI SANTRI
+  const setting = await this.settingService.getByKelas(data.kelasId);
+  if (!setting?.maxAbsen) {
+    throw new Error("Setting absensi kelas belum lengkap");
+  }
+
+  const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(
+    data.userId
+  );
+
+  if (userAbsensiHariIni >= setting.maxAbsen) {
+    throw new Error("Kuota absensi Anda hari ini sudah penuh");
+  }
+
+  // 4️⃣ SIMPAN IZIN
+  return this.izinRepo.create({
+    userId: data.userId,
+    kelasId: data.kelasId,
+    tanggal,
+    alasan: data.alasan,
+    status: "menunggu",
+  });
+}
+
+
 
   // ===============================
   // UPDATE IZIN (PENGAJAR)
