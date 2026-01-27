@@ -89,4 +89,23 @@ export class IzinRepository {
 
     return this.prisma.izin.findFirst({ where: query });
   }
+
+  async countMonthly(userId: number): Promise<number> {
+    const start = new Date();
+    start.setDate(1);
+    start.setHours(0, 0, 0, 0);
+
+    return this.prisma.izin.count({
+      where: {
+        userId,
+        tanggal: {
+          gte: start,
+        },
+      },
+    });
+  }
+
+
+
+
 }

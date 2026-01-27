@@ -5,13 +5,17 @@ import { SubmissionController } from "../controller/submission.controller";
 import prismaInstance from "../database";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
+import { TugasRepository } from "../repository/tugas.repository";
+import { TugasService } from "../service/tugas.service";
 
 const router = Router();
 
 // === Dependency Injection ===
 const repository = new SubmissionRepository(prismaInstance);
+const tugasRepo = new TugasRepository(prismaInstance)
 const service = new SubmissionService(repository);
-const controller = new SubmissionController(service);
+const tugasService = new TugasService(tugasRepo)
+const controller = new SubmissionController(service, tugasService);
 
 /**
  * =========================

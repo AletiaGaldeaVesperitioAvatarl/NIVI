@@ -9,6 +9,7 @@ const config = {
   JWT_SECRET: process.env.JWT_SECRET || "strongpassword123",
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   FROM_EMAIL: process.env.FROM_EMAIL || 'zidanalbani97@gmail.com',
+  OPENAI_API_KEY:process.env.OPENAI_API_KEY,
 };
 
 export default config;

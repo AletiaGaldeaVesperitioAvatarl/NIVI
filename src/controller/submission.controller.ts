@@ -1,9 +1,14 @@
 import type { Request, Response } from "express";
 import { SubmissionService } from "../service/submission.service";
 import { successResponse } from "../utils/response";
+import { io } from "../socket";
+import { TugasService } from "../service/tugas.service";
+
 
 export class SubmissionController {
-  constructor(private service: SubmissionService) {}
+  constructor(private service: SubmissionService,
+    private tugasService:TugasService
+  ) {}
 
   /**
    * =========================
@@ -43,24 +48,32 @@ export class SubmissionController {
    * =========================
    * Submit tugas
    */
-  submit = async (req: any, res: Response) => {
-    const { tugasId, fileUrl, linkUrl } = req.body;
+submit = async (req: any, res: Response) => {
+  const { tugasId, fileUrl, linkUrl } = req.body;
 
-    if (!tugasId) {
-      return res.status(400).json({
-        message: "tugasId wajib diisi",
-      });
-    }
+  const submission = await this.service.submitTugas({
+    userId: req.user.id,
+    tugasId: Number(tugasId),
+    fileUrl,
+    linkUrl,
+  });
 
-    const data = await this.service.submitTugas({
-      userId: req.user.id,
-      tugasId: Number(tugasId),
-      fileUrl,
-      linkUrl,
-    });
+  // 🔥 ambil kelasId dari TUGAS
+  const tugas = await this.tugasService.getById(Number(tugasId));
+  if (!tugas) {
+  return res.status(404).json({
+    message: "Tugas tidak ditemukan",
+  });
+}
+  const kelasId = tugas.kelasId;
 
-    successResponse(res, "Tugas berhasil dikumpulkan", data, null, 201);
-  };
+  // 🔥 realtime
+  io.to(`kelas-${kelasId}`).emit("submission-created", submission);
+  io.to(`user-${req.user.id}`).emit("submission-created", submission);
+
+  successResponse(res, "Tugas berhasil dikumpulkan", submission, null, 201);
+};
+
 
   updateStatus = async (req: any, res: any) => {
   try {

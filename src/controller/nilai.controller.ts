@@ -1,35 +1,70 @@
 import { Request, Response } from "express";
 import { NilaiService } from "../service/nilai.service";
-import { successResponse } from "../utils/response";
+import { successResponse, errorResponse } from "../utils/response";
+import { io } from "../socket";
 
 export class NilaiController {
   constructor(private service: NilaiService) {}
 
   getAll = async (_req: Request, res: Response) => {
-    const data = await this.service.getAll();
-    successResponse(res, "Semua nilai", data);
+    try {
+      const data = await this.service.getAll();
+      successResponse(res, "Semua nilai", data);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   getBySubmission = async (req: Request, res: Response) => {
-    const submissionId = Number(req.params.submissionId);
-    const data = await this.service.getBySubmission(submissionId);
-    successResponse(res, "Detail nilai", data);
+    try {
+      const submissionId = Number(req.params.submissionId);
+      const data = await this.service.getBySubmission(submissionId);
+      successResponse(res, "Detail nilai", data);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   create = async (req: Request, res: Response) => {
-    const data = await this.service.create(req.body);
-    successResponse(res, "Nilai berhasil disimpan", data, null, 201);
+    try {
+      const data = await this.service.create(req.body);
+
+      // 🔥 REALTIME: emit ke room submission
+      if (data.submissionId) {
+        io.to(`submission-${data.submissionId}`).emit("nilai-updated", data);
+      }
+
+      successResponse(res, "Nilai berhasil disimpan", data, null, 201);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   update = async (req: Request, res: Response) => {
-    const submissionId = Number(req.params.submissionId);
-    const data = await this.service.update(submissionId, req.body);
-    successResponse(res, "Nilai berhasil diperbarui", data);
+    try {
+      const submissionId = Number(req.params.submissionId);
+      const data = await this.service.update(submissionId, req.body);
+
+      // 🔥 REALTIME: emit ke room submission
+      io.to(`submission-${submissionId}`).emit("nilai-updated", data);
+
+      successResponse(res, "Nilai berhasil diperbarui", data);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   delete = async (req: Request, res: Response) => {
-    const submissionId = Number(req.params.submissionId);
-    await this.service.delete(submissionId);
-    successResponse(res, "Nilai berhasil dihapus");
+    try {
+      const submissionId = Number(req.params.submissionId);
+      await this.service.delete(submissionId);
+
+      // 🔥 REALTIME: emit ke room submission
+      io.to(`submission-${submissionId}`).emit("nilai-deleted", { submissionId });
+
+      successResponse(res, "Nilai berhasil dihapus");
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 }

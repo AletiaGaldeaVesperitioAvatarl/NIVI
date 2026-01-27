@@ -229,16 +229,21 @@ export class AbsensiService {
 // Cron default tiap jam 00:00
 startCronDaily() {
   cron.schedule("0 0 * * *", async () => {
-    const kemarin = new Date();
-    kemarin.setDate(kemarin.getDate() - 1); // generate alpha untuk tanggal kemarin
-    kemarin.setHours(0, 0, 0, 0);
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() - 1);
+    targetDate.setHours(0, 0, 0, 0);
 
-    console.log("Men-generate alpha absensi untuk tanggal:", kemarin.toISOString());
-    await this.generateAlphaForAll(kemarin);
+    console.log(
+      "[CRON] Generate alpha untuk tanggal:",
+      targetDate.toISOString()
+    );
+
+    await this.generateAlphaForAll(targetDate);
   });
 
-  console.log("Cron alpha harian aktif jam 00:00");
+  console.log("[CRON] Alpha harian aktif (00:00 server time)");
 }
+
 
 
   // ================================

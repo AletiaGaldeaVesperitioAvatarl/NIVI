@@ -22,6 +22,11 @@ io.on("connection", (socket) => {
     console.log(`Socket ${socket.id} joined user-${userId}`);
   });
 
+  socket.on("join-submission", (submissionId: number) => {
+    socket.join(`submission-${submissionId}`);
+    console.log(`Socket ${socket.id} joined submission-${submissionId}`);
+  });
+
   socket.on("disconnect", () => {
     console.log("Socket disconnected:", socket.id);
   });

@@ -1,0 +1,19 @@
+name: Sistem Otomatis Master
+
+on:
+  schedule:
+    # Cron GitHub pakai UTC
+    # Contoh: 04:00 WIB = 21:00 UTC (hari sebelumnya)
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Panggil API Otomatis
+        run: |
+          curl -X POST http://172.10.2.181:5000/api/automation/generate-alpha/run \
+          -H "Authorization: Bearer ${{ secrets.AUTOMATION_TOKEN }}" \
+          -H "Content-Type: application/json"

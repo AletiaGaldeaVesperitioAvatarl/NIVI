@@ -7,8 +7,25 @@ export class SubmissionRepository {
    * ========== CREATE ==========
    */
   create(data: Prisma.SubmissionCreateInput): Promise<Submission> {
-    return this.prisma.submission.create({ data });
-  }
+  return this.prisma.submission.create({
+    data,
+    include: {
+      tugas: {
+        select: {
+          id: true,
+          kelasId: true,
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+}
+
 
   /**
    * ========== READ ==========

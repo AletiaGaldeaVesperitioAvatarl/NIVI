@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { KelasService } from "../service/kelas.service";
-import { successResponse } from "../utils/response";
+import { successResponse, errorResponse } from "../utils/response";
 import { io } from "../socket";
 
 export class KelasController {
@@ -8,93 +8,119 @@ export class KelasController {
 
   // GET ALL KELAS
   getAll = async (_req: Request, res: Response) => {
-    const kelas = await this.kelasService.getAll();
-    successResponse(res, "Semua kelas berhasil diambil", kelas);
+    try {
+      const kelas = await this.kelasService.getAll();
+      successResponse(res, "Semua kelas berhasil diambil", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   // GET KELAS BY ID
   getById = async (req: Request, res: Response) => {
-    if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");
-    const id = Number(req.params.id);
-    const kelas = await this.kelasService.getById(id);
-    if (!kelas) throw new Error("Kelas tidak ditemukan!");
-    successResponse(res, "Kelas berhasil ditemukan", kelas);
+    try {
+      if (!req.params.id) throw new Error("Parameter id tidak ditemukan!");
+      const id = Number(req.params.id);
+      const kelas = await this.kelasService.getById(id);
+      if (!kelas) throw new Error("Kelas tidak ditemukan!");
+      successResponse(res, "Kelas berhasil ditemukan", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
   };
 
   // CREATE KELAS
-create = async (req: Request, res: Response) => {
-  const { namaKelas, deskripsi } = req.body;
-  const kelas = await this.kelasService.createKelas({ namaKelas, deskripsi });
+  create = async (req: Request, res: Response) => {
+    try {
+      const { namaKelas, deskripsi } = req.body;
+      const kelas = await this.kelasService.createKelas({ namaKelas, deskripsi });
 
-  // 🔥 EMIT REALTIME
-  io.emit("kelas-created", kelas);
+      // 🔥 REALTIME: global emit
+      io.emit("kelas-created", kelas);
 
-  successResponse(res, "Kelas berhasil dibuat", kelas, null, 201);
-};
-
+      successResponse(res, "Kelas berhasil dibuat", kelas, null, 201);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
   // UPDATE KELAS
-update = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const data = req.body;
+  update = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const data = req.body;
 
-  const kelas = await this.kelasService.updateKelas(id, data);
+      const kelas = await this.kelasService.updateKelas(id, data);
 
-  io.emit("kelas-updated", kelas);
+      // 🔥 REALTIME: global emit
+      io.emit("kelas-updated", kelas);
 
-  successResponse(res, "Kelas berhasil diperbarui", kelas);
-};
-
+      successResponse(res, "Kelas berhasil diperbarui", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
   // DELETE KELAS
-delete = async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const kelas = await this.kelasService.deleteKelas(id);
+  delete = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      const kelas = await this.kelasService.deleteKelas(id);
 
-  io.emit("kelas-deleted", { id });
+      // 🔥 REALTIME: global emit
+      io.emit("kelas-deleted", { id });
 
-  successResponse(res, "Kelas berhasil dihapus", kelas);
-};
+      successResponse(res, "Kelas berhasil dihapus", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
-assignPengajar = async (req: Request, res: Response) => {
-  const kelasId = Number(req.params.id);
-  const { pengajarIds } = req.body;
+  // ASSIGN PENGAJAR KE KELAS
+  assignPengajar = async (req: Request, res: Response) => {
+    try {
+      const kelasId = Number(req.params.id);
+      const { pengajarIds } = req.body;
 
-  const kelas = await this.kelasService.assignPengajarKeKelas(
-    kelasId,
-    pengajarIds
-  );
+      const kelas = await this.kelasService.assignPengajarKeKelas(kelasId, pengajarIds);
 
-  io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
+      // 🔥 REALTIME: emit ke room kelas agar pengajar/anggota kelas yang join tahu update
+      io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
 
-  successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
-};
+      successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
+  // SET PENGAJAR KELAS (replace)
+  setPengajar = async (req: Request, res: Response) => {
+    try {
+      const kelasId = Number(req.params.id);
+      const { pengajarIds } = req.body;
 
-setPengajar = async (req: Request, res: Response) => {
-  const kelasId = Number(req.params.id);
-  const { pengajarIds } = req.body;
+      const kelas = await this.kelasService.setPengajarKelas(kelasId, pengajarIds);
 
-  const kelas = await this.kelasService.setPengajarKelas(
-    kelasId,
-    pengajarIds
-  );
+      io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
 
-  io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
+      successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
-  successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
-};
+  // GET KELAS BY PENGAJAR (untuk join room FE)
+  getKelasByPengajar = async (req: Request, res: Response) => {
+    try {
+      if (!req.user) throw new Error("User tidak ditemukan!");
+      const kelas = await this.kelasService.getKelasByPengajar(req.user.id);
 
-getKelasByPengajar = async (req: Request, res:Response) => {
-  if (!req.user) {
-    throw new Error ("User tidak ditemukan!")
-  }
-  const kelas = await this.kelasService.getKelasByPengajar(req.user.id);
-  successResponse(
-    res,
-    "Kelas berhasil diambil",
-    kelas
-  )
-}
+      // 🔥 opsional: emit info join kelas (frontend nanti bisa join room)
+      // io.to(`user-${req.user.id}`).emit("user-kelas", kelas);
 
+      successResponse(res, "Kelas berhasil diambil", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 }

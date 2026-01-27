@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { TugasService } from "../service/tugas.service";
 import { successResponse } from "../utils/response";
+import { io } from "../socket";
+
 
 export class TugasController {
   constructor(private service: TugasService) {}
@@ -40,22 +42,35 @@ create = async (req: any, res: Response) => {
     createdBy: req.user.id,
   });
 
+  // 🔥 REALTIME: kirim ke semua member kelas
+  io.to(`kelas-${kelasId}`).emit("tugas-created", data);
+
   successResponse(res, "Tugas berhasil dibuat", data, null, 201);
 };
 
+update = async (req: Request, res: Response) => {
+  const data = await this.service.update(
+    Number(req.params.id),
+    req.body
+  );
 
-  update = async (req: Request, res: Response) => {
-    const data = await this.service.update(
-      Number(req.params.id),
-      req.body
-    );
-    successResponse(res, "Tugas berhasil diperbarui", data);
-  };
+  // 🔥 kirim update ke kelas terkait
+  io.to(`kelas-${data.kelasId}`).emit("tugas-updated", data);
 
-  delete = async (req: Request, res: Response) => {
-    const data = await this.service.delete(Number(req.params.id));
-    successResponse(res, "Tugas berhasil dihapus", data);
-  };
+  successResponse(res, "Tugas berhasil diperbarui", data);
+};
+
+
+delete = async (req: Request, res: Response) => {
+  const data = await this.service.delete(Number(req.params.id));
+
+  io.to(`kelas-${data.kelasId}`).emit("tugas-deleted", {
+    id: data.id,
+  });
+
+  successResponse(res, "Tugas berhasil dihapus", data);
+};
+
 
   getForSantri = async (req: any, res: Response) => {
     const data = await this.service.getForSantri(req.user.id);

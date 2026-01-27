@@ -30,6 +30,7 @@ import AdminRouter from "./routes/admin.route";
 import jadwalRouter from "./routes/jadwalAbsen.route"
 import absensiSettingRouter from "./routes/absensiSetting.route"
 import izinRouter from "./routes/izin.route"
+import automationRouter from "./routes/automation.route"
 import path from "path";
 
 
@@ -66,6 +67,7 @@ app.use("/api/mapel", mapelRouter)
 app.use("/api/jadwal", jadwalRouter)
 app.use("/api/absensi-setting", absensiSettingRouter)
 app.use("/api/izin", izinRouter)
+app.use("/api/automation", automationRouter)
 
 
 app.get("/", (req: Request, res: Response) => {
