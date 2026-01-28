@@ -127,7 +127,10 @@ exports.Prisma.AbsensiScalarFieldEnum = {
   jadwalId: 'jadwalId',
   tanggal: 'tanggal',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  aiComment: 'aiComment',
+  aiTone: 'aiTone',
+  aiConfidence: 'aiConfidence'
 };
 
 exports.Prisma.AbsensiSettingScalarFieldEnum = {
@@ -250,14 +253,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.StatusAbsensi = exports.$Enums.StatusAbsensi = {
   hadir: 'hadir',

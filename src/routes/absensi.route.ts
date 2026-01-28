@@ -9,6 +9,9 @@ import { authenticate } from "../middlewares/auth.middleware";
 import { AbsensiSettingService } from "../service/absensiSetting.service";
 import { UserRepository } from "../repository/user.repository";
 import { UserService } from "../service/user.service";
+import { AbsensiAIService } from "../service/absensiAI.service";
+import { AIService } from "../ai/ai.service";
+import { AIAssistantService } from "../service/ai.assistant.service";
 
 
 const router = Router();
@@ -20,7 +23,9 @@ const jadwalRepo = new JadwalAbsensiRepository(prismaInstance); // wajib punya m
 const userRepo = new UserRepository(prismaInstance)
 const userService = new UserService(userRepo)
 const settingService = new AbsensiSettingService(settingRepo)
-const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo);
+const AI = new AIService()
+const AIAssistantServices = new AIAssistantService(absensiRepo, AI)
+const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo, AIAssistantServices);
 // absensiService.startCronTest("*/1 * * * *"); 
 
 const absensiController = new AbsensiController(absensiService, userService);

@@ -1,4 +1,9 @@
-import { PrismaClient, Absensi, StatusAbsensi, User } from "../../dist/generated";
+import {
+  PrismaClient,
+  Absensi,
+  StatusAbsensi,
+  User,
+} from "../../dist/generated";
 
 export class AbsensiRepository {
   constructor(private prisma: PrismaClient) {}
@@ -44,22 +49,21 @@ export class AbsensiRepository {
     });
   }
 
-create(data: {
-  userId: number;
-  kelasId: number;
-  jadwalId?: number; 
-  status: StatusAbsensi;
-  tanggal: Date;
-}): Promise<Absensi> {
-  return this.prisma.absensi.create({
-    data: {
-      ...data,
-      jadwalId: data.jadwalId ?? null, // ganti undefined jadi null
-    },
-    include: { jadwal: true },
-  });
-}
-
+  create(data: {
+    userId: number;
+    kelasId: number;
+    jadwalId?: number;
+    status: StatusAbsensi;
+    tanggal: Date;
+  }): Promise<Absensi> {
+    return this.prisma.absensi.create({
+      data: {
+        ...data,
+        jadwalId: data.jadwalId ?? null, // ganti undefined jadi null
+      },
+      include: { jadwal: true },
+    });
+  }
 
   update(id: number, data: Partial<Absensi>): Promise<Absensi> {
     return this.prisma.absensi.update({
@@ -182,7 +186,7 @@ create(data: {
     });
   }
 
-    async getUsersByKelas(kelasId: number): Promise<User[]> {
+  async getUsersByKelas(kelasId: number): Promise<User[]> {
     return this.prisma.user.findMany({
       where: {
         kelasId,
@@ -192,5 +196,46 @@ create(data: {
     });
   }
 
+  getByIdWithUser(id: number) {
+    return this.prisma.absensi.findUnique({
+      where: { id },
+      include: { user: true },
+    });
+  }
+
+  countMonthly(userId: number, month: number, year: number) {
+    return this.prisma.absensi.count({
+      where: {
+        userId,
+        status: "alpha",
+        tanggal: {
+          gte: new Date(year, month, 1),
+          lt: new Date(year, month + 1, 1),
+        },
+      },
+    });
+  }
+
+    async findLastByUser(userId: number) {
+    return this.prisma.absensi.findFirst({
+      where: { userId },
+      orderBy: { tanggal: "desc" }, // ambil absensi terbaru
+    });
+  }
   
+
+  updateAI(id: number, data: {
+    aiComment: string;
+    aiTone: string;
+    aiConfidence: number;
+  }) {
+    return this.prisma.absensi.update({
+      where: { id },
+      data,
+    });
+  }
+
+  
+
+
 }

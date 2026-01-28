@@ -2299,6 +2299,7 @@ export namespace Prisma {
     userId: number | null
     kelasId: number | null
     jadwalId: number | null
+    aiConfidence: number | null
   }
 
   export type AbsensiSumAggregateOutputType = {
@@ -2306,6 +2307,7 @@ export namespace Prisma {
     userId: number | null
     kelasId: number | null
     jadwalId: number | null
+    aiConfidence: number | null
   }
 
   export type AbsensiMinAggregateOutputType = {
@@ -2316,6 +2318,9 @@ export namespace Prisma {
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
+    aiComment: string | null
+    aiTone: string | null
+    aiConfidence: number | null
   }
 
   export type AbsensiMaxAggregateOutputType = {
@@ -2326,6 +2331,9 @@ export namespace Prisma {
     tanggal: Date | null
     status: $Enums.StatusAbsensi | null
     createdAt: Date | null
+    aiComment: string | null
+    aiTone: string | null
+    aiConfidence: number | null
   }
 
   export type AbsensiCountAggregateOutputType = {
@@ -2336,6 +2344,9 @@ export namespace Prisma {
     tanggal: number
     status: number
     createdAt: number
+    aiComment: number
+    aiTone: number
+    aiConfidence: number
     _all: number
   }
 
@@ -2345,6 +2356,7 @@ export namespace Prisma {
     userId?: true
     kelasId?: true
     jadwalId?: true
+    aiConfidence?: true
   }
 
   export type AbsensiSumAggregateInputType = {
@@ -2352,6 +2364,7 @@ export namespace Prisma {
     userId?: true
     kelasId?: true
     jadwalId?: true
+    aiConfidence?: true
   }
 
   export type AbsensiMinAggregateInputType = {
@@ -2362,6 +2375,9 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    aiComment?: true
+    aiTone?: true
+    aiConfidence?: true
   }
 
   export type AbsensiMaxAggregateInputType = {
@@ -2372,6 +2388,9 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    aiComment?: true
+    aiTone?: true
+    aiConfidence?: true
   }
 
   export type AbsensiCountAggregateInputType = {
@@ -2382,6 +2401,9 @@ export namespace Prisma {
     tanggal?: true
     status?: true
     createdAt?: true
+    aiComment?: true
+    aiTone?: true
+    aiConfidence?: true
     _all?: true
   }
 
@@ -2479,6 +2501,9 @@ export namespace Prisma {
     tanggal: Date
     status: $Enums.StatusAbsensi
     createdAt: Date
+    aiComment: string | null
+    aiTone: string | null
+    aiConfidence: number | null
     _count: AbsensiCountAggregateOutputType | null
     _avg: AbsensiAvgAggregateOutputType | null
     _sum: AbsensiSumAggregateOutputType | null
@@ -2508,6 +2533,9 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    aiComment?: boolean
+    aiTone?: boolean
+    aiConfidence?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
@@ -2521,6 +2549,9 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    aiComment?: boolean
+    aiTone?: boolean
+    aiConfidence?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
@@ -2534,6 +2565,9 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    aiComment?: boolean
+    aiTone?: boolean
+    aiConfidence?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     jadwal?: boolean | Absensi$jadwalArgs<ExtArgs>
@@ -2547,9 +2581,12 @@ export namespace Prisma {
     tanggal?: boolean
     status?: boolean
     createdAt?: boolean
+    aiComment?: boolean
+    aiTone?: boolean
+    aiConfidence?: boolean
   }
 
-  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "jadwalId" | "tanggal" | "status" | "createdAt", ExtArgs["result"]["absensi"]>
+  export type AbsensiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "jadwalId" | "tanggal" | "status" | "createdAt" | "aiComment" | "aiTone" | "aiConfidence", ExtArgs["result"]["absensi"]>
   export type AbsensiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
@@ -2581,6 +2618,9 @@ export namespace Prisma {
       tanggal: Date
       status: $Enums.StatusAbsensi
       createdAt: Date
+      aiComment: string | null
+      aiTone: string | null
+      aiConfidence: number | null
     }, ExtArgs["result"]["absensi"]>
     composites: {}
   }
@@ -3014,6 +3054,9 @@ export namespace Prisma {
     readonly tanggal: FieldRef<"Absensi", 'DateTime'>
     readonly status: FieldRef<"Absensi", 'StatusAbsensi'>
     readonly createdAt: FieldRef<"Absensi", 'DateTime'>
+    readonly aiComment: FieldRef<"Absensi", 'String'>
+    readonly aiTone: FieldRef<"Absensi", 'String'>
+    readonly aiConfidence: FieldRef<"Absensi", 'Float'>
   }
     
 
@@ -17425,7 +17468,10 @@ export namespace Prisma {
     jadwalId: 'jadwalId',
     tanggal: 'tanggal',
     status: 'status',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    aiComment: 'aiComment',
+    aiTone: 'aiTone',
+    aiConfidence: 'aiConfidence'
   };
 
   export type AbsensiScalarFieldEnum = (typeof AbsensiScalarFieldEnum)[keyof typeof AbsensiScalarFieldEnum]
@@ -17590,20 +17636,20 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -17668,6 +17714,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'StatusIzin'
    */
   export type EnumStatusIzinFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusIzin'>
@@ -17728,20 +17788,6 @@ export namespace Prisma {
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
   /**
    * Deep Input Types
    */
@@ -17758,6 +17804,9 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    aiComment?: StringNullableFilter<"Absensi"> | string | null
+    aiTone?: StringNullableFilter<"Absensi"> | string | null
+    aiConfidence?: FloatNullableFilter<"Absensi"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
     jadwal?: XOR<JadwalAbsensiNullableScalarRelationFilter, JadwalAbsensiWhereInput> | null
@@ -17771,6 +17820,9 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    aiComment?: SortOrderInput | SortOrder
+    aiTone?: SortOrderInput | SortOrder
+    aiConfidence?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     kelas?: KelasOrderByWithRelationInput
     jadwal?: JadwalAbsensiOrderByWithRelationInput
@@ -17787,6 +17839,9 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    aiComment?: StringNullableFilter<"Absensi"> | string | null
+    aiTone?: StringNullableFilter<"Absensi"> | string | null
+    aiConfidence?: FloatNullableFilter<"Absensi"> | number | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
     jadwal?: XOR<JadwalAbsensiNullableScalarRelationFilter, JadwalAbsensiWhereInput> | null
@@ -17800,6 +17855,9 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    aiComment?: SortOrderInput | SortOrder
+    aiTone?: SortOrderInput | SortOrder
+    aiConfidence?: SortOrderInput | SortOrder
     _count?: AbsensiCountOrderByAggregateInput
     _avg?: AbsensiAvgOrderByAggregateInput
     _max?: AbsensiMaxOrderByAggregateInput
@@ -17818,6 +17876,9 @@ export namespace Prisma {
     tanggal?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiWithAggregatesFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeWithAggregatesFilter<"Absensi"> | Date | string
+    aiComment?: StringNullableWithAggregatesFilter<"Absensi"> | string | null
+    aiTone?: StringNullableWithAggregatesFilter<"Absensi"> | string | null
+    aiConfidence?: FloatNullableWithAggregatesFilter<"Absensi"> | number | null
   }
 
   export type AbsensiSettingWhereInput = {
@@ -18668,6 +18729,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
     user: UserCreateNestedOneWithoutAbsensiInput
     kelas: KelasCreateNestedOneWithoutAbsensiInput
     jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
@@ -18681,12 +18745,18 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiUpdateInput = {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
     jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
@@ -18700,6 +18770,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiCreateManyInput = {
@@ -18710,12 +18783,18 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiUpdateManyMutationInput = {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiUncheckedUpdateManyInput = {
@@ -18726,6 +18805,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiSettingCreateInput = {
@@ -19599,6 +19681,32 @@ export namespace Prisma {
     not?: NestedEnumStatusAbsensiFilter<$PrismaModel> | $Enums.StatusAbsensi
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -19627,6 +19735,9 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    aiComment?: SortOrder
+    aiTone?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type AbsensiAvgOrderByAggregateInput = {
@@ -19634,6 +19745,7 @@ export namespace Prisma {
     userId?: SortOrder
     kelasId?: SortOrder
     jadwalId?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type AbsensiMaxOrderByAggregateInput = {
@@ -19644,6 +19756,9 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    aiComment?: SortOrder
+    aiTone?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type AbsensiMinOrderByAggregateInput = {
@@ -19654,6 +19769,9 @@ export namespace Prisma {
     tanggal?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    aiComment?: SortOrder
+    aiTone?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type AbsensiSumOrderByAggregateInput = {
@@ -19661,6 +19779,7 @@ export namespace Prisma {
     userId?: SortOrder
     kelasId?: SortOrder
     jadwalId?: SortOrder
+    aiConfidence?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19717,6 +19836,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusAbsensiFilter<$PrismaModel>
     _max?: NestedEnumStatusAbsensiFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type AbsensiSettingCountOrderByAggregateInput = {
@@ -19919,21 +20072,6 @@ export namespace Prisma {
     _max?: NestedEnumHariFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type UserListRelationFilter = {
     every?: UserWhereInput
     some?: UserWhereInput
@@ -20003,24 +20141,6 @@ export namespace Prisma {
 
   export type KelasSumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type LogAktivitasCountOrderByAggregateInput = {
@@ -20525,6 +20645,18 @@ export namespace Prisma {
     set?: $Enums.StatusAbsensi
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneRequiredWithoutAbsensiNestedInput = {
     create?: XOR<UserCreateWithoutAbsensiInput, UserUncheckedCreateWithoutAbsensiInput>
     connectOrCreate?: UserCreateOrConnectWithoutAbsensiInput
@@ -20769,10 +20901,6 @@ export namespace Prisma {
     connectOrCreate?: TugasCreateOrConnectWithoutKelasInput | TugasCreateOrConnectWithoutKelasInput[]
     createMany?: TugasCreateManyKelasInputEnvelope
     connect?: TugasWhereUniqueInput | TugasWhereUniqueInput[]
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type UserUpdateManyWithoutKelasNestedInput = {
@@ -21597,6 +21725,31 @@ export namespace Prisma {
     not?: NestedEnumStatusAbsensiFilter<$PrismaModel> | $Enums.StatusAbsensi
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21640,17 +21793,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21673,6 +21815,39 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusAbsensiFilter<$PrismaModel>
     _max?: NestedEnumStatusAbsensiFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -21738,37 +21913,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumHariFilter<$PrismaModel>
     _max?: NestedEnumHariFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -22319,6 +22463,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
     user: UserCreateNestedOneWithoutAbsensiInput
     kelas: KelasCreateNestedOneWithoutAbsensiInput
   }
@@ -22330,6 +22477,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiCreateOrConnectWithoutJadwalInput = {
@@ -22403,6 +22553,9 @@ export namespace Prisma {
     tanggal?: DateTimeFilter<"Absensi"> | Date | string
     status?: EnumStatusAbsensiFilter<"Absensi"> | $Enums.StatusAbsensi
     createdAt?: DateTimeFilter<"Absensi"> | Date | string
+    aiComment?: StringNullableFilter<"Absensi"> | string | null
+    aiTone?: StringNullableFilter<"Absensi"> | string | null
+    aiConfidence?: FloatNullableFilter<"Absensi"> | number | null
   }
 
   export type UserCreateWithoutKelasInput = {
@@ -22528,6 +22681,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
     user: UserCreateNestedOneWithoutAbsensiInput
     jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
   }
@@ -22539,6 +22695,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiCreateOrConnectWithoutKelasInput = {
@@ -23749,6 +23908,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
     kelas: KelasCreateNestedOneWithoutAbsensiInput
     jadwal?: JadwalAbsensiCreateNestedOneWithoutAbsensiInput
   }
@@ -23760,6 +23922,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiCreateOrConnectWithoutUserInput = {
@@ -24154,12 +24319,18 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type AbsensiUpdateWithoutJadwalInput = {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
   }
@@ -24171,6 +24342,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiUncheckedUpdateManyWithoutJadwalInput = {
@@ -24180,6 +24354,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type UserCreateManyKelasInput = {
@@ -24203,6 +24380,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type JadwalAbsensiCreateManyKelasInput = {
@@ -24352,6 +24532,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     user?: UserUpdateOneRequiredWithoutAbsensiNestedInput
     jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
   }
@@ -24363,6 +24546,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiUncheckedUpdateManyWithoutKelasInput = {
@@ -24372,6 +24558,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type JadwalAbsensiUpdateWithoutKelasInput = {
@@ -24544,6 +24733,9 @@ export namespace Prisma {
     tanggal: Date | string
     status: $Enums.StatusAbsensi
     createdAt?: Date | string
+    aiComment?: string | null
+    aiTone?: string | null
+    aiConfidence?: number | null
   }
 
   export type IzinCreateManyUserInput = {
@@ -24622,6 +24814,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
     kelas?: KelasUpdateOneRequiredWithoutAbsensiNestedInput
     jadwal?: JadwalAbsensiUpdateOneWithoutAbsensiNestedInput
   }
@@ -24633,6 +24828,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type AbsensiUncheckedUpdateManyWithoutUserInput = {
@@ -24642,6 +24840,9 @@ export namespace Prisma {
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusAbsensiFieldUpdateOperationsInput | $Enums.StatusAbsensi
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiComment?: NullableStringFieldUpdateOperationsInput | string | null
+    aiTone?: NullableStringFieldUpdateOperationsInput | string | null
+    aiConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type IzinUpdateWithoutUserInput = {

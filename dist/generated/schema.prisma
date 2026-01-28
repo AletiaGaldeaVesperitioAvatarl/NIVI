@@ -11,6 +11,10 @@ model Absensi {
   user   User           @relation(fields: [userId], references: [id])
   kelas  Kelas          @relation(fields: [kelasId], references: [id])
   jadwal JadwalAbsensi? @relation(fields: [jadwalId], references: [id])
+
+  aiComment    String? @default("Belum ada analisis AI.")
+  aiTone       String? @default("netral")
+  aiConfidence Float?  @default(0.1)
 }
 
 model AbsensiSetting {

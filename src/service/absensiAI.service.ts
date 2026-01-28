@@ -1,5 +1,6 @@
-import { AIService } from "../ai/ai.service";
 import { AbsensiRepository } from "../repository/absensi.repository";
+import { AIService } from "../ai/ai.service";
+import { absensiCommentPrompt } from "../ai/prompt/absensiComment.prompt";
 
 export class AbsensiAIService {
   constructor(
@@ -8,43 +9,45 @@ export class AbsensiAIService {
   ) {}
 
   /**
-   * Analisis AI untuk 1 data absensi
+   * Analisis AI untuk satu absensi
    */
   async analyzeAbsensi(absensiId: number): Promise<void> {
-    const absensi = await this.absensiRepo.getById(absensiId);
+    
+    // 1️⃣ Ambil absensi + user
+    const absensi = await this.absensiRepo.getByIdWithUser(absensiId);
 
     if (!absensi || !absensi.user) {
-      console.warn("[AI] Absensi tidak ditemukan:", absensiId);
+      console.warn("[AI] Absensi atau user tidak ditemukan:", absensiId);
       return;
     }
 
-    // Hitung alpha bulanan
-    const alphaCount = await this.absensiRepo.countMonthly(
+    // 2️⃣ Hitung statistik bulanan
+    const now = new Date();
+    const totalAlphaBulanIni = await this.absensiRepo.countMonthly(
       absensi.userId,
-      new Date().getMonth(),
-      new Date().getFullYear()
+      now.getMonth(),
+      now.getFullYear()
     );
 
-    // 🧠 Prompt AI
-    const prompt = `
-Nama santri: ${absensi.user.name}
-Kelas ID: ${absensi.kelasId}
-Status absensi hari ini: ${absensi.status}
-Total alpha bulan ini: ${alphaCount}
+    // (opsional, kalau mau)
+    const totalHadirBulanIni = 0;
 
-Berikan komentar singkat untuk wali kelas.
-`;
+    // 3️⃣ Bangun prompt (SATU SUMBER)
+    const prompt = absensiCommentPrompt({
+      status: absensi.status,
+      totalAlphaBulanIni,
+      totalHadirBulanIni,
+    });
 
-    // 🤖 Panggil AI
+    // 4️⃣ Panggil AI
     const aiResult = await this.aiService.analyzeAbsensi(prompt);
 
-    // 🛡️ Fallback protection
     if (!aiResult?.comment) {
-      console.warn("[AI] Hasil kosong, skip update:", absensiId);
+      console.warn("[AI] Hasil AI kosong, skip:", absensiId);
       return;
     }
 
-    // 💾 Simpan ke DB
+    // 5️⃣ Simpan hasil AI (AMAN dari undefined)
     await this.absensiRepo.updateAI(absensi.id, {
       aiComment: aiResult.comment,
       aiTone: aiResult.tone,

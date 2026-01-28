@@ -72,6 +72,6 @@
     "dist/generated",
     "dist/generated",
     "dist/generated"
-, "dist/generated", "dist/generated", "dist/generated", "dist/generated"  ],
+, "dist/generated", "dist/generated", "dist/generated", "dist/generated", "dist/generated", "dist/generated"  ],
   "exclude": ["node_modules"]
 }

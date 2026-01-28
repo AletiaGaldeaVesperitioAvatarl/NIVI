@@ -10,6 +10,8 @@ const config = {
   SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
   FROM_EMAIL: process.env.FROM_EMAIL || 'zidanalbani97@gmail.com',
   OPENAI_API_KEY:process.env.OPENAI_API_KEY,
+  AI_MODE:process.env.AI_MODE
+
 };
 
 export default config;
