@@ -9,10 +9,9 @@ import { authenticate } from "../middlewares/auth.middleware";
 import { AbsensiSettingService } from "../service/absensiSetting.service";
 import { UserRepository } from "../repository/user.repository";
 import { UserService } from "../service/user.service";
-import { AbsensiAIService } from "../service/absensiAI.service";
 import { AIService } from "../ai/ai.service";
 import { AIAssistantService } from "../service/ai.assistant.service";
-
+import { IzinRepository } from "../repository/izin.repository";
 
 const router = Router();
 
@@ -20,31 +19,40 @@ const router = Router();
 const absensiRepo = new AbsensiRepository(prismaInstance);
 const settingRepo = new AbsensiSettingRepository(prismaInstance);
 const jadwalRepo = new JadwalAbsensiRepository(prismaInstance); // wajib punya method findActiveSchedule
-const userRepo = new UserRepository(prismaInstance)
-const userService = new UserService(userRepo)
-const settingService = new AbsensiSettingService(settingRepo)
-const AI = new AIService()
-const AIAssistantServices = new AIAssistantService(absensiRepo, AI)
-const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo, AIAssistantServices);
-// absensiService.startCronTest("*/1 * * * *"); 
+const userRepo = new UserRepository(prismaInstance);
+const izinRepo = new IzinRepository(prismaInstance)
+const userService = new UserService(userRepo);
+const settingService = new AbsensiSettingService(settingRepo);
+const AI = new AIService();
+const AIAssistantServices = new AIAssistantService(absensiRepo, AI);
+const absensiService = new AbsensiService(
+  absensiRepo,
+  settingService,
+  jadwalRepo,
+  AIAssistantServices,
+  userService,
+  izinRepo
+
+);
+// absensiService.startCronTest("*/1 * * * *");
 
 const absensiController = new AbsensiController(absensiService, userService);
 
 // POST absen (HADIR/IZIN/SAKIT) opsional jadwalId
-router.post("/absen", authenticate,absensiController.absen);
+router.post("/absen", authenticate, absensiController.absen);
 
 // GET absensi hari ini
-router.get("/me/today",authenticate, absensiController.getMyTodayAbsensi);
+router.get("/me/today", authenticate, absensiController.getMyTodayAbsensi);
+
+router.get("/kelas/:kelasId",authenticate ,absensiController.getRekapBulanan);
+
 
 // 🔹 ADMIN CRUD (opsional, kalau admin ingin mengelola absensi manual)
-router.get("/",absensiController.getAll); // semua absensi
-router.get("/:id", authenticate,absensiController.getByUserId); // lihat absensi per user
-router.put("/:id", authenticate,absensiController.update); // update status
-router.delete("/:id",authenticate, absensiController.delete); // hapus absensi
-router.get(
-  '/kelas/:kelasId/absensi',
-  absensiController.getByKelas,
-);
+router.get("/", absensiController.getAll); // semua absensi
+router.get("/:id", authenticate, absensiController.getByUserId); // lihat absensi per user
+router.get("/kelas/:kelasId/absensi", absensiController.getByKelas);
+router.put("/:id", authenticate, absensiController.update); // update status
+router.delete("/:id", authenticate, absensiController.delete); // hapus absensi
 
 
 export default router;

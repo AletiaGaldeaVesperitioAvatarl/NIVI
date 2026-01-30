@@ -105,7 +105,19 @@ export class IzinRepository {
     });
   }
 
-
-
+async getIzinByUserAndMonth(
+  userId: number,
+  start: Date,
+  end: Date
+): Promise<Izin[]> {
+  return this.prisma.izin.findMany({
+    where: { 
+      userId, 
+      tanggal: { gte: start, lte: end },
+      status: "disetujui" 
+    },
+    orderBy: { tanggal: "asc" },
+  });
+}
 
 }

@@ -235,7 +235,118 @@ export class AbsensiRepository {
     });
   }
 
-  
+
+    async countSpamToday(userId: number): Promise<number> {
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 59, 999);
+
+    // Ambil semua absensi hari ini
+    const absensis = await this.prisma.absensi.findMany({
+      where: {
+        userId,
+        tanggal: {
+          gte: todayStart,
+          lte: todayEnd,
+        },
+      },
+      orderBy: { tanggal: "asc" },
+    });
+
+    let spamCount = 0;
+
+    for (let i = 1; i < absensis.length; i++) {
+  const current = absensis[i];
+  const prev = absensis[i - 1];
+
+  if (!current || !prev) continue;
+
+  const diffMinutes =
+    (current.tanggal.getTime() - prev.tanggal.getTime()) / 60000;
+
+  if (diffMinutes < 5) {
+    spamCount++;
+  }
+}
+
+    return spamCount;
+  }
+
+  getAbsensiByUserAndMonth(
+  userId: number,
+  start: Date,
+  end: Date
+) {
+  return this.prisma.absensi.findMany({
+    where: {
+      userId,
+      tanggal: {
+        gte: start,
+        lte: end,
+      },
+    },
+  });
+}
+getAbsensiByUserAndWeek (
+  userId: number,
+  start: Date,
+  end: Date
+){
+  return this.prisma.absensi.findMany({
+    where: {
+      userId,
+      tanggal: {
+        gte: start,
+        lte: end,
+      },
+    },
+  });
+}
+
+countHadirMonthly(userId: number, month: number, year: number) {
+    return this.prisma.absensi.count({
+      where: {
+        userId,
+        status: "hadir", // Hitung yang statusnya hadir saja
+        tanggal: {
+          gte: new Date(year, month, 1),
+          lt: new Date(year, month + 1, 1),
+        },
+      },
+    });
+  }
+
+  // Ambil absensi user tapi hanya untuk tanggal tertentu
+async getAbsensiByUserAndDates(userId: number, dates: Date[]) {
+  if (!dates.length) return [];
+  return this.prisma.absensi.findMany({
+    where: {
+      userId,
+      tanggal: { in: dates },
+    },
+  });
+}
+
+async getByUserAndDates(
+  userId: number,
+  dates: Date[]
+): Promise<Absensi[]> {
+  if (!dates.length) return Promise.resolve([]); // ⬅️ penting!
+
+  const orConditions = dates.map(tanggal => ({
+    tanggal,
+  }));
+
+  return this.prisma.absensi.findMany({
+    where: {
+      userId,
+      OR: orConditions,
+    },
+  });
+}
+
 
 
 }

@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { UserService } from "../service/user.service";
 import { successResponse } from "../utils/response";
+import { Role } from "../../dist/generated";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -102,6 +103,23 @@ export class UserController {
     );
   } catch (err) {
     next(err);
+  }
+};
+
+// di UserController
+activate = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.params.id);
+
+    let role: Role | undefined;
+    if (req.path.includes("santri")) role = Role.santri;
+    else if (req.path.includes("pengajar")) role = Role.pengajar;
+    else if (req.path.includes("admin")) role = Role.admin;
+
+    const user = await this.userService.activateUser(userId, role);
+    res.status(200).json({ message: "User berhasil diaktifkan", user });
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
   }
 };
 

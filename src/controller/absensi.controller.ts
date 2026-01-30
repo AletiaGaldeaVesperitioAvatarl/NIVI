@@ -149,4 +149,78 @@ absen = async (req: Request, res: Response) => {
       });
     }
   };
+
+
+  rekapBulananPerSantri = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.params.userId);
+    const { bulan } = req.query;
+
+    if (!bulan) {
+      throw new Error("Query bulan wajib (YYYY-MM)");
+    }
+
+    const data =
+      await this.service.rekapBulananPerSantri(
+        userId,
+        String(bulan)
+      );
+
+    res.json({
+      success: true,
+      message: "Rekap bulanan santri berhasil",
+      data,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+rekapMingguanPerSantri = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.params.userId);
+    const { minggu } = req.query;
+
+    if (!minggu) {
+      throw new Error("Query minggu wajib (YYYY-MM-DD)");
+    }
+
+    const data =
+      await this.service.rekapMingguanPerSantri(
+        userId,
+        String(minggu)
+      );
+
+    res.json({
+      message: "Rekap mingguan santri berhasil",
+      data,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+};
+
+  getRekapBulanan = async (req: Request, res: Response) => {
+    try {
+      const kelasId = Number(req.params.kelasId);
+      const bulan = Number(req.query.bulan);
+      const tahun = Number(req.query.tahun);
+
+      if (!kelasId || !bulan || !tahun) {
+        return res.status(400).json({ message: "Kelas, bulan, dan tahun wajib diisi" });
+      }
+
+      const rekap = await this.service.getRekapBulanan(kelasId, bulan, tahun);
+      return res.json(rekap);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Terjadi kesalahan server" });
+    }
+  }
+
+
 }

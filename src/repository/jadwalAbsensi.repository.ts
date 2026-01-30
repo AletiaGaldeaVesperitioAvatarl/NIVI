@@ -214,7 +214,10 @@ export class JadwalAbsensiRepository {
     });
   };
 
-    async getByKelasAndTanggal(kelasId: number, tanggal: Date): Promise<JadwalAbsensi[]> {
+  async getByKelasAndTanggal(
+    kelasId: number,
+    tanggal: Date,
+  ): Promise<JadwalAbsensi[]> {
     const start = new Date(tanggal);
     start.setHours(0, 0, 0, 0);
 

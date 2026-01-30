@@ -11,7 +11,7 @@ export class UserRepository {
 
   async findById(id: number): Promise<User | null> {
     return this.prisma.user.findFirst({
-      where: { id, isActive: true },
+      where: { id },
     });
   }
 
@@ -78,5 +78,26 @@ export class UserRepository {
     });
 
     return !!admin;
+  }
+
+  async activate(userId: number) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { isActive: true, activatedAt: new Date() },
+    });
+  }
+
+  async activateByRole(userId: number, role: Role) {
+    return this.prisma.user.updateMany({
+      where: { id: userId, role },
+      data: { isActive: true, activatedAt: new Date() },
+    });
+  }
+  
+    async findManyByKelas(kelasId: number) {
+    return this.prisma.user.findMany({
+      where: { kelasId },
+      orderBy: { name: "asc" },
+    });
   }
 }

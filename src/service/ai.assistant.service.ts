@@ -3,127 +3,135 @@ import { AIService } from "../ai/ai.service";
 import { AbsensiRepository } from "../repository/absensi.repository";
 import { io } from "../socket";
 
+type SpamLevel = "none" | "low" | "medium" | "high";
+type ToneType = "positif" | "netral" | "peringatan";
+
 export class AIAssistantService {
   constructor(
     private absensiRepo: AbsensiRepository,
     private aiService: AIService,
   ) {}
+
   async evaluateAbsensi(absensiId: number, role: Role): Promise<void> {
-    const absensi = await this.absensiRepo.getByIdWithUser(absensiId);
-    if (!absensi || !absensi.user) return;
+    try {
+      const absensi = await this.absensiRepo.getByIdWithUser(absensiId);
+      if (!absensi || !absensi.user) return;
 
-    const now = new Date();
-    const totalAlpha = await this.absensiRepo.countMonthly(
-      absensi.userId,
-      now.getMonth(),
-      now.getFullYear(),
-    );
+      const now = new Date();
+      const month = now.getMonth();
+      const year = now.getFullYear();
 
-    // =====================
-    // 🧠 DETEKSI SPAM ABSENSI
-    // =====================
-    const lastAbsensi = await this.absensiRepo.findLastByUser(absensi.userId);
-    const minutesSinceLast = lastAbsensi
-      ? (now.getTime() - new Date(lastAbsensi.tanggal).getTime()) / 60000
-      : Infinity;
+      // Data Statistik untuk Konteks
+      const totalAlpha = await this.absensiRepo.countMonthly(
+        absensi.userId,
+        month,
+        year,
+      );
+      const totalHadir = await this.absensiRepo.countHadirMonthly(
+        absensi.userId,
+        month,
+        year,
+      );
+      const spamCountToday = await this.absensiRepo.countSpamToday(
+        absensi.userId,
+      );
 
-    let spamNotice = "";
-    if (minutesSinceLast < 5) {
-      // kurang dari 5 menit dianggap spam
-      spamNotice =
-        "Catatan: Absensi ini terlalu dekat dengan sebelumnya, periksa kemungkinan spam.";
+      const lastAbsensi = await this.absensiRepo.findLastByUser(absensi.userId);
+      const minutesSinceLast = lastAbsensi
+        ? (now.getTime() - new Date(lastAbsensi.tanggal).getTime()) / 60000
+        : Infinity;
+
+      let spamLevel = this.getSpamLevel(minutesSinceLast, spamCountToday);
+
+      // Siapkan Prompt Berbasis Role
+      const prompt = this.buildPrompt({
+        role,
+        nama: absensi.user.name || "User",
+        status: absensi.status,
+        totalAlpha,
+        totalHadir,
+        spamLevel,
+      });
+
+      console.log(
+        `[AI ASSISTANT] Analyzing as ${role} for ID: ${absensiId}...`,
+      );
+      const aiResult = await this.aiService.analyzeAbsensi(prompt);
+
+      let finalComment = "";
+      let finalTone: ToneType = this.mapTone(spamLevel, absensi.status);
+
+      if (aiResult && aiResult.comment) {
+        finalComment = aiResult.comment;
+      } else {
+        finalComment =
+          role === "santri"
+            ? "Absensi berhasil dicatat. Terus semangat!"
+            : "Data absensi telah diperbarui di sistem.";
+      }
+
+      await this.saveAndEmit(
+        absensi.id,
+        absensi.userId,
+        finalComment,
+        finalTone,
+        0.95,
+      );
+    } catch (error: any) {
+      console.error("[AI ASSISTANT ERROR]", error.message);
     }
-
-    // =====================
-    // 🧠 BUILD PROMPT BY ROLE
-    // =====================
-    const prompt = this.buildPrompt({
-      role,
-      status: absensi.status,
-      totalAlpha,
-      spamNotice,
-    });
-    console.log("Prompt AI:", prompt);
-
-    // =====================
-    // 🤖 CALL AI
-    // =====================
-    const aiResult =
-      process.env.AI_MODE === "debug"
-        ? {
-            comment: `${spamNotice}`,
-            tone: spamNotice ? "peringatan" : "netral",
-            confidence: 0.9,
-          }
-        : await this.aiService.analyzeAbsensi(prompt);
-
-    // =====================
-    // 💾 SAVE RESULT
-    // =====================
-    await this.absensiRepo.updateAI(absensi.id, {
-      aiComment: aiResult.comment,
-      aiTone: aiResult.tone,
-      aiConfidence: aiResult.confidence,
-    });
-
-    // =====================
-    // 🔔 EMIT REAL-TIME
-    // =====================
-    io.to(`user-${absensi.userId}`).emit("ai-bubble", {
-      message: aiResult.comment,
-      tone: aiResult.tone,
-      confidence: aiResult.confidence,
-    });
-
-    console.log("[AI EMIT]", aiResult, `for user-${absensi.userId}`);
-
-    // debug: emit ke semua user supaya pasti sampai di FE
-    io.emit("ai-bubble", aiResult);
   }
 
-  private buildPrompt(data: {
-    role: Role;
-    status: string;
-    totalAlpha: number;
-    spamNotice?: string;
-  }): string {
-    let prompt = "";
+  private buildPrompt(data: any): string {
+    const isSantri = data.role === "santri";
 
-    if (data.role === "santri") {
-      if (data.status === "hadir" && data.totalAlpha < 3) {
-        prompt = `
-Kamu pembina santri.
-Status hari ini: ${data.status}
-Total alpha bulan ini: ${data.totalAlpha}
-Santri hadir tepat waktu. Berikan ucapan singkat yang menyenangkan dan memotivasi.
-`;
-      } else {
-        prompt = `
-Kamu pembina santri.
-Status hari ini: ${data.status}
-Total alpha bulan ini: ${data.totalAlpha}
-Berikan pesan singkat, membimbing, tidak menghakimi.
-`;
-      }
-    } else if (data.role === "pengajar") {
-      prompt = `
-Kamu asisten wali kelas.
-Status santri: ${data.status}
-Alpha bulan ini: ${data.totalAlpha}
-Berikan peringatan atau catatan pengawasan.
+if (isSantri) {
+      return `
+Anda adalah Asisten Digital Pesantren. Berikan feedback SANGAT SINGKAT (Maksimal 15 kata) untuk Santri: ${data.nama}.
+Konteks: Status ${data.status}, Hadir ${data.totalHadir}x, Alpha ${data.totalAlpha}x.
+Instruksi: Berikan motivasi pendek atau doa singkat jika sakit. Jangan bertele-tele.
 `;
     } else {
-      prompt = `
-Kamu asisten admin sistem.
-Total alpha bulan ini: ${data.totalAlpha}
-Laporkan potensi pelanggaran atau anomali.
+      return `
+Anda adalah Sistem Monitoring Akademik. Berikan laporan SANGAT SINGKAT (Maksimal 10 kata) untuk Pengajar: ${data.nama}.
+Konteks: Input absensi ${data.status}.
+Instruksi: Berikan konfirmasi singkat bahwa data aman. Bahasa formal dan sangat efisien.
 `;
     }
+  }
 
-    if (data.spamNotice) {
-      prompt += `\n${data.spamNotice}`;
-    }
+  private getSpamLevel(minutes: number, count: number): SpamLevel {
+    if (count >= 5) return "high";        // benar-benar banyak
+    if (minutes < 1) return "low";        // hanya terlalu cepat, bukan spam parah
+    return "none";
+}
 
-    return prompt;
+
+private mapTone(level: SpamLevel, status: string): ToneType {
+    if (level === "high") return "peringatan";
+    // abaikan level low
+    if (status === "sakit") return "netral";
+    return "positif";
+}
+
+
+  private async saveAndEmit(
+    absId: number,
+    uId: number,
+    msg: string,
+    tone: string,
+    conf: number,
+  ) {
+    await this.absensiRepo.updateAI(absId, {
+      aiComment: msg,
+      aiTone: tone,
+      aiConfidence: conf,
+    });
+    io.to(`user-${uId}`).emit("ai-bubble", {
+      comment: msg,
+      tone,
+      confidence: conf,
+    });
+    console.log(`[AI DONE] Role-Based Response Sent to User ${uId}`);
   }
 }

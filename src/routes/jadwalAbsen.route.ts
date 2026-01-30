@@ -14,7 +14,7 @@ const controller = new JadwalAbsensiController(service);
 // CRUD
 router.post("/", authenticate, controller.create);        // create 1
 router.post("/bulk", authenticate, controller.createBulk); // create banyak hari / bulan
-router.get("/kelas/:kelasId", authenticate, controller.getAllByKelas);
+router.get("/kelas/:kelasId", authenticate,controller.getAllByKelas);
 router.get("/:id", authenticate, controller.getById);
 router.put("/:id", authenticate, controller.update);
 router.delete("/:id", authenticate, controller.delete);

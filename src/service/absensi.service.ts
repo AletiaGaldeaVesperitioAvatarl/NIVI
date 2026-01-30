@@ -4,6 +4,9 @@ import { StatusAbsensi } from "../../dist/generated";
 import cron from "node-cron";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import { AIAssistantService } from "./ai.assistant.service";
+import { io } from "../socket";
+import { UserService } from "./user.service";
+import { IzinRepository } from "../repository/izin.repository";
 
 export class AbsensiService {
   constructor(
@@ -11,6 +14,8 @@ export class AbsensiService {
     private settingService: AbsensiSettingService,
     private jadwalRepo: JadwalAbsensiRepository,
     private aiAssistantService: AIAssistantService,
+    private UserService: UserService,
+    private IzinRepo: IzinRepository,
   ) {}
 
   // ===============================
@@ -32,7 +37,33 @@ export class AbsensiService {
       now,
       jadwalId,
     );
-    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif");
+
+    if (!jadwal) {
+      const hour = now.getHours();
+      const isJamMalam = hour >= 21 || hour < 4;
+
+      let comment = "";
+      let tone: "netral" | "peringatan" = "netral";
+
+      if (isJamMalam) {
+        comment =
+          "Wajar. Jadwal absensi telah berakhir dan sekarang sudah jam istirahat malam. Silakan tidur dan jaga kesehatan.";
+      } else {
+        comment =
+          "Mencurigakan. Absensi dilakukan di luar jadwal yang ditentukan. Mohon lebih memperhatikan waktu absensi.";
+        tone = "peringatan";
+      }
+
+      io.to(`user-${userId}`).emit("ai-bubble", {
+        comment,
+        tone,
+        confidence: 0.85,
+      });
+
+      // ❗ JANGAN RETURN TOTAL
+      // biarkan request selesai normal
+      return { skipped: true };
+    }
 
     const todayCount = await this.absensiRepo.countTodayByUser(userId);
     if (todayCount >= setting.maxAbsen) {
@@ -49,12 +80,14 @@ export class AbsensiService {
       status,
       tanggal: now,
     });
+    console.log("🔥 AI AKAN DIPANGGIL UNTUK ABSENSI:", absensi.id);
 
     // 🤖 2️⃣ PANGGIL AI (NON-BLOCKING)
-    this.aiAssistantService.evaluateAbsensi(
-      absensi.id,
-      "santri"
-    );
+    setImmediate(() => {
+      this.aiAssistantService
+        .evaluateAbsensi(absensi.id, "santri")
+        .catch((err) => console.error("[BACKGROUND AI ERROR]", err));
+    });
   }
 
   // ===============================
@@ -146,8 +179,6 @@ export class AbsensiService {
       },
     };
   };
-
-  
 
   //   generateDailyAbsensiStatus = async (
   //   userId: number,
@@ -267,5 +298,188 @@ export class AbsensiService {
     console.log("=== Mulai generate alpha manual ===");
     await this.generateAlphaForAll(tanggal);
     console.log("=== Selesai generate alpha manual ===");
+  }
+
+  async rekapBulananPerSantri(userId: number, bulan: string) {
+    // "2026-01" → [2026, 1]
+    const [year, month] = bulan.split("-").map(Number);
+
+    // validasi format
+    if (!year || !month) {
+      throw new Error("Format bulan harus YYYY-MM");
+    }
+
+    // range tanggal
+    const start = new Date(year, month - 1, 1);
+    const end = new Date(year, month, 0, 23, 59, 59);
+
+    // ambil data mentah
+    const absensi = await this.absensiRepo.getAbsensiByUserAndMonth(
+      userId,
+      start,
+      end,
+    );
+
+    // hitung status
+    let hadir = 0;
+    let izin = 0;
+    let alpha = 0;
+
+    absensi.forEach((a) => {
+      if (a.status === StatusAbsensi.hadir) hadir++;
+      if (a.status === StatusAbsensi.izin) izin++;
+      if (a.status === StatusAbsensi.alpha) alpha++;
+    });
+
+    const total = absensi.length;
+
+    const persentaseHadir = total === 0 ? 0 : Math.round((hadir / total) * 100);
+
+    return {
+      userId,
+      bulan,
+      hadir,
+      izin,
+      alpha,
+      total,
+      persentaseHadir,
+    };
+  }
+
+  async rekapMingguanPerSantri(
+    userId: number,
+    minggu: string, // contoh: "2026-01-15"
+  ) {
+    const baseDate = new Date(minggu);
+
+    if (isNaN(baseDate.getTime())) {
+      throw new Error("Format minggu harus YYYY-MM-DD");
+    }
+
+    // hitung awal & akhir minggu (Senin - Minggu)
+    const day = baseDate.getDay(); // 0 = Minggu
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+
+    const start = new Date(baseDate);
+    start.setDate(baseDate.getDate() + diffToMonday);
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date(start);
+    end.setDate(start.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+
+    // ambil data
+    const absensi = await this.absensiRepo.getAbsensiByUserAndWeek(
+      userId,
+      start,
+      end,
+    );
+
+    let hadir = 0;
+    let izin = 0;
+    let alpha = 0;
+
+    absensi.forEach((a) => {
+      if (a.status === StatusAbsensi.hadir) hadir++;
+      if (a.status === StatusAbsensi.izin) izin++;
+      if (a.status === StatusAbsensi.alpha) alpha++;
+    });
+
+    const total = absensi.length;
+    const persentaseHadir = total === 0 ? 0 : Math.round((hadir / total) * 100);
+
+    return {
+      userId,
+      minggu: `${start.toISOString().slice(0, 10)} s/d ${end.toISOString().slice(0, 10)}`,
+      hadir,
+      izin,
+      alpha,
+      total,
+      persentaseHadir,
+    };
+  }
+
+  async getRekapBulanan(kelasId: number, bulan: number, tahun: number) {
+    const start = new Date(tahun, bulan - 1, 1);
+    const end = new Date(tahun, bulan, 0, 23, 59, 59);
+
+    const santris = await this.absensiRepo.getUsersByKelas(kelasId);
+    type AbsensiDetail = {
+      tanggal: Date;
+      status: string;
+      alasan?: string | null;
+      aiComment: string;
+      aiTone: string;
+      aiConfidence: number;
+    };
+
+    type SantriSummary = {
+      hadir: number;
+      sakit: number;
+      izin: number;
+      alpha: number;
+      total: number;
+      detail: AbsensiDetail[];
+    };
+
+    const rekap: Record<string, SantriSummary> = {};
+
+    for (const santri of santris) {
+      const absensis = await this.absensiRepo.getAbsensiByUserAndMonth(
+        santri.id,
+        start,
+        end,
+      );
+      const izins = await this.IzinRepo.getIzinByUserAndMonth(
+        santri.id,
+        start,
+        end,
+      );
+
+      const summary: SantriSummary = {
+        hadir: 0,
+        sakit: 0,
+        izin: 0,
+        alpha: 0,
+        total: absensis.length + izins.length,
+        detail: [],
+      };
+
+      // Absensi
+      for (const a of absensis) {
+        const status = a.status ?? "alpha"; // default kalau null
+        summary[status] = (summary[status] || 0) + 1;
+
+        summary.detail.push({
+          tanggal: a.tanggal,
+          status,
+          alasan: null,
+          aiComment: a.aiComment ?? "Belum ada analisis AI.",
+          aiTone: a.aiTone ?? "netral",
+          aiConfidence: a.aiConfidence ?? 0.1,
+        });
+      }
+
+      // Izin
+      for (const i of izins) {
+        summary.izin += 1;
+        summary.detail.push({
+          tanggal: i.tanggal,
+          status: "izin",
+          alasan: i.alasan,
+          aiComment: "Belum ada analisis AI.",
+          aiTone: "netral",
+          aiConfidence: 0.1,
+        });
+      }
+
+      // Sortir berdasarkan tanggal
+      summary.detail.sort((a, b) => a.tanggal.getTime() - b.tanggal.getTime());
+
+      const key = santri.name ?? `User-${santri.id}`;
+      rekap[key] = summary;
+    }
+
+    return { kelasId, bulan, tahun, rekap };
   }
 }

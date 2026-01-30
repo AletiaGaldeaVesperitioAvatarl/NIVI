@@ -6,6 +6,7 @@ export class DashboardRepository {
     return this.prisma.user.count({
       where: {
         role: "santri",
+        isActive:true,
         kelasId: { in: kelasIds },
       },
     });

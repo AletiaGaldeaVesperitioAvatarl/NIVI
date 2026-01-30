@@ -6,29 +6,14 @@ export const httpServer = http.createServer(app);
 export const io = new Server(httpServer, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
-  console.log("Socket connected:", socket.id);
+  const userId = socket.handshake.auth?.userId;
 
-  // Join beberapa kelas sekaligus
-  socket.on("join-kelas", (kelasIds: number[] | undefined) => {
-  if (!Array.isArray(kelasIds)) return;
-  kelasIds.forEach((id) => {
-    socket.join(`kelas-${id}`);
-    console.log(`Socket ${socket.id} joined kelas-${id}`);
-  });
-});
-
-  // Optional: user-specific room
-  socket.on("join-user", (userId: number) => {
+  if (userId) {
     socket.join(`user-${userId}`);
-    console.log(`Socket ${socket.id} joined user-${userId}`);
-  });
-
-  socket.on("join-submission", (submissionId: number) => {
-    socket.join(`submission-${submissionId}`);
-    console.log(`Socket ${socket.id} joined submission-${submissionId}`);
-  });
+    console.log(`🟢 user-${userId} joined via auth`);
+  }
 
   socket.on("disconnect", () => {
-    console.log("Socket disconnected:", socket.id);
+    console.log("🔴 socket disconnected");
   });
 });

@@ -74,4 +74,25 @@ export class UserService {
       role: Role.admin,
     });
   };
+
+  activateUser = async(userId: number, role?: Role) => {
+    const user = await this.userRepository.findById(userId);
+    if (!user) throw new Error("User tidak ditemukan");
+    if (user.isActive) return user;
+
+    if (role) {
+      const updated = await this.userRepository.activateByRole(userId, role);
+      if (updated.count === 0) throw new Error("User dengan role ini tidak ditemukan");
+      return await this.userRepository.findById(userId);
+    } else {
+      return this.userRepository.activate(userId);
+    }
+  }
+
+    async getUsersByKelas(kelasId: number) {
+    return this.userRepository.findManyByKelas(kelasId);
+  }
+
+  
+  
 }

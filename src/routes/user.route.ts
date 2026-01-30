@@ -10,6 +10,7 @@ const userRepo = new UserRepository(prismaInstance);
 const userService = new UserService(userRepo);
 const userController = new UserController(userService);
 
+router.put("/:id/activate/santri", userController.activate);
 /**
  * @swagger
  * tags:
@@ -162,6 +163,7 @@ router.delete("/:id", userController.deactivate);
 router.get("/stats/all", userController.getStats);
 
 router.post("/admin/bootstrap", userController.createAdmin);
+
 
 
 export default router

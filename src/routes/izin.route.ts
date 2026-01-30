@@ -14,6 +14,10 @@ import { JadwalAbsensiService } from "../service/jadwalAbsensi.service";
 import { IzinController } from "../controller/izin.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
+import { AIAssistantService } from "../service/ai.assistant.service";
+import { AIService } from "../ai/ai.service";
+import { UserRepository } from "../repository/user.repository";
+import { UserService } from "../service/user.service";
 
 const router = Router();
 
@@ -24,6 +28,9 @@ const izinRepo = new IzinRepository(prismaInstance);
 const absensiRepo = new AbsensiRepository(prismaInstance);
 const settingRepo = new AbsensiSettingRepository(prismaInstance);
 const jadwalRepo = new JadwalAbsensiRepository(prismaInstance);
+const AI = new AIService();
+const AIAssistant = new AIAssistantService(absensiRepo, AI);
+const userRepo = new UserRepository(prismaInstance);
 
 /* =======================
    INIT SERVICE
@@ -32,10 +39,15 @@ const settingService = new AbsensiSettingService(settingRepo);
 
 const jadwalAbsensiService = new JadwalAbsensiService(jadwalRepo);
 
+const userService = new UserService(userRepo);
+
 const absensiService = new AbsensiService(
   absensiRepo,
   settingService,
-  jadwalRepo
+  jadwalRepo,
+  AIAssistant,
+  userService,
+  izinRepo
 );
 const izinService = new IzinService(
   izinRepo,
@@ -43,7 +55,7 @@ const izinService = new IzinService(
   absensiService,
   settingService,
   jadwalRepo,
-  jadwalAbsensiService
+  jadwalAbsensiService,
 );
 
 /* =======================
@@ -62,36 +74,35 @@ router.post("/", authenticate, izinController.create);
 // ROUTES UNTUK ADMIN / PENGAJAR
 router.get(
   "/",
- 
-  izinController.getAll
+  authenticate,
+  izinController.getAll,
 );
 
 router.get(
   "/user/:userId",
-  authenticate,
-  roleMiddleware(["admin", "pengajar"]),
-  izinController.getByUser
+  
+  izinController.getByUser,
 );
 
 router.get(
   "/:id",
   authenticate,
   roleMiddleware(["admin", "pengajar"]),
-  izinController.getById
+  izinController.getById,
 );
 
 router.put(
   "/:id",
   authenticate,
   roleMiddleware(["admin", "pengajar"]),
-  izinController.update
+  izinController.update,
 );
 
 router.delete(
   "/:id",
   authenticate,
   roleMiddleware(["admin", "pengajar"]),
-  izinController.delete
+  izinController.delete,
 );
 
 export default router;

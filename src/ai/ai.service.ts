@@ -1,63 +1,52 @@
-import OpenAI from "openai";
+import config from "../utils/env";
 
 export class AIService {
-  private client: OpenAI;
-
-  constructor() {
-    this.client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY!,
-    });
-  }
-
-  async analyzeAbsensi(prompt: string): Promise<{
-    comment: string;
-    tone: "positif" | "netral" | "peringatan";
-    confidence: number;
-  }> {
+  async analyzeAbsensi(prompt: string): Promise<any> {
     try {
-      // 🧠 Panggil OpenAI untuk generate respons nyata
-      const res = await this.client.chat.completions.create({
-        model: "gpt-4o-mini",
-        temperature: 0.7, // respons lebih natural
-        messages: [
-          {
-            role: "system",
-            content: `
-Kamu adalah pembina santri pesantren.
-Berikan komentar yang nyata:
-- Hangat dan membimbing untuk santri hadir tepat waktu
-- Tegas tapi sopan untuk alpha atau izin yang sering
-- Peringatan lembut untuk spam absensi
-Balas HARUS dalam format JSON:
-{
-  "comment": "…",
-  "tone": "positif|netral|peringatan",
-  "confidence": 0-1
-}
-            `,
-          },
-          { role: "user", content: prompt },
-        ],
+      const apiKey = config.GROQ_API_KEY; 
+      if (!apiKey) return null;
+
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          // Menggunakan model yang terkonfirmasi AKTIF di list Anda
+          model: "llama-3.3-70b-versatile", 
+          messages: [
+            {
+              role: "system",
+              content: "Anda adalah pengasuh pesantren yang bijak dan hangat. Berikan pesan singkat 1-2 kalimat untuk santri yang baru absen dalam Bahasa Indonesia yang santun."
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          temperature: 0.7,
+          max_tokens: 150
+        })
       });
 
-      const content = res.choices?.[0]?.message?.content;
-      if (!content) throw new Error("Empty AI response");
+      const data = await response.json() as any;
 
-      // parsing hasil OpenAI
-      const parsed = JSON.parse(content);
+      if (data.error) {
+        console.error("[GROQ ERROR]", data.error.message);
+        return null;
+      }
+
+      // Pastikan mengakses array choices dengan aman
+      const text = data.choices?.[0]?.message?.content;
 
       return {
-        comment: parsed.comment || "AI tidak bisa memberikan komentar.",
-        tone: parsed.tone || "netral",
-        confidence: parsed.confidence ?? 0.5,
+        comment: text ? text.trim() : "Alhamdulillah, semangat belajarnya ya Nak.",
+        confidence: 0.95
       };
-    } catch (err) {
-      console.error("[AI ERROR]", err);
-      return {
-        comment: "Belum ada analisis AI.",
-        tone: "netral",
-        confidence: 0.1,
-      };
+    } catch (err: any) {
+      console.error("[GROQ FETCH ERROR]", err.message);
+      return null;
     }
   }
 }
