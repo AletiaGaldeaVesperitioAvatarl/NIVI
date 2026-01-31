@@ -32,7 +32,10 @@ router.get("/pengajar/me", authenticate, kelasController.getKelasByPengajar)
  */
 
 // GET ALL KELAS
+router.get("/all/santri",kelasController.getAllSantri);
+router.get("/all/pengajar",authenticate, kelasController.getAllByPengajar)
 router.get("/",kelasController.getAll);
+
 /**
  * @swagger
  * /kelas/{id}:

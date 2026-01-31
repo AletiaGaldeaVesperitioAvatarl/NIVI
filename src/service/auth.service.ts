@@ -18,6 +18,10 @@ export class AuthService {
 
     if (user.password === "INACTIVE") return { status: "NEED_ACTIVATION", user };
 
+    if (user.isActive === false) {
+      throw new Error("Akun anda sudah tidak aktif!!")
+    }
+
     const valid = await bcrypt.compare(password, user.password!);
     if (!valid) throw new Error("Password salah");
 

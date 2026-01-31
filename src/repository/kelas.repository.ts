@@ -8,6 +8,9 @@ export class KelasRepository {
     return this.prisma.kelas.findMany({
       include: {
         santri: {
+          where:{
+            isActive:true
+          },
           include: {
             profile: {
               select: {
@@ -22,6 +25,27 @@ export class KelasRepository {
         tugas: true,
       },
     });
+  };
+
+    getAllSantri = async (): Promise<Kelas[]> => {
+     return this.prisma.kelas.findMany({
+      include: {
+        santri: {
+          include: {
+            profile: {
+              select: {
+                fotoUrl: true,
+              },
+            },
+          },
+        },
+        pengajar: true,
+        absensi: true,
+        izin: true,
+        tugas: true,
+      },
+    });
+
   };
 
   // GET KELAS BY ID
@@ -126,4 +150,22 @@ export class KelasRepository {
   });
 };
 
+  async findByPengajar(pengajarId: number) {
+    return this.prisma.kelas.findMany({
+      where: {
+        pengajar: {
+          some: { id: pengajarId },
+        },
+      },
+      include: {
+        santri: true,
+        pengajar: true,
+        absensiSetting: true,
+        absensi: true,
+        jadwal: true,
+        izin: true,
+        tugas: true,
+      },
+    });
+  }
 }

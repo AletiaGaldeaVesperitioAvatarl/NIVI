@@ -1,5 +1,6 @@
 import { PrismaClient } from "../../dist/generated";
 
+
 export class TugasRepository {
   constructor(private prisma: PrismaClient) {}
 
@@ -15,10 +16,14 @@ export class TugasRepository {
     });
   };
 
+
+
+
+
   // 🔹 GET BY ID
   getById = async (id: number) => {
     return this.prisma.tugas.findUnique({
-      where: { id },
+      where: { id, deletedAt:null },
       include: {
         kelas: true,
         mataPelajaran: true,
@@ -102,6 +107,7 @@ export class TugasRepository {
     return this.prisma.tugas.findMany({
       where: {
         kelasId: santri.kelasId,
+        deletedAt:null
       },
       include: {
         kelas: true,
@@ -118,4 +124,84 @@ export class TugasRepository {
       },
     });
   }
+
+async archiveExpiredForSantri(userId: number, tugasId: number) {
+  const tugas = await this.prisma.tugas.findUnique({
+    where: { id: tugasId },
+    include: {
+      submission: {
+        where: { userId },
+      },
+    },
+  });
+
+  if (!tugas) {
+    throw new Error("Tugas tidak ditemukan");
+  }
+
+  // 1️⃣ Validasi deadline
+  if (new Date(tugas.deadline) > new Date()) {
+    throw new Error("Tugas belum lewat deadline");
+  }
+
+  const submission = tugas.submission[0];
+
+  // 2️⃣ Validasi submission (DIPISAH)
+  if (submission) {
+    // masih menunggu penilaian
+    if (submission.status === "pending") {
+      throw new Error("Tugas masih menunggu penilaian");
+    }
+
+    // reviewed atau rejected → BOLEH
+    if (
+      submission.status === "reviewed" ||
+      submission.status === "rejected"
+    ) {
+      // lolos validasi
+    }
+  }
+
+  // 3️⃣ Arsipkan (soft delete)
+  return this.prisma.tugas.update({
+    where: { id: tugasId },
+    data: {
+      deletedAt: new Date(),
+    },
+  });
+}
+
+async getArchivedForSantri(userId: number) {
+  // 1️⃣ Ambil kelas santri
+  const santri = await this.prisma.user.findUnique({
+    where: { id: userId },
+    select: { kelasId: true },
+  });
+
+  if (!santri?.kelasId) return [];
+
+  // 2️⃣ Ambil tugas yang sudah diarsipkan (soft delete)
+  return this.prisma.tugas.findMany({
+    where: {
+      kelasId: santri.kelasId,
+      deletedAt: {
+        not: null, // 👈 hanya tugas yang sudah dihapus
+      },
+    },
+    include: {
+      mataPelajaran: true,
+      creator: true,
+      submission: {
+        where: {
+          userId: userId, // submission milik santri ini saja
+        },
+      },
+    },
+    orderBy: {
+      deletedAt: "desc", // terbaru di atas
+    },
+  });
+}
+
+
 }

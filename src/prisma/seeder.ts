@@ -4,7 +4,8 @@ async function resetData() {
   console.log('🧹 Menghapus data lama...');
 
   // Hapus data tabel yang bergantung dulu (Nilai -> Submission -> Tugas -> User)
-  await prisma.absensi.deleteMany({});
+  // await prisma.absensi.deleteMany({});
+  await prisma.tugas.deleteMany({})
 
 
   // Opsional: hapus User, Kelas, dll jika mau reset total

@@ -66,4 +66,17 @@ update = async (req: Request, res: Response) => {
     const data = await this.izinService.deleteIzin(id);
     successResponse(res, "Izin berhasil dihapus", data);
   };
+
+    getAllArchived = async (_req: Request, res: Response) => {
+    const data = await this.izinService.getAllArchived();
+    successResponse(res, "Berhasil ambil semua izin arsip", data);
+  };
+
+    softDelete = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+
+    const data = await this.izinService.softDelete(id);
+
+    successResponse(res, "Izin berhasil diarsipkan", data);
+  };
 }

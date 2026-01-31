@@ -16,6 +16,15 @@ export class KelasController {
     }
   };
 
+    getAllSantri = async (_req: Request, res: Response) => {
+    try {
+      const kelas = await this.kelasService.getAllSantri();
+      successResponse(res, "Semua kelas berhasil diambil", kelas);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
+
   // GET KELAS BY ID
   getById = async (req: Request, res: Response) => {
     try {
@@ -123,4 +132,21 @@ export class KelasController {
       errorResponse(res, err.message);
     }
   };
+
+   getAllByPengajar = async(req: Request, res: Response) => {
+    try {
+      if (!req.user) {
+        throw new Error("user tidak ditemukan!")
+      }
+      const pengajarId = req.user.id; // pastikan authenticate middleware sudah jalan
+      const kelas = await this.kelasService.getKelasByPengajar(pengajarId);
+      return successResponse(
+        res,
+        "Kelas berhasil diambil!",
+         kelas);
+    } catch (error: any) {
+      return errorResponse(res, error.message || "Gagal mengambil kelas", 500);
+    }
+  }
+
 }

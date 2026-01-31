@@ -17,8 +17,20 @@ const tugasController = new TugasController(tugasService);
 // ========================
 router.get("/santri",authenticate,tugasController.getForSantri);
 
+router.patch(
+  "/santri/:id/archive",
+  authenticate,
+  tugasController.archiveExpiredForSantri
+);
+
+router.get(
+  "/santri/arsip",
+  authenticate,
+  tugasController.getArchivedForSantri
+);
+
 // GET ALL TUGAS
-router.get("/", authenticate,tugasController.getAll);
+router.get("/",tugasController.getAll);
 
 
 // GET TUGAS BY ID

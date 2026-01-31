@@ -1,4 +1,4 @@
-import { PrismaClient, StatusIzin } from "../../../dist/generated";
+import { PrismaClient, StatusIzin, StatusSubmission } from "../../../dist/generated";
 
 export class DashboardRepository {
   constructor(private prisma: PrismaClient) {}
@@ -58,6 +58,7 @@ export class DashboardRepository {
   async getSubmissionMasuk(kelasIds: number[]) {
     return this.prisma.submission.count({
       where: {
+        status:StatusSubmission.pending,
         tugas: {
           kelasId: { in: kelasIds },
         },

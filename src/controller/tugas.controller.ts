@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TugasService } from "../service/tugas.service";
-import { successResponse } from "../utils/response";
+import { errorResponse, successResponse } from "../utils/response";
 import { io } from "../socket";
 
 
@@ -72,9 +72,41 @@ delete = async (req: Request, res: Response) => {
 };
 
 
-  getForSantri = async (req: any, res: Response) => {
+  getForSantri = async (req: Request, res: Response) => {
+    if (!req.user) {
+      throw new Error("user tidak ditemukan")
+    }
     const data = await this.service.getForSantri(req.user.id);
 
     successResponse(res, "Tugas santri", data);
   };
+
+    archiveExpiredForSantri = async (req: Request, res: Response) => {
+    if (!req.user) {
+      throw new Error("User tidak ditemukan");
+    }
+
+    const tugasId = Number(req.params.id);
+
+    await this.service.archiveExpiredForSantri(
+      req.user.id,
+      tugasId
+    );
+
+    successResponse(res, "Tugas berhasil diarsipkan");
+  };
+
+  // 🔹 ambil tugas arsip santri
+  getArchivedForSantri = async (req: Request, res: Response) => {
+    if (!req.user) {
+      throw new Error("User tidak ditemukan");
+    }
+
+    const data = await this.service.getArchivedForSantri(
+      req.user.id
+    );
+
+    successResponse(res, "Daftar tugas arsip santri", data);
+  };
+  
 }

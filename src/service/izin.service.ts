@@ -23,6 +23,14 @@ export class IzinService {
   getAll() {
     return this.izinRepo.getAll();
   }
+    getAllArchived = async () => {
+    return this.izinRepo.getAllArchived();
+  };
+
+  // ===== SOFT DELETE =====
+  softDelete = async (id: number) => {
+    return this.izinRepo.softDelete(id);
+  };
 
   getById(id: number) {
     return this.izinRepo.getById(id);

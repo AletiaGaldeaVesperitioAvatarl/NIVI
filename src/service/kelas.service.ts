@@ -9,6 +9,10 @@ export class KelasService {
     return this.kelasRepository.getAll();
   };
 
+  getAllSantri = async (): Promise<Kelas[]> => {
+    return this.kelasRepository.getAllSantri();
+  };
+
   // GET KELAS BY ID
   getById = async (id: number): Promise<Kelas | null> => {
     return this.kelasRepository.getById(id);
@@ -49,7 +53,9 @@ export class KelasService {
   };
 
   getKelasByPengajar = (pengajarId: number) => {
-  return this.kelasRepository.getKelasByPengajar(pengajarId);
+  return this.kelasRepository.findByPengajar(pengajarId);
 };
+
+
 
 }

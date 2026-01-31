@@ -84,6 +84,10 @@ router.get(
   izinController.getByUser,
 );
 
+router.delete("/:id", authenticate,izinController.softDelete);
+
+router.get("/arsip", authenticate,izinController.getAllArchived);
+
 router.get(
   "/:id",
   authenticate,
@@ -104,5 +108,7 @@ router.delete(
   roleMiddleware(["admin", "pengajar"]),
   izinController.delete,
 );
+
+
 
 export default router;

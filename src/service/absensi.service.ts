@@ -325,7 +325,7 @@ export class AbsensiService {
     let izin = 0;
     let alpha = 0;
 
-    absensi.forEach((a) => {
+    absensi.forEach((a: { status: string; }) => {
       if (a.status === StatusAbsensi.hadir) hadir++;
       if (a.status === StatusAbsensi.izin) izin++;
       if (a.status === StatusAbsensi.alpha) alpha++;
@@ -379,7 +379,7 @@ export class AbsensiService {
     let izin = 0;
     let alpha = 0;
 
-    absensi.forEach((a) => {
+    absensi.forEach((a: { status: string; }) => {
       if (a.status === StatusAbsensi.hadir) hadir++;
       if (a.status === StatusAbsensi.izin) izin++;
       if (a.status === StatusAbsensi.alpha) alpha++;

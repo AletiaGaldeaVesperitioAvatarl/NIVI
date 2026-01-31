@@ -6,12 +6,48 @@ export class IzinRepository {
   // GET ALL IZIN
   getAll = async (): Promise<Izin[]> => {
     return this.prisma.izin.findMany({
+      where:{
+        kelas:{
+          pengajar:
+        },
+        deletedAt:null
+      },
       include: {
         user: true,
         kelas: true,
       },
     });
   };
+
+    getAllArchived = async () => {
+  return this.prisma.izin.findMany({
+    where: {
+      deletedAt: {
+        not: null,
+      },
+    },
+    include: {
+      user: true,
+      kelas: true,
+    },
+    orderBy: {
+      deletedAt: "desc",
+    },
+  });
+};
+
+softDelete = async(id: number) =>  {
+  const izin = await this.prisma.izin.findUnique({ where: { id } });
+
+  if (izin?.status === "menunggu") {
+    throw new Error("Izin belum diproses");
+  }
+
+  return this.prisma.izin.update({
+    where: { id },
+    data: { deletedAt: new Date() },
+  });
+}
 
   // GET IZIN BY ID
   getById = async (id: number): Promise<Izin | null> => {

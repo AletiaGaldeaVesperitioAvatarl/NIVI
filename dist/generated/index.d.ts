@@ -450,8 +450,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.2.0
-   * Query Engine version: 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+   * Prisma Client JS version: 7.3.0
+   * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
    */
   export type PrismaVersion = {
     client: string
@@ -4622,6 +4622,7 @@ export namespace Prisma {
     alasan: string | null
     status: $Enums.StatusIzin | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type IzinMaxAggregateOutputType = {
@@ -4632,6 +4633,7 @@ export namespace Prisma {
     alasan: string | null
     status: $Enums.StatusIzin | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type IzinCountAggregateOutputType = {
@@ -4642,6 +4644,7 @@ export namespace Prisma {
     alasan: number
     status: number
     createdAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -4666,6 +4669,7 @@ export namespace Prisma {
     alasan?: true
     status?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type IzinMaxAggregateInputType = {
@@ -4676,6 +4680,7 @@ export namespace Prisma {
     alasan?: true
     status?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type IzinCountAggregateInputType = {
@@ -4686,6 +4691,7 @@ export namespace Prisma {
     alasan?: true
     status?: true
     createdAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -4783,6 +4789,7 @@ export namespace Prisma {
     alasan: string
     status: $Enums.StatusIzin
     createdAt: Date
+    deletedAt: Date | null
     _count: IzinCountAggregateOutputType | null
     _avg: IzinAvgAggregateOutputType | null
     _sum: IzinSumAggregateOutputType | null
@@ -4812,6 +4819,7 @@ export namespace Prisma {
     alasan?: boolean
     status?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["izin"]>
@@ -4824,6 +4832,7 @@ export namespace Prisma {
     alasan?: boolean
     status?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["izin"]>
@@ -4836,6 +4845,7 @@ export namespace Prisma {
     alasan?: boolean
     status?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["izin"]>
@@ -4848,9 +4858,10 @@ export namespace Prisma {
     alasan?: boolean
     status?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type IzinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "tanggal" | "alasan" | "status" | "createdAt", ExtArgs["result"]["izin"]>
+  export type IzinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "kelasId" | "tanggal" | "alasan" | "status" | "createdAt" | "deletedAt", ExtArgs["result"]["izin"]>
   export type IzinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
@@ -4878,6 +4889,7 @@ export namespace Prisma {
       alasan: string
       status: $Enums.StatusIzin
       createdAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["izin"]>
     composites: {}
   }
@@ -5310,6 +5322,7 @@ export namespace Prisma {
     readonly alasan: FieldRef<"Izin", 'String'>
     readonly status: FieldRef<"Izin", 'StatusIzin'>
     readonly createdAt: FieldRef<"Izin", 'DateTime'>
+    readonly deletedAt: FieldRef<"Izin", 'DateTime'>
   }
     
 
@@ -14866,6 +14879,7 @@ export namespace Prisma {
     deadline: Date | null
     createdBy: number | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type TugasMaxAggregateOutputType = {
@@ -14877,6 +14891,7 @@ export namespace Prisma {
     deadline: Date | null
     createdBy: number | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type TugasCountAggregateOutputType = {
@@ -14888,6 +14903,7 @@ export namespace Prisma {
     deadline: number
     createdBy: number
     createdAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -14915,6 +14931,7 @@ export namespace Prisma {
     deadline?: true
     createdBy?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type TugasMaxAggregateInputType = {
@@ -14926,6 +14943,7 @@ export namespace Prisma {
     deadline?: true
     createdBy?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type TugasCountAggregateInputType = {
@@ -14937,6 +14955,7 @@ export namespace Prisma {
     deadline?: true
     createdBy?: true
     createdAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -15035,6 +15054,7 @@ export namespace Prisma {
     deadline: Date
     createdBy: number
     createdAt: Date
+    deletedAt: Date | null
     _count: TugasCountAggregateOutputType | null
     _avg: TugasAvgAggregateOutputType | null
     _sum: TugasSumAggregateOutputType | null
@@ -15065,6 +15085,7 @@ export namespace Prisma {
     deadline?: boolean
     createdBy?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -15081,6 +15102,7 @@ export namespace Prisma {
     deadline?: boolean
     createdBy?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -15095,6 +15117,7 @@ export namespace Prisma {
     deadline?: boolean
     createdBy?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
     creator?: boolean | UserDefaultArgs<ExtArgs>
@@ -15109,9 +15132,10 @@ export namespace Prisma {
     deadline?: boolean
     createdBy?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type TugasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kelasId" | "mataPelajaranId" | "title" | "description" | "deadline" | "createdBy" | "createdAt", ExtArgs["result"]["tugas"]>
+  export type TugasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kelasId" | "mataPelajaranId" | "title" | "description" | "deadline" | "createdBy" | "createdAt" | "deletedAt", ExtArgs["result"]["tugas"]>
   export type TugasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
     mataPelajaran?: boolean | MataPelajaranDefaultArgs<ExtArgs>
@@ -15147,6 +15171,7 @@ export namespace Prisma {
       deadline: Date
       createdBy: number
       createdAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["tugas"]>
     composites: {}
   }
@@ -15582,6 +15607,7 @@ export namespace Prisma {
     readonly deadline: FieldRef<"Tugas", 'DateTime'>
     readonly createdBy: FieldRef<"Tugas", 'Int'>
     readonly createdAt: FieldRef<"Tugas", 'DateTime'>
+    readonly deletedAt: FieldRef<"Tugas", 'DateTime'>
   }
     
 
@@ -17495,7 +17521,8 @@ export namespace Prisma {
     tanggal: 'tanggal',
     alasan: 'alasan',
     status: 'status',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    deletedAt: 'deletedAt'
   };
 
   export type IzinScalarFieldEnum = (typeof IzinScalarFieldEnum)[keyof typeof IzinScalarFieldEnum]
@@ -17604,7 +17631,8 @@ export namespace Prisma {
     description: 'description',
     deadline: 'deadline',
     createdBy: 'createdBy',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    deletedAt: 'deletedAt'
   };
 
   export type TugasScalarFieldEnum = (typeof TugasScalarFieldEnum)[keyof typeof TugasScalarFieldEnum]
@@ -17949,6 +17977,7 @@ export namespace Prisma {
     alasan?: StringFilter<"Izin"> | string
     status?: EnumStatusIzinFilter<"Izin"> | $Enums.StatusIzin
     createdAt?: DateTimeFilter<"Izin"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Izin"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
   }
@@ -17961,6 +17990,7 @@ export namespace Prisma {
     alasan?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     kelas?: KelasOrderByWithRelationInput
   }
@@ -17976,6 +18006,7 @@ export namespace Prisma {
     alasan?: StringFilter<"Izin"> | string
     status?: EnumStatusIzinFilter<"Izin"> | $Enums.StatusIzin
     createdAt?: DateTimeFilter<"Izin"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Izin"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
   }, "id">
@@ -17988,6 +18019,7 @@ export namespace Prisma {
     alasan?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: IzinCountOrderByAggregateInput
     _avg?: IzinAvgOrderByAggregateInput
     _max?: IzinMaxOrderByAggregateInput
@@ -18006,6 +18038,7 @@ export namespace Prisma {
     alasan?: StringWithAggregatesFilter<"Izin"> | string
     status?: EnumStatusIzinWithAggregatesFilter<"Izin"> | $Enums.StatusIzin
     createdAt?: DateTimeWithAggregatesFilter<"Izin"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Izin"> | Date | string | null
   }
 
   export type JadwalAbsensiWhereInput = {
@@ -18540,6 +18573,7 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Tugas"> | Date | string
     createdBy?: IntFilter<"Tugas"> | number
     createdAt?: DateTimeFilter<"Tugas"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Tugas"> | Date | string | null
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
     mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -18555,6 +18589,7 @@ export namespace Prisma {
     deadline?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     kelas?: KelasOrderByWithRelationInput
     mataPelajaran?: MataPelajaranOrderByWithRelationInput
     creator?: UserOrderByWithRelationInput
@@ -18573,6 +18608,7 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Tugas"> | Date | string
     createdBy?: IntFilter<"Tugas"> | number
     createdAt?: DateTimeFilter<"Tugas"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Tugas"> | Date | string | null
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
     mataPelajaran?: XOR<MataPelajaranScalarRelationFilter, MataPelajaranWhereInput>
     creator?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -18588,6 +18624,7 @@ export namespace Prisma {
     deadline?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: TugasCountOrderByAggregateInput
     _avg?: TugasAvgOrderByAggregateInput
     _max?: TugasMaxOrderByAggregateInput
@@ -18607,6 +18644,7 @@ export namespace Prisma {
     deadline?: DateTimeWithAggregatesFilter<"Tugas"> | Date | string
     createdBy?: IntWithAggregatesFilter<"Tugas"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Tugas"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Tugas"> | Date | string | null
   }
 
   export type UserWhereInput = {
@@ -18867,6 +18905,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutIzinInput
     kelas: KelasCreateNestedOneWithoutIzinInput
   }
@@ -18879,6 +18918,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type IzinUpdateInput = {
@@ -18886,6 +18926,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutIzinNestedInput
     kelas?: KelasUpdateOneRequiredWithoutIzinNestedInput
   }
@@ -18898,6 +18939,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IzinCreateManyInput = {
@@ -18908,6 +18950,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type IzinUpdateManyMutationInput = {
@@ -18915,6 +18958,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IzinUncheckedUpdateManyInput = {
@@ -18925,6 +18969,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type JadwalAbsensiCreateInput = {
@@ -19438,6 +19483,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     kelas: KelasCreateNestedOneWithoutTugasInput
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
@@ -19453,6 +19499,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
   }
 
@@ -19461,6 +19508,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
@@ -19476,6 +19524,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
   }
 
@@ -19488,6 +19537,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TugasUpdateManyMutationInput = {
@@ -19495,6 +19545,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TugasUncheckedUpdateManyInput = {
@@ -19506,6 +19557,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserCreateInput = {
@@ -19930,6 +19982,17 @@ export namespace Prisma {
     not?: NestedEnumStatusIzinFilter<$PrismaModel> | $Enums.StatusIzin
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type IzinCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -19938,6 +20001,7 @@ export namespace Prisma {
     alasan?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type IzinAvgOrderByAggregateInput = {
@@ -19954,6 +20018,7 @@ export namespace Prisma {
     alasan?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type IzinMinOrderByAggregateInput = {
@@ -19964,6 +20029,7 @@ export namespace Prisma {
     alasan?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type IzinSumOrderByAggregateInput = {
@@ -19998,6 +20064,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusIzinFilter<$PrismaModel>
     _max?: NestedEnumStatusIzinFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumHariFilter<$PrismaModel = never> = {
@@ -20297,17 +20377,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type ProfileCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -20355,20 +20424,6 @@ export namespace Prisma {
   export type ProfileSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumStatusSubmissionFilter<$PrismaModel = never> = {
@@ -20469,6 +20524,7 @@ export namespace Prisma {
     deadline?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type TugasAvgOrderByAggregateInput = {
@@ -20487,6 +20543,7 @@ export namespace Prisma {
     deadline?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type TugasMinOrderByAggregateInput = {
@@ -20498,6 +20555,7 @@ export namespace Prisma {
     deadline?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type TugasSumOrderByAggregateInput = {
@@ -20731,6 +20789,10 @@ export namespace Prisma {
 
   export type EnumStatusIzinFieldUpdateOperationsInput = {
     set?: $Enums.StatusIzin
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutIzinNestedInput = {
@@ -21181,10 +21243,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutProfileNestedInput = {
@@ -21871,6 +21929,17 @@ export namespace Prisma {
     not?: NestedEnumStatusIzinFilter<$PrismaModel> | $Enums.StatusIzin
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21896,6 +21965,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStatusIzinFilter<$PrismaModel>
     _max?: NestedEnumStatusIzinFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumHariFilter<$PrismaModel = never> = {
@@ -21926,31 +22009,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusSubmissionFilter<$PrismaModel = never> = {
@@ -22744,6 +22802,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutIzinInput
   }
 
@@ -22754,6 +22813,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type IzinCreateOrConnectWithoutKelasInput = {
@@ -22771,6 +22831,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
@@ -22784,6 +22845,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
   }
 
@@ -22943,6 +23005,7 @@ export namespace Prisma {
     alasan?: StringFilter<"Izin"> | string
     status?: EnumStatusIzinFilter<"Izin"> | $Enums.StatusIzin
     createdAt?: DateTimeFilter<"Izin"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Izin"> | Date | string | null
   }
 
   export type TugasUpsertWithWhereUniqueWithoutKelasInput = {
@@ -22973,6 +23036,7 @@ export namespace Prisma {
     deadline?: DateTimeFilter<"Tugas"> | Date | string
     createdBy?: IntFilter<"Tugas"> | number
     createdAt?: DateTimeFilter<"Tugas"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Tugas"> | Date | string | null
   }
 
   export type UserCreateWithoutLogInput = {
@@ -23082,6 +23146,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     kelas: KelasCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
@@ -23095,6 +23160,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
   }
 
@@ -23435,6 +23501,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     kelas: KelasCreateNestedOneWithoutTugasInput
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     creator: UserCreateNestedOneWithoutTugasDibuatInput
@@ -23449,6 +23516,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TugasCreateOrConnectWithoutSubmissionInput = {
@@ -23544,6 +23612,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
@@ -23558,6 +23627,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type NilaiUpsertWithoutSubmissionInput = {
@@ -23942,6 +24012,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     kelas: KelasCreateNestedOneWithoutIzinInput
   }
 
@@ -23952,6 +24023,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type IzinCreateOrConnectWithoutUserInput = {
@@ -23969,6 +24041,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     kelas: KelasCreateNestedOneWithoutTugasInput
     mataPelajaran: MataPelajaranCreateNestedOneWithoutTugasInput
     submission?: SubmissionCreateNestedManyWithoutTugasInput
@@ -23982,6 +24055,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     submission?: SubmissionUncheckedCreateNestedManyWithoutTugasInput
   }
 
@@ -24401,6 +24475,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TugasCreateManyKelasInput = {
@@ -24411,6 +24486,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserUpdateWithoutKelasInput = {
@@ -24596,6 +24672,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutIzinNestedInput
   }
 
@@ -24606,6 +24683,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IzinUncheckedUpdateManyWithoutKelasInput = {
@@ -24615,6 +24693,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TugasUpdateWithoutKelasInput = {
@@ -24622,6 +24701,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
@@ -24635,6 +24715,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
   }
 
@@ -24646,6 +24727,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TugasCreateManyMataPelajaranInput = {
@@ -24656,6 +24738,7 @@ export namespace Prisma {
     deadline: Date | string
     createdBy: number
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TugasUpdateWithoutMataPelajaranInput = {
@@ -24663,6 +24746,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     creator?: UserUpdateOneRequiredWithoutTugasDibuatNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
@@ -24676,6 +24760,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
   }
 
@@ -24687,6 +24772,7 @@ export namespace Prisma {
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SubmissionCreateManyTugasInput = {
@@ -24745,6 +24831,7 @@ export namespace Prisma {
     alasan: string
     status?: $Enums.StatusIzin
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TugasCreateManyCreatorInput = {
@@ -24755,6 +24842,7 @@ export namespace Prisma {
     description?: string | null
     deadline: Date | string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type SubmissionCreateManyUserInput = {
@@ -24850,6 +24938,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneRequiredWithoutIzinNestedInput
   }
 
@@ -24860,6 +24949,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IzinUncheckedUpdateManyWithoutUserInput = {
@@ -24869,6 +24959,7 @@ export namespace Prisma {
     alasan?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusIzinFieldUpdateOperationsInput | $Enums.StatusIzin
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TugasUpdateWithoutCreatorInput = {
@@ -24876,6 +24967,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kelas?: KelasUpdateOneRequiredWithoutTugasNestedInput
     mataPelajaran?: MataPelajaranUpdateOneRequiredWithoutTugasNestedInput
     submission?: SubmissionUpdateManyWithoutTugasNestedInput
@@ -24889,6 +24981,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     submission?: SubmissionUncheckedUpdateManyWithoutTugasNestedInput
   }
 
@@ -24900,6 +24993,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     deadline?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SubmissionUpdateWithoutUserInput = {

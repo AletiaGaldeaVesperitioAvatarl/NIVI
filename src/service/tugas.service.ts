@@ -22,18 +22,30 @@ export class TugasService {
     return this.repo.create(data);
   };
 
-  update = (id: number, data: {
-    title?: string;
-    description?: string;
-    deadline?: Date;
-    mataPelajaranId?: number;
-  }) => {
+  update = (
+    id: number,
+    data: {
+      title?: string;
+      description?: string;
+      deadline?: Date;
+      mataPelajaranId?: number;
+    },
+  ) => {
     return this.repo.update(id, data);
   };
 
   delete = (id: number) => this.repo.delete(id);
 
-  getForSantri = (userId: number) => {
+  getForSantri = async (userId: number) => {
     return this.repo.getForSantri(userId);
+  };
+
+  archiveExpiredForSantri = async (userId: number, tugasId: number) => {
+    return this.repo.archiveExpiredForSantri(userId, tugasId);
+  };
+
+  // 🔹 ambil tugas arsip santri
+  getArchivedForSantri = async (userId: number) => {
+    return this.repo.getArchivedForSantri(userId);
   };
 }

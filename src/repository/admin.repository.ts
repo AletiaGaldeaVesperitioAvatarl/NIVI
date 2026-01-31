@@ -72,16 +72,29 @@ export class AdminRepository {
     });
   }
 
-  getPengajarByKelas(kelasId: number) {
-    return this.prisma.kelas.findUnique({
-      where: { id: kelasId },
-      select: {
-        id: true,
-        namaKelas: true,
-        pengajar: { select: { id: true, name: true, email: true } },
+getPengajarByKelas(kelasId: number) {
+  return this.prisma.kelas.findUnique({
+    where: { id: kelasId },
+    select: {
+      id: true,
+      namaKelas: true,
+      pengajar: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          profile: {        // <-- tambahkan ini
+            select: {
+              namaLengkap: true,
+              fotoUrl: true,
+            },
+          },
+        },
       },
-    });
-  }
+    },
+  });
+}
+
 
   createAdmin = async (data: {
     name: string;
