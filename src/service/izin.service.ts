@@ -20,11 +20,11 @@ export class IzinService {
   // ===============================
   // GET
   // ===============================
-  getAll() {
+  getAll = async () => {
     return this.izinRepo.getAll();
   }
 
-  getAllByPengajar (pengajarId:number) {
+  getAllByPengajar = async(pengajarId:number)=> {
     return this.izinRepo.getAllByPengajar(pengajarId)
   }
     getAllArchived = async (pengajarId:number) => {
@@ -99,13 +99,14 @@ async createIzin(data: {
   }
 
   // 4️⃣ SIMPAN IZIN
-  return this.izinRepo.create({
-    userId: data.userId,
-    kelasId: data.kelasId,
-    tanggal,
-    alasan: data.alasan,
-    status: "menunggu",
-  });
+ return this.izinRepo.create({
+  userId: data.userId,
+  kelasId: data.kelasId,
+  tanggal: new Date(), // waktu real saat izin diajukan
+  alasan: data.alasan,
+  status: "menunggu",
+});
+
 }
 
 
@@ -114,30 +115,70 @@ async createIzin(data: {
   // UPDATE IZIN (PENGAJAR)
   // ===============================
   // IzinService.ts
-async updateIzinStatus(izinId: number, status: StatusIzin): Promise<Izin> {
+async updateIzinStatus(
+  izinId: number,
+  status: StatusIzin
+): Promise<Izin> {
+
   const izin = await this.izinRepo.getById(izinId);
   if (!izin) throw new Error("Izin tidak ditemukan");
-  if (izin.status !== StatusIzin.menunggu) throw new Error("Izin sudah diproses");
+  if (izin.status !== StatusIzin.menunggu)
+    throw new Error("Izin sudah diproses");
 
+  // JIKA PENGAJAR MENYETUJUI
   if (status === StatusIzin.disetujui) {
-    // Catat sebagai absensi izin
+
+    const setting = await this.settingService.getByKelas(izin.kelasId);
+
+    if (!setting?.maxAbsen) {
+      await this.izinRepo.update(izinId, {
+        status: StatusIzin.ditolak,
+      });
+
+      izin.status = StatusIzin.ditolak;
+      return izin;
+    }
+
+    const totalHariIni = await this.absensiRepo.countTodayByUser(
+      izin.userId
+    );
+
+    // 🚨 AUTO-TOLAK JIKA KUOTA HABIS
+    if (totalHariIni >= setting.maxAbsen) {
+
+      await this.izinRepo.update(izinId, {
+        status: StatusIzin.ditolak,
+      });
+
+      izin.status = StatusIzin.ditolak;
+      return izin;
+    }
+
+    // ✅ KUOTA MASIH ADA → CATAT ABSENSI IZIN
     await this.absensiService.absenIzinDariPersetujuan(
       izin.userId,
       izin.kelasId,
       izin.tanggal
     );
 
-    // Update status izin jadi disetujui
-    await this.izinRepo.update(izinId, { status: StatusIzin.disetujui });
-    izin.status = StatusIzin.disetujui;
+    await this.izinRepo.update(izinId, {
+      status: StatusIzin.disetujui,
+    });
 
-  } else {
-    await this.izinRepo.update(izinId, { status: StatusIzin.ditolak });
-    izin.status = StatusIzin.ditolak;
+    izin.status = StatusIzin.disetujui;
+    return izin;
   }
 
+  // JIKA PENGAJAR MENOLAK MANUAL
+  await this.izinRepo.update(izinId, {
+    status: StatusIzin.ditolak,
+  });
+
+  izin.status = StatusIzin.ditolak;
   return izin;
 }
+
+
 
 
   // ===============================

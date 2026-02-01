@@ -9,6 +9,7 @@ model Submission {
 
   status      StatusSubmission @default(pending)
   submittedAt DateTime         @default(now())
+  deletedAt   DateTime?
 
   // Relasi
   user        User   @relation(fields: [userId], references: [id])

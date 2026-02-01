@@ -47,7 +47,7 @@ const absensiService = new AbsensiService(
   jadwalRepo,
   AIAssistant,
   userService,
-  izinRepo
+  izinRepo,
 );
 const izinService = new IzinService(
   izinRepo,
@@ -72,23 +72,19 @@ router.get("/me", authenticate, izinController.getMyIzin);
 router.post("/", authenticate, izinController.create);
 
 // ROUTES UNTUK ADMIN / PENGAJAR
-router.get("/all/pengajar", authenticate, izinController.getAllByPengajar)
+router.get("/all/pengajar", authenticate, izinController.getAllByPengajar);
 
-router.get(
-  "/",
-  authenticate,
-  izinController.getAll,
-);
+router.get("/", authenticate, izinController.getAll);
 
 router.get(
   "/user/:userId",
-  
+
   izinController.getByUser,
 );
 
-router.delete("/:id", authenticate,izinController.softDelete);
+router.delete("/:id", authenticate, izinController.softDelete);
 
-router.get("/arsip", authenticate,izinController.getAllArchived);
+router.get("/arsip", authenticate, izinController.getAllArchived);
 
 router.get(
   "/:id",
@@ -110,7 +106,5 @@ router.delete(
   roleMiddleware(["admin", "pengajar"]),
   izinController.delete,
 );
-
-
 
 export default router;

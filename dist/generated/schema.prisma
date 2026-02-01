@@ -180,6 +180,7 @@ model Submission {
 
   status      StatusSubmission @default(pending)
   submittedAt DateTime         @default(now())
+  deletedAt   DateTime?
 
   // Relasi
   user  User  @relation(fields: [userId], references: [id])
@@ -245,7 +246,7 @@ model User {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated"
+  output   = "../../dist/generated"
 }
 
 datasource db {

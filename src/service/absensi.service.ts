@@ -4,7 +4,6 @@ import { StatusAbsensi } from "../../dist/generated";
 import cron from "node-cron";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import { AIAssistantService } from "./ai.assistant.service";
-import { io } from "../socket";
 import { UserService } from "./user.service";
 import { IzinRepository } from "../repository/izin.repository";
 

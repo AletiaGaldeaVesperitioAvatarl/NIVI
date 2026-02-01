@@ -26,22 +26,28 @@ export class ProfileRepository {
   };
 
   // UPDATE PROFILE
-  updateByUserId = async (userId: number, data: Partial<Profile>) => {
+updateByUserId = async (userId: number, data: Partial<Profile>): Promise<Profile> => {
+    const upsertData: any = {
+      namaLengkap: data.namaLengkap ?? "",
+      noHp: data.noHp ?? null,
+      alamat: data.alamat ?? null,
+      tanggalLahir: data.tanggalLahir ?? null,
+      jenisKelamin: data.jenisKelamin ?? null,
+    };
+
+    if (data.fotoUrl !== undefined) {
+      upsertData.fotoUrl = data.fotoUrl;
+    }
+
     return this.prisma.profile.upsert({
       where: { userId },
-      update: data,
+      update: upsertData,
       create: {
         userId,
-        namaLengkap: data.namaLengkap ?? "",
-        noHp: data.noHp ?? null,
-        alamat: data.alamat ?? null,
-        fotoUrl: data.fotoUrl ?? null,
-        tanggalLahir: data.tanggalLahir ?? null,
-        jenisKelamin: data.jenisKelamin ?? null,
+        ...upsertData,
       },
     });
   };
-
   // DELETE PROFILE (OPSIONAL, JARANG DIPAKE)
   deleteByUserId = async (userId: number): Promise<Profile> => {
     return this.prisma.profile.delete({

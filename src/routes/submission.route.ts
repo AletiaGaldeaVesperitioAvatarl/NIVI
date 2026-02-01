@@ -12,9 +12,9 @@ const router = Router();
 
 // === Dependency Injection ===
 const repository = new SubmissionRepository(prismaInstance);
-const tugasRepo = new TugasRepository(prismaInstance)
+const tugasRepo = new TugasRepository(prismaInstance);
 const service = new SubmissionService(repository);
-const tugasService = new TugasService(tugasRepo)
+const tugasService = new TugasService(tugasRepo);
 const controller = new SubmissionController(service, tugasService);
 
 /**
@@ -23,20 +23,33 @@ const controller = new SubmissionController(service, tugasService);
  * =========================
  */
 
-// Santri submit tugas
-router.post(
-  "/",
+router.get(
+  "/tugas/arsip",
   authenticate,
-  roleMiddleware(["santri"]),
-  controller.submit
-);
+  controller.findArsipByPengajar
+)
+router.put(
+  "/:id/arsip",
+  authenticate,
+  controller.softDelete
+)
+
+router.put(
+  "/:id/unarsip",
+  authenticate,
+  controller.restore
+)
+
+
+// Santri submit tugas
+router.post("/", authenticate, roleMiddleware(["santri"]), controller.submit);
 
 // Santri lihat submission miliknya
 router.get(
   "/me",
   authenticate,
   roleMiddleware(["santri"]),
-  controller.getForSantri
+  controller.getForSantri,
 );
 
 /**
@@ -50,7 +63,7 @@ router.get(
   "/pengajar",
   authenticate,
   roleMiddleware(["pengajar"]),
-  controller.getForPengajar
+  controller.getForPengajar,
 );
 
 /**
@@ -62,8 +75,6 @@ router.put(
   "/:id/status",
   authenticate,
   roleMiddleware(["pengajar"]),
-  controller.updateStatus
+  controller.updateStatus,
 );
-
-
 export default router;

@@ -73,6 +73,33 @@ export class SubmissionRepository {
   findForPengajar(pengajarId: number): Promise<Submission[]> {
     return this.prisma.submission.findMany({
       where: {
+        deletedAt:null,
+        tugas: {
+          kelas: {
+            pengajar: {
+              some: {
+                id: pengajarId,
+              },
+            },
+          },
+        },
+      },
+      include: {
+        user: true, // santri
+        tugas: {
+          include: {
+            kelas: true,
+            mataPelajaran: true,
+          },
+        },
+        nilai: true,
+      },
+    });
+  }
+
+    findArsipForPengajar(pengajarId: number): Promise<Submission[]> {
+    return this.prisma.submission.findMany({
+      where: {
         tugas: {
           kelas: {
             pengajar: {
@@ -116,5 +143,23 @@ export class SubmissionRepository {
     return this.prisma.submission.delete({
       where: { id },
     });
+  }
+  
+  softDelete(id:number):Promise<Submission> {
+    return this.prisma.submission.update({
+      where:{id},
+      data:{
+        deletedAt: new Date()
+      }
+    })
+  }
+
+  restore(id:number):Promise<Submission>{
+    return this.prisma.submission.update({
+      where:{ id},
+      data:{
+        deletedAt:null
+      }
+    })
   }
 }

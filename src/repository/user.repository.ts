@@ -112,7 +112,6 @@ export class UserRepository {
         isActive: true,
       },
     });
-
     // Urutkan Santri → Pengajar → Admin
     const rolesOrder = ["Santri", "Pengajar", "Admin"];
     users.sort((a, b) => rolesOrder.indexOf(a.role) - rolesOrder.indexOf(b.role));

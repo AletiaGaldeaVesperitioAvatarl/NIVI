@@ -220,7 +220,8 @@ exports.Prisma.SubmissionScalarFieldEnum = {
   fileUrl: 'fileUrl',
   linkUrl: 'linkUrl',
   status: 'status',
-  submittedAt: 'submittedAt'
+  submittedAt: 'submittedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.TugasScalarFieldEnum = {

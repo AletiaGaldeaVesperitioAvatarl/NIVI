@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ProfileService } from "../service/profile.service";
-import { successResponse } from "../utils/response";
+import { errorResponse, successResponse } from "../utils/response";
+import { Profile } from "../../dist/generated";
 
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
@@ -69,31 +70,32 @@ getProfileByUserId = async (req: Request, res: Response) => {
   // PUT /profile
 updateProfile = async (req: Request, res: Response) => {
   const userId = req.user!.id;
+  const file = req.file;
 
-  const file = req.file
-  
-  if (!file) {
-  throw new Error("Foto tidak ditemukan!")
-}
-const fotoUrl = `/uploads/${file.filename}`
+  try {
+    // Jika profile belum ada, otomatis buat baru nanti via upsert
+    const updateData: Partial<Profile> = {
+      namaLengkap: req.body.namaLengkap,
+      noHp: req.body.noHp ?? null,
+      alamat: req.body.alamat ?? null,
+      tanggalLahir: req.body.tanggalLahir ? new Date(req.body.tanggalLahir) : null,
+      jenisKelamin: req.body.jenisKelamin ?? null,
+    };
 
+    // Update foto hanya jika ada file baru
+    if (file) {
+      updateData.fotoUrl = `/uploads/${file.filename}`;
+    }
 
+    const profile = await this.profileService.updateProfile(userId, updateData);
 
-  const profile = await this.profileService.updateProfile(userId, {
-    namaLengkap: req.body.namaLengkap,
-    noHp: req.body.noHp ?? null,
-    alamat: req.body.alamat ?? null,
-    fotoUrl: fotoUrl , 
-    tanggalLahir: req.body.tanggalLahir
-      ? new Date(req.body.tanggalLahir)
-      : null,
-    jenisKelamin: req.body.jenisKelamin ?? null,
-  });
-
-  successResponse(res, "Profile berhasil diupdate", {
-    user: req.user,
-    profile,
-  });
+    successResponse(res, "Profile berhasil diupdate", {
+      user: req.user,
+      profile,
+    });
+  } catch (error: any) {
+    errorResponse(res, error.message || "Gagal update profile");
+  }
 };
 
 

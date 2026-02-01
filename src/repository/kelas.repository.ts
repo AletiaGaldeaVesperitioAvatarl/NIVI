@@ -182,7 +182,14 @@ export class KelasRepository {
         santri:{
           where:{
             isActive:true
-          }
+          },
+          include:{
+            profile:{
+              select:{
+                fotoUrl:true
+              }
+            }
+          },
         },
         pengajar: true,
         absensiSetting: true,

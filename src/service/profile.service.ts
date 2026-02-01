@@ -23,10 +23,7 @@ export class ProfileService {
   };
 
   //UPDATE PROFILE
-  updateProfile = async (
-    userId: number,
-    data: Partial<Profile>,
-  ): Promise<Profile> => {
+  updateProfile = async (userId: number, data: Partial<Profile>): Promise<Profile> => {
     return this.profileRepository.updateByUserId(userId, data);
   };
 

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { SubmissionService } from "../service/submission.service";
-import { successResponse } from "../utils/response";
+import { errorResponse, successResponse } from "../utils/response";
 import { io } from "../socket";
 import { TugasService } from "../service/tugas.service";
 
@@ -92,5 +92,57 @@ submit = async (req: any, res: Response) => {
     res.status(500).json({ success: false, message: "Gagal update status" });
   }
 };
+
+
+  softDelete = async (req:Request, res:Response) =>{
+    try {
+      const submission = await this.service.softDelete(Number(req.params.id))
+
+      successResponse(
+        res,
+        "Submission berhasil di arsipkan!",
+        submission
+      )
+    } catch (err:any) {
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
+
+  restore = async (req:Request, res:Response) =>{
+    try {
+      const submission = await this.service.restore(Number(req.params.id))
+
+      successResponse(
+        res,
+        "Submission berhasil diambil!",
+        submission
+      )
+    } catch (err:any) {
+      
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
+
+  findArsipByPengajar = async (req:Request, res:Response) =>{
+    try {
+      const data = await this.service.findArsipForPengajar(Number(req.user?.id))
+      successResponse(
+        res,
+        "Submission berhasil diambil!",
+        data
+      )
+    } catch (err:any) {
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
 
 }

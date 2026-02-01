@@ -13719,6 +13719,7 @@ export namespace Prisma {
     linkUrl: string | null
     status: $Enums.StatusSubmission | null
     submittedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type SubmissionMaxAggregateOutputType = {
@@ -13729,6 +13730,7 @@ export namespace Prisma {
     linkUrl: string | null
     status: $Enums.StatusSubmission | null
     submittedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type SubmissionCountAggregateOutputType = {
@@ -13739,6 +13741,7 @@ export namespace Prisma {
     linkUrl: number
     status: number
     submittedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -13763,6 +13766,7 @@ export namespace Prisma {
     linkUrl?: true
     status?: true
     submittedAt?: true
+    deletedAt?: true
   }
 
   export type SubmissionMaxAggregateInputType = {
@@ -13773,6 +13777,7 @@ export namespace Prisma {
     linkUrl?: true
     status?: true
     submittedAt?: true
+    deletedAt?: true
   }
 
   export type SubmissionCountAggregateInputType = {
@@ -13783,6 +13788,7 @@ export namespace Prisma {
     linkUrl?: true
     status?: true
     submittedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -13880,6 +13886,7 @@ export namespace Prisma {
     linkUrl: string | null
     status: $Enums.StatusSubmission
     submittedAt: Date
+    deletedAt: Date | null
     _count: SubmissionCountAggregateOutputType | null
     _avg: SubmissionAvgAggregateOutputType | null
     _sum: SubmissionSumAggregateOutputType | null
@@ -13909,6 +13916,7 @@ export namespace Prisma {
     linkUrl?: boolean
     status?: boolean
     submittedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | TugasDefaultArgs<ExtArgs>
     nilai?: boolean | Submission$nilaiArgs<ExtArgs>
@@ -13922,6 +13930,7 @@ export namespace Prisma {
     linkUrl?: boolean
     status?: boolean
     submittedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["submission"]>
@@ -13934,6 +13943,7 @@ export namespace Prisma {
     linkUrl?: boolean
     status?: boolean
     submittedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | TugasDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["submission"]>
@@ -13946,9 +13956,10 @@ export namespace Prisma {
     linkUrl?: boolean
     status?: boolean
     submittedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tugasId" | "fileUrl" | "linkUrl" | "status" | "submittedAt", ExtArgs["result"]["submission"]>
+  export type SubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tugasId" | "fileUrl" | "linkUrl" | "status" | "submittedAt" | "deletedAt", ExtArgs["result"]["submission"]>
   export type SubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     tugas?: boolean | TugasDefaultArgs<ExtArgs>
@@ -13978,6 +13989,7 @@ export namespace Prisma {
       linkUrl: string | null
       status: $Enums.StatusSubmission
       submittedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["submission"]>
     composites: {}
   }
@@ -14411,6 +14423,7 @@ export namespace Prisma {
     readonly linkUrl: FieldRef<"Submission", 'String'>
     readonly status: FieldRef<"Submission", 'StatusSubmission'>
     readonly submittedAt: FieldRef<"Submission", 'DateTime'>
+    readonly deletedAt: FieldRef<"Submission", 'DateTime'>
   }
     
 
@@ -17617,7 +17630,8 @@ export namespace Prisma {
     fileUrl: 'fileUrl',
     linkUrl: 'linkUrl',
     status: 'status',
-    submittedAt: 'submittedAt'
+    submittedAt: 'submittedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type SubmissionScalarFieldEnum = (typeof SubmissionScalarFieldEnum)[keyof typeof SubmissionScalarFieldEnum]
@@ -18498,6 +18512,7 @@ export namespace Prisma {
     linkUrl?: StringNullableFilter<"Submission"> | string | null
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
     submittedAt?: DateTimeFilter<"Submission"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Submission"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
     nilai?: XOR<NilaiNullableScalarRelationFilter, NilaiWhereInput> | null
@@ -18511,6 +18526,7 @@ export namespace Prisma {
     linkUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     tugas?: TugasOrderByWithRelationInput
     nilai?: NilaiOrderByWithRelationInput
@@ -18528,6 +18544,7 @@ export namespace Prisma {
     linkUrl?: StringNullableFilter<"Submission"> | string | null
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
     submittedAt?: DateTimeFilter<"Submission"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Submission"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     tugas?: XOR<TugasScalarRelationFilter, TugasWhereInput>
     nilai?: XOR<NilaiNullableScalarRelationFilter, NilaiWhereInput> | null
@@ -18541,6 +18558,7 @@ export namespace Prisma {
     linkUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: SubmissionCountOrderByAggregateInput
     _avg?: SubmissionAvgOrderByAggregateInput
     _max?: SubmissionMaxOrderByAggregateInput
@@ -18559,6 +18577,7 @@ export namespace Prisma {
     linkUrl?: StringNullableWithAggregatesFilter<"Submission"> | string | null
     status?: EnumStatusSubmissionWithAggregatesFilter<"Submission"> | $Enums.StatusSubmission
     submittedAt?: DateTimeWithAggregatesFilter<"Submission"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Submission"> | Date | string | null
   }
 
   export type TugasWhereInput = {
@@ -19414,6 +19433,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutSubmissionInput
     tugas: TugasCreateNestedOneWithoutSubmissionInput
     nilai?: NilaiCreateNestedOneWithoutSubmissionInput
@@ -19427,6 +19447,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
@@ -19435,6 +19456,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
     tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
     nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
@@ -19448,6 +19470,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
@@ -19459,6 +19482,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type SubmissionUpdateManyMutationInput = {
@@ -19466,6 +19490,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type SubmissionUncheckedUpdateManyInput = {
@@ -19476,6 +19501,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TugasCreateInput = {
@@ -20456,6 +20482,7 @@ export namespace Prisma {
     linkUrl?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SubmissionAvgOrderByAggregateInput = {
@@ -20472,6 +20499,7 @@ export namespace Prisma {
     linkUrl?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SubmissionMinOrderByAggregateInput = {
@@ -20482,6 +20510,7 @@ export namespace Prisma {
     linkUrl?: SortOrder
     status?: SortOrder
     submittedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type SubmissionSumOrderByAggregateInput = {
@@ -23195,6 +23224,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutSubmissionInput
     tugas: TugasCreateNestedOneWithoutSubmissionInput
   }
@@ -23207,6 +23237,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type SubmissionCreateOrConnectWithoutNilaiInput = {
@@ -23230,6 +23261,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
     tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
   }
@@ -23242,6 +23274,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -23753,6 +23786,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutSubmissionInput
     nilai?: NilaiCreateNestedOneWithoutSubmissionInput
   }
@@ -23764,6 +23798,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
@@ -23916,6 +23951,7 @@ export namespace Prisma {
     linkUrl?: StringNullableFilter<"Submission"> | string | null
     status?: EnumStatusSubmissionFilter<"Submission"> | $Enums.StatusSubmission
     submittedAt?: DateTimeFilter<"Submission"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Submission"> | Date | string | null
   }
 
   export type KelasCreateWithoutSantriInput = {
@@ -24074,6 +24110,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     tugas: TugasCreateNestedOneWithoutSubmissionInput
     nilai?: NilaiCreateNestedOneWithoutSubmissionInput
   }
@@ -24085,6 +24122,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
     nilai?: NilaiUncheckedCreateNestedOneWithoutSubmissionInput
   }
 
@@ -24782,6 +24820,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type SubmissionUpdateWithoutTugasInput = {
@@ -24789,6 +24828,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutSubmissionNestedInput
     nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
   }
@@ -24800,6 +24840,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
@@ -24810,6 +24851,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type AbsensiCreateManyUserInput = {
@@ -24852,6 +24894,7 @@ export namespace Prisma {
     linkUrl?: string | null
     status?: $Enums.StatusSubmission
     submittedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type LogAktivitasCreateManyUserInput = {
@@ -25001,6 +25044,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tugas?: TugasUpdateOneRequiredWithoutSubmissionNestedInput
     nilai?: NilaiUpdateOneWithoutSubmissionNestedInput
   }
@@ -25012,6 +25056,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     nilai?: NilaiUncheckedUpdateOneWithoutSubmissionNestedInput
   }
 
@@ -25022,6 +25067,7 @@ export namespace Prisma {
     linkUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusSubmissionFieldUpdateOperationsInput | $Enums.StatusSubmission
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type LogAktivitasUpdateWithoutUserInput = {

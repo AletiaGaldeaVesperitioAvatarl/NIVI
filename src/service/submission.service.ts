@@ -57,4 +57,15 @@ export class SubmissionService {
   return this.repo.update(id, { status });
 };
 
+softDelete = async (id:number) =>{
+  return this.repo.softDelete( id )
+}
+
+restore = async (id:number) =>{
+  return this.repo.restore(id)
+}
+
+findArsipForPengajar = async (pengajarId:number) =>{
+  return this.repo.findArsipForPengajar(pengajarId)
+}
 }
