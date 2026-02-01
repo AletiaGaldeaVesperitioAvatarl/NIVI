@@ -35,9 +35,18 @@ export class MataPelajaranController {
   };
 
   // DELETE
-  delete = async (req: Request, res: Response) => {
+delete = async (req: Request, res: Response) => {
+  try {
     const id = Number(req.params.id);
     const data = await this.service.delete(id);
+
     successResponse(res, "Mata pelajaran berhasil dihapus", data);
-  };
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: error.message || "Gagal menghapus mata pelajaran",
+    });
+  }
+};
+
 }

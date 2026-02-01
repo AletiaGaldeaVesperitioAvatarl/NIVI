@@ -55,7 +55,10 @@ export class UserController {
       const id = Number(req.params.id);
       if (!id) throw new Error("Parameter id tidak valid!");
 
+      
+
       const user = await this.userService.deactivateUser(id);
+
       return successResponse(res, "User berhasil dinonaktifkan", user);
     } catch (err) {
       next(err);
@@ -120,6 +123,16 @@ activate = async (req: Request, res: Response) => {
     res.status(200).json({ message: "User berhasil diaktifkan", user });
   } catch (err: any) {
     res.status(400).json({ message: err.message });
+  }
+};
+
+
+ getUsers = async (_req: Request, res: Response) => {
+  try {
+    const users = await this.userService.getUsers();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: "Gagal mengambil daftar user" });
   }
 };
 

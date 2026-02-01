@@ -7,9 +7,6 @@ export class IzinRepository {
   getAll = async (): Promise<Izin[]> => {
     return this.prisma.izin.findMany({
       where:{
-        kelas:{
-          pengajar:
-        },
         deletedAt:null
       },
       include: {
@@ -19,12 +16,38 @@ export class IzinRepository {
     });
   };
 
-    getAllArchived = async () => {
+    getAllByPengajar = async (pengajarId:number): Promise<Izin[]> => {
+    return this.prisma.izin.findMany({
+      where:{
+        deletedAt:null,
+        kelas:{
+          pengajar:{
+            some:{
+              id:pengajarId
+            }
+          }
+        }
+      },
+      include: {
+        user: true,
+        kelas: true,
+      },
+    });
+  };
+
+    getAllArchived = async (pengajarId:number) => {
   return this.prisma.izin.findMany({
     where: {
       deletedAt: {
         not: null,
       },
+      kelas:{
+        pengajar:{
+          some:{
+            id:pengajarId
+          }
+        }
+      }
     },
     include: {
       user: true,

@@ -23,8 +23,12 @@ export class IzinService {
   getAll() {
     return this.izinRepo.getAll();
   }
-    getAllArchived = async () => {
-    return this.izinRepo.getAllArchived();
+
+  getAllByPengajar (pengajarId:number) {
+    return this.izinRepo.getAllByPengajar(pengajarId)
+  }
+    getAllArchived = async (pengajarId:number) => {
+    return this.izinRepo.getAllArchived(pengajarId);
   };
 
   // ===== SOFT DELETE =====

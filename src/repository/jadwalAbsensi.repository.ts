@@ -214,6 +214,22 @@ export class JadwalAbsensiRepository {
     });
   };
 
+  countAbsensiByTanggalDanKelas(
+  kelasId: number,
+  tanggal: Date,
+) {
+  return this.prisma.absensi.count({
+    where: {
+      kelasId,
+      tanggal: {
+        gte: new Date(tanggal.setHours(0,0,0,0)),
+        lt: new Date(tanggal.setHours(23,59,59,999)),
+      },
+    },
+  });
+}
+
+
   async getByKelasAndTanggal(
     kelasId: number,
     tanggal: Date,

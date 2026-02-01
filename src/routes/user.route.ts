@@ -17,6 +17,7 @@ router.put("/:id/activate/santri", userController.activate);
  *   name: User
  *   description: Manajemen data user (admin, pengajar, santri)
  */
+router.get("/all/user",userController.getUsers);
 
 /**
  * @swagger

@@ -6,6 +6,22 @@ import { io } from "../socket";
 export class KelasController {
   constructor(private kelasService: KelasService) {}
 
+  getAllKelas = async (_req:Request, res:Response) =>{
+    try {
+      const kelas = await this.kelasService.getAllKelas()
+      successResponse(
+        res,
+        "Semua kelas berhasil diambil!",
+        kelas
+      )
+    } catch (err:any) {
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
+
   // GET ALL KELAS
   getAll = async (_req: Request, res: Response) => {
     try {

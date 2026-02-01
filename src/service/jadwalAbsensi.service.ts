@@ -69,42 +69,51 @@ export class JadwalAbsensiService {
     return this.repo.getById(id);
   };
 
-  async updateJadwal(
-    id: number,
-    data: Partial<JadwalAbsensi>,
-  ): Promise<JadwalAbsensi> {
-    const jadwal = await this.repo.getById(id);
-    if (!jadwal) throw new Error("Jadwal tidak ditemukan");
+async updateJadwal(
+  id: number,
+  data: Partial<JadwalAbsensi>,
+): Promise<JadwalAbsensi> {
 
-    const totalAbsensi = await this.repo.countByJadwalId(id);
-
-    // ❌ Jika sudah ada absensi
-    if (totalAbsensi > 0) {
-      // ❌ Larang ubah field berbahaya
-      if (data.tanggal || data.kelasId || data.hari) {
-        throw new Error(
-          "Jadwal sudah digunakan absensi, hanya jam yang boleh diubah",
-        );
-      }
-    } else {
-      // ✅ Belum ada absensi → cek konflik tanggal
-      if (data.tanggal) {
-        const exists = await this.repo.findByTanggal(
-          jadwal.kelasId,
-          data.tanggal,
-        );
-
-        if (exists && exists.id !== id) {
-          throw new Error("Tanggal tersebut sudah memiliki jadwal");
-        }
-
-        // hari DIHITUNG ULANG
-        data.hari = this.mapDayToEnum(data.tanggal);
-      }
-    }
-
-    return this.repo.update(id, data);
+  const jadwal = await this.repo.getById(id);
+  if (!jadwal) {
+    throw new Error("Jadwal tidak ditemukan");
   }
+
+  const totalAbsensi =
+    await this.repo.countAbsensiByTanggalDanKelas(
+      jadwal.kelasId,
+      jadwal.tanggal,
+    );
+
+  if (totalAbsensi > 0) {
+    if (data.tanggal || data.kelasId || data.hari) {
+      throw new Error(
+        "Jadwal sudah digunakan absensi, hanya jam yang boleh diubah",
+      );
+    }
+  }
+
+  if (totalAbsensi === 0 && data.tanggal) {
+    const oldDate = jadwal.tanggal.toDateString();
+    const newDate = data.tanggal.toDateString();
+
+    if (oldDate !== newDate) {
+      const exists = await this.repo.findByTanggal(
+        jadwal.kelasId,
+        data.tanggal,
+      );
+
+      if (exists && exists.id !== id) {
+        throw new Error("Tanggal tersebut sudah memiliki jadwal");
+      }
+
+      data.hari = this.mapDayToEnum(data.tanggal);
+    }
+  }
+
+  return this.repo.update(id, data);
+}
+
 
   async deleteJadwal(id: number) {
     const totalAbsensi = await this.repo.countByJadwalId(id);

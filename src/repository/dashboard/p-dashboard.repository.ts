@@ -5,7 +5,7 @@ export class DashboardRepository {
   async getTotalSantriByPengajar(kelasIds: number[]) {
     return this.prisma.user.count({
       where: {
-        role: "santri",
+        role:"santri",
         isActive:true,
         kelasId: { in: kelasIds },
       },
@@ -34,6 +34,10 @@ export class DashboardRepository {
     return this.prisma.absensi.groupBy({
       by: ["status"],
       where: {
+        user:{
+          role:"santri",
+          isActive:true
+        },
         kelasId: { in: kelasIds },
         tanggal: {
           gte: start,
@@ -58,6 +62,10 @@ export class DashboardRepository {
   async getSubmissionMasuk(kelasIds: number[]) {
     return this.prisma.submission.count({
       where: {
+        user:{
+          role:"santri",
+          isActive:true
+        },
         status:StatusSubmission.pending,
         tugas: {
           kelasId: { in: kelasIds },

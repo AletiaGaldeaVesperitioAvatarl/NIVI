@@ -72,6 +72,8 @@ router.get("/me", authenticate, izinController.getMyIzin);
 router.post("/", authenticate, izinController.create);
 
 // ROUTES UNTUK ADMIN / PENGAJAR
+router.get("/all/pengajar", authenticate, izinController.getAllByPengajar)
+
 router.get(
   "/",
   authenticate,

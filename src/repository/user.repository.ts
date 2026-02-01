@@ -100,4 +100,23 @@ export class UserRepository {
       orderBy: { name: "asc" },
     });
   }
+
+
+    async getAllUsers() {
+    const users = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        isActive: true,
+      },
+    });
+
+    // Urutkan Santri → Pengajar → Admin
+    const rolesOrder = ["Santri", "Pengajar", "Admin"];
+    users.sort((a, b) => rolesOrder.indexOf(a.role) - rolesOrder.indexOf(b.role));
+    return users;
+  }
+
 }

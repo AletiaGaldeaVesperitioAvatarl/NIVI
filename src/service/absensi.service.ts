@@ -37,33 +37,7 @@ export class AbsensiService {
       now,
       jadwalId,
     );
-
-    if (!jadwal) {
-      const hour = now.getHours();
-      const isJamMalam = hour >= 21 || hour < 4;
-
-      let comment = "";
-      let tone: "netral" | "peringatan" = "netral";
-
-      if (isJamMalam) {
-        comment =
-          "Wajar. Jadwal absensi telah berakhir dan sekarang sudah jam istirahat malam. Silakan tidur dan jaga kesehatan.";
-      } else {
-        comment =
-          "Mencurigakan. Absensi dilakukan di luar jadwal yang ditentukan. Mohon lebih memperhatikan waktu absensi.";
-        tone = "peringatan";
-      }
-
-      io.to(`user-${userId}`).emit("ai-bubble", {
-        comment,
-        tone,
-        confidence: 0.85,
-      });
-
-      // ❗ JANGAN RETURN TOTAL
-      // biarkan request selesai normal
-      return { skipped: true };
-    }
+    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif");
 
     const todayCount = await this.absensiRepo.countTodayByUser(userId);
     if (todayCount >= setting.maxAbsen) {
@@ -80,15 +54,14 @@ export class AbsensiService {
       status,
       tanggal: now,
     });
-    console.log("🔥 AI AKAN DIPANGGIL UNTUK ABSENSI:", absensi.id);
 
     // 🤖 2️⃣ PANGGIL AI (NON-BLOCKING)
-    setImmediate(() => {
-      this.aiAssistantService
-        .evaluateAbsensi(absensi.id, "santri")
-        .catch((err) => console.error("[BACKGROUND AI ERROR]", err));
-    });
+    this.aiAssistantService.evaluateAbsensi(
+      absensi.id,
+      "santri"
+    );
   }
+
 
   // ===============================
   // IZIN → ABSENSI (SETELAH DISETUJUI)

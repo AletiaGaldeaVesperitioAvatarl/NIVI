@@ -3,6 +3,24 @@ import { PrismaClient, Kelas } from "../../dist/generated";
 export class KelasRepository {
   constructor(private prisma: PrismaClient) {}
 
+
+  getAllKelas() {
+  return this.prisma.kelas.findMany({
+    include: {
+      tugas: {
+        include: {
+          mataPelajaran: true,
+        },
+      },
+      santri: {
+        where: { isActive: true },
+        select: { id: true },
+      },
+    },
+  });
+}
+
+
   // GET ALL KELAS
   getAll = async (): Promise<Kelas[]> => {
     return this.prisma.kelas.findMany({
@@ -31,6 +49,9 @@ export class KelasRepository {
      return this.prisma.kelas.findMany({
       include: {
         santri: {
+          where:{
+            isActive:true
+          },
           include: {
             profile: {
               select: {
@@ -158,7 +179,11 @@ export class KelasRepository {
         },
       },
       include: {
-        santri: true,
+        santri:{
+          where:{
+            isActive:true
+          }
+        },
         pengajar: true,
         absensiSetting: true,
         absensi: true,

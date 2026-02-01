@@ -93,6 +93,10 @@ export class UserService {
     return this.userRepository.findManyByKelas(kelasId);
   }
 
+
+    async getUsers() {
+    return this.userRepository.getAllUsers();
+  }
   
   
 }

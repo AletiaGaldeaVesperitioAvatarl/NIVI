@@ -21,6 +21,21 @@ export class IzinController {
     successResponse(res, "Berhasil ambil semua izin", data);
   };
 
+  getAllByPengajar = async (req:Request , res:Response) =>{
+
+    if (!req.user?.id) {
+      throw new Error("user tidak ditemukank!")
+    }
+    const pengajarId = req.user?.id
+    const kelas = await this.izinService.getAllByPengajar(pengajarId)
+
+    successResponse(
+      res,
+      "kelas berhasil diambil!",
+      kelas
+    )
+  }
+
   // GET IZIN BY ID
   getById = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
@@ -67,8 +82,13 @@ update = async (req: Request, res: Response) => {
     successResponse(res, "Izin berhasil dihapus", data);
   };
 
-    getAllArchived = async (_req: Request, res: Response) => {
-    const data = await this.izinService.getAllArchived();
+    getAllArchived = async (req: Request, res: Response) => {
+      if (!req.user?.id) {
+        throw new Error("user tidak ditemukan!")
+      }
+
+      const pengajarId = req.user.id
+    const data = await this.izinService.getAllArchived(pengajarId);
     successResponse(res, "Berhasil ambil semua izin arsip", data);
   };
 

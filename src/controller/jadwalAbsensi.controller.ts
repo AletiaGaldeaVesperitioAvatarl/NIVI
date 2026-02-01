@@ -54,16 +54,28 @@ getAllByKelas = async (req: Request, res: Response) => {
       errorResponse(res, err.message);
     }
   };
+update = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
 
-  update = async (req: Request, res: Response) => {
-    try {
-      const id = Number(req.params.id);
-      const jadwal = await this.service.updateJadwal(id, req.body);
-      successResponse(res, "Jadwal berhasil diperbarui", jadwal);
-    } catch (err: any) {
-      errorResponse(res, err.message);
+    const payload = { ...req.body };
+
+    if (payload.tanggal) {
+      payload.tanggal = new Date(payload.tanggal);
     }
-  };
+
+    const jadwal = await this.service.updateJadwal(id, payload);
+
+    successResponse(
+      res,
+      "Jadwal berhasil diperbarui",
+      jadwal,
+    );
+  } catch (err: any) {
+    errorResponse(res, err.message);
+  }
+};
+
 
   delete = async (req: Request, res: Response) => {
     try {

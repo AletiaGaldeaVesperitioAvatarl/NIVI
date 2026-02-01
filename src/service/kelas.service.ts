@@ -4,6 +4,10 @@ import { KelasRepository } from "../repository/kelas.repository";
 export class KelasService {
   constructor(private kelasRepository: KelasRepository) {}
 
+  getAllKelas = async ():Promise<Kelas[]> =>{
+    return this.kelasRepository.getAllKelas()
+  }
+
   // GET ALL KELAS
   getAll = async (): Promise<Kelas[]> => {
     return this.kelasRepository.getAll();
