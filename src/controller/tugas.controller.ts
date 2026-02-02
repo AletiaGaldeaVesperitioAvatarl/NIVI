@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { TugasService } from "../service/tugas.service";
-import { errorResponse, successResponse } from "../utils/response";
-import { io } from "../socket";
+import { successResponse } from "../utils/response";
+
 
 
 export class TugasController {
@@ -43,7 +43,6 @@ create = async (req: any, res: Response) => {
   });
 
   // 🔥 REALTIME: kirim ke semua member kelas
-  io.to(`kelas-${kelasId}`).emit("tugas-created", data);
 
   successResponse(res, "Tugas berhasil dibuat", data, null, 201);
 };
@@ -55,7 +54,6 @@ update = async (req: Request, res: Response) => {
   );
 
   // 🔥 kirim update ke kelas terkait
-  io.to(`kelas-${data.kelasId}`).emit("tugas-updated", data);
 
   successResponse(res, "Tugas berhasil diperbarui", data);
 };
@@ -64,9 +62,6 @@ update = async (req: Request, res: Response) => {
 delete = async (req: Request, res: Response) => {
   const data = await this.service.delete(Number(req.params.id));
 
-  io.to(`kelas-${data.kelasId}`).emit("tugas-deleted", {
-    id: data.id,
-  });
 
   successResponse(res, "Tugas berhasil dihapus", data);
 };

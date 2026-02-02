@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { AbsensiSettingService } from "../service/absensiSetting.service";
 import { successResponse, errorResponse } from "../utils/response";
-import { io } from "../socket"; // pastikan io di-export dari server.ts atau socket.ts
 
 export class AbsensiSettingController {
   constructor(private service: AbsensiSettingService) {}
@@ -33,9 +32,7 @@ export class AbsensiSettingController {
 
       const data = await this.service.createOrUpdate(kelasId, Number(maxAbsen));
 
-      // 🔔 Emit socket update ke semua client
-      io.emit("absensi-setting-changed", { kelasId, maxAbsen: data.maxAbsen });
-
+      // 🔔 Emit socket update ke semua clien
       successResponse(res, "Max absen berhasil disimpan", data);
     } catch (err: any) {
       errorResponse(res, err.message);
@@ -51,8 +48,6 @@ export class AbsensiSettingController {
       const data = await this.service.updateById(id, Number(maxAbsen));
 
       // 🔔 Emit socket update ke semua client
-      io.emit("absensi-setting-changed", { kelasId: data.kelasId, maxAbsen: data.maxAbsen });
-
       successResponse(res, "Max absen berhasil diupdate", data);
     } catch (err: any) {
       errorResponse(res, err.message);

@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { AbsensiService } from "../service/absensi.service";
 import { StatusAbsensi } from "../../dist/generated";
 import { successResponse, errorResponse } from "../utils/response";
-import { io } from "../socket";
 import { UserService } from "../service/user.service";
 
 export class AbsensiController {
@@ -68,17 +67,7 @@ absen = async (req: Request, res: Response) => {
       );
       dataResults.push(data);
 
-      // Emit realtime update ke kelas
-      const realtimeData = await this.service.getByKelas({
-        kelasId,
-        page: 1,
-        limit: 100,
-        sort: "desc",
-      });
-      io.to(`kelas-${kelasId}`).emit("absensi-update", realtimeData.data);
-
       // Emit ke user-specific room
-      io.to(`user-${userId}`).emit("absensi-update", data);
     }
 
     successResponse(res, "Absen berhasil", dataResults, null, 201);

@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { NilaiService } from "../service/nilai.service";
 import { successResponse, errorResponse } from "../utils/response";
-import { io } from "../socket";
 
 export class NilaiController {
   constructor(private service: NilaiService) {}
@@ -29,11 +28,6 @@ export class NilaiController {
     try {
       const data = await this.service.create(req.body);
 
-      // 🔥 REALTIME: emit ke room submission
-      if (data.submissionId) {
-        io.to(`submission-${data.submissionId}`).emit("nilai-updated", data);
-      }
-
       successResponse(res, "Nilai berhasil disimpan", data, null, 201);
     } catch (err: any) {
       errorResponse(res, err.message);
@@ -46,8 +40,6 @@ export class NilaiController {
       const data = await this.service.update(submissionId, req.body);
 
       // 🔥 REALTIME: emit ke room submission
-      io.to(`submission-${submissionId}`).emit("nilai-updated", data);
-
       successResponse(res, "Nilai berhasil diperbarui", data);
     } catch (err: any) {
       errorResponse(res, err.message);
@@ -59,9 +51,7 @@ export class NilaiController {
       const submissionId = Number(req.params.submissionId);
       await this.service.delete(submissionId);
 
-      // 🔥 REALTIME: emit ke room submission
-      io.to(`submission-${submissionId}`).emit("nilai-deleted", { submissionId });
-
+      // 🔥 REALTIME: emit ke room submissio
       successResponse(res, "Nilai berhasil dihapus");
     } catch (err: any) {
       errorResponse(res, err.message);
