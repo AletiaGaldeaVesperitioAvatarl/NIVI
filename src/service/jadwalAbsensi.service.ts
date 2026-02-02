@@ -1,27 +1,53 @@
 import { Hari, JadwalAbsensi } from "../../dist/generated";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 
 export class JadwalAbsensiService {
-  constructor(private repo: JadwalAbsensiRepository) {}
+  constructor(
+    private repo: JadwalAbsensiRepository,
+    private settingRepo: AbsensiSettingRepository,
 
-  createJadwal = async (data: {
+
+  ) {}
+
+  async create(data: {
     kelasId: number;
-    hari: string;
+    hari: Hari;
     jamMulai: string;
     jamSelesai: string;
     tanggal: Date;
-  }) => {
-    const exists = await this.repo.findByTanggal(data.kelasId, data.tanggal);
+  }) {
+    // 1️⃣ pastikan absensi setting ada
+    const setting = await this.settingRepo.getByKelas(data.kelasId);
 
-    if (exists) {
-      throw new Error("Sudah ada jadwal absensi di tanggal ini");
+    if (!setting) {
+      throw new Error('Absensi setting belum dibuat');
     }
 
-    return this.repo.create({
-      ...data,
-      hari: this.mapDayToEnum(data.tanggal),
-    });
-  };
+    // 2️⃣ validasi max absen
+    const totalJadwal = await this.repo.countByKelas(data.kelasId);
+
+    if (totalJadwal >= setting.maxAbsen) {
+      throw new Error(
+        `Jumlah jadwal sudah mencapai batas maksimal (${setting.maxAbsen})`
+      );
+    }
+
+    // 3️⃣ validasi bentrok jam
+    const bentrok = await this.repo.findBentrok(
+      data.kelasId,
+      data.tanggal,
+      data.jamMulai,
+      data.jamSelesai
+    );
+
+    if (bentrok) {
+      throw new Error('Jadwal bentrok dengan sesi lain');
+    }
+
+    // 4️⃣ create
+    return this.repo.create(data);
+  }
 
   createBulkJadwal = async (
     kelasId: number,
@@ -169,5 +195,13 @@ async updateJadwal(
     }
 
     return hari;
+  }
+
+  getByKelasAndTanggal(
+    kelasId: number,
+    tanggal: Date,
+    jamMulai?: string
+  ): Promise<JadwalAbsensi[]> {
+    return this.repo.findByKelasAndTanggal(kelasId, tanggal, jamMulai);
   }
 }

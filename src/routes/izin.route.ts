@@ -37,7 +37,7 @@ const userRepo = new UserRepository(prismaInstance);
 ======================= */
 const settingService = new AbsensiSettingService(settingRepo);
 
-const jadwalAbsensiService = new JadwalAbsensiService(jadwalRepo);
+const jadwalAbsensiService = new JadwalAbsensiService(jadwalRepo,settingRepo);
 
 const userService = new UserService(userRepo);
 

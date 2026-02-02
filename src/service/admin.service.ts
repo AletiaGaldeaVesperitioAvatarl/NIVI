@@ -65,4 +65,14 @@ export class AdminService {
   };
 
   deleteAdmin = (id: number) => this.repo.deleteAdmin(id);
+
+
+  createAdmin = async (data: { name: string; email: string; password: string }) => {
+  const existing = await this.repo.findByEmail(data.email);
+  if (existing) throw new Error("Email sudah terdaftar");
+
+  const hashed = await bcrypt.hash(data.password, 10);
+  return this.repo.createAdmin({ ...data, password: hashed });
+};
+
 }

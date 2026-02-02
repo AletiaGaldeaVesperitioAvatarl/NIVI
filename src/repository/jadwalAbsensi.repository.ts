@@ -3,6 +3,12 @@ import { PrismaClient, JadwalAbsensi, Hari } from "../../dist/generated";
 export class JadwalAbsensiRepository {
   constructor(private prisma: PrismaClient) {}
 
+    countByKelas(kelasId: number) {
+    return this.prisma.jadwalAbsensi.count({
+      where: { kelasId },
+    });
+  }
+
   findActiveSchedule = async (
     kelasId: number,
     now: Date,
@@ -81,6 +87,24 @@ export class JadwalAbsensiRepository {
   }): Promise<JadwalAbsensi> => {
     return this.prisma.jadwalAbsensi.create({ data });
   };
+
+   findBentrok(
+    kelasId: number,
+    tanggal: Date,
+    jamMulai: string,
+    jamSelesai: string
+  ) {
+    return this.prisma.jadwalAbsensi.findFirst({
+      where: {
+        kelasId,
+        tanggal,
+        AND: [
+          { jamMulai: { lt: jamSelesai } },
+          { jamSelesai: { gt: jamMulai } },
+        ],
+      },
+    });
+  }
 
   // CREATE BULK 1 bulan atau rentang tanggal
   createBulk = async (
@@ -230,24 +254,27 @@ export class JadwalAbsensiRepository {
 }
 
 
-  async getByKelasAndTanggal(
+  getByKelasAndTanggal(
     kelasId: number,
     tanggal: Date,
+    jamMulai?: string // optional, kalau mau filter per sesi
   ): Promise<JadwalAbsensi[]> {
     const start = new Date(tanggal);
     start.setHours(0, 0, 0, 0);
-
     const end = new Date(tanggal);
     end.setHours(23, 59, 59, 999);
 
+    const where: any = {
+      kelasId,
+      tanggal: { gte: start, lte: end },
+    };
+
+    if (jamMulai) {
+      where.jamMulai = jamMulai; // filter per sesi
+    }
+
     return this.prisma.jadwalAbsensi.findMany({
-      where: {
-        kelasId,
-        tanggal: {
-          gte: start,
-          lte: end,
-        },
-      },
+      where,
       orderBy: { jamMulai: "asc" },
     });
   }
@@ -259,4 +286,40 @@ export class JadwalAbsensiRepository {
       orderBy: { jamMulai: "asc" },
     });
   }
+
+    findByKelasHariJam = async (
+    kelasId: number,
+    hari: Hari,
+    jamMulai: string
+  ): Promise<JadwalAbsensi | null> => {
+    return this.prisma.jadwalAbsensi.findFirst({
+      where: { kelasId, hari, jamMulai },
+    });
+  };
+
+    findByKelasAndTanggal(
+    kelasId: number,
+    tanggal: Date,
+    jamMulai?: string
+  ): Promise<JadwalAbsensi[]> {
+    const start = new Date(tanggal);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(tanggal);
+    end.setHours(23, 59, 59, 999);
+
+    const where: any = {
+      kelasId,
+      tanggal: { gte: start, lte: end },
+    };
+
+    if (jamMulai) {
+      where.jamMulai = jamMulai;
+    }
+
+    return this.prisma.jadwalAbsensi.findMany({
+      where,
+      orderBy: { jamMulai: "asc" },
+    });
+  }
+  
 }

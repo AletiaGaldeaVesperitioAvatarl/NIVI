@@ -18084,7 +18084,7 @@ export namespace Prisma {
 
   export type JadwalAbsensiWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    kelasId_tanggal?: JadwalAbsensiKelasIdTanggalCompoundUniqueInput
+    kelasId_tanggal_jamMulai?: JadwalAbsensiKelasIdTanggalJamMulaiCompoundUniqueInput
     AND?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
     OR?: JadwalAbsensiWhereInput[]
     NOT?: JadwalAbsensiWhereInput | JadwalAbsensiWhereInput[]
@@ -18096,7 +18096,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"JadwalAbsensi"> | Date | string
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
     absensi?: AbsensiListRelationFilter
-  }, "id" | "kelasId_tanggal">
+  }, "id" | "kelasId_tanggal_jamMulai">
 
   export type JadwalAbsensiOrderByWithAggregationInput = {
     id?: SortOrder
@@ -20123,9 +20123,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type JadwalAbsensiKelasIdTanggalCompoundUniqueInput = {
+  export type JadwalAbsensiKelasIdTanggalJamMulaiCompoundUniqueInput = {
     kelasId: number
     tanggal: Date | string
+    jamMulai: string
   }
 
   export type JadwalAbsensiCountOrderByAggregateInput = {

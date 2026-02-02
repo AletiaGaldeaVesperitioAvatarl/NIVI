@@ -347,6 +347,29 @@ async getByUserAndDates(
   });
 }
 
+// Hitung berapa kali santri sudah absen hari ini
+async countAbsenHariIni(userId: number, kelasId: number, tanggal: Date) {
+  const start = new Date(tanggal);
+  start.setHours(0, 0, 0, 0);
 
+  const end = new Date(tanggal);
+  end.setHours(23, 59, 59, 999);
+
+  return await this.prisma.absensi.count({
+    where: { userId, kelasId, tanggal: { gte: start, lte: end } },
+  });
+}
+
+findByUserAndJadwal(
+  userId: number,
+  jadwalId: number,
+): Promise<Absensi | null> {
+  return this.prisma.absensi.findFirst({
+    where: {
+      userId,
+      jadwalId,
+    },
+  });
+}
 
 }

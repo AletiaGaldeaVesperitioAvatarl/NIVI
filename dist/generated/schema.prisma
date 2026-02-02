@@ -88,7 +88,7 @@ model JadwalAbsensi {
   kelas   Kelas     @relation(fields: [kelasId], references: [id])
   absensi Absensi[]
 
-  @@unique([kelasId, tanggal])
+  @@unique([kelasId, tanggal, jamMulai]) // supaya tidak bentrok
 }
 
 model Kelas {

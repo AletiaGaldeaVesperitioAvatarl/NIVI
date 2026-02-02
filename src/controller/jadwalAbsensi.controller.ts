@@ -5,24 +5,39 @@ import { successResponse, errorResponse } from "../utils/response";
 export class JadwalAbsensiController {
   constructor(private service: JadwalAbsensiService) {}
 
-  create = async (req: Request, res: Response) => {
-    try {
-      const jadwal = await this.service.createJadwal(req.body);
-      successResponse(res, "Jadwal berhasil dibuat", jadwal, null, 201);
-    } catch (err: any) {
-      errorResponse(res, err.message);
+create = async (req: Request, res: Response) => {
+  try {
+    const { kelasId, hari, jamMulai, jamSelesai, tanggal } = req.body;
+
+    if (!kelasId || !hari || !jamMulai || !jamSelesai || !tanggal) {
+      return errorResponse(res, "Data tidak lengkap");
     }
-  };
+
+    const jadwal = await this.service.create({
+      kelasId: Number(kelasId),
+      hari,
+      jamMulai,
+      jamSelesai,
+      tanggal: new Date(tanggal),
+    });
+
+    successResponse(res, "Jadwal absen berhasil dibuat!", jadwal);
+  } catch (err: any) {
+    errorResponse(res, err.message);
+  }
+};
+
 
   createBulk = async (req: Request, res: Response) => {
     try {
-      const { kelasId, jamMulai, jamSelesai, tanggalMulai, tanggalSelesai } = req.body;
+      const { kelasId, jamMulai, jamSelesai, tanggalMulai, tanggalSelesai } =
+        req.body;
       const result = await this.service.createBulkJadwal(
         kelasId,
         jamMulai,
         jamSelesai,
         new Date(tanggalMulai),
-        new Date(tanggalSelesai)
+        new Date(tanggalSelesai),
       );
       successResponse(res, "Jadwal bulk berhasil dibuat", result, null, 201);
     } catch (err: any) {
@@ -30,19 +45,18 @@ export class JadwalAbsensiController {
     }
   };
 
-getAllByKelas = async (req: Request, res: Response) => {
-  try {
-    const kelasId = Number(req.params.kelasId);
-    const month = req.query.month ? Number(req.query.month) : undefined; // 1-12
-    const year = req.query.year ? Number(req.query.year) : undefined;
+  getAllByKelas = async (req: Request, res: Response) => {
+    try {
+      const kelasId = Number(req.params.kelasId);
+      const month = req.query.month ? Number(req.query.month) : undefined; // 1-12
+      const year = req.query.year ? Number(req.query.year) : undefined;
 
-    const jadwal = await this.service.getAllByKelas(kelasId, month, year);
-    successResponse(res, "Jadwal berhasil diambil", jadwal);
-  } catch (err: any) {
-    errorResponse(res, err.message);
-  }
-};
-
+      const jadwal = await this.service.getAllByKelas(kelasId, month, year);
+      successResponse(res, "Jadwal berhasil diambil", jadwal);
+    } catch (err: any) {
+      errorResponse(res, err.message);
+    }
+  };
 
   getById = async (req: Request, res: Response) => {
     try {
@@ -54,28 +68,23 @@ getAllByKelas = async (req: Request, res: Response) => {
       errorResponse(res, err.message);
     }
   };
-update = async (req: Request, res: Response) => {
-  try {
-    const id = Number(req.params.id);
+  update = async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
 
-    const payload = { ...req.body };
+      const payload = { ...req.body };
 
-    if (payload.tanggal) {
-      payload.tanggal = new Date(payload.tanggal);
+      if (payload.tanggal) {
+        payload.tanggal = new Date(payload.tanggal);
+      }
+
+      const jadwal = await this.service.updateJadwal(id, payload);
+
+      successResponse(res, "Jadwal berhasil diperbarui", jadwal);
+    } catch (err: any) {
+      errorResponse(res, err.message);
     }
-
-    const jadwal = await this.service.updateJadwal(id, payload);
-
-    successResponse(
-      res,
-      "Jadwal berhasil diperbarui",
-      jadwal,
-    );
-  } catch (err: any) {
-    errorResponse(res, err.message);
-  }
-};
-
+  };
 
   delete = async (req: Request, res: Response) => {
     try {
@@ -86,4 +95,27 @@ update = async (req: Request, res: Response) => {
       errorResponse(res, err.message);
     }
   };
+
+  getKelasAndTanggal = async(req:Request, res:Response) =>{
+    try {
+      const {kelasId, tanggal, jamMulai} = req.query
+      if (!kelasId || !tanggal) {
+        throw new Error("Kelas dan tanggal tidak ada!")
+      }
+      const jadwal = await this.service.getByKelasAndTanggal(
+        Number(kelasId),new Date(tanggal as string),jamMulai as string | undefined
+      )
+
+      successResponse(
+        res,
+        "Jadwal berhasil dibuat!",
+        jadwal
+      )
+    } catch (err:any) {
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
 }

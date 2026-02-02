@@ -34,7 +34,7 @@ const absensiService = new AbsensiService(
   izinRepo
 
 );
-// absensiService.startCronTest("*/1 * * * *");
+absensiService.startCronRealtime()
 
 const absensiController = new AbsensiController(absensiService, userService);
 

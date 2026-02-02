@@ -7,25 +7,24 @@ export class SubmissionRepository {
    * ========== CREATE ==========
    */
   create(data: Prisma.SubmissionCreateInput): Promise<Submission> {
-  return this.prisma.submission.create({
-    data,
-    include: {
-      tugas: {
-        select: {
-          id: true,
-          kelasId: true,
+    return this.prisma.submission.create({
+      data,
+      include: {
+        tugas: {
+          select: {
+            id: true,
+            kelasId: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-      user: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  });
-}
-
+    });
+  }
 
   /**
    * ========== READ ==========
@@ -46,7 +45,7 @@ export class SubmissionRepository {
   // dipakai di NilaiService
   findByUserAndTugas(
     userId: number,
-    tugasId: number
+    tugasId: number,
   ): Promise<Submission | null> {
     return this.prisma.submission.findUnique({
       where: {
@@ -73,7 +72,7 @@ export class SubmissionRepository {
   findForPengajar(pengajarId: number): Promise<Submission[]> {
     return this.prisma.submission.findMany({
       where: {
-        deletedAt:null,
+        deletedAt: null,
         tugas: {
           kelas: {
             pengajar: {
@@ -97,21 +96,19 @@ export class SubmissionRepository {
     });
   }
 
-    findArsipForPengajar(pengajarId: number): Promise<Submission[]> {
+  findArsipForPengajar(pengajarId: number): Promise<Submission[]> {
     return this.prisma.submission.findMany({
       where: {
         tugas: {
           kelas: {
             pengajar: {
-              some: {
-                id: pengajarId,
-              },
+              some: { id: pengajarId },
             },
           },
         },
       },
       include: {
-        user: true, // santri
+        user: { include: { kelas: true } }, // penting!
         tugas: {
           include: {
             kelas: true,
@@ -126,10 +123,7 @@ export class SubmissionRepository {
   /**
    * ========== UPDATE ==========
    */
-  update(
-    id: number,
-    data: Prisma.SubmissionUpdateInput
-  ): Promise<Submission> {
+  update(id: number, data: Prisma.SubmissionUpdateInput): Promise<Submission> {
     return this.prisma.submission.update({
       where: { id },
       data,
@@ -144,22 +138,22 @@ export class SubmissionRepository {
       where: { id },
     });
   }
-  
-  softDelete(id:number):Promise<Submission> {
+
+  softDelete(id: number): Promise<Submission> {
     return this.prisma.submission.update({
-      where:{id},
-      data:{
-        deletedAt: new Date()
-      }
-    })
+      where: { id },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
   }
 
-  restore(id:number):Promise<Submission>{
+  restore(id: number): Promise<Submission> {
     return this.prisma.submission.update({
-      where:{ id},
-      data:{
-        deletedAt:null
-      }
-    })
+      where: { id },
+      data: {
+        deletedAt: null,
+      },
+    });
   }
 }

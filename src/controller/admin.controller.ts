@@ -108,4 +108,25 @@ export class AdminController {
       return successResponse(res, "Admin berhasil dihapus", null);
     } catch (err) { next(err); }
   };
+
+  // CREATE ADMIN BARU (SETELAH FIRST ADMIN)
+createAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // Pastikan yang request adalah admin (middleware auth)
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) throw new Error("Semua field wajib diisi");
+
+    const admin = await this.service.createAdmin({ name, email, password });
+    return successResponse(
+      res,
+      "Admin berhasil dibuat",
+      { id: admin.id, email: admin.email },
+      null,
+      201
+    );
+  } catch (err) {
+    next(err);
+  }
+};
+
 }

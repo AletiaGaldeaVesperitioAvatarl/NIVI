@@ -41,6 +41,22 @@ export class KelasController {
     }
   };
 
+  getAllSantriByAdmin = async (_req:Request, res:Response) =>{
+    try {
+      const kelas = await this.kelasService.getAllSantriByAdmin()
+      successResponse(
+        res,
+        "Semua kelas berhasil diambil",
+        kelas
+      )
+    } catch (err:any) {
+      errorResponse(
+        res,
+        err.message
+      )
+    }
+  }
+
   // GET KELAS BY ID
   getById = async (req: Request, res: Response) => {
     try {

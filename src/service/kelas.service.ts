@@ -17,6 +17,10 @@ export class KelasService {
     return this.kelasRepository.getAllSantri();
   };
 
+  getAllSantriByAdmin = async ():Promise<Kelas[]> =>{
+    return this.kelasRepository.getAllSantriByAdmin()
+  }
+
   // GET KELAS BY ID
   getById = async (id: number): Promise<Kelas | null> => {
     return this.kelasRepository.getById(id);

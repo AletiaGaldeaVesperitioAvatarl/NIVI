@@ -69,6 +69,27 @@ export class KelasRepository {
 
   };
 
+    getAllSantriByAdmin = async (): Promise<Kelas[]> => {
+     return this.prisma.kelas.findMany({
+      include: {
+        santri: {
+          include: {
+            profile: {
+              select: {
+                fotoUrl: true,
+              },
+            },
+          },
+        },
+        pengajar: true,
+        absensi: true,
+        izin: true,
+        tugas: true,
+      },
+    });
+
+  };
+
   // GET KELAS BY ID
   getById = async (id: number): Promise<Kelas | null> => {
     return this.prisma.kelas.findFirst({

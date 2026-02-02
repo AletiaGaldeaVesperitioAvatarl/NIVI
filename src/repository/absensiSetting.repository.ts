@@ -30,4 +30,5 @@ export class AbsensiSettingRepository {
   getAll(): Promise<AbsensiSetting[]> {
     return this.prisma.absensiSetting.findMany({ include: { kelas: true } });
   }
+
 }

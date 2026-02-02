@@ -53,30 +53,33 @@ async createIzin(data: {
   tanggal: Date;
   alasan: string;
 }): Promise<Izin> {
-  const tanggal = new Date(
+
+  // 🔹 NORMALISASI TANGGAL (00:00)
+  const tanggalIzin = new Date(
     data.tanggal.getFullYear(),
     data.tanggal.getMonth(),
-    data.tanggal.getDate()
+    data.tanggal.getDate(),
+    12, 0, 0 // ⬅️ AMAN dari timezone bug
   );
 
-  // 1️⃣ CEK JADWAL AKTIF (TANGGAL + JAM)
-  const now = new Date();
-  const jadwalAktif = await this.jadwalAbsensiRepo.findActiveSchedule(
-    data.kelasId,
-    now
-  );
+  // 1️⃣ CEK JADWAL AKTIF SESUAI TANGGAL IZIN
+  const jadwalAktif =
+    await this.jadwalAbsensiRepo.findActiveSchedule(
+      data.kelasId,
+      tanggalIzin
+    );
 
   if (!jadwalAktif) {
     throw new Error(
-      "Izin hanya bisa diajukan saat jam absensi aktif sesuai jadwal"
+      "Izin hanya bisa diajukan saat jadwal absensi aktif"
     );
   }
 
-  // 2️⃣ CEGAH IZIN DOBEL
+  // 2️⃣ CEGAH IZIN DOBEL (STATUS MENUNGGU)
   const pending = await this.izinRepo.findByUserAndDate(
     data.userId,
     data.kelasId,
-    tanggal,
+    tanggalIzin,
     "menunggu"
   );
 
@@ -84,30 +87,33 @@ async createIzin(data: {
     throw new Error("Masih ada izin menunggu di hari ini");
   }
 
-  // 3️⃣ VALIDASI KUOTA ABSENSI SANTRI
+  // 3️⃣ VALIDASI KUOTA ABSENSI HARIAN
   const setting = await this.settingService.getByKelas(data.kelasId);
   if (!setting?.maxAbsen) {
     throw new Error("Setting absensi kelas belum lengkap");
   }
 
-  const userAbsensiHariIni = await this.absensiRepo.countTodayByUser(
-    data.userId
-  );
+  const jumlahAbsenHariIni =
+    await this.absensiRepo.countAbsenHariIni(
+      data.userId,
+      data.kelasId,
+      tanggalIzin
+    );
 
-  if (userAbsensiHariIni >= setting.maxAbsen) {
-    throw new Error("Kuota absensi Anda hari ini sudah penuh");
+  if (jumlahAbsenHariIni >= setting.maxAbsen) {
+    throw new Error("Kuota absensi hari ini sudah penuh");
   }
 
   // 4️⃣ SIMPAN IZIN
- return this.izinRepo.create({
-  userId: data.userId,
-  kelasId: data.kelasId,
-  tanggal: new Date(), // waktu real saat izin diajukan
-  alasan: data.alasan,
-  status: "menunggu",
-});
-
+  return this.izinRepo.create({
+    userId: data.userId,
+    kelasId: data.kelasId,
+    tanggal: new Date(), // waktu real submit
+    alasan: data.alasan,
+    status: "menunggu",
+  });
 }
+
 
 
 

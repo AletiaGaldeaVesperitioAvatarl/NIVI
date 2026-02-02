@@ -20,32 +20,71 @@ export class AbsensiService {
   // ===============================
   // ABSEN HADIR / TELAT / DLL
   // ===============================
+
   async absenHadir(
     userId: number,
     kelasId: number,
     status: StatusAbsensi,
     jadwalId?: number,
   ) {
-    const now = new Date();
+    const now: Date = new Date();
 
+    // 1️⃣ setting wajib ada
     const setting = await this.settingService.getByKelas(kelasId);
-    if (!setting) throw new Error("Admin belum mengatur absensi kelas");
+    if (!setting) {
+      throw new Error("Admin belum mengatur absensi kelas");
+    }
 
+    // 2️⃣ cari jadwal aktif
     const jadwal = await this.jadwalRepo.findActiveSchedule(
       kelasId,
       now,
       jadwalId,
     );
-    if (!jadwal) throw new Error("Tidak ada jadwal absensi aktif");
 
-    const todayCount = await this.absensiRepo.countTodayByUser(userId);
+    if (!jadwal) {
+      throw new Error("Tidak ada jadwal absensi aktif");
+    }
+
+    // 3️⃣ VALIDASI TANGGAL
+    const today: string = now.toDateString();
+    const jadwalDate: string = new Date(jadwal.tanggal).toDateString();
+
+    if (today !== jadwalDate) {
+      throw new Error("Absensi tidak sesuai tanggal jadwal");
+    }
+
+    // 4️⃣ VALIDASI JAM
+    const nowTime: string = now.toTimeString().slice(0, 5);
+
+    if (nowTime < jadwal.jamMulai || nowTime > jadwal.jamSelesai) {
+      throw new Error("Absensi belum dibuka atau sudah ditutup");
+    }
+
+    // 5️⃣ TIDAK BOLEH DOUBLE ABSEN DI JADWAL YANG SAMA
+    const alreadyAbsen = await this.absensiRepo.findByUserAndJadwal(
+      userId,
+      jadwal.id,
+    );
+
+    if (alreadyAbsen) {
+      throw new Error("Anda sudah melakukan absensi pada jadwal ini");
+    }
+    // 6️⃣ BATAS MAX ABSEN HARIAN
+    const todayCount: number = await this.absensiRepo.countTodayByUser(userId);
+
     if (todayCount >= setting.maxAbsen) {
       throw new Error(
         `Absensi hari ini sudah mencapai batas (${setting.maxAbsen}x)`,
       );
     }
 
-    // ✅ 1️⃣ SIMPAN ABSENSI
+    // 7️⃣ STATUS VALID
+    if (status !== "hadir") {
+      throw new Error("Status absensi tidak valid");
+    }
+
+    // ✅ SIMPAN ABSENSI
     const absensi = await this.absensiRepo.create({
       userId,
       kelasId,
@@ -54,13 +93,11 @@ export class AbsensiService {
       tanggal: now,
     });
 
-    // 🤖 2️⃣ PANGGIL AI (NON-BLOCKING)
-    this.aiAssistantService.evaluateAbsensi(
-      absensi.id,
-      "santri"
-    );
-  }
+    // 🤖 NON-BLOCKING AI
+    this.aiAssistantService.evaluateAbsensi(absensi.id, "santri");
 
+    return absensi;
+  }
 
   // ===============================
   // IZIN → ABSENSI (SETELAH DISETUJUI)
@@ -179,6 +216,17 @@ export class AbsensiService {
   //     });
   //   }
   // };
+  parseJam(jamSelesai: string): { jam: number; menit: number } | null {
+    const parts = jamSelesai.split(":");
+    if (parts.length !== 2) return null;
+
+    const jam = Number(parts[0]);
+    const menit = Number(parts[1]);
+
+    if (Number.isNaN(jam) || Number.isNaN(menit)) return null;
+    return { jam, menit };
+  }
+
   async generateDailyAbsensiStatus(
     userId: number,
     kelasId: number,
@@ -187,33 +235,55 @@ export class AbsensiService {
     const setting = await this.settingService.getByKelas(kelasId);
     if (!setting?.maxAbsen) return;
 
-    // Ambil semua jadwal untuk tanggal ini
     const jadwalHariIni = await this.jadwalRepo.getByKelasAndTanggal(
       kelasId,
       tanggal,
     );
 
-    if (!jadwalHariIni || jadwalHariIni.length === 0) {
-      // Hari ini tidak ada jadwal → tidak generate alpha
-      console.log(
-        `Tidak ada jadwal hari ini untuk kelasId=${kelasId}, tanggal=${tanggal.toISOString()}. Alpha tidak dibuat.`,
+    if (!jadwalHariIni || jadwalHariIni.length === 0) return;
+
+    const now = new Date();
+
+    for (const jadwal of jadwalHariIni) {
+      if (!jadwal.id || !jadwal.jamSelesai) continue;
+
+      // 1️⃣ Batasi maxAbsen
+      const totalHariIni = await this.absensiRepo.countNonIzinAbsensiByTanggal(
+        userId,
+        tanggal,
       );
-      return;
-    }
 
-    // Hitung sisa slot alpha
-    const absensiHariIni = await this.absensiRepo.countNonIzinAbsensiByTanggal(
-      userId,
-      tanggal,
-    );
-    const alphaCount = setting.maxAbsen - absensiHariIni;
-    if (alphaCount <= 0) return;
+      if (totalHariIni >= setting.maxAbsen) break;
 
-    // Generate alpha per slot, jadwal di-rotasi
-    for (let i = 0; i < alphaCount; i++) {
-      const jadwal = jadwalHariIni[i % jadwalHariIni.length];
-      if (!jadwal) continue; // aman, skip jika undefined (meski tidak akan terjadi)
+      // 2️⃣ Hitung waktu sesi selesai (PAKAI parseJam SAJA)
+      const waktu = this.parseJam(jadwal.jamSelesai);
+      if (!waktu) continue;
 
+      const sesiSelesai = new Date();
+      sesiSelesai.setFullYear(
+        tanggal.getFullYear(),
+        tanggal.getMonth(),
+        tanggal.getDate(),
+      );
+      sesiSelesai.setHours(waktu.jam, waktu.menit, 0, 0);
+      console.log({
+        now: now.toISOString(),
+        sesiSelesai: sesiSelesai.toISOString(),
+        jadwalId: jadwal.id,
+      });
+
+      // 3️⃣ Sesi belum lewat → skip
+      if (now < sesiSelesai) continue;
+
+      // 4️⃣ Slot sudah terisi → skip
+      const sudahAda = await this.absensiRepo.findByUserAndJadwal(
+        userId,
+        jadwal.id,
+      );
+
+      if (sudahAda) continue;
+
+      // 5️⃣ BUAT ALPHA
       await this.absensiRepo.create({
         userId,
         kelasId,
@@ -222,10 +292,6 @@ export class AbsensiService {
         status: StatusAbsensi.alpha,
       });
     }
-
-    console.log(
-      `Generate ${alphaCount} alpha untuk userId=${userId}, kelasId=${kelasId}, tanggal=${tanggal.toISOString()}`,
-    );
   }
 
   // ===============================
@@ -245,22 +311,92 @@ export class AbsensiService {
     }
   }
 
-  // Cron default tiap jam 00:00
-  startCronDaily() {
-    cron.schedule("0 0 * * *", async () => {
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() - 1);
-      targetDate.setHours(0, 0, 0, 0);
+  async generateAlphaRealtimePerUser(
+    userId: number,
+    kelasId: number,
+    maxAbsen: number,
+    now: Date,
+  ) {
+    const tanggal = new Date(now);
+    tanggal.setHours(0, 0, 0, 0);
 
-      console.log(
-        "[CRON] Generate alpha untuk tanggal:",
-        targetDate.toISOString(),
+    const jadwalHariIni = await this.jadwalRepo.getByKelasAndTanggal(
+      kelasId,
+      tanggal,
+    );
+
+    if (!jadwalHariIni || jadwalHariIni.length === 0) return;
+
+    const totalHariIni = await this.absensiRepo.countNonIzinAbsensiByTanggal(
+      userId,
+      tanggal,
+    );
+
+    if (totalHariIni >= maxAbsen) return;
+
+    for (const jadwal of jadwalHariIni) {
+      if (!jadwal.id || !jadwal.jamSelesai) continue;
+
+      // 1️⃣ Hitung jam selesai sesi
+      const waktu = this.parseJam(jadwal.jamSelesai);
+      if (!waktu) continue;
+
+      const sesiSelesai = new Date(tanggal);
+      sesiSelesai.setHours(waktu.jam, waktu.menit, 0, 0);
+
+      // 2️⃣ Sesi BELUM selesai → stop
+      if (now < sesiSelesai) continue;
+
+      // 3️⃣ Slot sudah terisi → skip
+      const sudahAda = await this.absensiRepo.findByUserAndJadwal(
+        userId,
+        jadwal.id,
       );
 
-      await this.generateAlphaForAll(targetDate);
+      if (sudahAda) continue;
+
+      // 4️⃣ BUAT ALPHA
+      await this.absensiRepo.create({
+        userId,
+        kelasId,
+        tanggal,
+        jadwalId: jadwal.id,
+        status: StatusAbsensi.alpha,
+      });
+    }
+  }
+
+  async generateAlphaRealtime(now: Date) {
+    const semuaSetting = await this.settingService.getAll();
+
+    for (const setting of semuaSetting) {
+      const kelasId = setting.kelasId;
+      if (!setting.maxAbsen) continue;
+
+      const santri = await this.absensiRepo.getUsersByKelas(kelasId);
+
+      for (const user of santri) {
+        await this.generateAlphaRealtimePerUser(
+          user.id,
+          kelasId,
+          setting.maxAbsen,
+          now,
+        );
+      }
+    }
+  }
+
+  startCronRealtime() {
+    cron.schedule("*/1 * * * *", async () => {
+      const now = new Date();
+      now.setSeconds(0, 0);
+
+      console.log("[CRON] Realtime alpha check:", now.toISOString());
+
+      await this.generateAlphaRealtime(now);
     });
 
-    console.log("[CRON] Alpha harian aktif (00:00 server time)");
+    console.log("[CRON] Alpha realtime per sesi AKTIF");
   }
 
   // ================================
@@ -297,7 +433,7 @@ export class AbsensiService {
     let izin = 0;
     let alpha = 0;
 
-    absensi.forEach((a: { status: string; }) => {
+    absensi.forEach((a: { status: string }) => {
       if (a.status === StatusAbsensi.hadir) hadir++;
       if (a.status === StatusAbsensi.izin) izin++;
       if (a.status === StatusAbsensi.alpha) alpha++;
@@ -351,7 +487,7 @@ export class AbsensiService {
     let izin = 0;
     let alpha = 0;
 
-    absensi.forEach((a: { status: string; }) => {
+    absensi.forEach((a: { status: string }) => {
       if (a.status === StatusAbsensi.hadir) hadir++;
       if (a.status === StatusAbsensi.izin) izin++;
       if (a.status === StatusAbsensi.alpha) alpha++;

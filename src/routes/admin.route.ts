@@ -15,6 +15,8 @@ const controller = new AdminController(service);
 
 router.post("/", controller.createFirstAdmin);
 
+router.post("/create", controller.createAdmin)
+
 // SANTRI & PENGAJAR
 router.post(
   "/santri",
