@@ -1,55 +1,63 @@
-import { Role } from "../../dist/generated/index.js";
+import { Role } from "../../dist/generated";
 export class AdminRepository {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
+    // CREATE SANTRI
     createSantriByAdmin = async (data) => {
         return this.prisma.user.create({
             data: {
                 name: data.name,
                 email: data.email,
-                kelasId: data.kelasId,
                 role: Role.santri,
-                password: "",
-                activationToken: data.activationToken,
+                kelasId: data.kelasId,
+                password: "INACTIVE", // harus aktivasi
                 activatedAt: null,
+                isActive: true,
             },
         });
     };
-    findByActivationToken = async (token) => {
-        return this.prisma.user.findFirst({
-            where: { activationToken: token },
+    // CREATE PENGAJAR
+    createPengajarByAdmin = async (data) => {
+        return this.prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+                role: Role.pengajar,
+                password: "INACTIVE",
+                activatedAt: null,
+                isActive: true,
+            },
         });
     };
-    activate = async (id, hashedPassword) => {
+    // FIND USER BY EMAIL
+    findByEmail = async (email) => {
+        return this.prisma.user.findUnique({ where: { email } });
+    };
+    // UPDATE PASSWORD (AKTIVASI PERTAMA)
+    updatePassword = async (id, hashedPassword) => {
         return this.prisma.user.update({
             where: { id },
             data: {
                 password: hashedPassword,
                 activatedAt: new Date(),
-                activationToken: null,
             },
         });
     };
+    // PENGAJAR / KELAS
     assignPengajar(kelasId, pengajarId) {
         return this.prisma.kelas.update({
             where: { id: kelasId },
             data: {
-                pengajar: {
-                    connect: { id: pengajarId },
-                },
+                pengajar: { connect: { id: pengajarId } },
             },
         });
     }
     removePengajar(kelasId, pengajarId) {
         return this.prisma.kelas.update({
             where: { id: kelasId },
-            data: {
-                pengajar: {
-                    disconnect: { id: pengajarId },
-                },
-            },
+            data: { pengajar: { disconnect: { id: pengajarId } } },
         });
     }
     getPengajarByKelas(kelasId) {
@@ -63,35 +71,40 @@ export class AdminRepository {
                         id: true,
                         name: true,
                         email: true,
+                        profile: {
+                            select: {
+                                namaLengkap: true,
+                                fotoUrl: true,
+                            },
+                        },
                     },
                 },
             },
         });
     }
-    createPengajarByAdmin = async (data) => {
+    createAdmin = async (data) => {
         return this.prisma.user.create({
             data: {
                 name: data.name,
                 email: data.email,
-                role: Role.pengajar,
-                password: null,
-                activationToken: data.activationToken,
-                activatedAt: null,
+                password: data.password, // sudah hashed di service
+                role: Role.admin,
+                isActive: true,
+                activatedAt: new Date(),
             },
         });
     };
-    createUserByAdmin(data) {
-        return this.prisma.user.create({
-            data: {
-                name: data.name,
-                email: data.email,
-                role: data.role,
-                kelasId: data.kelasId ?? null,
-                password: "INACTIVE",
-                activationToken: data.activationToken,
-                activatedAt: null,
-            },
-        });
-    }
+    getAllAdmins = async () => {
+        return this.prisma.user.findMany({ where: { role: Role.admin } });
+    };
+    getAdminById = async (id) => {
+        return this.prisma.user.findUnique({ where: { id } });
+    };
+    updateAdmin = async (id, data) => {
+        return this.prisma.user.update({ where: { id }, data });
+    };
+    deleteAdmin = async (id) => {
+        return this.prisma.user.delete({ where: { id } });
+    };
 }
 //# sourceMappingURL=admin.repository.js.map

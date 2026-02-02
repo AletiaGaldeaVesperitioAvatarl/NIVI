@@ -1,9 +1,12 @@
-import { Kelas } from "../../dist/generated/index.js";
-import { KelasRepository } from "../repository/kelas.repository.js";
+import { Kelas } from "../../dist/generated";
+import { KelasRepository } from "../repository/kelas.repository";
 export declare class KelasService {
     private kelasRepository;
     constructor(kelasRepository: KelasRepository);
+    getAllKelas: () => Promise<Kelas[]>;
     getAll: () => Promise<Kelas[]>;
+    getAllSantri: () => Promise<Kelas[]>;
+    getAllSantriByAdmin: () => Promise<Kelas[]>;
     getById: (id: number) => Promise<Kelas | null>;
     createKelas: (data: {
         namaKelas: string;
@@ -11,31 +14,19 @@ export declare class KelasService {
     }) => Promise<Kelas>;
     updateKelas: (id: number, data: Partial<Kelas>) => Promise<Kelas>;
     deleteKelas: (id: number) => Promise<Kelas>;
-    assignPengajarKeKelas: (kelasId: number, pengajarId: number) => Promise<{
+    assignPengajarKeKelas: (kelasId: number, pengajarIds: number | number[]) => Promise<{
         pengajar: {
-            name: string;
+            name: string | null;
             id: number;
             kelasId: number | null;
             createdAt: Date;
             email: string;
             password: string | null;
-            activationToken: string | null;
             activatedAt: Date | null;
-            role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
-            deletedAt: Date | null;
-        }[];
-        santri: {
-            name: string;
-            id: number;
-            kelasId: number | null;
-            createdAt: Date;
-            email: string;
-            password: string | null;
-            activationToken: string | null;
-            activatedAt: Date | null;
-            role: import("../../dist/generated/index.js").$Enums.Role;
-            isActive: boolean;
+            otp: string | null;
+            otpExpiresAt: Date | null;
+            role: import("../../dist/generated").$Enums.Role;
             deletedAt: Date | null;
         }[];
     } & {
@@ -45,29 +36,31 @@ export declare class KelasService {
     }>;
     setPengajarKelas: (kelasId: number, pengajarIds: number[]) => Promise<{
         pengajar: {
-            name: string;
+            name: string | null;
             id: number;
             kelasId: number | null;
             createdAt: Date;
             email: string;
             password: string | null;
-            activationToken: string | null;
             activatedAt: Date | null;
-            role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
+            otp: string | null;
+            otpExpiresAt: Date | null;
+            role: import("../../dist/generated").$Enums.Role;
             deletedAt: Date | null;
         }[];
         santri: {
-            name: string;
+            name: string | null;
             id: number;
             kelasId: number | null;
             createdAt: Date;
             email: string;
             password: string | null;
-            activationToken: string | null;
             activatedAt: Date | null;
-            role: import("../../dist/generated/index.js").$Enums.Role;
             isActive: boolean;
+            otp: string | null;
+            otpExpiresAt: Date | null;
+            role: import("../../dist/generated").$Enums.Role;
             deletedAt: Date | null;
         }[];
     } & {
@@ -75,5 +68,92 @@ export declare class KelasService {
         namaKelas: string;
         deskripsi: string | null;
     }>;
+    getKelasByPengajar: (pengajarId: number) => Promise<({
+        absensi: {
+            id: number;
+            userId: number;
+            kelasId: number;
+            jadwalId: number | null;
+            tanggal: Date;
+            status: import("../../dist/generated").$Enums.StatusAbsensi;
+            createdAt: Date;
+            aiComment: string | null;
+            aiTone: string | null;
+            aiConfidence: number | null;
+        }[];
+        izin: {
+            id: number;
+            userId: number;
+            kelasId: number;
+            tanggal: Date;
+            status: import("../../dist/generated").$Enums.StatusIzin;
+            createdAt: Date;
+            deletedAt: Date | null;
+            alasan: string;
+        }[];
+        pengajar: {
+            name: string | null;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activatedAt: Date | null;
+            isActive: boolean;
+            otp: string | null;
+            otpExpiresAt: Date | null;
+            role: import("../../dist/generated").$Enums.Role;
+            deletedAt: Date | null;
+        }[];
+        santri: ({
+            profile: {
+                fotoUrl: string | null;
+            } | null;
+        } & {
+            name: string | null;
+            id: number;
+            kelasId: number | null;
+            createdAt: Date;
+            email: string;
+            password: string | null;
+            activatedAt: Date | null;
+            isActive: boolean;
+            otp: string | null;
+            otpExpiresAt: Date | null;
+            role: import("../../dist/generated").$Enums.Role;
+            deletedAt: Date | null;
+        })[];
+        tugas: {
+            id: number;
+            kelasId: number;
+            createdAt: Date;
+            deletedAt: Date | null;
+            mataPelajaranId: number;
+            title: string;
+            description: string | null;
+            deadline: Date;
+            createdBy: number;
+        }[];
+        absensiSetting: {
+            id: number;
+            kelasId: number;
+            createdAt: Date;
+            maxAbsen: number;
+            updatedAt: Date;
+        } | null;
+        jadwal: {
+            id: number;
+            kelasId: number;
+            tanggal: Date;
+            createdAt: Date;
+            hari: import("../../dist/generated").$Enums.Hari;
+            jamMulai: string;
+            jamSelesai: string;
+        }[];
+    } & {
+        id: number;
+        namaKelas: string;
+        deskripsi: string | null;
+    })[]>;
 }
 //# sourceMappingURL=kelas.service.d.ts.map

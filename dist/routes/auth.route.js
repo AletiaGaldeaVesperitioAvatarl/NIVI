@@ -1,50 +1,21 @@
-import { Router } from "express";
-import prismaInstance from "../database.js";
-import { AuthRepository } from "../repository/auth.repository.js";
-import { AuthService } from "../service/auth.service.js";
-import { AuthController } from "../controller/auth.controller.js";
-const router = Router();
-// INIT LAYER
-const authRepo = new AuthRepository(prismaInstance);
-const authService = new AuthService(authRepo);
-const authController = new AuthController(authService);
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Autentikasi & otorisasi pengguna
- */
-/**
- * @swagger
- * /auth/login:
- *   post:
- *     summary: Login user
- *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - email
- *               - password
- *             properties:
- *               email:
- *                 type: string
- *                 format: email
- *                 example: fauzi@mail.com
- *               password:
- *                 type: string
- *                 example: rahasia123
- *     responses:
- *       200:
- *         description: Login berhasil
- *       401:
- *         description: Email atau password salah
- */
-router.post("/login", authController.login);
-router.post("/request-activation", authController.requestActivation);
-router.post("/activate", authController.activateAccount);
+import express from "express";
+import prismaInstance from "../database";
+import { AuthRepository } from "../repository/auth.repository";
+import { AuthService } from "../service/auth.service";
+import { AuthController } from "../controller/auth.controller";
+const router = express.Router();
+const repo = new AuthRepository(prismaInstance);
+const service = new AuthService(repo);
+const controller = new AuthController(service);
+// LOGIN biasa
+router.post("/login", controller.login);
+// OTP aktivasi pertama user baru
+router.post("/request-activation-otp", controller.requestActivationOtp);
+// Aktivasi user baru dengan OTP + set password pertama
+router.post("/activate-with-otp", controller.activateWithOtp);
+// Lupa password
+router.post("/forgot-password", controller.forgotPassword);
+// Reset password dengan OTP
+router.post("/reset-password", controller.resetPassword);
 export default router;
 //# sourceMappingURL=auth.route.js.map

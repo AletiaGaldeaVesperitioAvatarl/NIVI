@@ -3,195 +3,281 @@ export class AbsensiRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    // GET ALL ABSENSI
-    getAll = async () => {
-        return this.prisma.absensi.findMany({
-            include: {
-                user: true, // relasi ke User
-                kelas: true, // relasi ke Kelas
-            },
-        });
-    };
-    // GET ABSENSI BY ID
-    getById = async (id) => {
-        return this.prisma.absensi.findFirst({
+    getAll() {
+        return this.prisma.absensi.findMany({ include: { jadwal: true } });
+    }
+    getById(id) {
+        return this.prisma.absensi.findUnique({
             where: { id },
-            include: {
-                user: true,
-                kelas: true,
-            },
+            include: { jadwal: true },
         });
-    };
-    // GET ABSENSI BY USER ID
-    getByUserId = async (userId) => {
+    }
+    getByUserId(userId) {
         return this.prisma.absensi.findMany({
             where: { userId },
-            include: {
-                user: true,
-                kelas: true,
-            },
+            include: { jadwal: true },
         });
-    };
-    // UPDATE ABSENSI
-    update = async (id, data) => {
-        return this.prisma.absensi.update({
-            where: { id },
-            data,
-            include: {
-                user: true,
-                kelas: true,
-            },
-        });
-    };
-    // DELETE ABSENSI
-    delete = async (id) => {
-        return this.prisma.absensi.delete({
-            where: { id },
-        });
-    };
-    create = async (data) => {
-        return this.prisma.absensi.create({
-            data: {
-                userId: data.userId,
-                kelasId: data.kelasId,
-                status: data.status,
-                tanggal: new Date(),
-            },
-        });
-    };
-    getTodayByUser = async (userId) => {
+    }
+    getTodayByUser(userId) {
         const start = new Date();
         start.setHours(0, 0, 0, 0);
         const end = new Date();
         end.setHours(23, 59, 59, 999);
         return this.prisma.absensi.findMany({
-            where: {
+            where: { userId, tanggal: { gte: start, lte: end } },
+            include: { jadwal: true },
+        });
+    }
+    countTodayByUser(userId) {
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+        return this.prisma.absensi.count({
+            where: { userId, tanggal: { gte: start, lte: end } },
+        });
+    }
+    create(data) {
+        return this.prisma.absensi.create({
+            data: {
+                ...data,
+                jadwalId: data.jadwalId ?? null, // ganti undefined jadi null
+            },
+            include: { jadwal: true },
+        });
+    }
+    update(id, data) {
+        return this.prisma.absensi.update({
+            where: { id },
+            data,
+            include: { jadwal: true },
+        });
+    }
+    delete(id) {
+        return this.prisma.absensi.delete({
+            where: { id },
+            include: { jadwal: true },
+        });
+    }
+    findByUserAndTanggal(userId, tanggal) {
+        return this.prisma.absensi.findFirst({
+            where: { userId, tanggal },
+        });
+    }
+    createIzinAbsensi(userId, kelasId, tanggal) {
+        return this.prisma.absensi.create({
+            data: {
                 userId,
+                kelasId, // ✅ INI YANG HILANG
+                tanggal,
+                status: "izin",
+            },
+        });
+    }
+    countTodayByKelas(kelasId, tanggal) {
+        return this.prisma.absensi.count({
+            where: {
+                kelasId,
+                tanggal,
+            },
+        });
+    }
+    async countByKelasAndTanggal(kelasId, tanggal) {
+        const start = new Date(tanggal);
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(tanggal);
+        end.setHours(23, 59, 59, 999);
+        return this.prisma.absensi.count({
+            where: {
+                kelasId,
                 tanggal: {
                     gte: start,
                     lte: end,
+                },
+            },
+        });
+    }
+    findByKelasPaginated = async ({ kelasId, skip, take, sort, }) => {
+        return this.prisma.absensi.findMany({
+            where: { kelasId },
+            orderBy: { tanggal: sort },
+            skip,
+            take,
+        });
+    };
+    countByKelas = async (kelasId) => {
+        return this.prisma.absensi.count({
+            where: { kelasId },
+        });
+    };
+    async countUserAbsensiByTanggal(userId, tanggal) {
+        const start = new Date(tanggal);
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(tanggal);
+        end.setHours(23, 59, 59, 999);
+        return this.prisma.absensi.count({
+            where: {
+                userId,
+                tanggal: { gte: start, lte: end },
+            },
+        });
+    }
+    async countNonIzinAbsensiByTanggal(userId, tanggal) {
+        const start = new Date(tanggal);
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(tanggal);
+        end.setHours(23, 59, 59, 999);
+        return this.prisma.absensi.count({
+            where: {
+                userId,
+                status: { not: "izin" }, // Hitung hanya hadir/telat/dll
+                tanggal: { gte: start, lte: end },
+            },
+        });
+    }
+    async getUsersByKelas(kelasId) {
+        return this.prisma.user.findMany({
+            where: {
+                kelasId,
+                role: "santri",
+                isActive: true,
+            },
+        });
+    }
+    getByIdWithUser(id) {
+        return this.prisma.absensi.findUnique({
+            where: { id },
+            include: { user: true },
+        });
+    }
+    countMonthly(userId, month, year) {
+        return this.prisma.absensi.count({
+            where: {
+                userId,
+                status: "alpha",
+                tanggal: {
+                    gte: new Date(year, month, 1),
+                    lt: new Date(year, month + 1, 1),
+                },
+            },
+        });
+    }
+    async findLastByUser(userId) {
+        return this.prisma.absensi.findFirst({
+            where: { userId },
+            orderBy: { tanggal: "desc" }, // ambil absensi terbaru
+        });
+    }
+    updateAI(id, data) {
+        return this.prisma.absensi.update({
+            where: { id },
+            data,
+        });
+    }
+    async countSpamToday(userId) {
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const todayEnd = new Date();
+        todayEnd.setHours(23, 59, 59, 999);
+        // Ambil semua absensi hari ini
+        const absensis = await this.prisma.absensi.findMany({
+            where: {
+                userId,
+                tanggal: {
+                    gte: todayStart,
+                    lte: todayEnd,
                 },
             },
             orderBy: { tanggal: "asc" },
         });
-    };
-    // AUTO ALPHA SUPPORT
-    // ambil semua santri aktif
-    getAllSantriAktif = async () => {
-        return this.prisma.user.findMany({
-            where: {
-                role: "santri",
-                isActive: true,
-            },
-            select: {
-                id: true,
-                kelasId: true,
-            },
-        });
-    };
-    // ambil absensi hari ini by user
-    hasIzinToday = async (userId) => {
-        const startOfDay = new Date();
-        startOfDay.setHours(0, 0, 0, 0);
-        const endOfDay = new Date();
-        endOfDay.setHours(23, 59, 59, 999);
-        const izin = await this.prisma.izin.findFirst({
-            where: {
-                userId,
-                status: "disetujui",
-                tanggal: {
-                    gte: startOfDay,
-                    lte: endOfDay,
-                },
-            },
-        });
-        return !!izin;
-    };
-    // AMBIL JUMLAH SANTRI PER KELAS
-    countSantriByKelas = async (kelasId) => {
-        return this.prisma.user.count({
-            where: {
-                role: "santri",
-                kelasId,
-                isActive: true,
-            },
-        });
-    };
-    // AMBIL ABSENSI PER KELAS & BULAN
-    getAbsensiByKelasAndMonth = async (kelasId, start, end) => {
+        let spamCount = 0;
+        for (let i = 1; i < absensis.length; i++) {
+            const current = absensis[i];
+            const prev = absensis[i - 1];
+            if (!current || !prev)
+                continue;
+            const diffMinutes = (current.tanggal.getTime() - prev.tanggal.getTime()) / 60000;
+            if (diffMinutes < 5) {
+                spamCount++;
+            }
+        }
+        return spamCount;
+    }
+    getAbsensiByUserAndMonth(userId, start, end) {
         return this.prisma.absensi.findMany({
             where: {
-                kelasId,
+                userId,
                 tanggal: {
                     gte: start,
                     lte: end,
                 },
             },
         });
-    };
-    getByKelasAndTanggal = async (kelasId, tanggal) => {
-        const start = new Date(tanggal);
-        start.setHours(0, 0, 0, 0);
-        const end = new Date(tanggal);
-        end.setHours(23, 59, 59, 999);
+    }
+    getAbsensiByUserAndWeek(userId, start, end) {
         return this.prisma.absensi.findMany({
             where: {
-                kelasId,
-                tanggal: { gte: start, lte: end },
-            },
-            include: {
-                user: true,
-            },
-        });
-    };
-    createManyPerHari = async (kelasId, tanggal, data) => {
-        return this.prisma.absensi.createMany({
-            data: data.map((d) => ({
-                userId: d.userId,
-                kelasId,
-                status: d.status,
-                tanggal,
-            })),
-        });
-    };
-    deleteByKelasAndTanggal = async (kelasId, tanggal) => {
-        const start = new Date(tanggal);
-        start.setHours(0, 0, 0, 0);
-        const end = new Date(tanggal);
-        end.setHours(23, 59, 59, 999);
-        return this.prisma.absensi.deleteMany({
-            where: {
-                kelasId,
-                tanggal: { gte: start, lte: end },
+                userId,
+                tanggal: {
+                    gte: start,
+                    lte: end,
+                },
             },
         });
-    };
-    getSantriByKelas = async (kelasId) => {
-        return this.prisma.user.findMany({
-            where: {
-                kelasId,
-                role: "santri",
-                isActive: true,
-            },
-            select: { id: true },
-        });
-    };
-    exists = async (userId, kelasId, tanggal) => {
-        const start = new Date(tanggal);
-        start.setHours(0, 0, 0, 0);
-        const end = new Date(tanggal);
-        end.setHours(23, 59, 59, 999);
-        const count = await this.prisma.absensi.count({
+    }
+    countHadirMonthly(userId, month, year) {
+        return this.prisma.absensi.count({
             where: {
                 userId,
-                kelasId,
-                tanggal: { gte: start, lte: end },
+                status: "hadir", // Hitung yang statusnya hadir saja
+                tanggal: {
+                    gte: new Date(year, month, 1),
+                    lt: new Date(year, month + 1, 1),
+                },
             },
         });
-        return count > 0;
-    };
-    createManual = async (data) => {
-        return this.prisma.absensi.create({ data });
-    };
+    }
+    // Ambil absensi user tapi hanya untuk tanggal tertentu
+    async getAbsensiByUserAndDates(userId, dates) {
+        if (!dates.length)
+            return [];
+        return this.prisma.absensi.findMany({
+            where: {
+                userId,
+                tanggal: { in: dates },
+            },
+        });
+    }
+    async getByUserAndDates(userId, dates) {
+        if (!dates.length)
+            return Promise.resolve([]); // ⬅️ penting!
+        const orConditions = dates.map(tanggal => ({
+            tanggal,
+        }));
+        return this.prisma.absensi.findMany({
+            where: {
+                userId,
+                OR: orConditions,
+            },
+        });
+    }
+    // Hitung berapa kali santri sudah absen hari ini
+    async countAbsenHariIni(userId, kelasId, tanggal) {
+        const start = new Date(tanggal);
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(tanggal);
+        end.setHours(23, 59, 59, 999);
+        return await this.prisma.absensi.count({
+            where: { userId, kelasId, tanggal: { gte: start, lte: end } },
+        });
+    }
+    findByUserAndJadwal(userId, jadwalId) {
+        return this.prisma.absensi.findFirst({
+            where: {
+                userId,
+                jadwalId,
+            },
+        });
+    }
 }
 //# sourceMappingURL=absensi.repository.js.map

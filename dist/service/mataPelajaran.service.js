@@ -1,3 +1,4 @@
+import { Prisma } from "../../dist/generated";
 export class MataPelajaranService {
     repo;
     constructor(repo) {
@@ -18,7 +19,16 @@ export class MataPelajaranService {
         return this.repo.update(id, data);
     };
     delete = async (id) => {
-        return this.repo.delete(id);
+        try {
+            return await this.repo.delete(id);
+        }
+        catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError &&
+                error.code === "P2003") {
+                throw new Error("Mata pelajaran tidak dapat dihapus karena masih digunakan oleh tugas");
+            }
+            throw error;
+        }
     };
 }
 //# sourceMappingURL=mataPelajaran.service.js.map

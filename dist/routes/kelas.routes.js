@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { KelasRepository } from "../repository/kelas.repository.js";
-import prismaInstance from "../database.js";
-import { KelasService } from "../service/kelas.service.js";
-import { KelasController } from "../controller/kelas.controller.js";
+import { KelasRepository } from "../repository/kelas.repository";
+import prismaInstance from "../database";
+import { KelasService } from "../service/kelas.service";
+import { KelasController } from "../controller/kelas.controller";
+import { authenticate } from "../middlewares/auth.middleware";
 const router = Router();
 // INIT LAYER
 const kelasRepo = new KelasRepository(prismaInstance);
@@ -13,7 +14,8 @@ const kelasController = new KelasController(kelasService);
  * tags:
  *   name: Kelas
  *   description: Manajemen data kelas
- */
+*/
+router.get("/pengajar/me", authenticate, kelasController.getKelasByPengajar);
 /**
  * @swagger
  * /kelas:
@@ -25,6 +27,10 @@ const kelasController = new KelasController(kelasService);
  *         description: Berhasil mengambil data kelas
  */
 // GET ALL KELAS
+router.get("/all/santri/admin", kelasController.getAllSantriByAdmin);
+router.get("/all/santri", kelasController.getAllSantri);
+router.get("/all/pengajar", authenticate, kelasController.getAllByPengajar);
+router.get("/all", authenticate, kelasController.getAllKelas);
 router.get("/", kelasController.getAll);
 /**
  * @swagger

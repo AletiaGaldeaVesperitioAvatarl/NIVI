@@ -1,18 +1,20 @@
 import { Router } from "express";
-import { UserRepository } from "../repository/user.repository.js";
-import prismaInstance from "../database.js";
-import { UserService } from "../service/user.service.js";
-import { UserController } from "../controller/user.controller.js";
+import { UserRepository } from "../repository/user.repository";
+import prismaInstance from "../database";
+import { UserService } from "../service/user.service";
+import { UserController } from "../controller/user.controller";
 const router = Router();
 const userRepo = new UserRepository(prismaInstance);
 const userService = new UserService(userRepo);
 const userController = new UserController(userService);
+router.put("/:id/activate/santri", userController.activate);
 /**
  * @swagger
  * tags:
  *   name: User
  *   description: Manajemen data user (admin, pengajar, santri)
  */
+router.get("/all/user", userController.getUsers);
 /**
  * @swagger
  * /users:

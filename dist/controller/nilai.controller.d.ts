@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
-import { NilaiService } from "../service/nilai.service.js";
+import { NilaiService } from "../service/nilai.service";
 export declare class NilaiController {
-    private nilaiService;
-    constructor(nilaiService: NilaiService);
+    private service;
+    constructor(service: NilaiService);
     getAll: (_req: Request, res: Response) => Promise<void>;
-    getById: (req: Request, res: Response) => Promise<void>;
-    getByUser: (req: Request, res: Response) => Promise<void>;
-    getByTugas: (req: Request, res: Response) => Promise<void>;
+    getBySubmission: (req: Request, res: Response) => Promise<void>;
     create: (req: Request, res: Response) => Promise<void>;
     update: (req: Request, res: Response) => Promise<void>;
     delete: (req: Request, res: Response) => Promise<void>;

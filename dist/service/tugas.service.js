@@ -18,8 +18,15 @@ export class TugasService {
         return this.repo.update(id, data);
     };
     delete = (id) => this.repo.delete(id);
-    getForSantri = (userId) => {
+    getForSantri = async (userId) => {
         return this.repo.getForSantri(userId);
+    };
+    archiveExpiredForSantri = async (userId, tugasId) => {
+        return this.repo.archiveExpiredForSantri(userId, tugasId);
+    };
+    // 🔹 ambil tugas arsip santri
+    getArchivedForSantri = async (userId) => {
+        return this.repo.getArchivedForSantri(userId);
     };
 }
 //# sourceMappingURL=tugas.service.js.map

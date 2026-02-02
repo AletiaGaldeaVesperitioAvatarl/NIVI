@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { LogAktivitasService } from "../service/logaktivitas.service.js";
+import type { Request, Response } from "express";
+import { LogAktivitasService } from "../service/logaktivitas.service";
 export declare class LogAktivitasController {
     private logService;
     constructor(logService: LogAktivitasService);

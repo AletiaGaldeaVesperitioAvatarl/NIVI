@@ -3,9 +3,18 @@ export class KelasService {
     constructor(kelasRepository) {
         this.kelasRepository = kelasRepository;
     }
+    getAllKelas = async () => {
+        return this.kelasRepository.getAllKelas();
+    };
     // GET ALL KELAS
     getAll = async () => {
         return this.kelasRepository.getAll();
+    };
+    getAllSantri = async () => {
+        return this.kelasRepository.getAllSantri();
+    };
+    getAllSantriByAdmin = async () => {
+        return this.kelasRepository.getAllSantriByAdmin();
     };
     // GET KELAS BY ID
     getById = async (id) => {
@@ -23,19 +32,20 @@ export class KelasService {
     deleteKelas = async (id) => {
         return this.kelasRepository.delete(id);
     };
-    assignPengajarKeKelas = async (kelasId, pengajarId) => {
-        // validasi tambahan (opsional tapi bagus)
+    assignPengajarKeKelas = async (kelasId, pengajarIds) => {
         const kelas = await this.kelasRepository.getById(kelasId);
-        if (!kelas) {
+        if (!kelas)
             throw new Error("Kelas tidak ditemukan");
-        }
-        return this.kelasRepository.assignPengajar(kelasId, pengajarId);
+        return this.kelasRepository.assignPengajar(kelasId, pengajarIds);
     };
     setPengajarKelas = async (kelasId, pengajarIds) => {
         const kelas = await this.kelasRepository.getById(kelasId);
         if (!kelas)
             throw new Error("Kelas tidak ditemukan");
         return this.kelasRepository.setPengajar(kelasId, pengajarIds);
+    };
+    getKelasByPengajar = (pengajarId) => {
+        return this.kelasRepository.findByPengajar(pengajarId);
     };
 }
 //# sourceMappingURL=kelas.service.js.map

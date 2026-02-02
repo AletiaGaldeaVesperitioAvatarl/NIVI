@@ -1,4 +1,4 @@
-import { PrismaClient, Profile } from "../../dist/generated/index.js";
+import { PrismaClient, Profile } from "../../dist/generated";
 export declare class ProfileRepository {
     private prisma;
     constructor(prisma: PrismaClient);
@@ -12,18 +12,7 @@ export declare class ProfileRepository {
         tanggalLahir?: Date;
         jenisKelamin?: string;
     }) => Promise<Profile>;
-    updateByUserId: (userId: number, data: Partial<Profile>) => Promise<{
-        id: number;
-        userId: number;
-        createdAt: Date;
-        namaLengkap: string;
-        noHp: string | null;
-        alamat: string | null;
-        fotoUrl: string | null;
-        tanggalLahir: Date | null;
-        jenisKelamin: string | null;
-        updatedAt: Date;
-    }>;
+    updateByUserId: (userId: number, data: Partial<Profile>) => Promise<Profile>;
     deleteByUserId: (userId: number) => Promise<Profile>;
 }
 //# sourceMappingURL=profile.repository.d.ts.map

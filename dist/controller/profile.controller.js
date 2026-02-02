@@ -1,4 +1,4 @@
-import { successResponse } from "../utils/response.js";
+import { errorResponse, successResponse } from "../utils/response";
 export class ProfileController {
     profileService;
     constructor(profileService) {
@@ -45,20 +45,29 @@ export class ProfileController {
     // PUT /profile
     updateProfile = async (req, res) => {
         const userId = req.user.id;
-        const profile = await this.profileService.updateProfile(userId, {
-            namaLengkap: req.body.namaLengkap,
-            noHp: req.body.noHp ?? null,
-            alamat: req.body.alamat ?? null,
-            fotoUrl: req.body.fotoUrl ?? null,
-            tanggalLahir: req.body.tanggalLahir
-                ? new Date(req.body.tanggalLahir)
-                : null,
-            jenisKelamin: req.body.jenisKelamin ?? null,
-        });
-        successResponse(res, "Profile berhasil diupdate", {
-            user: req.user,
-            profile,
-        });
+        const file = req.file;
+        try {
+            // Jika profile belum ada, otomatis buat baru nanti via upsert
+            const updateData = {
+                namaLengkap: req.body.namaLengkap,
+                noHp: req.body.noHp ?? null,
+                alamat: req.body.alamat ?? null,
+                tanggalLahir: req.body.tanggalLahir ? new Date(req.body.tanggalLahir) : null,
+                jenisKelamin: req.body.jenisKelamin ?? null,
+            };
+            // Update foto hanya jika ada file baru
+            if (file) {
+                updateData.fotoUrl = `/uploads/${file.filename}`;
+            }
+            const profile = await this.profileService.updateProfile(userId, updateData);
+            successResponse(res, "Profile berhasil diupdate", {
+                user: req.user,
+                profile,
+            });
+        }
+        catch (error) {
+            errorResponse(res, error.message || "Gagal update profile");
+        }
     };
     // DELETE /profile
     deleteProfile = async (req, res) => {

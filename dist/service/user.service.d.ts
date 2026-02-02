@@ -1,5 +1,5 @@
-import { Role, User } from "../../dist/generated/index.js";
-import { UserRepository } from "../repository/user.repository.js";
+import { Role, User } from "../../dist/generated";
+import { UserRepository } from "../repository/user.repository";
 export declare class UserService {
     private userRepository;
     constructor(userRepository: UserRepository);
@@ -15,35 +15,37 @@ export declare class UserService {
     }) => Promise<User>;
     updateUser: (id: number, data: Partial<User>) => Promise<User>;
     deactivateUser: (id: number) => Promise<User>;
-    getStats: () => Promise<import("../../dist/generated/index.js").Prisma.GetUserAggregateType<{
+    getStats: () => Promise<import("../../dist/generated").Prisma.GetUserAggregateType<{
         _count: {
             id: true;
         };
     }>>;
     getSantri: () => Promise<{
-        name: string;
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }[]>;
     getPengajar: () => Promise<{
-        name: string;
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }[]>;
     createAdmin: (data: {
@@ -51,17 +53,53 @@ export declare class UserService {
         email: string;
         password: string;
     }) => Promise<{
-        name: string;
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
+    activateUser: (userId: number, role?: Role) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    } | null>;
+    getUsersByKelas(kelasId: number): Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }[]>;
+    getUsers(): Promise<{
+        name: string | null;
+        id: number;
+        email: string;
+        isActive: boolean;
+        role: import("../../dist/generated").$Enums.Role;
+    }[]>;
 }
 //# sourceMappingURL=user.service.d.ts.map

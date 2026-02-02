@@ -1,4 +1,4 @@
-import { StatusIzin } from "../../../dist/generated/index.js";
+import { StatusIzin, StatusSubmission } from "../../../dist/generated";
 export class DashboardRepository {
     prisma;
     constructor(prisma) {
@@ -8,6 +8,7 @@ export class DashboardRepository {
         return this.prisma.user.count({
             where: {
                 role: "santri",
+                isActive: true,
                 kelasId: { in: kelasIds },
             },
         });
@@ -31,6 +32,10 @@ export class DashboardRepository {
         return this.prisma.absensi.groupBy({
             by: ["status"],
             where: {
+                user: {
+                    role: "santri",
+                    isActive: true
+                },
                 kelasId: { in: kelasIds },
                 tanggal: {
                     gte: start,
@@ -53,6 +58,11 @@ export class DashboardRepository {
     async getSubmissionMasuk(kelasIds) {
         return this.prisma.submission.count({
             where: {
+                user: {
+                    role: "santri",
+                    isActive: true
+                },
+                status: StatusSubmission.pending,
                 tugas: {
                     kelasId: { in: kelasIds },
                 },

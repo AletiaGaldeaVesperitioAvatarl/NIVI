@@ -1,30 +1,24 @@
-import bcrypt from "bcrypt";
 export class AuthRepository {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
-    getUserByEmail = async (email) => {
+    // Cari user berdasarkan email
+    findByEmail = async (email) => {
         return this.prisma.user.findUnique({ where: { email } });
     };
-    createUser = async (data) => {
-        return this.prisma.user.create({ data });
-    };
-    verifyPassword = async (plain, hashed) => {
-        return bcrypt.compare(plain, hashed);
-    };
-    findByActivationToken = async (token) => {
-        return this.prisma.user.findFirst({ where: { activationToken: token } });
-    };
-    activateUser = async (id, hashedPassword) => {
-        // 🔹 pastikan return value diambil untuk pengecekan
+    // Update password / aktivasi pertama
+    updatePassword = async (id, hashedPassword) => {
         return this.prisma.user.update({
             where: { id },
-            data: {
-                password: hashedPassword,
-                activatedAt: new Date(),
-                activationToken: null,
-            },
+            data: { password: hashedPassword, activatedAt: new Date() },
+        });
+    };
+    // Set OTP untuk aktivasi atau reset password
+    setOtp = async (email, otp, otpExpiresAt) => {
+        return this.prisma.user.update({
+            where: { email },
+            data: { otp, otpExpiresAt },
         });
     };
 }

@@ -1,0 +1,25 @@
+import { Router } from "express";
+import { AutomationController } from "../controller/automation.controller";
+import { AbsensiService } from "../service/absensi.service";
+import { AbsensiRepository } from "../repository/absensi.repository";
+import prismaInstance from "../database";
+import { automationAuth } from "../middlewares/automationAuth";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+import { AbsensiSettingService } from "../service/absensiSetting.service";
+import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
+import { AIService } from "../ai/ai.service";
+import { AIAssistantService } from "../service/ai.assistant.service";
+import { IzinRepository } from "../repository/izin.repository";
+const router = Router();
+const settingRepo = new AbsensiSettingRepository(prismaInstance);
+const jadwalRepo = new JadwalAbsensiRepository(prismaInstance);
+const settingService = new AbsensiSettingService(settingRepo);
+const absensiRepo = new AbsensiRepository(prismaInstance);
+const izinRepo = new IzinRepository(prismaInstance);
+const AI = new AIService();
+const AIAssistantServices = new AIAssistantService(absensiRepo, AI);
+const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo, AIAssistantServices, izinRepo);
+const controller = new AutomationController(absensiService);
+router.post("/generate-alpha", automationAuth, controller.generateAlpha);
+export default router;
+//# sourceMappingURL=automation.route.js.map

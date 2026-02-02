@@ -1,48 +1,58 @@
-import { successResponse } from "../utils/response.js";
+import { successResponse, errorResponse } from "../utils/response";
 export class NilaiController {
-    nilaiService;
-    constructor(nilaiService) {
-        this.nilaiService = nilaiService;
+    service;
+    constructor(service) {
+        this.service = service;
     }
-    // GET ALL NILAI
     getAll = async (_req, res) => {
-        const data = await this.nilaiService.getAll();
-        successResponse(res, "Berhasil ambil semua nilai", data);
+        try {
+            const data = await this.service.getAll();
+            successResponse(res, "Semua nilai", data);
+        }
+        catch (err) {
+            errorResponse(res, err.message);
+        }
     };
-    // GET NILAI BY ID
-    getById = async (req, res) => {
-        const id = Number(req.params.id);
-        const data = await this.nilaiService.getById(id);
-        successResponse(res, "Berhasil ambil nilai", data);
+    getBySubmission = async (req, res) => {
+        try {
+            const submissionId = Number(req.params.submissionId);
+            const data = await this.service.getBySubmission(submissionId);
+            successResponse(res, "Detail nilai", data);
+        }
+        catch (err) {
+            errorResponse(res, err.message);
+        }
     };
-    // GET NILAI BY USER
-    getByUser = async (req, res) => {
-        const userId = Number(req.params.userId);
-        const data = await this.nilaiService.getByUserId(userId);
-        successResponse(res, "Berhasil ambil nilai user", data);
-    };
-    // GET NILAI BY TUGAS
-    getByTugas = async (req, res) => {
-        const tugasId = Number(req.params.tugasId);
-        const data = await this.nilaiService.getByTugasId(tugasId);
-        successResponse(res, "Berhasil ambil nilai tugas", data);
-    };
-    // CREATE NILAI
     create = async (req, res) => {
-        const data = await this.nilaiService.createNilai(req.body);
-        successResponse(res, "Nilai berhasil dibuat", data, null, 201);
+        try {
+            const data = await this.service.create(req.body);
+            successResponse(res, "Nilai berhasil disimpan", data, null, 201);
+        }
+        catch (err) {
+            errorResponse(res, err.message);
+        }
     };
-    // UPDATE NILAI
     update = async (req, res) => {
-        const id = Number(req.params.id);
-        const data = await this.nilaiService.updateNilai(id, req.body);
-        successResponse(res, "Nilai berhasil diupdate", data);
+        try {
+            const submissionId = Number(req.params.submissionId);
+            const data = await this.service.update(submissionId, req.body);
+            // 🔥 REALTIME: emit ke room submission
+            successResponse(res, "Nilai berhasil diperbarui", data);
+        }
+        catch (err) {
+            errorResponse(res, err.message);
+        }
     };
-    // DELETE NILAI
     delete = async (req, res) => {
-        const id = Number(req.params.id);
-        const data = await this.nilaiService.deleteNilai(id);
-        successResponse(res, "Nilai berhasil dihapus", data);
+        try {
+            const submissionId = Number(req.params.submissionId);
+            await this.service.delete(submissionId);
+            // 🔥 REALTIME: emit ke room submissio
+            successResponse(res, "Nilai berhasil dihapus");
+        }
+        catch (err) {
+            errorResponse(res, err.message);
+        }
     };
 }
 //# sourceMappingURL=nilai.controller.js.map

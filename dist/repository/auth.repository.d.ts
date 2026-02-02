@@ -1,28 +1,34 @@
-import { PrismaClient, User, Role } from "../../dist/generated/index.js";
+import { PrismaClient, User } from "../../dist/generated";
 export declare class AuthRepository {
     private prisma;
     constructor(prisma: PrismaClient);
-    getUserByEmail: (email: string) => Promise<User | null>;
-    createUser: (data: {
-        name: string;
-        email: string;
-        password: string;
-        role: Role;
-        kelasId?: number;
-    }) => Promise<User>;
-    verifyPassword: (plain: string, hashed: string) => Promise<boolean>;
-    findByActivationToken: (token: string) => Promise<User | null>;
-    activateUser: (id: number, hashedPassword: string) => Promise<{
-        name: string;
+    findByEmail: (email: string) => Promise<User | null>;
+    updatePassword: (id: number, hashedPassword: string) => Promise<{
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }>;
+    setOtp: (email: string, otp: string, otpExpiresAt: Date) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
 }

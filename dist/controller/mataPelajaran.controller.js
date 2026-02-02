@@ -1,4 +1,4 @@
-import { successResponse } from "../utils/response.js";
+import { successResponse } from "../utils/response";
 export class MataPelajaranController {
     service;
     constructor(service) {
@@ -29,9 +29,17 @@ export class MataPelajaranController {
     };
     // DELETE
     delete = async (req, res) => {
-        const id = Number(req.params.id);
-        const data = await this.service.delete(id);
-        successResponse(res, "Mata pelajaran berhasil dihapus", data);
+        try {
+            const id = Number(req.params.id);
+            const data = await this.service.delete(id);
+            successResponse(res, "Mata pelajaran berhasil dihapus", data);
+        }
+        catch (error) {
+            res.status(400).json({
+                success: false,
+                message: error.message || "Gagal menghapus mata pelajaran",
+            });
+        }
     };
 }
 //# sourceMappingURL=mataPelajaran.controller.js.map

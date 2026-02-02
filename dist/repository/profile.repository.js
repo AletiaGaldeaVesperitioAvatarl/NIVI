@@ -17,17 +17,22 @@ export class ProfileRepository {
     };
     // UPDATE PROFILE
     updateByUserId = async (userId, data) => {
+        const upsertData = {
+            namaLengkap: data.namaLengkap ?? "",
+            noHp: data.noHp ?? null,
+            alamat: data.alamat ?? null,
+            tanggalLahir: data.tanggalLahir ?? null,
+            jenisKelamin: data.jenisKelamin ?? null,
+        };
+        if (data.fotoUrl !== undefined) {
+            upsertData.fotoUrl = data.fotoUrl;
+        }
         return this.prisma.profile.upsert({
             where: { userId },
-            update: data,
+            update: upsertData,
             create: {
                 userId,
-                namaLengkap: data.namaLengkap ?? '',
-                noHp: data.noHp ?? null,
-                alamat: data.alamat ?? null,
-                fotoUrl: data.fotoUrl ?? null,
-                tanggalLahir: data.tanggalLahir ?? null,
-                jenisKelamin: data.jenisKelamin ?? null,
+                ...upsertData,
             },
         });
     };

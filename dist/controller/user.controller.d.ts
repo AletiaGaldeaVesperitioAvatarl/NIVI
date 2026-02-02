@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
-import { UserService } from "../service/user.service.js";
+import type { Request, Response, NextFunction } from "express";
+import { UserService } from "../service/user.service";
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
@@ -12,5 +12,7 @@ export declare class UserController {
     getSantri: (_req: Request, res: Response) => Promise<void>;
     getPengajar: (_req: Request, res: Response) => Promise<void>;
     createAdmin: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
+    activate: (req: Request, res: Response) => Promise<void>;
+    getUsers: (_req: Request, res: Response) => Promise<void>;
 }
 //# sourceMappingURL=user.controller.d.ts.map

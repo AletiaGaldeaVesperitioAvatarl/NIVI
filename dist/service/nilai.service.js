@@ -1,35 +1,32 @@
 export class NilaiService {
-    nilaiRepository;
-    constructor(nilaiRepository) {
-        this.nilaiRepository = nilaiRepository;
+    repo;
+    constructor(repo) {
+        this.repo = repo;
     }
-    // GET ALL NILAI
-    getAll = async () => {
-        return this.nilaiRepository.getAll();
-    };
-    // GET NILAI BY ID
-    getById = async (id) => {
-        return this.nilaiRepository.getById(id);
-    };
-    // GET NILAI BY USER
-    getByUserId = async (userId) => {
-        return this.nilaiRepository.getByUserId(userId);
-    };
-    // GET NILAI BY TUGAS
-    getByTugasId = async (tugasId) => {
-        return this.nilaiRepository.getByTugasId(tugasId);
-    };
-    // CREATE NILAI
-    createNilai = async (data) => {
-        return this.nilaiRepository.create(data);
-    };
-    // UPDATE NILAI
-    updateNilai = async (id, data) => {
-        return this.nilaiRepository.update(id, data);
-    };
-    // DELETE NILAI
-    deleteNilai = async (id) => {
-        return this.nilaiRepository.delete(id);
-    };
+    getAll() {
+        return this.repo.findAll();
+    }
+    getBySubmission(submissionId) {
+        return this.repo.findBySubmissionId(submissionId);
+    }
+    create(payload) {
+        const { submissionId, nilai, catatan } = payload;
+        return this.repo.create({
+            nilai,
+            catatan: catatan ?? null,
+            submission: {
+                connect: { id: submissionId },
+            },
+        });
+    }
+    update(submissionId, payload) {
+        return this.repo.update(submissionId, {
+            nilai: payload.nilai,
+            catatan: payload.catatan ?? null,
+        });
+    }
+    delete(submissionId) {
+        return this.repo.delete(submissionId);
+    }
 }
 //# sourceMappingURL=nilai.service.js.map

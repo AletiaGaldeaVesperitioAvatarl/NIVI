@@ -3,60 +3,144 @@ export class SubmissionRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    // CREATE SUBMISSION
-    async create(data) {
+    /**
+     * ========== CREATE ==========
+     */
+    create(data) {
         return this.prisma.submission.create({
             data,
-        });
-    }
-    // GET ALL SUBMISSION
-    async findAll() {
-        return this.prisma.submission.findMany({
             include: {
-                user: true,
-                tugas: true,
+                tugas: {
+                    select: {
+                        id: true,
+                        kelasId: true,
+                    },
+                },
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                    },
+                },
             },
         });
     }
-    // GET SUBMISSION BY ID
-    async findById(id) {
+    /**
+     * ========== READ ==========
+     */
+    // by primary key
+    findById(id) {
         return this.prisma.submission.findUnique({
             where: { id },
             include: {
                 user: true,
                 tugas: true,
+                nilai: true,
             },
         });
     }
-    // GET SUBMISSION BY USER
-    async findByUser(userId) {
+    // dipakai di NilaiService
+    findByUserAndTugas(userId, tugasId) {
+        return this.prisma.submission.findUnique({
+            where: {
+                userId_tugasId: {
+                    userId,
+                    tugasId,
+                },
+            },
+        });
+    }
+    // santri: submission milik sendiri
+    findForSantri(userId) {
         return this.prisma.submission.findMany({
             where: { userId },
             include: {
                 tugas: true,
+                nilai: true,
             },
         });
     }
-    // GET SUBMISSION BY TUGAS
-    async findByTugas(tugasId) {
+    // pengajar: semua submission dari kelas yang dia ajar
+    findForPengajar(pengajarId) {
         return this.prisma.submission.findMany({
-            where: { tugasId },
+            where: {
+                deletedAt: null,
+                tugas: {
+                    kelas: {
+                        pengajar: {
+                            some: {
+                                id: pengajarId,
+                            },
+                        },
+                    },
+                },
+            },
             include: {
-                user: true,
+                user: true, // santri
+                tugas: {
+                    include: {
+                        kelas: true,
+                        mataPelajaran: true,
+                    },
+                },
+                nilai: true,
             },
         });
     }
-    // UPDATE STATUS / FILE
-    async update(id, data) {
+    findArsipForPengajar(pengajarId) {
+        return this.prisma.submission.findMany({
+            where: {
+                tugas: {
+                    kelas: {
+                        pengajar: {
+                            some: { id: pengajarId },
+                        },
+                    },
+                },
+            },
+            include: {
+                user: { include: { kelas: true } }, // penting!
+                tugas: {
+                    include: {
+                        kelas: true,
+                        mataPelajaran: true,
+                    },
+                },
+                nilai: true,
+            },
+        });
+    }
+    /**
+     * ========== UPDATE ==========
+     */
+    update(id, data) {
         return this.prisma.submission.update({
             where: { id },
             data,
         });
     }
-    // DELETE SUBMISSION
-    async delete(id) {
+    /**
+     * ========== DELETE ==========
+     */
+    delete(id) {
         return this.prisma.submission.delete({
             where: { id },
+        });
+    }
+    softDelete(id) {
+        return this.prisma.submission.update({
+            where: { id },
+            data: {
+                deletedAt: new Date(),
+            },
+        });
+    }
+    restore(id) {
+        return this.prisma.submission.update({
+            where: { id },
+            data: {
+                deletedAt: null,
+            },
         });
     }
 }

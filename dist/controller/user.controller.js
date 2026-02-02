@@ -1,4 +1,5 @@
-import { successResponse } from "../utils/response.js";
+import { successResponse } from "../utils/response";
+import { Role } from "../../dist/generated";
 export class UserController {
     userService;
     constructor(userService) {
@@ -84,6 +85,33 @@ export class UserController {
         }
         catch (err) {
             next(err);
+        }
+    };
+    // di UserController
+    activate = async (req, res) => {
+        try {
+            const userId = Number(req.params.id);
+            let role;
+            if (req.path.includes("santri"))
+                role = Role.santri;
+            else if (req.path.includes("pengajar"))
+                role = Role.pengajar;
+            else if (req.path.includes("admin"))
+                role = Role.admin;
+            const user = await this.userService.activateUser(userId, role);
+            res.status(200).json({ message: "User berhasil diaktifkan", user });
+        }
+        catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+    };
+    getUsers = async (_req, res) => {
+        try {
+            const users = await this.userService.getUsers();
+            res.json(users);
+        }
+        catch (err) {
+            res.status(500).json({ error: "Gagal mengambil daftar user" });
         }
     };
 }

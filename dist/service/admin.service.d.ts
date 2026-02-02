@@ -1,36 +1,72 @@
-import { AdminRepository } from "../repository/admin.repository.js";
-import { Role } from "../../dist/generated/index.js";
+import { AdminRepository } from "../repository/admin.repository";
 export declare class AdminService {
     private repo;
     constructor(repo: AdminRepository);
+    createFirstAdmin: (data: {
+        name: string;
+        email: string;
+        password: string;
+    }) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }>;
     createSantriByAdmin: (data: {
         name: string;
         email: string;
         kelasId: number;
     }) => Promise<{
-        name: string;
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
-    activate: (token: string, password: string) => Promise<{
+    createPengajarByAdmin: (data: {
         name: string;
+        email: string;
+    }) => Promise<{
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }>;
+    activateWithPassword: (email: string, password: string) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
     assign(kelasId: number, pengajarId: number): Promise<{
@@ -46,44 +82,92 @@ export declare class AdminService {
     listPengajar(kelasId: number): Promise<{
         id: number;
         pengajar: {
-            name: string;
+            name: string | null;
             id: number;
             email: string;
+            profile: {
+                namaLengkap: string;
+                fotoUrl: string | null;
+            } | null;
         }[];
         namaKelas: string;
     } | null>;
-    createPengajarByAdmin: (data: {
-        name: string;
-        email: string;
-    }) => Promise<{
-        name: string;
+    listAdmins: () => Promise<{
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }[]>;
+    getAdmin: (id: number) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    } | null>;
+    updateAdmin: (id: number, data: Partial<{
+        name: string;
+        email: string;
+        password: string;
+    }>) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
-    createUser: (data: {
-        name: string;
-        email: string;
-        role: Role;
-        kelasId?: number;
-    }) => Promise<{
-        name: string;
+    deleteAdmin: (id: number) => Promise<{
+        name: string | null;
         id: number;
         kelasId: number | null;
         createdAt: Date;
         email: string;
         password: string | null;
-        activationToken: string | null;
         activatedAt: Date | null;
-        role: import("../../dist/generated/index.js").$Enums.Role;
         isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
+        deletedAt: Date | null;
+    }>;
+    createAdmin: (data: {
+        name: string;
+        email: string;
+        password: string;
+    }) => Promise<{
+        name: string | null;
+        id: number;
+        kelasId: number | null;
+        createdAt: Date;
+        email: string;
+        password: string | null;
+        activatedAt: Date | null;
+        isActive: boolean;
+        otp: string | null;
+        otpExpiresAt: Date | null;
+        role: import("../../dist/generated").$Enums.Role;
         deletedAt: Date | null;
     }>;
 }

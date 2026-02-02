@@ -1,4 +1,4 @@
-import { Role } from "../../dist/generated/index.js";
+import { Role } from "../../dist/generated";
 import bcrypt from "bcrypt";
 export class UserService {
     userRepository;
@@ -52,5 +52,27 @@ export class UserService {
             role: Role.admin,
         });
     };
+    activateUser = async (userId, role) => {
+        const user = await this.userRepository.findById(userId);
+        if (!user)
+            throw new Error("User tidak ditemukan");
+        if (user.isActive)
+            return user;
+        if (role) {
+            const updated = await this.userRepository.activateByRole(userId, role);
+            if (updated.count === 0)
+                throw new Error("User dengan role ini tidak ditemukan");
+            return await this.userRepository.findById(userId);
+        }
+        else {
+            return this.userRepository.activate(userId);
+        }
+    };
+    async getUsersByKelas(kelasId) {
+        return this.userRepository.findManyByKelas(kelasId);
+    }
+    async getUsers() {
+        return this.userRepository.getAllUsers();
+    }
 }
 //# sourceMappingURL=user.service.js.map

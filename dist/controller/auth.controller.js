@@ -1,57 +1,57 @@
+import { successResponse } from "../utils/response";
 export class AuthController {
-    authService;
-    constructor(authService) {
-        this.authService = authService;
+    service;
+    constructor(service) {
+        this.service = service;
     }
-    // LOGIN USER
-    login = async (req, res) => {
-        const { email, password } = req.body;
-        const result = await this.authService.login(email, password);
-        if (result.status === "NOT_ACTIVE") {
-            return res.status(200).json({
-                success: false,
-                status: "NOT_ACTIVE",
-                message: "Akun belum diaktivasi",
-                token: result.token,
-            });
+    login = async (req, res, next) => {
+        try {
+            const { email, password } = req.body;
+            const result = await this.service.login(email, password);
+            return successResponse(res, "Login berhasil", result);
         }
-        return res.status(200).json({
-            success: true,
-            token: result.token,
-            user: result.user,
-        });
+        catch (err) {
+            next(err);
+        }
     };
-    requestActivation = async (req, res) => {
+    requestActivationOtp = async (req, res, next) => {
         try {
             const { email } = req.body;
-            const result = await this.authService.requestActivation(email);
-            res.json({
-                success: true,
-                message: "User ditemukan, lanjutkan aktivasi",
-                data: result,
-            });
+            const result = await this.service.requestActivationOtp(email);
+            return successResponse(res, "OTP aktivasi terkirim", result);
         }
         catch (err) {
-            res.status(400).json({
-                success: false,
-                message: err.message,
-            });
+            next(err);
         }
     };
-    activateAccount = async (req, res) => {
+    activateWithOtp = async (req, res, next) => {
         try {
-            const { token, password } = req.body;
-            const result = await this.authService.activateAccount(token, password);
-            res.json({
-                success: true,
-                message: result.message,
-            });
+            const { email, otp, password } = req.body;
+            const user = await this.service.activateWithOtp(email, otp, password);
+            return successResponse(res, "Akun berhasil diaktivasi", { id: user.id, email: user.email });
         }
         catch (err) {
-            res.status(400).json({
-                success: false,
-                message: err.message,
-            });
+            next(err);
+        }
+    };
+    forgotPassword = async (req, res, next) => {
+        try {
+            const { email } = req.body;
+            const result = await this.service.forgotPassword(email);
+            return successResponse(res, "OTP reset password dikirim", result);
+        }
+        catch (err) {
+            next(err);
+        }
+    };
+    resetPassword = async (req, res, next) => {
+        try {
+            const { email, otp, newPassword } = req.body;
+            const result = await this.service.resetPassword(email, otp, newPassword);
+            return successResponse(res, "Password berhasil direset", result);
+        }
+        catch (err) {
+            next(err);
         }
     };
 }

@@ -9,15 +9,17 @@ import { AbsensiSettingService } from "../service/absensiSetting.service";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import { AIService } from "../ai/ai.service";
 import { AIAssistantService } from "../service/ai.assistant.service";
+import { IzinRepository } from "../repository/izin.repository";
 
 const router = Router();
 const settingRepo = new AbsensiSettingRepository(prismaInstance);
 const jadwalRepo = new JadwalAbsensiRepository(prismaInstance);
 const settingService = new AbsensiSettingService(settingRepo)
 const absensiRepo = new AbsensiRepository(prismaInstance)
+const izinRepo = new IzinRepository(prismaInstance)
 const AI = new AIService()
 const AIAssistantServices = new AIAssistantService(absensiRepo, AI)
-const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo, AIAssistantServices);
+const absensiService = new AbsensiService(absensiRepo, settingService, jadwalRepo, AIAssistantServices, izinRepo);
 const controller = new AutomationController(absensiService);
 
 router.post(

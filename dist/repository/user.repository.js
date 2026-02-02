@@ -10,7 +10,7 @@ export class UserRepository {
     }
     async findById(id) {
         return this.prisma.user.findFirst({
-            where: { id, isActive: true },
+            where: { id },
         });
     }
     async findByEmail(email) {
@@ -43,15 +43,15 @@ export class UserRepository {
     async getSantri() {
         return this.prisma.user.findMany({
             where: {
-                role: "santri"
-            }
+                role: "santri",
+            },
         });
     }
     async getPengajar() {
         return this.prisma.user.findMany({
             where: {
-                role: "pengajar"
-            }
+                role: "pengajar",
+            },
         });
     }
     async isAdminExist() {
@@ -62,6 +62,39 @@ export class UserRepository {
             },
         });
         return !!admin;
+    }
+    async activate(userId) {
+        return this.prisma.user.update({
+            where: { id: userId },
+            data: { isActive: true, activatedAt: new Date() },
+        });
+    }
+    async activateByRole(userId, role) {
+        return this.prisma.user.updateMany({
+            where: { id: userId, role },
+            data: { isActive: true, activatedAt: new Date() },
+        });
+    }
+    async findManyByKelas(kelasId) {
+        return this.prisma.user.findMany({
+            where: { kelasId },
+            orderBy: { name: "asc" },
+        });
+    }
+    async getAllUsers() {
+        const users = await this.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                role: true,
+                isActive: true,
+            },
+        });
+        // Urutkan Santri → Pengajar → Admin
+        const rolesOrder = ["Santri", "Pengajar", "Admin"];
+        users.sort((a, b) => rolesOrder.indexOf(a.role) - rolesOrder.indexOf(b.role));
+        return users;
     }
 }
 //# sourceMappingURL=user.repository.js.map

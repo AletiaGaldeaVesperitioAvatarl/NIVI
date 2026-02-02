@@ -1,40 +1,58 @@
-import { successResponse } from "../utils/response.js";
+import { successResponse } from "../utils/response";
 export class AdminController {
     service;
     constructor(service) {
         this.service = service;
     }
+    createFirstAdmin = async (req, res, next) => {
+        try {
+            const { name, email, password } = req.body;
+            const admin = await this.service.createFirstAdmin({ name, email, password });
+            return successResponse(res, "Admin pertama berhasil dibuat", { id: admin.id, email: admin.email }, null, 201);
+        }
+        catch (err) {
+            next(err);
+        }
+    };
+    // CREATE SANTRI
     createSantriByAdmin = async (req, res, next) => {
         try {
             const santri = await this.service.createSantriByAdmin(req.body);
-            return successResponse(res, "Santri berhasil didaftarkan, menunggu aktivasi", santri, null, 201);
+            return successResponse(res, "Santri berhasil dibuat, login untuk aktivasi", { email: santri.email }, null, 201);
         }
         catch (err) {
             next(err);
         }
     };
-    activateAccount = async (req, res, next) => {
+    // CREATE PENGAJAR
+    createPengajarByAdmin = async (req, res, next) => {
         try {
-            const { token, password } = req.body;
-            if (!token || !password) {
-                throw new Error("Token dan password wajib diisi");
-            }
-            const user = await this.service.activate(token, password);
-            return successResponse(res, "Akun berhasil diaktivasi", {
-                id: user.id,
-                email: user.email,
-                role: user.role,
-            });
+            const pengajar = await this.service.createPengajarByAdmin(req.body);
+            return successResponse(res, "Pengajar berhasil dibuat, login untuk aktivasi", { email: pengajar.email }, null, 201);
         }
         catch (err) {
             next(err);
         }
     };
+    // AKTIVASI PASSWORD PERTAMA
+    activateWithPassword = async (req, res, next) => {
+        try {
+            const { email, password } = req.body;
+            if (!email || !password)
+                throw new Error("Email dan password wajib diisi");
+            const user = await this.service.activateWithPassword(email, password);
+            return successResponse(res, "Akun berhasil diaktivasi", { id: user.id, email: user.email });
+        }
+        catch (err) {
+            next(err);
+        }
+    };
+    // PENGAJAR KELAS
     assignPengajar = async (req, res, next) => {
         try {
             const { kelasId, pengajarId } = req.body;
             await this.service.assign(Number(kelasId), Number(pengajarId));
-            return successResponse(res, "Pengajar berhasil ditambahkan ke kelas", null);
+            return successResponse(res, "Pengajar berhasil ditambahkan ke kelas");
         }
         catch (err) {
             next(err);
@@ -44,7 +62,7 @@ export class AdminController {
         try {
             const { kelasId, pengajarId } = req.body;
             await this.service.remove(Number(kelasId), Number(pengajarId));
-            return successResponse(res, "Pengajar berhasil dihapus dari kelas", null);
+            return successResponse(res, "Pengajar berhasil dihapus dari kelas");
         }
         catch (err) {
             next(err);
@@ -62,22 +80,54 @@ export class AdminController {
             next(err);
         }
     };
-    createPengajarByAdmin = async (req, res, next) => {
+    listAdmins = async (_req, res, next) => {
         try {
-            const pengajar = await this.service.createPengajarByAdmin(req.body);
-            return successResponse(res, "Pengajar berhasil dibuat, menunggu aktivasi", pengajar, null, 201);
+            const admins = await this.service.listAdmins();
+            return successResponse(res, "List admin berhasil diambil", admins);
         }
         catch (err) {
             next(err);
         }
     };
-    createUser = async (req, res, next) => {
+    getAdmin = async (req, res, next) => {
         try {
-            const user = await this.service.createUser(req.body);
-            return successResponse(res, "User dibuat, menunggu aktivasi", { email: user.email, token: user.activationToken }, null, 201);
+            const admin = await this.service.getAdmin(Number(req.params.id));
+            return successResponse(res, "Admin berhasil diambil", admin);
         }
-        catch (e) {
-            next(e);
+        catch (err) {
+            next(err);
+        }
+    };
+    updateAdmin = async (req, res, next) => {
+        try {
+            const admin = await this.service.updateAdmin(Number(req.params.id), req.body);
+            return successResponse(res, "Admin berhasil diperbarui", admin);
+        }
+        catch (err) {
+            next(err);
+        }
+    };
+    deleteAdmin = async (req, res, next) => {
+        try {
+            await this.service.deleteAdmin(Number(req.params.id));
+            return successResponse(res, "Admin berhasil dihapus", null);
+        }
+        catch (err) {
+            next(err);
+        }
+    };
+    // CREATE ADMIN BARU (SETELAH FIRST ADMIN)
+    createAdmin = async (req, res, next) => {
+        try {
+            // Pastikan yang request adalah admin (middleware auth)
+            const { name, email, password } = req.body;
+            if (!name || !email || !password)
+                throw new Error("Semua field wajib diisi");
+            const admin = await this.service.createAdmin({ name, email, password });
+            return successResponse(res, "Admin berhasil dibuat", { id: admin.id, email: admin.email }, null, 201);
+        }
+        catch (err) {
+            next(err);
         }
     };
 }

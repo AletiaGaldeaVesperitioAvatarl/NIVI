@@ -1,26 +1,42 @@
-import crypto from "crypto";
 import bcrypt from "bcrypt";
 export class AdminService {
     repo;
     constructor(repo) {
         this.repo = repo;
     }
+    // ADMIN PERTAMA
+    createFirstAdmin = async (data) => {
+        const existing = await this.repo.findByEmail(data.email);
+        if (existing)
+            throw new Error("Email sudah terdaftar");
+        const hashed = await bcrypt.hash(data.password, 10);
+        return this.repo.createAdmin({ ...data, password: hashed });
+    };
+    // CREATE SANTRI
     createSantriByAdmin = async (data) => {
-        const activationToken = crypto.randomUUID();
-        return this.repo.createSantriByAdmin({
-            ...data,
-            activationToken,
-        });
+        const existing = await this.repo.findByEmail(data.email);
+        if (existing)
+            throw new Error("Email sudah terdaftar");
+        return this.repo.createSantriByAdmin(data);
     };
-    activate = async (token, password) => {
-        const user = await this.repo.findByActivationToken(token);
+    // CREATE PENGAJAR
+    createPengajarByAdmin = async (data) => {
+        const existing = await this.repo.findByEmail(data.email);
+        if (existing)
+            throw new Error("Email sudah terdaftar");
+        return this.repo.createPengajarByAdmin(data);
+    };
+    // AKTIVASI PASSWORD PERTAMA
+    activateWithPassword = async (email, password) => {
+        const user = await this.repo.findByEmail(email);
         if (!user)
-            throw new Error("Token invalid");
-        if (user.activatedAt)
-            throw new Error("Sudah aktif");
+            throw new Error("User tidak ditemukan");
+        if (user.password !== "INACTIVE")
+            throw new Error("Akun sudah aktif");
         const hashed = await bcrypt.hash(password, 10);
-        return this.repo.activate(user.id, hashed);
+        return this.repo.updatePassword(user.id, hashed);
     };
+    // PENGAJAR KELAS
     async assign(kelasId, pengajarId) {
         return this.repo.assignPengajar(kelasId, pengajarId);
     }
@@ -30,19 +46,22 @@ export class AdminService {
     async listPengajar(kelasId) {
         return this.repo.getPengajarByKelas(kelasId);
     }
-    createPengajarByAdmin = async (data) => {
-        const activationToken = crypto.randomUUID();
-        return this.repo.createPengajarByAdmin({
-            ...data,
-            activationToken,
-        });
+    listAdmins = () => this.repo.getAllAdmins();
+    getAdmin = (id) => this.repo.getAdminById(id);
+    updateAdmin = async (id, data) => {
+        if (data.password) {
+            const hashed = await bcrypt.hash(data.password, 10);
+            data.password = hashed;
+        }
+        return this.repo.updateAdmin(id, data);
     };
-    createUser = async (data) => {
-        const activationToken = crypto.randomUUID();
-        return this.repo.createUserByAdmin({
-            ...data,
-            activationToken,
-        });
+    deleteAdmin = (id) => this.repo.deleteAdmin(id);
+    createAdmin = async (data) => {
+        const existing = await this.repo.findByEmail(data.email);
+        if (existing)
+            throw new Error("Email sudah terdaftar");
+        const hashed = await bcrypt.hash(data.password, 10);
+        return this.repo.createAdmin({ ...data, password: hashed });
     };
 }
 //# sourceMappingURL=admin.service.js.map

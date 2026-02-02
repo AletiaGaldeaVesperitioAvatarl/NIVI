@@ -3,69 +3,36 @@ export class NilaiRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    // GET ALL NILAI
-    getAll = async () => {
+    findAll() {
         return this.prisma.nilai.findMany({
             include: {
-                user: true,
-                tugas: true,
+                submission: {
+                    include: {
+                        user: true,
+                        tugas: true,
+                    },
+                },
             },
         });
-    };
-    // GET NILAI BY ID
-    getById = async (id) => {
-        return this.prisma.nilai.findFirst({
-            where: { id },
-            include: {
-                user: true,
-                tugas: true,
-            },
+    }
+    findBySubmissionId(submissionId) {
+        return this.prisma.nilai.findUnique({
+            where: { submissionId },
         });
-    };
-    // GET NILAI BY USER
-    getByUserId = async (userId) => {
-        return this.prisma.nilai.findMany({
-            where: { userId },
-            include: {
-                tugas: true,
-            },
-        });
-    };
-    // GET NILAI BY TUGAS
-    getByTugasId = async (tugasId) => {
-        return this.prisma.nilai.findMany({
-            where: { tugasId },
-            include: {
-                user: true,
-            },
-        });
-    };
-    // CREATE NILAI
-    create = async (data) => {
-        return this.prisma.nilai.create({
-            data,
-            include: {
-                user: true,
-                tugas: true,
-            },
-        });
-    };
-    // UPDATE NILAI
-    update = async (id, data) => {
+    }
+    create(data) {
+        return this.prisma.nilai.create({ data });
+    }
+    update(submissionId, data) {
         return this.prisma.nilai.update({
-            where: { id },
+            where: { submissionId },
             data,
-            include: {
-                user: true,
-                tugas: true,
-            },
         });
-    };
-    // DELETE NILAI
-    delete = async (id) => {
+    }
+    delete(submissionId) {
         return this.prisma.nilai.delete({
-            where: { id },
+            where: { submissionId },
         });
-    };
+    }
 }
 //# sourceMappingURL=nilai.repository.js.map

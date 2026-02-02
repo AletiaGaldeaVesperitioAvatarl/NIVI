@@ -1,7 +1,6 @@
 import { Role } from "../../dist/generated";
 import { AIService } from "../ai/ai.service";
 import { AbsensiRepository } from "../repository/absensi.repository";
-import { io } from "../socket";
 
 type SpamLevel = "none" | "low" | "medium" | "high";
 type ToneType = "positif" | "netral" | "peringatan";
@@ -126,11 +125,6 @@ private mapTone(level: SpamLevel, status: string): ToneType {
       aiComment: msg,
       aiTone: tone,
       aiConfidence: conf,
-    });
-    io.to(`user-${uId}`).emit("ai-bubble", {
-      comment: msg,
-      tone,
-      confidence: conf,
     });
     console.log(`[AI DONE] Role-Based Response Sent to User ${uId}`);
   }

@@ -17,29 +17,34 @@ export class TugasRepository {
     // 🔹 GET BY ID
     getById = async (id) => {
         return this.prisma.tugas.findUnique({
-            where: { id },
+            where: { id, deletedAt: null },
             include: {
                 kelas: true,
                 mataPelajaran: true,
                 creator: true,
                 submission: true,
-                nilai: true,
             },
         });
     };
     // 🔹 CREATE
-    create = async (data) => {
+    create(data) {
         return this.prisma.tugas.create({
             data: {
                 title: data.title,
-                description: data.description ?? null, // 🔥 FIX UTAMA
+                description: data.description ?? null,
                 deadline: data.deadline,
-                kelas: { connect: { id: data.kelasId } },
-                mataPelajaran: { connect: { id: data.mataPelajaranId } },
-                creator: { connect: { id: data.createdBy } },
+                kelas: {
+                    connect: { id: data.kelasId },
+                },
+                mataPelajaran: {
+                    connect: { id: data.mataPelajaranId }, // 🔥 INI YANG KURANG
+                },
+                creator: {
+                    connect: { id: data.createdBy },
+                },
             },
         });
-    };
+    }
     // 🔹 UPDATE
     update = async (id, data) => {
         return this.prisma.tugas.update({
@@ -63,37 +68,99 @@ export class TugasRepository {
         return this.prisma.tugas.delete({ where: { id } });
     };
     // 🔹 GET UNTUK SANTRI
-    getForSantri = async (userId) => {
-        const user = await this.prisma.user.findUnique({
+    async getForSantri(userId) {
+        const santri = await this.prisma.user.findUnique({
             where: { id: userId },
             select: { kelasId: true },
         });
-        if (!user?.kelasId)
+        if (!santri?.kelasId)
             return [];
-        const tugas = await this.prisma.tugas.findMany({
-            where: { kelasId: user.kelasId },
+        return this.prisma.tugas.findMany({
+            where: {
+                kelasId: santri.kelasId,
+                deletedAt: null
+            },
             include: {
+                kelas: true,
                 mataPelajaran: true,
+                creator: true,
                 submission: {
-                    where: { userId },
-                    take: 1,
+                    where: {
+                        userId: userId,
+                    },
                 },
             },
-            orderBy: { deadline: "asc" },
+            orderBy: {
+                deadline: "asc",
+            },
         });
-        return tugas.map(t => {
-            const sub = t.submission[0];
-            return {
-                id: t.id,
-                title: t.title,
-                description: t.description,
-                deadline: t.deadline,
-                mataPelajaran: t.mataPelajaran.nama,
-                status: sub?.status ?? "belum_submit",
-                submittedAt: sub?.submittedAt ?? null,
-                link: sub?.linkUrl ?? null,
-            };
+    }
+    async archiveExpiredForSantri(userId, tugasId) {
+        const tugas = await this.prisma.tugas.findUnique({
+            where: { id: tugasId },
+            include: {
+                submission: {
+                    where: { userId },
+                },
+            },
         });
-    };
+        if (!tugas) {
+            throw new Error("Tugas tidak ditemukan");
+        }
+        // 1️⃣ Validasi deadline
+        if (new Date(tugas.deadline) > new Date()) {
+            throw new Error("Tugas belum lewat deadline");
+        }
+        const submission = tugas.submission[0];
+        // 2️⃣ Validasi submission (DIPISAH)
+        if (submission) {
+            // masih menunggu penilaian
+            if (submission.status === "pending") {
+                throw new Error("Tugas masih menunggu penilaian");
+            }
+            // reviewed atau rejected → BOLEH
+            if (submission.status === "reviewed" ||
+                submission.status === "rejected") {
+                // lolos validasi
+            }
+        }
+        // 3️⃣ Arsipkan (soft delete)
+        return this.prisma.tugas.update({
+            where: { id: tugasId },
+            data: {
+                deletedAt: new Date(),
+            },
+        });
+    }
+    async getArchivedForSantri(userId) {
+        // 1️⃣ Ambil kelas santri
+        const santri = await this.prisma.user.findUnique({
+            where: { id: userId },
+            select: { kelasId: true },
+        });
+        if (!santri?.kelasId)
+            return [];
+        // 2️⃣ Ambil tugas yang sudah diarsipkan (soft delete)
+        return this.prisma.tugas.findMany({
+            where: {
+                kelasId: santri.kelasId,
+                deletedAt: {
+                    not: null, // 👈 hanya tugas yang sudah dihapus
+                },
+            },
+            include: {
+                mataPelajaran: true,
+                creator: true,
+                submission: {
+                    where: {
+                        userId: userId, // submission milik santri ini saja
+                    },
+                },
+            },
+            orderBy: {
+                deletedAt: "desc", // terbaru di atas
+            },
+        });
+    }
 }
 //# sourceMappingURL=tugas.repository.js.map
