@@ -4,7 +4,6 @@ import { StatusAbsensi } from "../../dist/generated";
 import cron from "node-cron";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import { AIAssistantService } from "./ai.assistant.service";
-import { UserService } from "./user.service";
 import { IzinRepository } from "../repository/izin.repository";
 
 export class AbsensiService {
@@ -13,7 +12,6 @@ export class AbsensiService {
     private settingService: AbsensiSettingService,
     private jadwalRepo: JadwalAbsensiRepository,
     private aiAssistantService: AIAssistantService,
-    private UserService: UserService,
     private IzinRepo: IzinRepository,
   ) {}
 

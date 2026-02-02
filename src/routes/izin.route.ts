@@ -9,15 +9,12 @@ import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository"
 import { IzinService } from "../service/izin.service";
 import { AbsensiService } from "../service/absensi.service";
 import { AbsensiSettingService } from "../service/absensiSetting.service";
-import { JadwalAbsensiService } from "../service/jadwalAbsensi.service";
 
 import { IzinController } from "../controller/izin.controller";
 import { authenticate } from "../middlewares/auth.middleware";
 import { roleMiddleware } from "../middlewares/role.middleware";
 import { AIAssistantService } from "../service/ai.assistant.service";
 import { AIService } from "../ai/ai.service";
-import { UserRepository } from "../repository/user.repository";
-import { UserService } from "../service/user.service";
 
 const router = Router();
 
@@ -30,23 +27,16 @@ const settingRepo = new AbsensiSettingRepository(prismaInstance);
 const jadwalRepo = new JadwalAbsensiRepository(prismaInstance);
 const AI = new AIService();
 const AIAssistant = new AIAssistantService(absensiRepo, AI);
-const userRepo = new UserRepository(prismaInstance);
 
 /* =======================
    INIT SERVICE
 ======================= */
 const settingService = new AbsensiSettingService(settingRepo);
-
-const jadwalAbsensiService = new JadwalAbsensiService(jadwalRepo,settingRepo);
-
-const userService = new UserService(userRepo);
-
 const absensiService = new AbsensiService(
   absensiRepo,
   settingService,
   jadwalRepo,
   AIAssistant,
-  userService,
   izinRepo,
 );
 const izinService = new IzinService(
@@ -55,7 +45,6 @@ const izinService = new IzinService(
   absensiService,
   settingService,
   jadwalRepo,
-  jadwalAbsensiService,
 );
 
 /* =======================
