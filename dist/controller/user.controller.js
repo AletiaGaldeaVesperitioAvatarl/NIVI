@@ -1,5 +1,5 @@
-import { successResponse } from "../utils/response";
-import { Role } from "../../dist/generated";
+import { successResponse } from "../utils/response.js";
+import { Role } from "../../dist/generated/index.js";
 export class UserController {
     userService;
     constructor(userService) {

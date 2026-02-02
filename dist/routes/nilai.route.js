@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { NilaiRepository } from "../repository/nilai.repository";
-import { NilaiService } from "../service/nilai.service";
-import { NilaiController } from "../controller/nilai.controller";
-import { authenticate } from "../middlewares/auth.middleware";
-import prismaInstance from "../database";
+import { NilaiRepository } from "../repository/nilai.repository.js";
+import { NilaiService } from "../service/nilai.service.js";
+import { NilaiController } from "../controller/nilai.controller.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
+import prismaInstance from "../database.js";
 const repo = new NilaiRepository(prismaInstance);
 const service = new NilaiService(repo);
 const controller = new NilaiController(service);

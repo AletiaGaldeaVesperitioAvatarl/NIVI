@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { TugasService } from "../service/tugas.service";
+import { TugasService } from "../service/tugas.service.js";
 export declare class TugasController {
     private service;
     constructor(service: TugasService);

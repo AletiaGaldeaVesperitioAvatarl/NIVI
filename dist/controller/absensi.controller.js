@@ -1,5 +1,5 @@
-import { StatusAbsensi } from "../../dist/generated";
-import { successResponse, errorResponse } from "../utils/response";
+import { StatusAbsensi } from "../../dist/generated/index.js";
+import { successResponse, errorResponse } from "../utils/response.js";
 export class AbsensiController {
     service;
     userService;

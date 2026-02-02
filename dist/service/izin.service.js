@@ -1,4 +1,4 @@
-import { StatusIzin } from "../../dist/generated";
+import { StatusIzin } from "../../dist/generated/index.js";
 export class IzinService {
     izinRepo;
     absensiRepo;

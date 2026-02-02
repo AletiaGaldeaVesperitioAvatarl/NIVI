@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { NilaiService } from "../service/nilai.service";
+import { NilaiService } from "../service/nilai.service.js";
 export declare class NilaiController {
     private service;
     constructor(service: NilaiService);

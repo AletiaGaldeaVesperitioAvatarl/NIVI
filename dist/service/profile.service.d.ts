@@ -1,5 +1,5 @@
-import { Profile } from "../../dist/generated";
-import { ProfileRepository } from "../repository/profile.repository";
+import { Profile } from "../../dist/generated/index.js";
+import { ProfileRepository } from "../repository/profile.repository.js";
 export declare class ProfileService {
     private profileRepository;
     constructor(profileRepository: ProfileRepository);

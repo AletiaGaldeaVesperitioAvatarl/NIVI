@@ -1,4 +1,4 @@
-import { PrismaClient, MataPelajaran } from "../../dist/generated";
+import { PrismaClient, MataPelajaran } from "../../dist/generated/index.js";
 export declare class MataPelajaranRepository {
     private prisma;
     constructor(prisma: PrismaClient);

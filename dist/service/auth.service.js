@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { randomInt } from "crypto";
 import sgMail from "@sendgrid/mail";
-import config from "../utils/env";
+import config from "../utils/env.js";
 export class AuthService {
     repo;
     constructor(repo) {

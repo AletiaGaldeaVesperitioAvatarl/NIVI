@@ -1,4 +1,4 @@
-import { AuthRepository } from "../repository/auth.repository";
+import { AuthRepository } from "../repository/auth.repository.js";
 export declare class AuthService {
     private repo;
     constructor(repo: AuthRepository);
@@ -15,7 +15,7 @@ export declare class AuthService {
             isActive: boolean;
             otp: string | null;
             otpExpiresAt: Date | null;
-            role: import("../../dist/generated").$Enums.Role;
+            role: import("../../dist/generated/index.js").$Enums.Role;
             deletedAt: Date | null;
         };
         token?: never;
@@ -33,7 +33,7 @@ export declare class AuthService {
             isActive: boolean;
             otp: string | null;
             otpExpiresAt: Date | null;
-            role: import("../../dist/generated").$Enums.Role;
+            role: import("../../dist/generated/index.js").$Enums.Role;
             deletedAt: Date | null;
         };
     }>;
@@ -52,7 +52,7 @@ export declare class AuthService {
         isActive: boolean;
         otp: string | null;
         otpExpiresAt: Date | null;
-        role: import("../../dist/generated").$Enums.Role;
+        role: import("../../dist/generated/index.js").$Enums.Role;
         deletedAt: Date | null;
     }>;
     forgotPassword(email: string): Promise<{
@@ -69,7 +69,7 @@ export declare class AuthService {
         isActive: boolean;
         otp: string | null;
         otpExpiresAt: Date | null;
-        role: import("../../dist/generated").$Enums.Role;
+        role: import("../../dist/generated/index.js").$Enums.Role;
         deletedAt: Date | null;
     }>;
 }

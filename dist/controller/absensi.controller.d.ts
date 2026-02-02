@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AbsensiService } from "../service/absensi.service";
-import { UserService } from "../service/user.service";
+import { AbsensiService } from "../service/absensi.service.js";
+import { UserService } from "../service/user.service.js";
 export declare class AbsensiController {
     private service;
     private userService;
