@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { KelasService } from "../service/kelas.service";
 import { successResponse, errorResponse } from "../utils/response";
-import { io } from "../socket";
 
 export class KelasController {
   constructor(private kelasService: KelasService) {}
@@ -77,8 +76,6 @@ export class KelasController {
       const kelas = await this.kelasService.createKelas({ namaKelas, deskripsi });
 
       // 🔥 REALTIME: global emit
-      io.emit("kelas-created", kelas);
-
       successResponse(res, "Kelas berhasil dibuat", kelas, null, 201);
     } catch (err: any) {
       errorResponse(res, err.message);
@@ -94,7 +91,6 @@ export class KelasController {
       const kelas = await this.kelasService.updateKelas(id, data);
 
       // 🔥 REALTIME: global emit
-      io.emit("kelas-updated", kelas);
 
       successResponse(res, "Kelas berhasil diperbarui", kelas);
     } catch (err: any) {
@@ -109,7 +105,6 @@ export class KelasController {
       const kelas = await this.kelasService.deleteKelas(id);
 
       // 🔥 REALTIME: global emit
-      io.emit("kelas-deleted", { id });
 
       successResponse(res, "Kelas berhasil dihapus", kelas);
     } catch (err: any) {
@@ -126,7 +121,6 @@ export class KelasController {
       const kelas = await this.kelasService.assignPengajarKeKelas(kelasId, pengajarIds);
 
       // 🔥 REALTIME: emit ke room kelas agar pengajar/anggota kelas yang join tahu update
-      io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
 
       successResponse(res, "Pengajar berhasil ditambahkan ke kelas", kelas);
     } catch (err: any) {
@@ -142,7 +136,6 @@ export class KelasController {
 
       const kelas = await this.kelasService.setPengajarKelas(kelasId, pengajarIds);
 
-      io.to(`kelas-${kelasId}`).emit("kelas-pengajar-updated", kelas);
 
       successResponse(res, "Pengajar kelas berhasil diperbarui", kelas);
     } catch (err: any) {
