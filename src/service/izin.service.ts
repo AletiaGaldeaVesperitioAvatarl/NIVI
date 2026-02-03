@@ -3,6 +3,7 @@ import { Izin, StatusIzin } from "../../dist/generated";
 import { AbsensiService } from "./absensi.service";
 import { AbsensiSettingService } from "./absensiSetting.service";
 import { AbsensiRepository } from "../repository/absensi.repository";
+import { JadwalAbsensiService } from "./jadwalAbsensi.service";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 
 export class IzinService {
@@ -12,6 +13,7 @@ export class IzinService {
     private absensiService: AbsensiService,
     private settingService: AbsensiSettingService,
     private jadwalAbsensiRepo: JadwalAbsensiRepository,
+    private jadwalAbsensiService: JadwalAbsensiService,
     
   ) {}
 

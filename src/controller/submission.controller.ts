@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { SubmissionService } from "../service/submission.service";
 import { errorResponse, successResponse } from "../utils/response";
+import { io } from "../socket";
 import { TugasService } from "../service/tugas.service";
 
 
@@ -64,6 +65,11 @@ submit = async (req: any, res: Response) => {
     message: "Tugas tidak ditemukan",
   });
 }
+  const kelasId = tugas.kelasId;
+
+  // 🔥 realtime
+  io.to(`kelas-${kelasId}`).emit("submission-created", submission);
+  io.to(`user-${req.user.id}`).emit("submission-created", submission);
 
   successResponse(res, "Tugas berhasil dikumpulkan", submission, null, 201);
 };

@@ -30,6 +30,7 @@ const absensiService = new AbsensiService(
   settingService,
   jadwalRepo,
   AIAssistantServices,
+  userService,
   izinRepo
 
 );
