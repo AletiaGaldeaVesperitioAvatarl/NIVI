@@ -57,30 +57,17 @@ absen = async (req: Request, res: Response) => {
 
     // 4️⃣ Loop absen untuk semua kelas
     const dataResults = [];
-    const now = new Date();
-
     for (const kelasId of kelasIds) {
-      let absensi;
+      // Absen hadir
+      const data = await this.service.absenHadir(
+        userId,
+        kelasId,
+        status as StatusAbsensi,
+        jadwalId
+      );
+      dataResults.push(data);
 
-      // 4a️⃣ Jika status hadir → pakai absenHadir yang divalidasi jadwal
-      if (status === StatusAbsensi.hadir) {
-        absensi = await this.service.absenHadir(userId, kelasId);
-      } else if (status === StatusAbsensi.izin) {
-        // 4b️⃣ Jika status izin → buat izin sementara
-        absensi = await this.service.absenIzinDariPersetujuan(
-          userId,
-          kelasId,
-          now
-        );
-      } else {
-        // 4c️⃣ fallback, alpha tidak bisa manual
-        throw new Error("Hanya bisa absen 'hadir' atau 'izin' secara manual");
-      }
-
-      dataResults.push(absensi);
-
-      // 🔔 Emit ke user-specific room (optional, misal socket.io)
-      // this.socketService.emitToUser(userId, "absen:update", absensi);
+      // Emit ke user-specific room
     }
 
     successResponse(res, "Absen berhasil", dataResults, null, 201);
@@ -88,7 +75,6 @@ absen = async (req: Request, res: Response) => {
     errorResponse(res, err.message);
   }
 };
-
 
 
 

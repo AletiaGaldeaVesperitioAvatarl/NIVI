@@ -1,6 +1,6 @@
 import { AbsensiRepository } from "../repository/absensi.repository";
 import { AbsensiSettingService } from "./absensiSetting.service";
-import { JadwalAbsensi, StatusAbsensi } from "../../dist/generated";
+import { StatusAbsensi } from "../../dist/generated";
 import cron from "node-cron";
 import { JadwalAbsensiRepository } from "../repository/jadwalAbsensi.repository";
 import { AIAssistantService } from "./ai.assistant.service";
@@ -19,81 +19,83 @@ export class AbsensiService {
   // ABSEN HADIR / TELAT / DLL
   // ===============================
 
-async absenHadir(
-  userId: number,
-  kelasId: number,
-  status: StatusAbsensi = "hadir"
-) {
-  const now = new Date();
+  async absenHadir(
+    userId: number,
+    kelasId: number,
+    status: StatusAbsensi,
+    jadwalId?: number,
+  ) {
+    const now: Date = new Date();
 
-  // 1️⃣ Ambil setting kelas
-  const setting = await this.settingService.getByKelas(kelasId);
-  if (!setting || !setting.maxAbsen) {
-    throw new Error("Setting absensi kelas belum lengkap");
-  }
-
-  // 2️⃣ Ambil semua jadwal hari ini
-  const jadwalHariIni = await this.jadwalRepo.getByKelasAndTanggal(
-    kelasId,
-    now
-  );
-
-  if (!jadwalHariIni || jadwalHariIni.length === 0) {
-    throw new Error("Tidak ada jadwal absensi hari ini");
-  }
-
-  // 3️⃣ Cari jadwal aktif sesuai jam sekarang
-  const pad = (n: number) => n.toString().padStart(2, "0");
-  const nowTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-
-  let jadwalAktif: JadwalAbsensi | null = null;
-  for (const jadwal of jadwalHariIni) {
-    if (!jadwal.jamMulai || !jadwal.jamSelesai) continue;
-    if (jadwal.jamMulai <= nowTime && nowTime <= jadwal.jamSelesai) {
-      jadwalAktif = jadwal;
-      break;
+    // 1️⃣ setting wajib ada
+    const setting = await this.settingService.getByKelas(kelasId);
+    if (!setting) {
+      throw new Error("Admin belum mengatur absensi kelas");
     }
+
+    // 2️⃣ cari jadwal aktif
+    const jadwal = await this.jadwalRepo.findActiveSchedule(
+      kelasId,
+      now,
+      jadwalId,
+    );
+
+    if (!jadwal) {
+      throw new Error("Tidak ada jadwal absensi aktif");
+    }
+
+    // 3️⃣ VALIDASI TANGGAL
+    const today: string = now.toDateString();
+    const jadwalDate: string = new Date(jadwal.tanggal).toDateString();
+
+    if (today !== jadwalDate) {
+      throw new Error("Absensi tidak sesuai tanggal jadwal");
+    }
+
+    // 4️⃣ VALIDASI JAM
+    const nowTime: string = now.toTimeString().slice(0, 5);
+
+    if (nowTime < jadwal.jamMulai || nowTime > jadwal.jamSelesai) {
+      throw new Error("Absensi belum dibuka atau sudah ditutup");
+    }
+
+    // 5️⃣ TIDAK BOLEH DOUBLE ABSEN DI JADWAL YANG SAMA
+    const alreadyAbsen = await this.absensiRepo.findByUserAndJadwal(
+      userId,
+      jadwal.id,
+    );
+
+    if (alreadyAbsen) {
+      throw new Error("Anda sudah melakukan absensi pada jadwal ini");
+    }
+    // 6️⃣ BATAS MAX ABSEN HARIAN
+    const todayCount: number = await this.absensiRepo.countTodayByUser(userId);
+
+    if (todayCount >= setting.maxAbsen) {
+      throw new Error(
+        `Absensi hari ini sudah mencapai batas (${setting.maxAbsen}x)`,
+      );
+    }
+
+    // 7️⃣ STATUS VALID
+    if (status !== "hadir") {
+      throw new Error("Status absensi tidak valid");
+    }
+
+    // ✅ SIMPAN ABSENSI
+    const absensi = await this.absensiRepo.create({
+      userId,
+      kelasId,
+      jadwalId: jadwal.id,
+      status,
+      tanggal: now,
+    });
+
+    // 🤖 NON-BLOCKING AI
+    this.aiAssistantService.evaluateAbsensi(absensi.id, "santri");
+
+    return absensi;
   }
-
-  if (!jadwalAktif) {
-    throw new Error("Absensi belum dibuka atau jadwal sudah lewat");
-  }
-
-  // 4️⃣ Cek sudah absen di jadwal yang sama
-  const alreadyAbsen = await this.absensiRepo.findByUserAndJadwal(
-    userId,
-    jadwalAktif.id
-  );
-
-  if (alreadyAbsen) {
-    throw new Error("Anda sudah melakukan absensi pada jadwal ini");
-  }
-
-  // 5️⃣ Cek kuota maxAbsen per hari
-  const totalHariIni = await this.absensiRepo.countNonIzinAbsensiByTanggal(
-    userId,
-    now
-  );
-
-  if (totalHariIni >= setting.maxAbsen) {
-    throw new Error(`Kuota absensi hari ini sudah penuh (${setting.maxAbsen})`);
-  }
-
-  // 6️⃣ Simpan absensi
-  const absensi = await this.absensiRepo.create({
-    userId,
-    kelasId,
-    jadwalId: jadwalAktif.id, // ⬅️ jadwalId valid
-    status,
-    tanggal: now,
-  });
-
-  // 🤖 Non-blocking AI (optional)
-  this.aiAssistantService.evaluateAbsensi(absensi.id, "santri");
-
-  return absensi;
-}
-
 
   // ===============================
   // IZIN → ABSENSI (SETELAH DISETUJUI)
