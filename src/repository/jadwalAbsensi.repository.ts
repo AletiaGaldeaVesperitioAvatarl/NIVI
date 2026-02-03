@@ -9,7 +9,7 @@ export class JadwalAbsensiRepository {
     });
   }
 
-  findActiveSchedule = async (
+findActiveSchedule = async (
     kelasId: number,
     now: Date,
     jadwalId?: number,
@@ -76,6 +76,7 @@ export class JadwalAbsensiRepository {
       orderBy: [{ tanggal: "asc" }, { jamMulai: "asc" }],
     });
   };
+
 
   // CREATE single
   create = async (data: {
