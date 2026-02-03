@@ -1,4 +1,4 @@
-import { AdminDashboardRepository } from "../../repository/dashboard/a-dashboard.repository";
+import { AdminDashboardRepository } from "../../repository/dashboard/a-dashboard.repository.js";
 export declare class AdminDashboardService {
     private repo;
     constructor(repo: AdminDashboardRepository);

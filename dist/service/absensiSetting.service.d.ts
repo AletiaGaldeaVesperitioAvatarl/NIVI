@@ -1,4 +1,4 @@
-import { AbsensiSettingRepository } from "../repository/absensiSetting.repository";
+import { AbsensiSettingRepository } from "../repository/absensiSetting.repository.js";
 export declare class AbsensiSettingService {
     private repo;
     constructor(repo: AbsensiSettingRepository);

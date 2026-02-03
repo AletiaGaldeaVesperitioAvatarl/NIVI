@@ -1,4 +1,4 @@
-import { StatusIzin, StatusSubmission } from "../../../dist/generated";
+import { StatusIzin, StatusSubmission } from "../../../dist/generated/index.js";
 export class DashboardRepository {
     prisma;
     constructor(prisma) {

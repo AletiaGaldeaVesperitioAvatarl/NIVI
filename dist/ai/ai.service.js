@@ -1,4 +1,4 @@
-import config from "../utils/env";
+import config from "../utils/env.js";
 export class AIService {
     async analyzeAbsensi(prompt) {
         try {

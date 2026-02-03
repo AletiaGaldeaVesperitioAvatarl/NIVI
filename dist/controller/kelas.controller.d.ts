@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { KelasService } from "../service/kelas.service";
+import { KelasService } from "../service/kelas.service.js";
 export declare class KelasController {
     private kelasService;
     constructor(kelasService: KelasService);

@@ -1,4 +1,4 @@
-import { PrismaClient, Profile } from "../../dist/generated";
+import { PrismaClient, Profile } from "../../dist/generated/index.js";
 export declare class ProfileRepository {
     private prisma;
     constructor(prisma: PrismaClient);

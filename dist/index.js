@@ -1,7 +1,7 @@
 import app from "./app.js";
 import config from "./utils/env.js";
 import os from "os";
-app.listen(config.PORT, config.HOST, () => {
+app.listen(config.HOST, () => {
     console.log(`Server running at http://${config.HOST}:${config.PORT}`);
     // If server is bound to 0.0.0.0, list accessible local IP addresses for convenience
     if (config.HOST === "0.0.0.0") {

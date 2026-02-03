@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import * as service from "../service/pengajar.service";
+import * as service from "../service/pengajar.service.js";
 export declare class PengajarController {
     private prisma;
     constructor(prisma: service.PengajarService);
