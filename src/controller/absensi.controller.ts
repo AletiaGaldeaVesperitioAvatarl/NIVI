@@ -67,14 +67,21 @@ absen = async (req: Request, res: Response) => {
       );
       dataResults.push(data);
 
-      // Emit ke user-specific room
+      // ❌ WebSocket dihapus, tidak ada emit
     }
 
-    successResponse(res, "Absen berhasil", dataResults, null, 201);
+    successResponse(
+      res,
+      "Absen Berhasil"
+    )
   } catch (err: any) {
-    errorResponse(res, err.message);
+   errorResponse(
+    res,
+    "Absen Gagal"
+   )
   }
 };
+
 
 
 
